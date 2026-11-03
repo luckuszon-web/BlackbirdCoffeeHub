@@ -46,6 +46,15 @@ header { display: flex; align-items: center; justify-content: space-between; gap
 .brand img { display: block; height: 36px; width: auto; border-radius: 3px; background: #fff; padding: 2px 4px; }
 h1 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -0.01em; }
 .grid { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media print {
+  @page { margin: 0; }
+  html, body { background: #fff !important; }
+  header, form, .bar { display: none !important; }
+  .page, .grid, .side { display: block !important; padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  .previewwrap { border: 0 !important; overflow: visible !important; border-radius: 0 !important; }
+  #preview tr { break-inside: avoid; page-break-inside: avoid; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
 @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
 form { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
@@ -212,8 +221,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <p class="status" id="status" role="status" aria-live="polite"></p>
         <div class="buttons">
           <button type="button" class="primary" id="copy">Kopiér tilbud</button>
+          <button type="button" class="secondary" id="pdf">Download som PDF</button>
         </div>
-        <p class="hint">Sæt tilbuddet ind i en ny mail med Cmd+V.</p>
+        <p class="hint">Sæt tilbuddet ind i en ny mail med Cmd+V. PDF: vælg «Gem som PDF» som printer i vinduet, der åbnes.</p>
       </div>
       <div class="previewwrap"><div id="preview"></div></div>
     </div>
@@ -346,7 +356,7 @@ ${para(`Som udgangspunkt sender vi bønnerne løbende, baseret på det aftalte m
 ${para("Kaffen fås som:", "0 40px 10px 40px")}
 <tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${bullets}</table></td></tr>
 ${mørkNote}
-<tr><td style="padding:32px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;">
+<tr><td style="padding:32px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;border-left:4px solid #DA6D2B;page-break-inside:avoid;break-inside:avoid;">
 <tr><td style="padding:28px 32px 6px 32px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">Pris</td></tr>
 <tr><td style="padding:0 32px 12px 32px;font-family:${SERIF};font-size:40px;line-height:46px;color:#2B1D14;">${pris} kr. <span style="font-size:18px;color:#4A3A2E;">pr. kg</span></td></tr>
 ${lines}
@@ -390,7 +400,7 @@ function buildEmail(s) {
   if (periodeLine) lines.push(priceLine(modelLine), priceLine(periodeLine, true));
   else lines.push(priceLine(modelLine, true));
 
-  const machineRow = m ? `<tr><td style="padding:24px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:520px;"><tr><td><img src="${IMG[s.maskine]}" width="520" alt="${esc(m.name)}" style="display:block;width:100%;max-width:520px;height:auto;border:0;"></td></tr></table></td></tr>` : "";
+  const machineRow = m ? `<tr><td style="padding:28px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;"><tr><td align="center" style="padding:28px 20px;"><img src="${IMG[s.maskine]}" width="400" alt="${esc(m.name)}" style="display:block;width:100%;max-width:400px;height:auto;border:0;margin:0 auto;"></td></tr></table></td></tr>` : "";
   let udloebTxt = "";
   if (s.udloeb) {
     const d = new Date(s.udloeb + "T00:00:00");
@@ -410,7 +420,7 @@ ${s.kakao ? kakaoRow() : ""}
 ${h2("Service og drift", 32)}
 <tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${["Installation", "Løbende levering af kaffe", "Fuld serviceaftale", "Alle reservedele inkluderet", "Ombytning af maskinen ved behov"].map(checkBullet).join("")}</table></td></tr>
 ${m && m.semi ? "" : h2("Intelligent fjernstyring") + para("Maskinen registrerer løbende forbrug og lagerstatus, så kaffeleverancerne automatisk bliver tilpasset jeres behov. Vores serviceafdeling kan desuden fjernstyre maskinen, så justeringer af styrke eller temperatur klares over telefonen inden for få minutter, uden behov for et teknikerbesøg.")}
-<tr><td style="padding:32px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;">
+<tr><td style="padding:32px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;border-left:4px solid #DA6D2B;page-break-inside:avoid;break-inside:avoid;">
 <tr><td style="padding:28px 32px 6px 32px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">Pris</td></tr>
 <tr><td style="padding:0 32px 12px 32px;font-family:${SERIF};font-size:40px;line-height:46px;color:#2B1D14;">${prisTxt} kr. <span style="font-size:18px;color:#4A3A2E;">pr. kop</span></td></tr>
 ${lines.join("\n")}
@@ -421,7 +431,8 @@ ${lines.join("\n")}
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#EFEAE3" style="background-color:#EFEAE3;"><tr><td align="center" style="padding:32px 12px;">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="width:600px;max-width:600px;background-color:#FFFFFF;">
 <tr><td style="padding:32px 40px 28px 40px;border-bottom:1px solid #E6DED3;"><img src="${IMG.logo}" width="154" height="50" alt="Blackbird Coffee" style="display:block;border:0;"></td></tr>
-<tr><td style="padding:40px 40px 16px 40px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">${s.type === "aftale" ? "Kaffeaftale" : "Tilbud"}</td></tr>
+<tr><td style="padding:40px 40px 0 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="40" height="3" bgcolor="#DA6D2B" style="background-color:#DA6D2B;font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>
+<tr><td style="padding:16px 40px 14px 40px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">${s.type === "aftale" ? "Kaffeaftale" : "Tilbud"}</td></tr>
 <tr><td style="padding:0 40px 20px 40px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">Tilbud til ${esc(firma)}</td></tr>
 ${para("Hej " + esc(navn) + ",", "0 40px 14px 40px")}
 ${para(esc(s.intro).replace(/\n/g, "<br>"))}
@@ -467,7 +478,7 @@ function update() {
   $("preview").innerHTML = buildEmail(s);
   const miss = missing(s);
   const ready = miss.length === 0;
-  $("copy").disabled = !ready;
+  $("copy").disabled = !ready; $("pdf").disabled = !ready;
   if (!ready) setStatus("Mangler stadig: " + miss.join(", ") + ".", "warn");
   else setStatus("Alt er udfyldt. Tilbuddet er klar til at kopiere.", "ok");
 }
@@ -511,6 +522,13 @@ $("form").addEventListener("change", update);
 $("copy").addEventListener("click", async () => {
   if (await copyRich()) flash("Tilbuddet er kopieret. Sæt det ind i en ny mail.", "ok");
   else flash("Kopiering blev afvist her. Markér tilbuddet i udkastet og tryk Cmd+C.", "err");
+});
+$("pdf").addEventListener("click", () => {
+  const old = document.title, f = $("firma").value.trim();
+  document.title = "Tilbud" + (f ? " - " + f : "") + " - Blackbird Coffee";
+  const back = () => { document.title = old; window.removeEventListener("afterprint", back); };
+  window.addEventListener("afterprint", back);
+  try { window.print(); } catch (e) { flash("Udskrift er blokeret her. Åbn siden i en almindelig browserfane.", "err"); back(); }
 });
 $("reset").addEventListener("click", () => {
   ["firma", "navn", "pris", "drikkere", "periode"].forEach((id) => { $(id).value = ""; });
