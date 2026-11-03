@@ -150,7 +150,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <div class="field" id="f-maelk"><span class="lbl" id="lbl-maelk">Mælk</span>
           <div class="pills" role="radiogroup" aria-labelledby="lbl-maelk" data-for="maelk">
             <button type="button" role="radio" class="pill" data-value="friskmaelk">Friskmælkskøleskab</button>
-            <button type="button" role="radio" class="pill" data-value="pulver">Mælkepulver</button>
+            <button type="button" role="radio" class="pill" id="pill-pulver" data-value="pulver">Mælkepulver</button>
             <button type="button" role="radio" class="pill" data-value="ingen">Ingen mælk</button>
           </div>
           <input type="hidden" id="maelk" value="">
@@ -275,6 +275,7 @@ const KAFFE = [
   { id: "kaffe-bw", name: "Black Wings", img: "bw", scores: [5, 5, 2],
     desc: "Flyv højt med Black Wings, vores kraftfulde mørkristede 100% Arabica-kaffe fra Syd- og Mellemamerika. Denne dybt aromatiske kaffe har en fyldig, rig krop og intense noter af mørk chokolade. Ideel til at nyde alene eller som base i mælkedrikke som Caffe Latte, hvor dens dybde virkelig skinner igennem." }
 ];
+const maelkRow = () => `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">Mælkepulver</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">Leveres sammen med kaffen.</div></td></tr></table></td></tr>`;
 const kakaoRow = () => `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">Kakaopulver 14 %</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">Afrundet kakaodrik med god fylde og fin sødme.</div><div style="font-family:${FONT};font-size:12px;line-height:18px;color:#6B5A4A;padding-top:8px;">Lys og sød</div></td></tr></table></td></tr>`;
 const beanRow = (name) => {
   const k = KAFFE.find((x) => x.name === name);
@@ -358,7 +359,7 @@ ${h2("Kaffen")}
 ${para(kaffeTxt)}
 ${s.kaffe.map(beanRow).join("")}
 ${s.akakao ? kakaoRow() : ""}
-${s.amaelk ? `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">Mælkepulver</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">Leveres sammen med kaffen.</div></td></tr></table></td></tr>` : ""}
+${s.amaelk ? maelkRow() : ""}
 ${h2("Levering")}
 ${para(`Som udgangspunkt sender vi bønnerne løbende, baseret på det aftalte månedlige forbrugsestimat på ${kgM} kg. Har I for meget eller for lidt på lager, giver I blot besked, så sætter vi forsendelserne på pause eller justerer dem. Dog er I forpligtet til at aftage den forventede mængde.`, "0 40px 12px 40px")}
 ${para("Kaffen fås som:", "0 40px 10px 40px")}
@@ -379,11 +380,9 @@ function buildEmail(s) {
   const vandTxt = s.vand === "tank" ? "Vandtank" : s.vand === "tank8" ? "8 liters vandtank" : s.vand === "fast" ? "Fastvandstilslutning" : "[Vandforsyning]";
   const equip = [];
   if (s.maelk === "friskmaelk") equip.push("Friskmælkskøleskab");
-  if (s.maelk === "pulver") equip.push("Mælkepulver");
   equip.push(vandTxt);
   if (s.qpress) equip.push("Qpress");
   if (s.grinder) equip.push("Grinder");
-  if (s.kakao) equip.push("Kakaopulver");
   const incl = ["maskinleje"];
   if (s.maelk === "friskmaelk") incl.push("køleskab");
   if (s.maelk === "pulver") incl.push("mælkepulver");
@@ -425,6 +424,7 @@ ${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 6px 40px;font-family:
 ${h2("Kaffen")}
 ${para(kaffeIntro(s.kaffe) + " I kan frit skifte mellem alle vores kaffevarianter fra levering til levering. Alle vores kaffer bliver friskristet inden levering, så I får frisk kaffe hver gang.")}
 ${s.kaffe.map(beanRow).join("")}
+${s.maelk === "pulver" ? maelkRow() : ""}
 ${s.kakao ? kakaoRow() : ""}
 ${h2("Service og drift", 32)}
 <tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${["Installation", "Løbende levering af kaffe", "Fuld serviceaftale", "Alle reservedele inkluderet", "Ombytning af maskinen ved behov"].map(checkBullet).join("")}</table></td></tr>
@@ -476,6 +476,8 @@ function update() {
   } else if (autoVand) { $("vand").value = ""; autoVand = false; syncChoices(); }
   if (!semi) { $("qpress").checked = false; $("grinder").checked = false; }
   s = read();
+  if (s.maskine !== "falcon" && $("maelk").value === "pulver") { $("maelk").value = ""; syncChoices(); s = read(); }
+  $("pill-pulver").hidden = s.maskine !== "falcon";
   $("f-vand").hidden = semi || s.type === "aftale";
   $("f-maelk").hidden = semi || s.type === "aftale";
   $("f-sim").hidden = !semi;
