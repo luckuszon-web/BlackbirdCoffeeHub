@@ -160,7 +160,6 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
           <label class="check"><input type="checkbox" id="grinder"> Grinder</label>
           <p class="hint">Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.</p>
         </div>
-        <label class="check"><input type="checkbox" id="kakao"> Kakaopulver inkluderet</label>
       </fieldset>
 
       <fieldset>
@@ -168,6 +167,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <label class="check"><input type="checkbox" id="kaffe-eb" checked> Early Bird</label>
         <label class="check"><input type="checkbox" id="kaffe-dr" checked> Early Bird Dark Roast</label>
         <label class="check"><input type="checkbox" id="kaffe-bw"> Black Wings</label>
+        <label class="check" id="f-kakao"><input type="checkbox" id="kakao"> Kakaopulver inkluderet</label>
       </fieldset>
 
       <fieldset>
@@ -481,6 +481,7 @@ function update() {
   $("f-vand").hidden = semi || s.type === "aftale";
   $("f-maelk").hidden = semi || s.type === "aftale";
   $("f-sim").hidden = !semi;
+  $("f-kakao").hidden = s.type === "aftale";
   const a = s.type === "aftale";
   $("sek-maskine").hidden = a;
   $("maskine-pris").hidden = a;
