@@ -342,7 +342,7 @@ function mainAftale(s) {
   if (!s.ingenper) txt.push(`Aftaleperiode: ${mdrTxt}.`);
   const lines = txt.map((t, i) => priceLine(t, i === txt.length - 1)).join("\n");
 
-  const kaffeTxt = (s.kaffe.includes("Early Bird") ? "Vores favoritbønne er Early Bird, 100 % Arabica. " : "") + "Jeres kaffe: " + (s.kaffe.length ? joinOg(s.kaffe) : "[vælg kaffetype]") + ". I kan frit skifte mellem alle vores kaffevarianter fra levering til levering.";
+  const kaffeTxt = (s.kaffe.includes("Early Bird") ? "Vores favoritbønne er Early Bird, 100 % Arabica. " : "") + "Jeres kaffe: " + (s.kaffe.length ? joinOg(s.kaffe) : "[vælg kaffetype]") + ". I kan frit skifte mellem alle vores kaffevarianter fra levering til levering. Alle vores kaffer bliver friskristet inden levering, så I får frisk kaffe hver gang.";
   const andre = s.kaffe.filter((k) => k !== "Early Bird");
   const mørkNote = andre.length && s.formater.some((id) => id !== "fmt-1kg")
     ? para(`Formalet kaffe fås kun som Early Bird. ${joinOg(andre)} leveres kun som hele bønner i 1 kg poser.`, "4px 40px 0 40px") : "";
@@ -419,7 +419,7 @@ ${para(esc(m ? m.desc : "[Vælg model]"))}
 ${para(esc(equip.join(" · ")), "4px 40px 0 40px")}
 ${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 6px 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Tekniske data</td></tr>` + spec.map((row) => `<tr><td style="padding:0 40px 4px 40px;font-family:${FONT};font-size:14px;line-height:21px;">${row.map(([k, v]) => `<span style="color:#6B5A4A;">${esc(k)}</span>&nbsp;<span style="color:#2B1D14;">${esc(v)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join(""))(m.spec.map((r, i) => (i === 0 && s.maelk === "friskmaelk" && m.kol ? r.concat([m.kol]) : r.slice()))) : ""}
 ${h2("Kaffen")}
-${para((s.kaffe.includes("Early Bird") ? "Vores favoritbønne er Early Bird, 100 % Arabica. " : "") + "Jeres kaffe: " + (s.kaffe.length ? joinOg(s.kaffe) : "[vælg kaffetype]") + ". I kan frit skifte mellem alle vores kaffevarianter fra levering til levering.")}
+${para((s.kaffe.includes("Early Bird") ? "Vores favoritbønne er Early Bird, 100 % Arabica. " : "") + "Jeres kaffe: " + (s.kaffe.length ? joinOg(s.kaffe) : "[vælg kaffetype]") + ". I kan frit skifte mellem alle vores kaffevarianter fra levering til levering. Alle vores kaffer bliver friskristet inden levering, så I får frisk kaffe hver gang.")}
 ${s.kaffe.map(beanRow).join("")}
 ${s.kakao ? kakaoRow() : ""}
 ${h2("Service og drift", 32)}
