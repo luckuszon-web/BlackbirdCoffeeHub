@@ -250,8 +250,10 @@ const MACH = {
 };
 MACH.sim1 = { name: "Simonelli 1 Group", semi: true, desc: "Semiautomatisk espressomaskine med professionel kvalitet i hver kop. Baristaen styrer ekstraktionen, og maskinen har damplanse til mælk, så den passer til både café, kontor og receptioner med lidt ekstra kærlighed til kaffen. Kompakt model med én brygge-gruppe." };
 MACH.sim2 = { name: "Simonelli 2 Group", semi: true, desc: "Semiautomatisk espressomaskine med professionel kvalitet i hver kop. Baristaen styrer ekstraktionen, og maskinen har damplanse til mælk, så den passer til både café, kontor og receptioner med lidt ekstra kærlighed til kaffen. Model med to brygge-grupper, så flere kan serveres hurtigt." };
-MACH.sim1.spec = [[["Strøm", "230V, 10 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']]];
-MACH.sim2.spec = [[["Dybde", "54,5 cm"], ["Højde", "53 cm"], ["Bredde", "78 cm"]], [["Strøm", "400V, 16 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']]];
+MACH.sim1.features = ["SIS (Soft Infusion System) giver et ensartet resultat", "4 programmerbare knapper til automatisk dosering", "Knap til manuel dosering", "Smart-steam-system giver damp med et enkelt tryk"];
+MACH.sim1.spec = [[["Dybde", "545 mm"], ["Højde", "498 mm"], ["Bredde", "404 mm"]], [["Kapacitet", "5 l"], ["Vægt", "32,5 kg"]], [["Strøm", "230V, 1,9 kW, 10 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']]];
+MACH.sim2.features = ["4 programmerbare knapper til automatisk dosering", "Knap til manuel dosering", "Smart-steam-system giver damp med et enkelt tryk"];
+MACH.sim2.spec = [[["Dybde", "545 mm"], ["Højde", "530 mm"], ["Bredde", "780 mm"]], [["Kapacitet", "11 l"], ["Vægt", "54 kg"]], [["Strøm", "400V, 3 kW, 16 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']]];
 MACH.swan.spec = [[["Dybde", "490 mm"], ["Højde", "440 mm"], ["Bredde", "300 mm"]]]; MACH.swan.kol = ["Køleskab", "200 mm"];
 MACH.falcon.spec = [[["Dybde", "608 mm"], ["Højde", "695 mm"], ["Bredde", "312 mm"]]]; MACH.falcon.kol = ["Køleskab", "220 mm"];
 const FONT = "Arial, Helvetica, sans-serif";
@@ -418,6 +420,7 @@ function buildEmail(s) {
   const mainMaskine = `${machineRow}
 ${h2("1 × " + esc(m ? m.name : "[Model]"), 32)}
 ${para(esc(m ? m.desc : "[Vælg model]"))}
+${m && m.features ? `<tr><td style="padding:14px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${m.features.map((f) => bullet(esc(f))).join("")}</table></td></tr>` : ""}
 <tr><td style="padding:18px 40px 0 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Inkluderet ekstraudstyr</td></tr>
 ${para(esc(equip.join(" · ")), "4px 40px 0 40px")}
 ${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 6px 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Tekniske data</td></tr>` + spec.map((row) => `<tr><td style="padding:0 40px 4px 40px;font-family:${FONT};font-size:14px;line-height:21px;">${row.map(([k, v]) => `<span style="color:#6B5A4A;">${esc(k)}</span>&nbsp;<span style="color:#2B1D14;">${esc(v)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join(""))(m.spec.map((r, i) => (i === 0 && s.maelk === "friskmaelk" && m.kol ? r.concat([m.kol]) : r.slice()))) : ""}
