@@ -250,10 +250,10 @@ const MACH = {
 };
 MACH.sim1 = { name: "Simonelli 1 Group", semi: true, desc: "Semiautomatisk espressomaskine med professionel kvalitet i hver kop. Baristaen styrer ekstraktionen, og maskinen har damplanse til mælk, så den passer til både café, kontor og receptioner med lidt ekstra kærlighed til kaffen. Kompakt model med én brygge-gruppe." };
 MACH.sim2 = { name: "Simonelli 2 Group", semi: true, desc: "Semiautomatisk espressomaskine med professionel kvalitet i hver kop. Baristaen styrer ekstraktionen, og maskinen har damplanse til mælk, så den passer til både café, kontor og receptioner med lidt ekstra kærlighed til kaffen. Model med to brygge-grupper, så flere kan serveres hurtigt." };
-MACH.sim1.spec = ["Strøm: 230V, 10 Amp", "Vand: 3/8\" · Afløb: 3/8\""];
-MACH.sim2.spec = ["Mål (BxDxH): 78 x 54,5 x 53 cm", "Strøm: 400V, 16 Amp", "Vand: 3/8\" · Afløb: 3/8\""];
-MACH.swan.spec = ["Mål (BxDxH): 300 x 490 x 440 mm"]; MACH.swan.kol = "Køleskab: 200 mm";
-MACH.falcon.spec = ["Mål (BxDxH): 312 x 608 x 695 mm"]; MACH.falcon.kol = "Køleskab: 220 mm";
+MACH.sim1.spec = [["Strøm", "230V, 10 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']];
+MACH.sim2.spec = [["Dybde", "54,5 cm"], ["Højde", "53 cm"], ["Bredde", "78 cm"], ["Strøm", "400V, 16 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']];
+MACH.swan.spec = [["Dybde", "490 mm"], ["Højde", "440 mm"], ["Bredde", "300 mm"]]; MACH.swan.kol = ["Køleskab", "200 mm"];
+MACH.falcon.spec = [["Dybde", "608 mm"], ["Højde", "695 mm"], ["Bredde", "312 mm"]]; MACH.falcon.kol = ["Køleskab", "220 mm"];
 const FONT = "Arial, Helvetica, sans-serif";
 const SERIF = "Georgia, 'Times New Roman', serif";
 const $ = (id) => document.getElementById(id);
@@ -417,7 +417,7 @@ ${h2("1 × " + esc(m ? m.name : "[Model]"), 32)}
 ${para(esc(m ? m.desc : "[Vælg model]"))}
 <tr><td style="padding:18px 40px 0 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Inkluderet ekstraudstyr</td></tr>
 ${para(esc(equip.join(" · ")), "4px 40px 0 40px")}
-${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 0 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Tekniske data</td></tr>` + para(spec.map(esc).join("<br>"), "4px 40px 0 40px"))(m.spec.concat(s.maelk === "friskmaelk" && m.kol ? [m.kol] : [])) : ""}
+${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 8px 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Tekniske data</td></tr><tr><td style="padding:0 40px 0 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0">${spec.map(([k, v]) => `<tr><td width="110" style="padding:0 0 4px 0;font-family:${FONT};font-size:14px;line-height:20px;color:#6B5A4A;">${esc(k)}</td><td style="padding:0 0 4px 0;font-family:${FONT};font-size:14px;line-height:20px;color:#2B1D14;">${esc(v)}</td></tr>`).join("")}</table></td></tr>`)(m.spec.concat(s.maelk === "friskmaelk" && m.kol ? [m.kol] : [])) : ""}
 ${h2("Kaffen")}
 ${para((s.kaffe.includes("Early Bird") ? "Vores favoritbønne er Early Bird, 100 % Arabica. " : "") + "Jeres kaffe: " + (s.kaffe.length ? joinOg(s.kaffe) : "[vælg kaffetype]") + ". I kan frit skifte mellem alle vores kaffevarianter fra levering til levering.")}
 ${s.kaffe.map(beanRow).join("")}
