@@ -130,7 +130,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
           </div>
           <input type="hidden" id="maskine" value="">
         </div>
-        <div class="field"><span class="lbl" id="lbl-vand">Vandforsyning</span>
+        <div class="field" id="f-vand"><span class="lbl" id="lbl-vand">Vandforsyning</span>
           <div class="pills" role="radiogroup" aria-labelledby="lbl-vand" data-for="vand">
             <button type="button" role="radio" class="pill" data-value="tank">Vandtank</button>
             <button type="button" role="radio" class="pill" data-value="tank8">8L vandtank</button>
@@ -138,13 +138,18 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
           </div>
           <input type="hidden" id="vand" value="">
         </div>
-        <div class="field"><span class="lbl" id="lbl-maelk">Mælk</span>
+        <div class="field" id="f-maelk"><span class="lbl" id="lbl-maelk">Mælk</span>
           <div class="pills" role="radiogroup" aria-labelledby="lbl-maelk" data-for="maelk">
             <button type="button" role="radio" class="pill" data-value="friskmaelk">Friskmælkskøleskab</button>
             <button type="button" role="radio" class="pill" data-value="pulver">Mælkepulver</button>
             <button type="button" role="radio" class="pill" data-value="ingen">Ingen mælk</button>
           </div>
           <input type="hidden" id="maelk" value="">
+        </div>
+        <div class="field" id="f-sim" hidden><span class="lbl">Ekstraudstyr til Simonelli</span>
+          <label class="check"><input type="checkbox" id="qpress"> Qpress</label>
+          <label class="check"><input type="checkbox" id="grinder"> Grinder</label>
+          <p class="hint">Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.</p>
         </div>
         <label class="check"><input type="checkbox" id="kakao"> Kakaopulver inkluderet</label>
       </fieldset>
@@ -272,7 +277,7 @@ function read() {
     formater: FORMATER.filter((f) => $(f.id).checked).map((f) => f.id),
     kaffe: KAFFE.filter((k) => $(k.id).checked).map((k) => k.name),
     firma: $("firma").value.trim(), navn: $("navn").value.trim(), maskine: $("maskine").value,
-    vand: $("vand").value, maelk: $("maelk").value, kakao: $("kakao").checked,
+    vand: $("vand").value, maelk: $("maelk").value, kakao: $("kakao").checked, qpress: $("qpress").checked, grinder: $("grinder").checked,
     pris: num($("pris").value), drikkere: num($("drikkere").value), model: $("model").value,
     kopper: num($("kopper").value), periode: num($("periode").value), ingenper: $("ingenper").checked,
     intro: $("intro").value.trim(), mail: $("mail").value.trim(), udloeb: $("udloeb").value
@@ -358,11 +363,15 @@ function buildEmail(s) {
   if (s.maelk === "friskmaelk") equip.push("Friskmælkskøleskab");
   if (s.maelk === "pulver") equip.push("Mælkepulver");
   equip.push(vandTxt);
+  if (s.qpress) equip.push("Qpress");
+  if (s.grinder) equip.push("Grinder");
   if (s.kakao) equip.push("Kakaopulver");
   const incl = ["maskinleje"];
   if (s.maelk === "friskmaelk") incl.push("køleskab");
   if (s.maelk === "pulver") incl.push("mælkepulver");
   incl.push("kaffe");
+  if (s.qpress) incl.push("Qpress");
+  if (s.grinder) incl.push("grinder");
   if (s.kakao) incl.push("kakaopulver");
   if (s.vand === "fast") incl.push("fastvandstilslutning");
   incl.push("installation", "fuld serviceaftale", "reservedele", "ombytning ved behov");
@@ -424,6 +433,7 @@ ${para("Sig endelig til, hvis der er noget, I ønsker tilpasset.", "32px 40px 0 
 }
 
 let statusTimer = null;
+let autoVand = false;
 function setStatus(text, kind) {
   const el = $("status");
   el.textContent = text;
@@ -437,7 +447,18 @@ function syncChoices() {
 }
 function update() {
   syncChoices();
-  const s = read();
+  let s = read();
+  const semi = !!(MACH[s.maskine] && MACH[s.maskine].semi);
+  if (semi) {
+    if ($("vand").value !== "fast") { $("vand").value = "fast"; autoVand = true; }
+    $("maelk").value = "";
+    syncChoices();
+  } else if (autoVand) { $("vand").value = ""; autoVand = false; syncChoices(); }
+  if (!semi) { $("qpress").checked = false; $("grinder").checked = false; }
+  s = read();
+  $("f-vand").hidden = semi || s.type === "aftale";
+  $("f-maelk").hidden = semi || s.type === "aftale";
+  $("f-sim").hidden = !semi;
   const a = s.type === "aftale";
   $("sek-maskine").hidden = a;
   $("maskine-pris").hidden = a;
@@ -495,6 +516,7 @@ $("reset").addEventListener("click", () => {
   ["firma", "navn", "pris", "drikkere", "periode"].forEach((id) => { $(id).value = ""; });
   ["maskine", "vand", "maelk"].forEach((id) => { $(id).value = ""; });
   $("kakao").checked = false;
+  $("qpress").checked = false; $("grinder").checked = false; autoVand = false;
   $("ingenper").checked = false;
   $("udloeb").value = "";
   ["kgpris", "kgmaaned", "levmin"].forEach((id) => { $(id).value = ""; });
