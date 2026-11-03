@@ -119,6 +119,15 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
       </fieldset>
 
       <fieldset>
+        <legend>Sprog <small style="text-transform:none;letter-spacing:0;font-weight:400">(tilbuddets sprog)</small></legend>
+        <div class="pills" role="radiogroup" aria-label="Sprog" data-for="lang">
+          <button type="button" role="radio" class="pill" data-value="da">Dansk</button>
+          <button type="button" role="radio" class="pill" data-value="en">English</button>
+        </div>
+        <input type="hidden" id="lang" value="da">
+      </fieldset>
+
+      <fieldset>
         <legend>Tilbudstype</legend>
         <div class="pills" role="radiogroup" aria-label="Tilbudstype" data-for="type">
           <button type="button" role="radio" class="pill" data-value="maskine">Kaffemaskine</button>
@@ -256,19 +265,42 @@ MACH.sim2.features = ["4 programmerbare knapper til automatisk dosering", "Knap 
 MACH.sim2.spec = [[["Dybde", "545 mm"], ["Højde", "530 mm"], ["Bredde", "780 mm"]], [["Kapacitet", "11 l"], ["Vægt", "54 kg"]], [["Strøm", "400V, 3 kW, 16 Amp"], ["Vand", '3/8"'], ["Afløb", '3/8"']]];
 MACH.swan.spec = [[["Dybde", "490 mm"], ["Højde", "440 mm"], ["Bredde", "300 mm"]]]; MACH.swan.kol = ["Køleskab", "200 mm"];
 MACH.falcon.spec = [[["Dybde", "608 mm"], ["Højde", "695 mm"], ["Bredde", "312 mm"]]]; MACH.falcon.kol = ["Køleskab", "220 mm"];
+let LANG = "da";
+const T = (da, en) => (LANG === "en" ? en : da);
+const INTRO = {
+  da: "Tak for en rigtig god snak. Det var en fornøjelse at høre mere om jeres behov. Som lovet har jeg samlet et tilbud, så I kan se, hvad løsningen indeholder.",
+  en: "Thank you for a great conversation. It was a pleasure to hear more about your needs. As promised, I have put together a quote so you can see what the solution includes."
+};
+const LBL_EN = { "Dybde": "Depth", "Højde": "Height", "Bredde": "Width", "Kapacitet": "Capacity", "Vægt": "Weight", "Strøm": "Power", "Vand": "Water", "Afløb": "Drain", "Køleskab": "Fridge" };
+const EN = {
+  swan: { desc: "Fully automatic coffee machine that brews a great cup of coffee time after time. The machine offers café latte, espresso, macchiato, black coffee, flat white, cappuccino and batch brew, among others, and it is built for professional use." },
+  falcon: { desc: "Fully automatic barista machine that always delivers great coffee, even at high consumption. The machine offers café latte, espresso, macchiato, black coffee, flat white, cappuccino, cocoa and batch brew, among others." },
+  jura: { desc: "Fully automatic machine that brews coffee specialities from fresh beans, with or without milk. It is reliable and easy to use, with a cleaning programme and a large bean hopper." },
+  sim1: { desc: "Semi-automatic espresso machine with professional quality in every cup. The barista controls the extraction, and the machine has a steam wand for milk, so it suits cafés, offices and receptions with a little extra love for coffee. Compact model with one brew group.",
+    features: ["SIS (Soft Infusion System) gives a uniform result", "4 programmable buttons for automatic dosing", "Button for manual dosing", "Smart-steam system provides steam with a single push"] },
+  sim2: { desc: "Semi-automatic espresso machine with professional quality in every cup. The barista controls the extraction, and the machine has a steam wand for milk, so it suits cafés, offices and receptions with a little extra love for coffee. Model with two brew groups, so more people can be served quickly.",
+    features: ["4 programmable buttons for automatic dosing", "Button for manual dosing", "Smart-steam system provides steam with a single push"] }
+};
+const EN_BEAN = {
+  "kaffe-eb": "Start your day with our Early Bird coffee, a round and full-bodied medium roast with a fresh aroma and a lightly spiced taste. The round, full profile comes from 100% Arabica beans carefully blended from plantations in Colombia, Guatemala, Brazil, Kenya, Ethiopia and Sumatra.",
+  "kaffe-dr": "Start your day with our dark roast, which offers a powerful, full-bodied taste experience with an intense aroma and notes of dark chocolate, roasted nuts and a hint of spices. The round, full profile also comes from 100% Arabica beans carefully blended from plantations in Colombia, Guatemala, Brazil, Kenya, Ethiopia and Sumatra.",
+  "kaffe-bw": "Fly high with Black Wings, our powerful dark roasted 100% Arabica coffee from South and Central America. This deeply aromatic coffee has a full, rich body and intense notes of dark chocolate. Ideal to enjoy on its own or as a base for milk drinks such as caffe latte, where its depth really shines through."
+};
+const dec = (v) => (LANG === "en" ? String(v).replace(/(\d),(\d)/g, "$1.$2") : v);
 const FONT = "Arial, Helvetica, sans-serif";
 const SERIF = "Georgia, 'Times New Roman', serif";
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const num = (v) => { const n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : null; };
-const fmt2 = (n) => n.toLocaleString("da-DK", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const fmtKr = (n) => (Math.round(n * 100) % 100 === 0 ? Math.round(n).toLocaleString("da-DK") : fmt2(n));
-const joinOg = (a) => (a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " og " + a[a.length - 1]);
+const fmt2 = (n) => n.toLocaleString(LANG === "en" ? "en-GB" : "da-DK", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtKr = (n) => (Math.round(n * 100) % 100 === 0 ? Math.round(n).toLocaleString(LANG === "en" ? "en-GB" : "da-DK") : fmt2(n));
+const joinOg = (a) => (a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + T(" og ", " and ") + a[a.length - 1]);
 
-const kaffeIntro = (k) => k.length === 0 ? "Jeres kaffe: [vælg kaffetype]."
-  : k.length === 1 ? `Jeres kaffe er ${k[0]}, en af vores tre favoritbønner.`
-  : k.length === 2 ? `Jeres kaffer er ${joinOg(k)}, to af vores tre favoritbønner.`
-  : `Jeres kaffer er ${joinOg(k)}, alle tre af vores favoritbønner.`;
+const kaffeIntro = (k) => k.length === 0 ? T("Jeres kaffe: [vælg kaffetype].", "Your coffee: [select coffee type].")
+  : k.length === 1 ? T(`Jeres kaffe er ${k[0]}, en af vores tre favoritbønner.`, `Your coffee is ${k[0]}, one of our three favourite beans.`)
+  : k.length === 2 ? T(`Jeres kaffer er ${joinOg(k)}, to af vores tre favoritbønner.`, `Your coffees are ${joinOg(k)}, two of our three favourite beans.`)
+  : T(`Jeres kaffer er ${joinOg(k)}, alle tre af vores favoritbønner.`, `Your coffees are ${joinOg(k)}, all three of our favourite beans.`);
+const kaffeFri = () => T(" I kan frit skifte mellem alle vores kaffevarianter fra levering til levering. Alle vores kaffer bliver friskristet inden levering, så I får frisk kaffe hver gang.", " You can freely switch between all our coffee varieties from delivery to delivery. All our coffees are freshly roasted before delivery, so you get fresh coffee every time.");
 const KAFFE = [
   { id: "kaffe-eb", name: "Early Bird", img: "eb", scores: [3, 4, 3],
     desc: "Start dagen med vores Early Bird kaffe som er en rund og fyldig mellemristet kaffe med en frisk aroma og let krydret smag. Den runde og fyldige profil kommer fra 100% Arabica bønner som er nøje sammensat i et blandingsforhold fra plantager i Colombia, Guatemala, Brasilien, Kenya, Etiopien og Sumatra." },
@@ -277,14 +309,15 @@ const KAFFE = [
   { id: "kaffe-bw", name: "Black Wings", img: "bw", scores: [5, 5, 2],
     desc: "Flyv højt med Black Wings, vores kraftfulde mørkristede 100% Arabica-kaffe fra Syd- og Mellemamerika. Denne dybt aromatiske kaffe har en fyldig, rig krop og intense noter af mørk chokolade. Ideel til at nyde alene eller som base i mælkedrikke som Caffe Latte, hvor dens dybde virkelig skinner igennem." }
 ];
-const maelkRow = () => `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">Mælkepulver</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">Leveres sammen med kaffen.</div></td></tr></table></td></tr>`;
-const kakaoRow = () => `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">Kakaopulver 14 %</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">Afrundet kakaodrik med god fylde og fin sødme.</div><div style="font-family:${FONT};font-size:12px;line-height:18px;color:#6B5A4A;padding-top:8px;">Lys og sød</div></td></tr></table></td></tr>`;
+const maelkRow = () => `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">${T("Mælkepulver", "Milk powder")}</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">${T("Leveres sammen med kaffen.", "Delivered together with the coffee.")}</div></td></tr></table></td></tr>`;
+const kakaoRow = () => `<tr><td style="padding:20px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #E6DED3;padding:16px 0 0 0;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">${T("Kakaopulver 14 %", "Cocoa powder 14%")}</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">${T("Afrundet kakaodrik med god fylde og fin sødme.", "Rounded cocoa drink with good fullness and fine sweetness.")}</div><div style="font-family:${FONT};font-size:12px;line-height:18px;color:#6B5A4A;padding-top:8px;">${T("Lys og sød", "Light and sweet")}</div></td></tr></table></td></tr>`;
 const beanRow = (name) => {
   const k = KAFFE.find((x) => x.name === name);
   if (!k) return "";
   const [r, f, sy] = k.scores;
-  return `<tr><td style="padding:16px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td width="110" valign="top" style="padding:8px 0;"><img src="${IMG[k.img]}" width="94" alt="${esc(k.name)}" style="display:block;border:0;width:94px;height:auto;"></td><td valign="top" style="padding:4px 0 0 20px;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">${esc(k.name)}</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">${esc(k.desc)}</div><div style="font-family:${FONT};font-size:12px;line-height:18px;color:#6B5A4A;padding-top:8px;">Ristning ${r}/5 · Fylde ${f}/5 · Syre ${sy}/5</div></td></tr></table></td></tr>`;
+  return `<tr><td style="padding:16px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td width="110" valign="top" style="padding:8px 0;"><img src="${IMG[k.img]}" width="94" alt="${esc(k.name)}" style="display:block;border:0;width:94px;height:auto;"></td><td valign="top" style="padding:4px 0 0 20px;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:6px;">${esc(k.name)}</div><div style="font-family:${FONT};font-size:14px;line-height:21px;color:#4A3A2E;">${esc(LANG === "en" ? EN_BEAN[k.id] : k.desc)}</div><div style="font-family:${FONT};font-size:12px;line-height:18px;color:#6B5A4A;padding-top:8px;">${T("Ristning", "Roast")} ${r}/5 · ${T("Fylde", "Body")} ${f}/5 · ${T("Syre", "Acidity")} ${sy}/5</div></td></tr></table></td></tr>`;
 };
+const FORMATER_EN = { "fmt-1kg": "Whole beans in 1 kg bags", "fmt-500": "Ground in 500 g bags", "fmt-75": "Ground in 75 g bags" };
 const FORMATER = [
   { id: "fmt-1kg", label: "Hele bønner i 1 kg poser" },
   { id: "fmt-500", label: "Formalet i 500 g poser" },
@@ -292,7 +325,7 @@ const FORMATER = [
 ];
 function read() {
   return {
-    type: $("type").value || "maskine",
+    type: $("type").value || "maskine", lang: $("lang").value === "en" ? "en" : "da",
     kgpris: num($("kgpris").value), kgmaaned: num($("kgmaaned").value), levmin: num($("levmin").value),
     akakao: $("a-kakao").checked, amaelk: $("a-maelk").checked,
     formater: FORMATER.filter((f) => $(f.id).checked).map((f) => f.id),
@@ -336,76 +369,80 @@ const checkBullet = (t) => `<tr><td width="30" valign="top" style="padding:0 0 8
 const priceLine =(t, last) => `<tr><td style="padding:0 32px ${last ? 28 : 8}px 32px;font-family:${FONT};font-size:14px;line-height:22px;color:#4A3A2E;">${t}</td></tr>`;
 
 function mainAftale(s) {
-  const kg = (v) => v.toLocaleString("da-DK", { maximumFractionDigits: 1 });
-  const kgM = s.kgmaaned ? kg(s.kgmaaned) : "[antal]";
-  const pris = s.kgpris ? fmt2(s.kgpris) : "[Pris]";
+  const kg = (v) => v.toLocaleString(LANG === "en" ? "en-GB" : "da-DK", { maximumFractionDigits: 1 });
+  const kgM = s.kgmaaned ? kg(s.kgmaaned) : T("[antal]", "[number]");
+  const pris = s.kgpris ? fmt2(s.kgpris) : T("[Pris]", "[Price]");
   const mdr = s.periode !== null && s.periode > 0 ? Math.round(s.periode) : null;
   const visPeriode = !s.ingenper && mdr;
-  const mdrTxt = mdr ? `${mdr} ${mdr === 1 ? "måned" : "måneder"}` : "[antal] måneder";
+  const mdrTxt = mdr ? `${mdr} ${mdr === 1 ? T("måned", "month") : T("måneder", "months")}` : T("[antal] måneder", "[number] months");
   const formater = FORMATER.filter((f) => s.formater.includes(f.id));
 
-  const txt = [`Prisen er beregnet ud fra en forventet aftagning på ${kgM} kg pr. måned.`];
-  if (s.levmin) txt.push(`Minimumsbestilling: ${Math.round(s.levmin)} ${Math.round(s.levmin) === 1 ? "levering" : "leveringer"} fordelt over et år.`);
-  if (!s.ingenper) txt.push(`Aftaleperiode: ${mdrTxt}.`);
+  const txt = [T(`Prisen er beregnet ud fra en forventet aftagning på ${kgM} kg pr. måned.`, `The price is based on an expected consumption of ${kgM} kg per month.`)];
+  if (s.levmin) txt.push(T(`Minimumsbestilling: ${Math.round(s.levmin)} ${Math.round(s.levmin) === 1 ? "levering" : "leveringer"} fordelt over et år.`, `Minimum order: ${Math.round(s.levmin)} ${Math.round(s.levmin) === 1 ? "delivery" : "deliveries"} spread over a year.`));
+  if (!s.ingenper) txt.push(T(`Aftaleperiode: ${mdrTxt}.`, `Agreement period: ${mdrTxt}.`));
   const lines = txt.map((t, i) => priceLine(t, i === txt.length - 1)).join("\n");
 
-  const kaffeTxt = kaffeIntro(s.kaffe) + " I kan frit skifte mellem alle vores kaffevarianter fra levering til levering. Alle vores kaffer bliver friskristet inden levering, så I får frisk kaffe hver gang.";
+  const kaffeTxt = kaffeIntro(s.kaffe) + kaffeFri();
   const andre = s.kaffe.filter((k) => k !== "Early Bird");
   const mørkNote = andre.length && s.formater.some((id) => id !== "fmt-1kg")
-    ? para(`Formalet kaffe fås kun som Early Bird. ${joinOg(andre)} leveres kun som hele bønner i 1 kg poser.`, "4px 40px 0 40px") : "";
-  const bullets = formater.map((f) => bullet(esc(f.label))).join("");
+    ? para(T(`Formalet kaffe fås kun som Early Bird. ${joinOg(andre)} leveres kun som hele bønner i 1 kg poser.`, `Ground coffee is only available as Early Bird. ${joinOg(andre)} is only delivered as whole beans in 1 kg bags.`), "4px 40px 0 40px") : "";
+  const bullets = formater.map((f) => bullet(esc(LANG === "en" ? FORMATER_EN[f.id] : f.label))).join("");
 
-  return `${h2("Kaffeaftale", 32)}
-${para(`Vi foreslår en løbende kaffeaftale med levering af ca. ${kgM} kg kaffe pr. måned.`)}
-${h2("Kaffen")}
+  return `${h2(T("Kaffeaftale", "Coffee agreement"), 32)}
+${para(T(`Vi foreslår en løbende kaffeaftale med levering af ca. ${kgM} kg kaffe pr. måned.`, `We propose an ongoing coffee agreement with delivery of approx. ${kgM} kg of coffee per month.`))}
+${h2(T("Kaffen", "The coffee"))}
 ${para(kaffeTxt)}
 ${s.kaffe.map(beanRow).join("")}
 ${s.akakao ? kakaoRow() : ""}
 ${s.amaelk ? maelkRow() : ""}
-${h2("Levering")}
-${para(`Som udgangspunkt sender vi bønnerne løbende, baseret på det aftalte månedlige forbrugsestimat på ${kgM} kg. Har I for meget eller for lidt på lager, giver I blot besked, så sætter vi forsendelserne på pause eller justerer dem. Dog er I forpligtet til at aftage den forventede mængde.`, "0 40px 12px 40px")}
-${para("Kaffen fås som:", "0 40px 10px 40px")}
+${h2(T("Levering", "Delivery"))}
+${para(T(`Som udgangspunkt sender vi bønnerne løbende, baseret på det aftalte månedlige forbrugsestimat på ${kgM} kg. Har I for meget eller for lidt på lager, giver I blot besked, så sætter vi forsendelserne på pause eller justerer dem. Dog er I forpligtet til at aftage den forventede mængde.`, `As a starting point, we ship the beans on an ongoing basis, based on the agreed monthly consumption estimate of ${kgM} kg. If you have too much or too little in stock, simply let us know and we will pause or adjust the shipments. However, you are committed to purchasing the expected quantity.`), "0 40px 12px 40px")}
+${para(T("Kaffen fås som:", "The coffee is available as:"), "0 40px 10px 40px")}
 <tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${bullets}</table></td></tr>
 ${mørkNote}
 <tr><td style="padding:32px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;border-left:4px solid #DA6D2B;page-break-inside:avoid;break-inside:avoid;">
-<tr><td style="padding:28px 32px 6px 32px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">Pris</td></tr>
-<tr><td style="padding:0 32px 12px 32px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">${pris} kr. <span style="font-size:16px;color:#4A3A2E;">pr. kg</span></td></tr>
+<tr><td style="padding:28px 32px 6px 32px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">${T("Pris", "Price")}</td></tr>
+<tr><td style="padding:0 32px 12px 32px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">${T(pris + " kr.", "DKK " + pris)} <span style="font-size:16px;color:#4A3A2E;">${T("pr. kg", "per kg")}</span></td></tr>
 ${lines}
 </table></td></tr>
 `;
 }
 
 function buildEmail(s) {
-  const m = MACH[s.maskine];
-  const firma = s.firma || "[Virksomhed]";
-  const navn = s.navn || "[Kontaktperson]";
-  const vandTxt = s.vand === "tank" ? "Vandtank" : s.vand === "tank8" ? "8 liters vandtank" : s.vand === "fast" ? "Fastvandstilslutning" : "[Vandforsyning]";
+  LANG = s.lang;
+  const en = LANG === "en";
+  const m0 = MACH[s.maskine];
+  const m = m0 ? Object.assign({}, m0, en ? { desc: EN[s.maskine].desc, features: EN[s.maskine].features || m0.features,
+    spec: m0.spec && m0.spec.map((r) => r.map(([k, v]) => [LBL_EN[k] || k, dec(v)])), kol: m0.kol && [LBL_EN[m0.kol[0]], dec(m0.kol[1])] } : {}) : m0;
+  const firma = s.firma || T("[Virksomhed]", "[Company]");
+  const navn = s.navn || T("[Kontaktperson]", "[Contact]");
+  const vandTxt = s.vand === "tank" ? T("Vandtank", "Water tank") : s.vand === "tank8" ? T("8 liters vandtank", "8-litre water tank") : s.vand === "fast" ? T("Fastvandstilslutning", "Fixed water connection") : T("[Vandforsyning]", "[Water supply]");
   const equip = [];
-  if (s.maelk === "friskmaelk") equip.push("Friskmælkskøleskab");
+  if (s.maelk === "friskmaelk") equip.push(T("Friskmælkskøleskab", "Fresh milk fridge"));
   equip.push(vandTxt);
   if (s.qpress) equip.push("Qpress");
   if (s.grinder) equip.push("Grinder");
-  const incl = ["maskinleje"];
-  if (s.maelk === "friskmaelk") incl.push("køleskab");
-  if (s.maelk === "pulver") incl.push("mælkepulver");
-  incl.push("kaffe");
+  const incl = [T("maskinleje", "machine rental")];
+  if (s.maelk === "friskmaelk") incl.push(T("køleskab", "fridge"));
+  if (s.maelk === "pulver") incl.push(T("mælkepulver", "milk powder"));
+  incl.push(T("kaffe", "coffee"));
   if (s.qpress) incl.push("Qpress");
-  if (s.grinder) incl.push("grinder");
-  if (s.kakao) incl.push("kakaopulver");
-  if (s.vand === "fast") incl.push("fastvandstilslutning");
-  incl.push("installation", "fuld serviceaftale", "reservedele", "ombytning ved behov");
+  if (s.grinder) incl.push(T("grinder", "grinder"));
+  if (s.kakao) incl.push(T("kakaopulver", "cocoa powder"));
+  if (s.vand === "fast") incl.push(T("fastvandstilslutning", "fixed water connection"));
+  incl.push(...(en ? ["installation", "full service agreement", "spare parts", "replacement of the machine if needed"] : ["installation", "fuld serviceaftale", "reservedele", "ombytning ved behov"]));
 
-  const prisTxt = s.pris ? fmt2(s.pris) : "[Koppris]";
-  const kopper = s.kopper ? Math.round(s.kopper).toLocaleString("da-DK") : "[antal]";
-  const betaling = s.pris && s.kopper ? fmtKr(s.pris * s.kopper) : "[beløb]";
+  const prisTxt = s.pris ? fmt2(s.pris) : T("[Koppris]", "[Price per cup]");
+  const kopper = s.kopper ? Math.round(s.kopper).toLocaleString(en ? "en-GB" : "da-DK") : T("[antal]", "[number]");
+  const betaling = s.pris && s.kopper ? fmtKr(s.pris * s.kopper) : T("[beløb]", "[amount]");
   const modelLine = s.model === "fast"
-    ? `Fast betaling efter et estimeret forbrug på ${kopper} kopper pr. måned, svarende til ${betaling} kr. pr. måned.`
-    : `Minimumsforbrug: ${kopper} kopper pr. måned, svarende til en minimumsbetaling på ${betaling} kr. pr. måned.`;
+    ? T(`Fast betaling efter et estimeret forbrug på ${kopper} kopper pr. måned, svarende til ${betaling} kr. pr. måned.`, `Fixed payment based on an estimated consumption of ${kopper} cups per month, corresponding to DKK ${betaling} per month.`)
+    : T(`Minimumsforbrug: ${kopper} kopper pr. måned, svarende til en minimumsbetaling på ${betaling} kr. pr. måned.`, `Minimum consumption: ${kopper} cups per month, corresponding to a minimum payment of DKK ${betaling} per month.`);
   const mdr = s.periode !== null && s.periode > 0 ? Math.round(s.periode) : null;
-  const periodeLine = s.ingenper ? null : mdr ? `Aftaleperiode: ${mdr} ${mdr === 1 ? "måned" : "måneder"}.` : "Aftaleperiode: [antal] måneder.";
+  const periodeLine = s.ingenper ? null : mdr ? T(`Aftaleperiode: ${mdr} ${mdr === 1 ? "måned" : "måneder"}.`, `Agreement period: ${mdr} ${mdr === 1 ? "month" : "months"}.`) : T("Aftaleperiode: [antal] måneder.", "Agreement period: [number] months.");
 
-  const lines = [priceLine(`Prisen inkluderer ${joinOg(incl)}.`)];
-  if (s.drikkere) lines.push(priceLine(`Prisen er beregnet ud fra ${Math.round(s.drikkere)} kaffedrikkere.`));
+  const lines = [priceLine(T(`Prisen inkluderer ${joinOg(incl)}.`, `The price includes ${joinOg(incl)}.`))];
+  if (s.drikkere) lines.push(priceLine(T(`Prisen er beregnet ud fra ${Math.round(s.drikkere)} kaffedrikkere.`, `The price is calculated based on ${Math.round(s.drikkere)} coffee drinkers.`)));
   if (periodeLine) lines.push(priceLine(modelLine), priceLine(periodeLine, true));
   else lines.push(priceLine(modelLine, true));
 
@@ -413,28 +450,28 @@ function buildEmail(s) {
   let udloebTxt = "";
   if (s.udloeb) {
     const d = new Date(s.udloeb + "T00:00:00");
-    if (!isNaN(d)) udloebTxt = d.toLocaleDateString("da-DK", { day: "numeric", month: "long", year: "numeric" });
+    if (!isNaN(d)) udloebTxt = d.toLocaleDateString(en ? "en-GB" : "da-DK", { day: "numeric", month: "long", year: "numeric" });
   }
-  const mailto = "mailto:" + esc(s.mail || "") + "?subject=Svar%20p%C3%A5%20tilbud";
+  const mailto = "mailto:" + esc(s.mail || "") + "?subject=" + (en ? "Reply%20to%20quote" : "Svar%20p%C3%A5%20tilbud");
 
   const mainMaskine = `${machineRow}
 ${h2("1 × " + esc(m ? m.name : "[Model]"), 32)}
-${para(esc(m ? m.desc : "[Vælg model]"))}
+${para(esc(m ? m.desc : T("[Vælg model]", "[Select model]")))}
 ${m && m.features ? `<tr><td style="padding:14px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${m.features.map((f) => bullet(esc(f))).join("")}</table></td></tr>` : ""}
-<tr><td style="padding:18px 40px 0 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Inkluderet ekstraudstyr</td></tr>
+<tr><td style="padding:18px 40px 0 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">${T("Inkluderet ekstraudstyr", "Included extras")}</td></tr>
 ${para(esc(equip.join(" · ")), "4px 40px 0 40px")}
-${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 6px 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">Tekniske data</td></tr>` + spec.map((row) => `<tr><td style="padding:0 40px 4px 40px;font-family:${FONT};font-size:14px;line-height:21px;">${row.map(([k, v]) => `<span style="color:#6B5A4A;">${esc(k)}</span>&nbsp;<span style="color:#2B1D14;">${esc(v)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join(""))(m.spec.map((r, i) => (i === 0 && s.maelk === "friskmaelk" && m.kol ? r.concat([m.kol]) : r.slice()))) : ""}
-${h2("Kaffen")}
-${para(kaffeIntro(s.kaffe) + " I kan frit skifte mellem alle vores kaffevarianter fra levering til levering. Alle vores kaffer bliver friskristet inden levering, så I får frisk kaffe hver gang.")}
+${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 6px 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">${T("Tekniske data", "Technical data")}</td></tr>` + spec.map((row) => `<tr><td style="padding:0 40px 4px 40px;font-family:${FONT};font-size:14px;line-height:21px;">${row.map(([k, v]) => `<span style="color:#6B5A4A;">${esc(k)}</span>&nbsp;<span style="color:#2B1D14;">${esc(v)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join(""))(m.spec.map((r, i) => (i === 0 && s.maelk === "friskmaelk" && m.kol ? r.concat([m.kol]) : r.slice()))) : ""}
+${h2(T("Kaffen", "The coffee"))}
+${para(kaffeIntro(s.kaffe) + kaffeFri())}
 ${s.kaffe.map(beanRow).join("")}
 ${s.maelk === "pulver" ? maelkRow() : ""}
 ${s.kakao ? kakaoRow() : ""}
-${h2("Service og drift", 32)}
-<tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${["Installation", "Løbende levering af kaffe", "Fuld serviceaftale", "Alle reservedele inkluderet", "Ombytning af maskinen ved behov"].map(checkBullet).join("")}</table></td></tr>
-${m && m.semi ? "" : h2("Personlig installation") + para("Ved installationen kommer jeg personligt ud, sætter maskinen op og installerer den. Jeg justerer den til jeres kopstørrelser og smagspræferencer og giver jer en introduktion til, hvordan maskinen fungerer, så I er trygge ved betjeningen, inden jeg går igen.") + h2("Intelligent fjernstyring") + para("Maskinen registrerer løbende forbrug og lagerstatus, så kaffeleverancerne automatisk bliver tilpasset jeres behov. Vores serviceafdeling kan desuden fjernstyre maskinen, så justeringer af styrke eller temperatur klares over telefonen inden for få minutter, uden behov for et teknikerbesøg.")}
+${h2(T("Service og drift", "Service and operation"), 32)}
+<tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${(en ? ["Installation", "Ongoing delivery of coffee", "Full service agreement", "All spare parts included", "Replacement of the machine if needed"] : ["Installation", "Løbende levering af kaffe", "Fuld serviceaftale", "Alle reservedele inkluderet", "Ombytning af maskinen ved behov"]).map(checkBullet).join("")}</table></td></tr>
+${m && m.semi ? "" : h2(T("Personlig installation", "Personal installation")) + para(T("Ved installationen kommer jeg personligt ud, sætter maskinen op og installerer den. Jeg justerer den til jeres kopstørrelser og smagspræferencer og giver jer en introduktion til, hvordan maskinen fungerer, så I er trygge ved betjeningen, inden jeg går igen.", "At installation, I will come out personally to set up and install the machine. I adjust it to your cup sizes and taste preferences and give you an introduction to how the machine works, so you feel confident using it before I leave.")) + h2(T("Intelligent fjernstyring", "Intelligent remote management")) + para(T("Maskinen registrerer løbende forbrug og lagerstatus, så kaffeleverancerne automatisk bliver tilpasset jeres behov. Vores serviceafdeling kan desuden fjernstyre maskinen, så justeringer af styrke eller temperatur klares over telefonen inden for få minutter, uden behov for et teknikerbesøg.", "The machine continuously registers consumption and stock status, so coffee deliveries are automatically adapted to your needs. Our service department can also manage the machine remotely, so adjustments to strength or temperature are handled over the phone within minutes, without the need for a technician visit."))}
 <tr><td style="padding:32px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;border-left:4px solid #DA6D2B;page-break-inside:avoid;break-inside:avoid;">
-<tr><td style="padding:28px 32px 6px 32px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">Pris</td></tr>
-<tr><td style="padding:0 32px 12px 32px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">${prisTxt} kr. <span style="font-size:16px;color:#4A3A2E;">pr. kop</span></td></tr>
+<tr><td style="padding:28px 32px 6px 32px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">${T("Pris", "Price")}</td></tr>
+<tr><td style="padding:0 32px 12px 32px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">${T(prisTxt + " kr.", "DKK " + prisTxt)} <span style="font-size:16px;color:#4A3A2E;">${T("pr. kop", "per cup")}</span></td></tr>
 ${lines.join("\n")}
 </table></td></tr>
 `;
@@ -444,14 +481,14 @@ ${lines.join("\n")}
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="width:600px;max-width:600px;background-color:#FFFFFF;">
 <tr><td style="padding:32px 40px 28px 40px;border-bottom:1px solid #E6DED3;"><img src="${IMG.logo}" width="154" height="50" alt="Blackbird Coffee" style="display:block;border:0;"></td></tr>
 <tr><td style="padding:40px 40px 0 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="40" height="3" bgcolor="#DA6D2B" style="background-color:#DA6D2B;font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>
-<tr><td style="padding:16px 40px 14px 40px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">${s.type === "aftale" ? "Kaffeaftale" : "Tilbud"}</td></tr>
-<tr><td style="padding:0 40px 20px 40px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">Tilbud til ${esc(firma)}</td></tr>
-${para("Hej " + esc(navn) + ",", "0 40px 14px 40px")}
+<tr><td style="padding:16px 40px 14px 40px;font-family:${FONT};font-size:12px;line-height:16px;letter-spacing:1.5px;text-transform:uppercase;color:#6F4529;">${s.type === "aftale" ? T("Kaffeaftale", "Coffee agreement") : T("Tilbud", "Quote")}</td></tr>
+<tr><td style="padding:0 40px 20px 40px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">${T("Tilbud til", "Quote for")} ${esc(firma)}</td></tr>
+${para(T("Hej ", "Hi ") + esc(navn) + ",", "0 40px 14px 40px")}
 ${para(esc(s.intro).replace(/\n/g, "<br>"))}
 ${MAIN}
-${para("Sig endelig til, hvis der er noget, I ønsker tilpasset.", "32px 40px 0 40px")}
-<tr><td style="padding:20px 40px 36px 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#3A2417" style="background-color:#3A2417;"><a href="${mailto}" style="display:inline-block;padding:14px 28px;font-family:${FONT};font-size:15px;line-height:20px;color:#FFFFFF;text-decoration:none;">Svar på tilbuddet</a></td></tr></table></td></tr>
-<tr><td style="padding:20px 40px 24px 40px;border-top:1px solid #E6DED3;font-family:${FONT};font-size:12px;line-height:19px;color:#6B5A4A;">Alle priser er ekskl. moms.${s.type !== "aftale" && m && m.semi ? "" : " Der er typisk 1–2 ugers leveringstid fra godkendelse."}${udloebTxt ? `<br><strong style="color:#2B1D14;">Tilbuddet er gyldigt til ${esc(udloebTxt)}.</strong>` : ""}</td></tr>
+${para(T("Sig endelig til, hvis der er noget, I ønsker tilpasset.", "Please let me know if there is anything you would like adjusted."), "32px 40px 0 40px")}
+<tr><td style="padding:20px 40px 36px 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#3A2417" style="background-color:#3A2417;"><a href="${mailto}" style="display:inline-block;padding:14px 28px;font-family:${FONT};font-size:15px;line-height:20px;color:#FFFFFF;text-decoration:none;">${T("Svar på tilbuddet", "Reply to the quote")}</a></td></tr></table></td></tr>
+<tr><td style="padding:20px 40px 24px 40px;border-top:1px solid #E6DED3;font-family:${FONT};font-size:12px;line-height:19px;color:#6B5A4A;">${T("Alle priser er ekskl. moms.", "All prices are excl. VAT.")}${s.type !== "aftale" && m && m.semi ? "" : T(" Der er typisk 1–2 ugers leveringstid fra godkendelse.", " Delivery time is typically 1–2 weeks from approval.")}${udloebTxt ? `<br><strong style="color:#2B1D14;">${T("Tilbuddet er gyldigt til", "The quote is valid until")} ${esc(udloebTxt)}.</strong>` : ""}</td></tr>
 </table></td></tr></table>`;
 }
 
@@ -468,8 +505,14 @@ function syncChoices() {
     g.querySelectorAll('[role="radio"]').forEach((b) => b.setAttribute("aria-checked", String(b.dataset.value === v)));
   });
 }
+let lastLang = "da";
 function update() {
   syncChoices();
+  const nl = $("lang").value === "en" ? "en" : "da";
+  if (nl !== lastLang) {
+    if ($("intro").value.trim() === INTRO[lastLang]) $("intro").value = INTRO[nl];
+    lastLang = nl;
+  }
   let s = read();
   const semi = !!(MACH[s.maskine] && MACH[s.maskine].semi);
   if (semi) {
@@ -555,6 +598,7 @@ $("reset").addEventListener("click", () => {
   ["kgpris", "kgmaaned", "levmin"].forEach((id) => { $(id).value = ""; });
   FORMATER.forEach((f) => { $(f.id).checked = f.id === "fmt-1kg"; });
   $("type").value = "maskine";
+  $("lang").value = "da";
   $("a-kakao").checked = false;
   $("a-maelk").checked = false;
   KAFFE.forEach((k) => { $(k.id).checked = false; });
