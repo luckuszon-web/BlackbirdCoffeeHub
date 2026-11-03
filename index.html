@@ -74,7 +74,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .bar { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
 .buttons { display: flex; flex-wrap: wrap; gap: 10px; }
-button:not(.tile):not(.pill) { font: inherit; font-weight: 600; cursor: pointer; border-radius: 6px; padding: 11px 18px; min-height: 44px; border: 1px solid var(--brand); }
+button:not(.tile):not(.pill):not(.addbtn) { font: inherit; font-weight: 600; cursor: pointer; border-radius: 6px; padding: 11px 18px; min-height: 44px; border: 1px solid var(--brand); }
 button.primary { background: var(--brand); color: var(--brand-ink); }
 button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
 button:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -86,6 +86,10 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 #preview { min-width: 360px; }
 .hint { color: var(--muted); font-size: 13px; margin: 0; }
 .lbl { font-size: 13px; font-weight: 600; }
+.addnote { display: flex; flex-direction: column; gap: 8px; }
+.addbtn { align-self: flex-start; background: transparent; color: var(--ink); border: 1px dashed var(--line); border-radius: 6px; padding: 6px 12px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.addbtn:hover { border-color: var(--muted); }
+.addbtn[aria-expanded="true"] { border-style: solid; }
 .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .tile { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 6px 10px; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 10px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; min-width: 0; }
 .tile small { display:block; font-weight:500; font-size:11px; color:var(--muted); margin-top:1px; }
@@ -116,6 +120,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <legend>Kunde</legend>
         <div class="field"><label for="firma">Virksomhed</label><input type="text" id="firma" value="" autocomplete="off"></div>
         <div class="field"><label for="navn">Kontaktperson <small>(fornavn)</small></label><input type="text" id="navn" value="" autocomplete="off"></div>
+        <div class="addnote"><button type="button" class="addbtn" data-note="n-kunde" aria-expanded="false">+ Tilføj egen tekst efter indledningen</button><textarea id="n-kunde" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
       <fieldset>
@@ -169,6 +174,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
           <label class="check"><input type="checkbox" id="grinder"> Grinder</label>
           <p class="hint">Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.</p>
         </div>
+        <div class="addnote"><button type="button" class="addbtn" data-note="n-maskine" aria-expanded="false">+ Tilføj egen tekst om maskinen</button><textarea id="n-maskine" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
       <fieldset>
@@ -177,6 +183,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <label class="check"><input type="checkbox" id="kaffe-dr" checked> Early Bird Dark Roast</label>
         <label class="check"><input type="checkbox" id="kaffe-bw"> Black Wings</label>
         <label class="check" id="f-kakao"><input type="checkbox" id="kakao"> Kakaopulver inkluderet</label>
+        <div class="addnote"><button type="button" class="addbtn" data-note="n-kaffe" aria-expanded="false">+ Tilføj egen tekst om kaffen</button><textarea id="n-kaffe" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
       <fieldset>
@@ -215,6 +222,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         </div>
         <div class="field"><label for="periode">Aftaleperiode <small>(antal måneder)</small></label><input type="text" id="periode" inputmode="numeric" value="" autocomplete="off"></div>
         <label class="check"><input type="checkbox" id="ingenper"> Nævn ikke aftaleperiode</label>
+        <div class="addnote"><button type="button" class="addbtn" data-note="n-pris" aria-expanded="false">+ Tilføj egen tekst i prisboksen</button><textarea id="n-pris" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
       <fieldset>
@@ -222,6 +230,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <div class="field"><label for="intro">Indledning</label><textarea id="intro">Tak for en rigtig god snak. Det var en fornøjelse at høre mere om jeres behov. Som lovet har jeg samlet et tilbud, så I kan se, hvad løsningen indeholder.</textarea></div>
         <div class="field"><label for="udloeb">Udløbsdato <small>(valgfri, vises nederst i tilbuddet)</small></label><input type="date" id="udloeb"></div>
         <div class="field"><label for="mail">Svar-adresse <small>(knappen i mailen)</small></label><input type="email" id="mail" value="lb@blackbirdcoffee.dk" autocomplete="off"></div>
+        <div class="addnote"><button type="button" class="addbtn" data-note="n-slut" aria-expanded="false">+ Tilføj egen tekst før afslutningen</button><textarea id="n-slut" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
     </form>
 
@@ -325,6 +334,7 @@ const FORMATER = [
 ];
 function read() {
   return {
+    notes: { kunde: $("n-kunde").value.trim(), maskine: $("n-maskine").value.trim(), kaffe: $("n-kaffe").value.trim(), pris: $("n-pris").value.trim(), slut: $("n-slut").value.trim() },
     type: $("type").value || "maskine", lang: $("lang").value === "en" ? "en" : "da",
     kgpris: num($("kgpris").value), kgmaaned: num($("kgmaaned").value), levmin: num($("levmin").value),
     akakao: $("a-kakao").checked, amaelk: $("a-maelk").checked,
@@ -363,6 +373,7 @@ function missing(s) {
 }
 
 const h2 = (t, top) => `<tr><td style="padding:${top || 32}px 40px 10px 40px;font-family:${SERIF};font-size:24px;line-height:30px;color:#2B1D14;">${t}</td></tr>`;
+const noteRow = (txt) => (txt ? `<tr><td style="padding:16px 40px 0 40px;font-family:${FONT};font-size:15px;line-height:24px;color:#4A3A2E;">${esc(txt).replace(/\n/g, "<br>")}</td></tr>` : "");
 const para = (t, pad) => `<tr><td style="padding:${pad || "0 40px 0 40px"};font-family:${FONT};font-size:15px;line-height:24px;color:#4A3A2E;">${t}</td></tr>`;
 const bullet = (t) => `<tr><td width="30" valign="top" style="padding:0 0 8px 0;font-family:${FONT};font-size:16px;line-height:22px;font-weight:bold;color:#DA6D2B;">&#9679;</td><td valign="top" style="padding:0 0 8px 0;font-family:${FONT};font-size:15px;line-height:22px;color:#4A3A2E;">${t}</td></tr>`;
 const checkBullet = (t) => `<tr><td width="30" valign="top" style="padding:0 0 8px 0;font-family:${FONT};font-size:16px;line-height:22px;font-weight:bold;color:#6F4529;">&#10003;</td><td valign="top" style="padding:0 0 8px 0;font-family:${FONT};font-size:15px;line-height:22px;color:#4A3A2E;">${t}</td></tr>`;
@@ -380,6 +391,7 @@ function mainAftale(s) {
   const txt = [T(`Prisen er beregnet ud fra en forventet aftagning på ${kgM} kg pr. måned.`, `The price is based on an expected consumption of ${kgM} kg per month.`)];
   if (s.levmin) txt.push(T(`Minimumsbestilling: ${Math.round(s.levmin)} ${Math.round(s.levmin) === 1 ? "levering" : "leveringer"} fordelt over et år.`, `Minimum order: ${Math.round(s.levmin)} ${Math.round(s.levmin) === 1 ? "delivery" : "deliveries"} spread over a year.`));
   if (!s.ingenper) txt.push(T(`Aftaleperiode: ${mdrTxt}.`, `Agreement period: ${mdrTxt}.`));
+  if (s.notes.pris) txt.push(esc(s.notes.pris).replace(/\n/g, "<br>"));
   const lines = txt.map((t, i) => priceLine(t, i === txt.length - 1)).join("\n");
 
   const kaffeTxt = kaffeIntro(s.kaffe) + kaffeFri();
@@ -395,6 +407,7 @@ ${para(kaffeTxt)}
 ${s.kaffe.map(beanRow).join("")}
 ${s.akakao ? kakaoRow() : ""}
 ${s.amaelk ? maelkRow() : ""}
+${noteRow(s.notes.kaffe)}
 ${h2(T("Levering", "Delivery"))}
 ${para(T(`Som udgangspunkt sender vi bønnerne løbende, baseret på det aftalte månedlige forbrugsestimat på ${kgM} kg. Har I for meget eller for lidt på lager, giver I blot besked, så sætter vi forsendelserne på pause eller justerer dem. Dog er I forpligtet til at aftage den forventede mængde.`, `As a starting point, we ship the beans on an ongoing basis, based on the agreed monthly consumption estimate of ${kgM} kg. If you have too much or too little in stock, simply let us know and we will pause or adjust the shipments. However, you are committed to purchasing the expected quantity.`), "0 40px 12px 40px")}
 ${para(T("Kaffen fås som:", "The coffee is available as:"), "0 40px 10px 40px")}
@@ -443,8 +456,10 @@ function buildEmail(s) {
 
   const lines = [priceLine(T(`Prisen inkluderer ${joinOg(incl)}.`, `The price includes ${joinOg(incl)}.`))];
   if (s.drikkere) lines.push(priceLine(T(`Prisen er beregnet ud fra ${Math.round(s.drikkere)} kaffedrikkere.`, `The price is calculated based on ${Math.round(s.drikkere)} coffee drinkers.`)));
-  if (periodeLine) lines.push(priceLine(modelLine), priceLine(periodeLine, true));
-  else lines.push(priceLine(modelLine, true));
+  const np = s.notes.pris ? esc(s.notes.pris).replace(/\n/g, "<br>") : null;
+  if (periodeLine) lines.push(priceLine(modelLine), priceLine(periodeLine, !np));
+  else lines.push(priceLine(modelLine, !np));
+  if (np) lines.push(priceLine(np, true));
 
   const machineRow = m ? `<tr><td style="padding:28px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F6F1EA" style="background-color:#F6F1EA;"><tr><td align="center" style="padding:28px 20px;"><img src="${IMG[s.maskine]}" width="400" alt="${esc(m.name)}" style="display:block;width:100%;max-width:400px;height:auto;border:0;margin:0 auto;"></td></tr></table></td></tr>` : "";
   let udloebTxt = "";
@@ -461,11 +476,13 @@ ${m && m.features ? `<tr><td style="padding:14px 40px 0 40px;"><table role="pres
 <tr><td style="padding:18px 40px 0 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">${T("Inkluderet ekstraudstyr", "Included extras")}</td></tr>
 ${para(esc(equip.join(" · ")), "4px 40px 0 40px")}
 ${m && m.spec ? (spec => `<tr><td style="padding:18px 40px 6px 40px;font-family:${FONT};font-size:13px;line-height:18px;letter-spacing:1px;text-transform:uppercase;color:#6F4529;">${T("Tekniske data", "Technical data")}</td></tr>` + spec.map((row) => `<tr><td style="padding:0 40px 4px 40px;font-family:${FONT};font-size:14px;line-height:21px;">${row.map(([k, v]) => `<span style="color:#6B5A4A;">${esc(k)}</span>&nbsp;<span style="color:#2B1D14;">${esc(v)}</span>`).join(" &nbsp;·&nbsp; ")}</td></tr>`).join(""))(m.spec.map((r, i) => (i === 0 && s.maelk === "friskmaelk" && m.kol ? r.concat([m.kol]) : r.slice()))) : ""}
+${noteRow(s.notes.maskine)}
 ${h2(T("Kaffen", "The coffee"))}
 ${para(kaffeIntro(s.kaffe) + kaffeFri())}
 ${s.kaffe.map(beanRow).join("")}
 ${s.maelk === "pulver" ? maelkRow() : ""}
 ${s.kakao ? kakaoRow() : ""}
+${noteRow(s.notes.kaffe)}
 ${h2(T("Service og drift", "Service and operation"), 32)}
 <tr><td style="padding:0 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${(en ? ["Installation", "Ongoing delivery of coffee", "Full service agreement", "All spare parts included", "Replacement of the machine if needed"] : ["Installation", "Løbende levering af kaffe", "Fuld serviceaftale", "Alle reservedele inkluderet", "Ombytning af maskinen ved behov"]).map(checkBullet).join("")}</table></td></tr>
 ${m && m.semi ? "" : h2(T("Personlig installation", "Personal installation")) + para(T("Ved installationen kommer jeg personligt ud, sætter maskinen op og installerer den. Jeg justerer den til jeres kopstørrelser og smagspræferencer og giver jer en introduktion til, hvordan maskinen fungerer, så I er trygge ved betjeningen, inden jeg går igen.", "At installation, I will come out personally to set up and install the machine. I adjust it to your cup sizes and taste preferences and give you an introduction to how the machine works, so you feel confident using it before I leave.")) + h2(T("Intelligent fjernstyring", "Intelligent remote management")) + para(T("Maskinen registrerer løbende forbrug og lagerstatus, så kaffeleverancerne automatisk bliver tilpasset jeres behov. Vores serviceafdeling kan desuden fjernstyre maskinen, så justeringer af styrke eller temperatur klares over telefonen inden for få minutter, uden behov for et teknikerbesøg.", "The machine continuously registers consumption and stock status, so coffee deliveries are automatically adapted to your needs. Our service department can also manage the machine remotely, so adjustments to strength or temperature are handled over the phone within minutes, without the need for a technician visit."))}
@@ -485,7 +502,9 @@ ${lines.join("\n")}
 <tr><td style="padding:0 40px 20px 40px;font-family:${SERIF};font-size:32px;line-height:38px;color:#2B1D14;">${T("Tilbud til", "Quote for")} ${esc(firma)}</td></tr>
 ${para(T("Hej ", "Hi ") + esc(navn) + ",", "0 40px 14px 40px")}
 ${para(esc(s.intro).replace(/\n/g, "<br>"))}
+${noteRow(s.notes.kunde)}
 ${MAIN}
+${noteRow(s.notes.slut)}
 ${para(T("Sig endelig til, hvis der er noget, I ønsker tilpasset.", "Please let me know if there is anything you would like adjusted."), "32px 40px 0 40px")}
 <tr><td style="padding:20px 40px 36px 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#3A2417" style="background-color:#3A2417;"><a href="${mailto}" style="display:inline-block;padding:14px 28px;font-family:${FONT};font-size:15px;line-height:20px;color:#FFFFFF;text-decoration:none;">${T("Svar på tilbuddet", "Reply to the quote")}</a></td></tr></table></td></tr>
 <tr><td style="padding:20px 40px 24px 40px;border-top:1px solid #E6DED3;font-family:${FONT};font-size:12px;line-height:19px;color:#6B5A4A;">${T("Alle priser er ekskl. moms.", "All prices are excl. VAT.")}${s.type !== "aftale" && m && m.semi ? "" : T(" Der er typisk 1–2 ugers leveringstid fra godkendelse.", " Delivery time is typically 1–2 weeks from approval.")}${udloebTxt ? `<br><strong style="color:#2B1D14;">${T("Tilbuddet er gyldigt til", "The quote is valid until")} ${esc(udloebTxt)}.</strong>` : ""}</td></tr>
@@ -588,6 +607,12 @@ $("pdf").addEventListener("click", () => {
   window.addEventListener("afterprint", back);
   try { window.print(); } catch (e) { flash("Udskrift er blokeret her. Åbn siden i en almindelig browserfane.", "err"); back(); }
 });
+document.querySelectorAll(".addbtn").forEach((b) => b.addEventListener("click", () => {
+  const ta = $(b.dataset.note), open = ta.hidden;
+  const base = b.textContent.replace(/^[+−] (Fjern|Tilføj) /, "");
+  if (open) { ta.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = "− Fjern " + base; ta.focus(); }
+  else { ta.value = ""; ta.hidden = true; b.setAttribute("aria-expanded", "false"); b.textContent = "+ Tilføj " + base; update(); }
+}));
 $("reset").addEventListener("click", () => {
   ["firma", "navn", "pris", "drikkere", "periode"].forEach((id) => { $(id).value = ""; });
   ["maskine", "vand", "maelk"].forEach((id) => { $(id).value = ""; });
@@ -599,6 +624,7 @@ $("reset").addEventListener("click", () => {
   FORMATER.forEach((f) => { $(f.id).checked = f.id === "fmt-1kg"; });
   $("type").value = "maskine";
   $("lang").value = "da";
+  document.querySelectorAll(".addbtn").forEach((b) => { if (!$(b.dataset.note).hidden) b.click(); });
   $("a-kakao").checked = false;
   $("a-maelk").checked = false;
   KAFFE.forEach((k) => { $(k.id).checked = false; });
