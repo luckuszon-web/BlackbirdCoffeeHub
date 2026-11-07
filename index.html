@@ -1038,7 +1038,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
         </div>
         <div class="followup"><label for="fu-date">Opfølgning</label><input type="date" id="fu-date"><input type="time" id="fu-time" value="09:00">
         </div>
-        <p class="hint">«Åbn kladde i Outlook» kopierer tilbuddet og åbner en ny mail med modtager og emne udfyldt. Tryk Ctrl+V (Mac: Cmd+V) i mailen for at sætte teksten ind, og tryk selv send. <a href="#" id="outlook-app">Brug mailprogrammet på computeren i stedet</a>. Eller tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
+        <p class="hint">«Åbn kladde i Outlook» kopierer tilbuddet og åbner en ny mail i dit mailprogram (Outlook-appen, hvis den er din standard) med modtager og emne udfyldt. Tryk Ctrl+V (Mac: Cmd+V) i mailen for at sætte teksten ind, og tryk selv send. <a href="#" id="outlook-app">Åbn i Outlook på nettet i stedet</a>. Eller tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
       </div>
       <p class="prevlabel">Eksempel på mailen</p>
       <button type="button" class="secondary" id="pvzoom" hidden style="margin:0 0 8px">Forstør maileksempel</button>
@@ -1883,8 +1883,8 @@ async function openOutlook(app) {
   if (!w) { flash("Browseren blokerede det nye vindue. Tillad pop-ups for siden, og prøv igen.", "err"); return; }
   flash(copied ? "Tilbuddet er kopieret. Tryk Ctrl+V (Mac: Cmd+V) i den nye mail, og tryk send." : "Mailen er åbnet, men tilbuddet kunne ikke kopieres. Tryk «Kopiér tilbud», og sæt det ind.", copied ? "ok" : "err");
 }
-$("outlook").addEventListener("click", () => openOutlook(false));
-$("outlook-app").addEventListener("click", (e) => { e.preventDefault(); if (!$("outlook").disabled) openOutlook(true); else flash("Udfyld tilbuddet først.", "err"); });
+$("outlook").addEventListener("click", () => openOutlook(true));
+$("outlook-app").addEventListener("click", (e) => { e.preventDefault(); if (!$("outlook").disabled) openOutlook(false); else flash("Udfyld tilbuddet først.", "err"); });
 $("subj").addEventListener("click", async () => {
   const t = subjectLine(read()); let ok = false;
   try { await navigator.clipboard.writeText(t); ok = true; } catch (e) {
