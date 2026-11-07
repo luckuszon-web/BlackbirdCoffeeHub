@@ -7,8 +7,6 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#3A2417">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="icon" href="icon-192.png" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
@@ -408,10 +406,10 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .kvtabs { display: flex; gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 16px; }
 .kvtabs button { flex: 1; font: inherit !important; font-weight: 700 !important; font-size: 15px !important; min-height: 44px; border-radius: 10px !important; border: 0 !important; background: transparent !important; color: var(--muted) !important; cursor: pointer; padding: 8px 12px !important; }
 .kvtabs button[aria-pressed="true"] { background: var(--brand) !important; color: var(--brand-ink) !important; }
-.rx { --c-coffee: #4A2B17; --c-crema: #B77B45; --c-water: #7FB1CE; --c-milk: #E8D3B3; --c-foam: #FFF5E4; --glass-rim: #3A2417; --glass-fill: rgba(255,255,255,.55); --disp: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif; --rx-soft: #F8E4D4; --rx-shadow: 0 1px 2px rgba(58,36,23,.06), 0 8px 24px rgba(58,36,23,.07); }
+.rx { --c-coffee: #4A2B17; --c-crema: #B77B45; --c-water: #7FB1CE; --c-milk: #E8D3B3; --c-foam: #FFF5E4; --glass-rim: #3A2417; --glass-fill: rgba(255,255,255,.55); --disp: var(--font); --rx-soft: #F8E4D4; --rx-shadow: 0 1px 2px rgba(58,36,23,.06), 0 8px 24px rgba(58,36,23,.07); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rx { --c-coffee: #5A3720; --c-crema: #C58C55; --c-water: #5F93B2; --c-milk: #D8C09C; --c-foam: #F6E9D3; --glass-rim: #D9C7B4; --glass-fill: rgba(255,255,255,.06); --rx-soft: #3F2517; --rx-shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35); } }
 :root[data-theme="dark"] .rx { --c-coffee: #5A3720; --c-crema: #C58C55; --c-water: #5F93B2; --c-milk: #D8C09C; --c-foam: #F6E9D3; --glass-rim: #D9C7B4; --glass-fill: rgba(255,255,255,.06); --rx-soft: #3F2517; --rx-shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35); }
-.rx h2.rx-h { margin: 0; font-family: var(--disp); font-weight: 800; font-size: clamp(28px, 6vw, 38px); line-height: 1.04; letter-spacing: -.02em; text-wrap: balance; }
+.rx h2.rx-h { margin: 0; font-size: 30px; font-weight: 650; line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
 .rx .rx-sub { margin: 8px 0 18px; color: var(--muted); max-width: 52ch; }
 .rx-layout { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); grid-template-areas: "var" "cup" "size" "res"; }
 .rx-var { grid-area: var; } .rx-cup { grid-area: cup; } .rx-size { grid-area: size; } .rx-res { grid-area: res; }
@@ -444,7 +442,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .rx-shadow { width: 62%; height: 10px; margin-top: 6px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(58,36,23,.28), transparent 70%); }
 .rx-capt { margin-top: 14px; text-align: center; }
 .rx-capt span { display: block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-.rx-capt b { display: block; font-family: var(--disp); font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.rx-capt b { display: block; font-family: var(--disp); font-weight: 700; font-size: 44px; line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .rx-capt b small { font-size: 20px; font-weight: 600; color: var(--muted); margin-left: 3px; }
 .rx-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; margin-top: 12px; font-size: 12.5px; color: var(--muted); }
 .rx i.rx-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; border: 1px solid rgba(0,0,0,.22); vertical-align: -1px; background: var(--c); }
@@ -471,14 +469,14 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .rx-res.dim { opacity: .4; }
 .rx-beans { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; background: var(--brand); color: var(--brand-ink); border-radius: 20px; padding: 18px 20px; box-shadow: var(--rx-shadow); }
 .rx-beans span { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
-.rx-beans b { font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.rx-beans b { font-family: var(--disp); font-weight: 700; font-size: 56px; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
 .rx-beans b small { font-size: 24px; font-weight: 600; margin-left: 4px; opacity: .8; }
 .rx-liq { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
 .rx-liq li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 12px; padding: 14px 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 16px; }
 .rx-liq .rx-dot { width: 14px !important; height: 14px !important; margin: 0 !important; }
 .rx-liq .t { font-weight: 600; min-width: 0; }
 .rx-liq .t small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.rx-liq .v { font-family: var(--disp); font-weight: 800; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
+.rx-liq .v { font-family: var(--disp); font-weight: 700; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
 .rx-liq .v small { font-size: 15px; font-weight: 600; color: var(--muted); margin-left: 3px; }
 .rx .rx-note { margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--rx-soft); color: var(--ink); font-size: 14.5px; }
 @media (max-width: 420px) { .rx-beans b { font-size: 48px; } .rx-liq .v { font-size: 26px; } .rx-scale { padding-left: 0; } .rx-srow { flex-wrap: wrap; } .rx-num { flex: 1 1 100%; } .rx input[type="range"] { flex: 1 1 100%; } }
