@@ -1932,7 +1932,8 @@ $("cal").addEventListener("click", () => {
    Al data ligger i localStorage (nøgler "bb-…"). Hver nøgle spejles som én række i tabellen user_data
    (beskyttet af Row Level Security, så hver bruger kun ser sine egne rækker). Kun aktiv på GitHub Pages. */
 const SB = { url: "https://uizozkrouljdgubcibos.supabase.co", key: "sb_publishable_CAEYckrh0m-3lYSm8iPmvA_PrYkbx9I" };
-const SB_ON = /github\.io$/.test(location.hostname) || /[?&]sb=1\b/.test(location.search);
+const LOGIN = false; // true = kræv login (Supabase), false = åben side uden login
+const SB_ON = LOGIN && (/github\.io$/.test(location.hostname) || /[?&]sb=1\b/.test(location.search));
 const SB_SESS = "bb-sb-session", SB_DIRTY = "bb-sb-dirty", SB_UID = "bb-sb-uid";
 const sbSynced = (k) => typeof k === "string" && k.indexOf("bb-") === 0 && k.indexOf("bb-sb-") !== 0;
 const sbJ = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v === null || v === undefined ? d : v; } catch (e) { return d; } };
