@@ -84,7 +84,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .status.err { color: var(--warn-ink); }
 .prevlabel { margin: 4px 0 -16px; font-size: 12px; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .previewwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
-#preview { min-width: 360px; }
+#preview { min-width: 0; }
 .hint { color: var(--muted); font-size: 13px; margin: 0; }
 .lbl { font-size: 13px; font-weight: 600; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -683,6 +683,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
         <p class="hint">Tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
       </div>
       <p class="prevlabel">Eksempel på mailen</p>
+      <button type="button" class="secondary" id="pvzoom" hidden style="margin:0 0 8px">Forstør maileksempel</button>
       <div class="previewwrap"><div id="preview"></div></div>
     </div>
   </div>
@@ -1384,6 +1385,7 @@ function update() {
   const bad = invalid(s);
   $("periode-err").hidden = !(a ? shortPeriod(s.periode, s.ingenper) : ST.opts.some((o) => shortPeriod(o.periode, o.ingenper)) && shortPeriod(ST.opts[ST.ai].periode, ST.opts[ST.ai].ingenper));
   $("preview").innerHTML = buildEmail(s);
+  fitPreview();
   const miss = missing(s);
   const ready = miss.length === 0 && bad.length === 0;
   $("copy").disabled = !ready;
@@ -1508,6 +1510,18 @@ function snapshot() {
   return { f, st: JSON.parse(JSON.stringify(ST)), auto: autoVand };
 }
 let restoring = false;
+let pvBig = false;
+function fitPreview() {
+  const pv = $("preview"); if (!pv) return;
+  pv.style.zoom = "";
+  const w = pv.parentElement.clientWidth, c = pv.scrollWidth, b = $("pvzoom");
+  const need = w > 0 && c > w + 1;
+  b.hidden = !need;
+  if (need && !pvBig) pv.style.zoom = (w / c).toFixed(3);
+  b.textContent = pvBig ? "Tilpas maileksempel til skærmen" : "Forstør maileksempel";
+}
+$("pvzoom").addEventListener("click", () => { pvBig = !pvBig; fitPreview(); });
+window.addEventListener("resize", fitPreview);
 function restore(snap) {
   if (!snap || !snap.f) return;
   restoring = true;
@@ -1573,6 +1587,7 @@ let openedId = null, overFilter = "alle", sureId = null, sureTimer = null;
 function showTab(n) {
   ["home", "gen", "over", "todo", "tco", "kaf", "rules"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
   $("hdr-gen").hidden = n !== "gen";
+  if (n === "gen") fitPreview();
   if (n === "over") renderOver();
   if (n === "todo") renderTodo();
   if (n === "tco") renderTco();
