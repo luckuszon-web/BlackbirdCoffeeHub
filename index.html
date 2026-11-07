@@ -1055,7 +1055,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
           </fieldset>
         </div>
         <div class="field"><label for="periode">Aftaleperiode <small>(antal måneder)</small></label><input type="text" id="periode" inputmode="numeric" value="" autocomplete="off" aria-describedby="periode-err"><p class="fielderr" id="periode-err" hidden>Aftaleperioden skal være mindst 12 måneder. Kortere perioder er ikke tilladt.</p></div>
-        <label class="check"><input type="checkbox" id="ingenper"> Nævn ikke aftaleperiode</label>
+        <label class="check"><input type="checkbox" id="ingenper" checked> Nævn ikke aftaleperiode</label>
         <div class="addnote"><button type="button" class="addbtn" data-note="n-pris" aria-expanded="false">+ Tilføj egen tekst i prisboksen</button><textarea id="n-pris" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
@@ -1361,7 +1361,7 @@ const minLockReason = (o) => {
 };
 const minLocked = (o) => !!minLockReason(o);
 const newMach = () => ({ maskine: "", vand: "", maelk: "", qpress: false, grinder: false, kort: false, antal: "1", pris: "", auto: false });
-const newOpt = () => ({ mach: [newMach()], model: "min", kopper: "100", periode: "", ingenper: false, drikkere: "", visTotal: false });
+const newOpt = () => ({ mach: [newMach()], model: "min", kopper: "100", periode: "", ingenper: true, drikkere: "", visTotal: false });
 let ST = { opts: [newOpt()], ai: 0, am: 0 };
 let autoVand = false;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -2201,7 +2201,7 @@ $("reset").addEventListener("click", () => {
   ["maskine", "vand", "maelk"].forEach((id) => { $(id).value = ""; });
   $("kakao").checked = false;
   $("qpress").checked = false; $("grinder").checked = false; $("kort").checked = false; autoVand = false;
-  $("ingenper").checked = false;
+  $("ingenper").checked = true;
   $("udloeb").value = "";
   ["kgpris", "kgmaaned", "levmin"].forEach((id) => { $(id).value = ""; });
   FORMATER.forEach((f) => { $(f.id).checked = f.id === "fmt-1kg"; });
