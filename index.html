@@ -3,9 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>Tilbudsgenerator</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" href="favicon.ico" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon.ico" sizes="any"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 /* Layout: formular til venstre, levende mailudkast til højre; på telefon stables de. */
 :root {
@@ -667,7 +665,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
       <fieldset>
         <legend>Mailen</legend>
         <div class="field"><label for="udloeb">Udløbsdato <small>(valgfri, vises nederst i tilbuddet)</small></label><input type="date" id="udloeb"></div>
-        <div class="field"><label for="mail">Svar-adresse <small>(knappen i mailen)</small></label><input type="email" id="mail" value="lb@blackbirdcoffee.dk" autocomplete="off"></div>
+        <div class="field"><label for="mail">Svar-adresse <small>(knappen i mailen)</small></label><select id="mail"><option value="">Ikke valgt</option><option value="nh@blackbirdcoffee.dk">nh@blackbirdcoffee.dk</option><option value="mfh@blackbirdcoffee.dk">mfh@blackbirdcoffee.dk</option><option value="lb@blackbirdcoffee.dk" selected>lb@blackbirdcoffee.dk</option><option value="maj@blackbirdcoffee.dk">maj@blackbirdcoffee.dk</option><option value="hk@blackbirdcoffee.dk">hk@blackbirdcoffee.dk</option><option value="jh@blackbirdcoffee.dk">jh@blackbirdcoffee.dk</option><option value="nn@blackbirdcoffee.dk">nn@blackbirdcoffee.dk</option><option value="ob@blackbirdcoffee.dk">ob@blackbirdcoffee.dk</option><option value="ns@blackbirdcoffee.dk">ns@blackbirdcoffee.dk</option><option value="nbn@blackbirdcoffee.dk">nbn@blackbirdcoffee.dk</option><option value="jr@blackbirdcoffee.dk">jr@blackbirdcoffee.dk</option></select></div>
         <div class="addnote"><button type="button" class="addbtn" data-note="n-slut" aria-expanded="false">+ Tilføj egen tekst før afslutningen</button><textarea id="n-slut" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
     </form>
@@ -1513,7 +1511,7 @@ let restoring = false;
 function restore(snap) {
   if (!snap || !snap.f) return;
   restoring = true;
-  Object.keys(snap.f).forEach((id) => { const el = $(id); if (!el) return; if (el.type === "checkbox") el.checked = !!snap.f[id]; else el.value = snap.f[id]; });
+  Object.keys(snap.f).forEach((id) => { const el = $(id); if (!el) return; if (el.type === "checkbox") el.checked = !!snap.f[id]; else { if (el.tagName === "SELECT" && snap.f[id] && ![...el.options].some((o) => o.value === snap.f[id])) { const op = document.createElement("option"); op.value = op.textContent = snap.f[id]; el.appendChild(op); } el.value = snap.f[id]; } });
   if (snap.st && snap.st.opts && snap.st.opts.length) { ST = snap.st; ST.ai = Math.min(ST.ai || 0, ST.opts.length - 1); ST.am = Math.min(ST.am || 0, ST.opts[ST.ai].mach.length - 1); }
   document.querySelectorAll(".addbtn").forEach((b) => {
     const ta = $(b.dataset.note);
