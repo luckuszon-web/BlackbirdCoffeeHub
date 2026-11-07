@@ -445,6 +445,35 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .kv-sr { display: grid; gap: 8px; } .kv-sr .grp { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 14px 0 2px; }
 .kv-empty { color: var(--muted); padding: 22px 4px; }
 @media (max-width: 520px) { .kv-hero { min-height: 230px; } .kv-hero h2 { font-size: 26px; } .kv-cats { gap: 10px; } .kcat { min-height: 196px; } .kv-art h1 { font-size: 26px; } .kv-art .lead { font-size: 17px; } .kfig { margin-left: -6px; margin-right: -6px; } .kfig .steps { grid-template-columns: repeat(2, 1fr); } }
+
+.rl-hero { border-radius: 20px; padding: 24px 22px; color: #fff; background: linear-gradient(145deg, #3B2A20, #17100B); margin-bottom: 14px; }
+.rl-hero .eb { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #F6C9A3; }
+.rl-hero h2 { margin: 0 0 8px; font-size: 28px; line-height: 1.15; color: #fff; }
+.rl-hero p { margin: 0; font-size: 15px; line-height: 1.5; color: rgba(255,255,255,.9); max-width: 560px; }
+.rl-keys { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 0 0 18px; }
+.rl-key { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 4px; text-align: center; }
+.rl-key b { display: block; font-size: 20px; line-height: 1.1; color: var(--accent); }
+.rl-key span { display: block; font-size: 11.5px; color: var(--muted); margin-top: 3px; line-height: 1.25; }
+.rl-sec { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; margin: 10px 0; overflow: hidden; }
+.rl-sec > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 12px; padding: 16px 18px; font-weight: 700; font-size: 17px; line-height: 1.3; }
+.rl-sec > summary::-webkit-details-marker { display: none; }
+.rl-sec > summary .n { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: var(--brand-ink); display: grid; place-items: center; font-size: 14px; }
+.rl-sec > summary::after { content: "+"; margin-left: auto; font-size: 24px; font-weight: 400; color: var(--muted); }
+.rl-sec[open] > summary::after { content: "–"; }
+.rl-sec .rb { padding: 0 18px 16px; }
+.rl-sec .rb h4 { margin: 16px 0 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.rl-sec .rb p, .rl-sec .rb li { font-size: 16px; line-height: 1.6; }
+.rl-sec .rb p { margin: 0 0 10px; } .rl-sec .rb ul, .rl-sec .rb ol { margin: 0 0 8px; padding-left: 22px; } .rl-sec .rb li { margin-bottom: 5px; }
+.rl-no { background: color-mix(in srgb, var(--bad) 9%, var(--surface)); border-left: 4px solid var(--bad); border-radius: 4px 12px 12px 4px; padding: 10px 14px; margin: 10px 0; font-size: 15.5px; line-height: 1.5; }
+.rl-chk { margin-top: 18px; }
+.rl-chk h3 { margin: 0 0 4px; font-size: 18px; }
+.rl-ci { display: flex !important; align-items: flex-start; gap: 12px; width: 100%; text-align: left; font: inherit; font-size: 15.5px; line-height: 1.4; padding: 12px 14px !important; min-height: 52px; margin-top: 8px; border-radius: 12px !important; border: 1.5px solid var(--line) !important; background: var(--surface) !important; color: var(--ink) !important; cursor: pointer; box-shadow: none !important; }
+.rl-ci .bx { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--muted); display: grid; place-items: center; font-size: 14px; line-height: 1; color: transparent; margin-top: 1px; }
+.rl-ci[aria-pressed="true"] { border-color: var(--kg) !important; background: var(--kg-soft) !important; }
+.rl-ci[aria-pressed="true"] .bx { background: var(--kg); border-color: var(--kg); color: #fff; }
+.rl-ci small { display: block; color: var(--muted); font-size: 13px; font-weight: 400; margin-top: 2px; }
+.rl-sum { margin: 14px 0 4px; font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+@media (max-width: 520px) { .rl-keys { grid-template-columns: repeat(3, 1fr); } .rl-hero h2 { font-size: 24px; } }
 </style>
 
 <div class="page">
@@ -462,6 +491,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
       <button type="button" role="tab" class="tab" id="tabbtn-over" data-tab="over" aria-selected="false">Tilbudsoversigt</button>
       <button type="button" role="tab" class="tab" id="tabbtn-tco" data-tab="tco" aria-selected="false">TCO Beregner</button>
       <button type="button" role="tab" class="tab" id="tabbtn-kaf" data-tab="kaf" aria-selected="false">Kaffeakademiet</button>
+      <button type="button" role="tab" class="tab" id="tabbtn-rules" data-tab="rules" aria-selected="false">Salgsregler</button>
       <button type="button" role="tab" class="tab" id="tabbtn-todo" data-tab="todo" aria-selected="false">To-do<span class="tabn" id="todo-n"></span></button>
     </nav>
   </div>
@@ -481,6 +511,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
       <button type="button" class="htile" data-go="over"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-7M2 20h20"/></svg></span><span class="htt">Tilbudsoversigt</span><span class="hts">Status på sendte tilbud</span></button>
       <button type="button" class="htile" data-go="tco"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg></span><span class="htt">TCO Beregner</span><span class="hts">Vis hvad kaffen koster i dag</span></button>
       <button type="button" class="htile" data-go="kaf"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v3M12 3v3"/></svg></span><span class="htt">Kaffeakademiet</span><span class="hts">Slå kaffeviden op på 15 sekunder</span></button>
+      <button type="button" class="htile" data-go="rules"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="htt">Salgsregler</span><span class="hts">Booking, outcome og 21-dages fristen</span></button>
       <button type="button" class="htile" data-go="todo"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg></span><span class="htt">To-do</span><span class="hts" id="hts-todo">Opfølgninger og opkald</span></button>
     </div>
     <div class="hcard" id="hnext" hidden><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
@@ -674,6 +705,65 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
     <div class="tdedit" id="tdeditor" hidden></div>
     <div id="tdlistbox"></div>
     <p class="hint onote">Demoversion: Opgaverne gemmes kun i denne browser på denne enhed. De kan forsvinde, hvis du rydder browserdata eller bruger privat visning, og de deles ikke med andre.</p>
+  </section>
+
+  <section id="tab-rules" role="tabpanel" aria-labelledby="tabbtn-rules" hidden>
+    <div class="kv-art" style="max-width:760px">
+      <div class="rl-hero"><p class="eb">Blackbird Coffee · Intern</p><h2>Interne salgsregler og retningslinjer</h2><p>Opslagsværk til hverdagen. Reglerne sikrer en ensartet salgsproces, høj kvalitet i kundemøderne og tydelig forventningsafstemning mellem sælger, kunde og ledelse. Er du i tvivl om en situation, skal du kunne finde svaret her.</p></div>
+      <div class="rl-keys">
+        <div class="rl-key"><b>2 kg</b><span>kaffe pr. måned (min.)</span></div>
+        <div class="rl-key"><b>2 år</b><span>min. alder på købt maskine</span></div>
+        <div class="rl-key"><b>6 mdr.</b><span>maks. tilbage på leasing/leje</span></div>
+        <div class="rl-key"><b>15</b><span>indendørs siddepladser (restaurant)</span></div>
+        <div class="rl-key"><b>21 dage</b><span>til at lukke salget</span></div>
+      </div>
+      <details class="rl-sec" open><summary><span class="n">1</span>Krav til mødebooking og kundekvalificering</summary><div class="rb">
+        <p>Inden et møde bookes, skal kunden leve op til følgende kriterier:</p>
+        <h4>Kaffeforbrug</h4>
+        <ul><li>Kunden skal minimum drikke eller have potentiale til at sælge <b>2 kg kaffe om måneden</b>.</li><li>2 kg kaffe svarer cirka til <b>250 kopper</b> eller <b>12 kopper om dagen</b>.</li><li>Spørg altid ind til kundens nuværende kaffeforbrug: Hvor meget kaffe bruger de om måneden?</li></ul>
+        <h4>Eksisterende kaffemaskine: køb</h4>
+        <ul><li>Hvis kunden har købt en fuldautomatisk eller semiautomatisk kaffemaskine, skal den minimum være <b>2 år gammel</b>.</li><li>En maskine, der anvender hele kaffebønner, betragtes i denne sammenhæng som en fuldautomatisk eller semiautomatisk maskine.</li><li>Hvis kunden bruger <b>10 kg kaffe eller mere om måneden</b>, må vi gerne booke et møde med henblik på at sælge en ren kaffeaftale.</li></ul>
+        <h4>Eksisterende kaffemaskine: leasing eller leje</h4>
+        <ul><li>Kunden må maksimalt have <b>6 måneder tilbage</b> af sin eksisterende leasing- eller lejeaftale.</li></ul>
+        <h4>Restauranter</h4>
+        <ul><li>Hvis der er tale om en restaurant uden eksisterende kaffeløsning, skal restauranten minimum have <b>15 indendørs siddepladser</b>.</li></ul>
+        <div class="rl-no"><b>Bodegaer må aldrig bookes.</b></div>
+        <h4>Beslutningstager</h4>
+        <ul><li>Mødet skal som udgangspunkt bookes med en <b>tegningsberettiget person</b>.</li><li>Hvis personen ikke selv er tegningsberettiget, skal du spørge, om vedkommende kan skrive under på en eventuel aftale.</li><li>Hvis virksomheden har <b>30 eller flere ansatte</b>, må mødet gerne bookes med en beslutningstager.</li></ul>
+        <h4>Forventningsafstemning</h4>
+        <p>Kunden skal altid være tydeligt informeret om følgende inden mødet:</p>
+        <ol><li>At vi medbringer vores egen kaffemaskine og brygger kaffe hos kunden.</li><li>At formålet med mødet er at præsentere en kaffeløsning og give kunden et tilbud.</li></ol>
+      </div></details>
+      <details class="rl-sec"><summary><span class="n">2</span>Regler for mødeafholdelse</summary><div class="rb">
+        <p>Når mødet er booket, er det vigtigt, at kunden ved, hvad der skal ske.</p>
+        <ul><li>Kunden skal være informeret om, at vi medbringer eget udstyr og brygger kaffe.</li><li>Kunden skal vide, at mødet har et kommercielt formål, og at vi kommer for at præsentere en løsning og give et tilbud.</li><li>Mødet skal som udgangspunkt afholdes med en person, der har den nødvendige beslutningskompetence.</li></ul>
+      </div></details>
+      <details class="rl-sec"><summary><span class="n">3</span>Outcome og opfølgning på møder</summary><div class="rb">
+        <p>Alle afholdte møder skal have et <b>registreret outcome inden dagens udgang</b>.</p>
+        <p>Det er sælgerens ansvar at sikre, at mødet er opdateret med et tydeligt resultat og en konkret status.</p>
+        <div class="rl-no"><b>Hvis der ikke er registreret et outcome inden dagens udgang:</b> Mødet overgår til Teleclose den efterfølgende dag.</div>
+        <p>Det er vigtigt, at ingen møder bliver efterladt uden en tydelig status eller plan for det videre forløb.</p>
+      </div></details>
+      <details class="rl-sec"><summary><span class="n">4</span>Tidsfrist for lukning af salg</summary><div class="rb">
+        <p>Fra mødet er afholdt, har vi <b>21 dage</b> til at lukke salget.</p>
+        <ul><li>Salget skal som udgangspunkt være lukket inden for 21 dage.</li><li>Hvis salget ikke er lukket inden for perioden, overgår sagen til Teleclose.</li><li>Det er sælgerens ansvar at følge op og arbejde aktivt med kunden i perioden.</li></ul>
+        <h4>Undtagelser</h4>
+        <p>Hvis der er en konkret grund til, at sagen ikke skal overgå til Teleclose, skal nærmeste leder informeres.</p>
+        <ul><li>Det skal ske <b>inden overdragelsen</b>, og sælgeren skal tydeligt forklare, hvorfor sagen fortsat bør ligge hos vedkommende.</li><li>Det er ikke tilstrækkeligt blot at lade sagen stå åben. Der skal være en begrundelse og en aftale med nærmeste leder.</li></ul>
+      </div></details>
+      <details class="rl-sec"><summary><span class="n">5</span>Ansvar og efterlevelse</summary><div class="rb">
+        <p>Det er den enkelte sælgers ansvar at kende og overholde de interne retningslinjer.</p>
+        <p>Reglerne er indført for at sikre:</p>
+        <ul><li>Høj kvalitet i vores mødebooking.</li><li>At vi bruger tiden på de rigtige kunder.</li><li>At kunderne har de rette forventninger til mødet.</li><li>At alle møder bliver fulgt ordentligt til dørs.</li><li>At ingen salgsmuligheder bliver glemt eller efterladt uden opfølgning.</li></ul>
+        <p>Er du i tvivl om, hvordan en konkret sag skal håndteres, skal du tage fat i din nærmeste leder.</p>
+      </div></details>
+      <div class="rl-chk">
+        <h2 style="margin:26px 0 6px">Tjekliste før du booker</h2>
+        <p style="font-size:14.5px;color:var(--muted);margin:0">Et hurtigt overblik over kravene. Marker dem, der er opfyldt eller ikke gælder. Listen er et hjælpemiddel og erstatter ikke reglerne ovenfor.</p>
+        <div id="rl-list"></div>
+        <div class="rl-sum"><span id="rl-count"></span><button type="button" class="kv-btn sec" id="rl-reset" style="min-height:40px !important;padding:8px 14px !important">Nulstil</button></div>
+      </div>
+    </div>
   </section>
 
   <section id="tab-kaf" role="tabpanel" aria-labelledby="tabbtn-kaf" hidden>
@@ -1474,13 +1564,14 @@ $("reset").addEventListener("click", () => {
 const LKEY = "bb-tilbud-log";
 let openedId = null, overFilter = "alle", sureId = null, sureTimer = null;
 function showTab(n) {
-  ["home", "gen", "over", "todo", "tco", "kaf"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
+  ["home", "gen", "over", "todo", "tco", "kaf", "rules"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
   $("hdr-gen").hidden = n !== "gen";
   if (n === "over") renderOver();
   if (n === "todo") renderTodo();
   if (n === "tco") renderTco();
   if (n === "kaf") kvRender();
   if (n === "home") renderHome();
+  if (n === "rules") renderRules();
   try { $("tabbtn-" + n).scrollIntoView({ inline: "center", block: "nearest" }); } catch (_) {}
   window.scrollTo({ top: 0 });
 }
@@ -2330,6 +2421,28 @@ $("tab-kaf").addEventListener("click", (e) => {
 });
 function kvSearchFromHome(v) { kv.view = "home"; kvRender(); $("kv-q").value = v; kvSearch(v); }
 const kvBack = $("kaf-back"); if (kvBack) kvBack.addEventListener("click", () => kvGo("home"));
+
+/* ---- Salgsregler ---- */
+const RL_ITEMS = [
+  ["Kaffeforbrug: minimum 2 kg om måneden", "Ca. 250 kopper eller 12 kopper om dagen. Eller potentiale til at sælge det."],
+  ["Købt maskine: minimum 2 år gammel", "Gælder fuldautomat og semiautomat, også maskiner med hele bønner. Marker, hvis den ikke gælder."],
+  ["Leasing/leje: maks. 6 måneder tilbage", "Marker, hvis den ikke gælder."],
+  ["Restaurant uden kaffeløsning: min. 15 indendørs siddepladser", "Bodega må aldrig bookes. Marker, hvis den ikke gælder."],
+  ["Tegningsberettiget person, eller kan skrive under", "Ved 30 eller flere ansatte må mødet gerne bookes med en beslutningstager."],
+  ["Kunden ved, at vi medbringer egen maskine og brygger kaffe", ""],
+  ["Kunden ved, at formålet er at præsentere en løsning og give et tilbud", ""]
+];
+let rlOn = {};
+function renderRules() {
+  $("rl-list").innerHTML = RL_ITEMS.map((x, i) => '<button type="button" class="rl-ci" data-rl="' + i + '" aria-pressed="' + !!rlOn[i] + '"><span class="bx">✓</span><span>' + x[0] + (x[1] ? "<small>" + x[1] + "</small>" : "") + "</span></button>").join("");
+  const n = Object.keys(rlOn).filter((k) => rlOn[k]).length;
+  $("rl-count").textContent = n + " af " + RL_ITEMS.length + " markeret";
+}
+$("tab-rules").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-rl]");
+  if (b) { const i = b.dataset.rl; rlOn[i] = !rlOn[i]; renderRules(); }
+});
+$("rl-reset").addEventListener("click", () => { rlOn = {}; renderRules(); });
 
 /* ---- Forside ---- */
 const HFACTS = [
