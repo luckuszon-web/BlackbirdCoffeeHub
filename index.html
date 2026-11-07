@@ -211,6 +211,44 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .onote { margin: 4px 0 0; text-align: center; }
 .oempty { text-align: center; color: var(--muted); padding: 40px 16px; background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; }
 @media print { #tab-over, .tabs { display: none !important; } }
+
+/* ---- To-do ---- */
+#tab-todo { display: flex; flex-direction: column; gap: 14px; }
+#tab-todo[hidden] { display: none; }
+.tdnew { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
+.tdlbl { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.tdcats, .tddue { display: flex; flex-wrap: wrap; gap: 8px; }
+.tdcat { font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 16px; min-height: 48px; cursor: pointer; text-align: left; line-height: 1.25; }
+.tdcat small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); }
+.tdcat:hover { border-color: var(--muted); }
+.tdcat[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.tdcat[aria-pressed="true"] small { color: inherit; opacity: .8; }
+.tdrow { display: flex; gap: 8px; }
+.tdrow input { flex: 1; min-width: 0; }
+.tdrow .tdadd { white-space: nowrap; padding: 0 20px; min-height: 46px; border-radius: 10px; }
+.tdrow .tdadd:disabled { opacity: .45; }
+.tdtools .tdlink { font: inherit; font-size: 14px !important; background: transparent !important; border: 0 !important; color: var(--muted) !important; text-decoration: underline; cursor: pointer; padding: 8px 4px !important; min-height: 0 !important; }
+.tdtools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.tdedit { background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.tdedit .tdrow2 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.tdedit input { flex: 1 1 140px; min-width: 0; }
+.tditem { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+.tditem.done { opacity: .6; }
+.tditem.done .tdtitle { text-decoration: line-through; }
+.tdchk { width: 28px; height: 28px; flex: none; margin: 2px 0 0; accent-color: var(--ok); cursor: pointer; }
+.tdbody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.tdtitle { font-size: 16px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.tdmeta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+.tdchip { font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); }
+.tdchip.late { color: var(--bad); border-color: var(--bad); } .tdchip.today { color: var(--warn-ink); border-color: var(--accent); background: var(--warn-bg); }
+.tdnote { font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.tditem input.tdnoteinp { width: 100%; font-size: 14px; padding: 7px 10px; }
+.tdbody .tdmini, .tdedit .tdmini { font: inherit; font-size: 13px !important; background: transparent !important; border: 0 !important; color: var(--muted) !important; text-decoration: underline; cursor: pointer; padding: 6px 4px !important; min-height: 0 !important; box-shadow: none !important; }
+.tdbody .tdmini.sure { color: var(--bad) !important; font-weight: 700; text-decoration: none; }
+.tdsec { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 10px 2px 6px; }
+.tabn { display: inline-block; min-width: 18px; margin-left: 6px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; line-height: 18px; text-align: center; }
+.tabn:empty { display: none; }
+@media print { #tab-todo { display: none !important; } }
 .hdr-r { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
 @media print { .hist { display:none !important; } }
 </style>
@@ -223,7 +261,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
         <button type="button" role="tab" class="tab" id="tabbtn-gen" data-tab="gen" aria-selected="true">Tilbudsgenerator</button>
         <button type="button" role="tab" class="tab" id="tabbtn-over" data-tab="over" aria-selected="false">Tilbudsoversigt</button>
         <button type="button" role="tab" class="tab soon" data-tab="vare" aria-selected="false" disabled title="Kommer snart">Varebestilling</button>
-        <button type="button" role="tab" class="tab soon" data-tab="todo" aria-selected="false" disabled title="Kommer snart">To-do</button>
+        <button type="button" role="tab" class="tab" id="tabbtn-todo" data-tab="todo" aria-selected="false">To-do<span class="tabn" id="todo-n"></span></button>
       </nav>
     </div>
     <div class="hdr-r" id="hdr-gen"><div class="hist"><select id="hist" aria-label="Seneste tilbud"><option value="">Seneste tilbud…</option></select></div><button type="button" class="secondary" id="reset">Ny kunde (ryd felter)</button></div>
@@ -392,6 +430,24 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
     <div class="ofilter" id="ofilter" role="group" aria-label="Vis"></div>
     <div id="olist"></div>
     <p class="hint onote">Demoversion: Tilbuddene gemmes kun i denne browser på denne enhed. De kan forsvinde, hvis du rydder browserdata eller bruger privat visning, og de deles ikke med andre.</p>
+  </section>
+
+  <section id="tab-todo" role="tabpanel" aria-labelledby="tabbtn-todo" hidden>
+    <div class="tdnew">
+      <p class="tdlbl" id="tdlbl1">1. Vælg kategori</p>
+      <div class="tdcats" id="tdcats"></div>
+      <div id="tdform" hidden>
+        <p class="tdlbl" id="tdlbl2">2. Kundenavn</p>
+        <div class="tdrow"><input type="text" id="tdkunde" list="tdlist" autocomplete="off" placeholder="Kundenavn" aria-label="Kundenavn"><button type="button" class="tdadd primary" id="tdadd" disabled>+ Tilføj</button></div>
+        <datalist id="tdlist"></datalist>
+        <div class="tddue" id="tddue" role="group" aria-label="Frist"></div>
+      </div>
+      <p class="hint" id="tdhint"></p>
+    </div>
+    <div class="tdtools"><div class="ofilter" id="tdfilter" role="group" aria-label="Vis"></div><button type="button" class="tdlink" id="tdedit">Rediger kategorier</button></div>
+    <div class="tdedit" id="tdeditor" hidden></div>
+    <div id="tdlistbox"></div>
+    <p class="hint onote">Demoversion: Opgaverne gemmes kun i denne browser på denne enhed. De kan forsvinde, hvis du rydder browserdata eller bruger privat visning, og de deles ikke med andre.</p>
   </section>
 </div>
 
@@ -841,7 +897,7 @@ function syncChoices() {
   });
 }
 /* ---- UI-sprog (svensk) ---- */
-const SVUI = {"Tilbudsgenerator": "Offertgenerator", "Seneste tilbud…": "Senaste offerter…", "Ny kunde (ryd felter)": "Ny kund (rensa fält)", "Kunde": "Kund", "Virksomhed": "Företag", "(fornavn)": "(förnamn)", "Indledning": "Inledning", "Sprog": "Språk", "(tilbuddets sprog)": "(offertens språk)", "Dansk": "Danska", "Tilbudstype": "Offerttyp", "Kaffemaskine": "Kaffemaskin", "Kun kaffeaftale": "Endast kaffeavtal", "Kundens nuværende løsning": "Kundens nuvarande lösning", "(valgfri, viser fordele i tilbuddet)": "(valfritt, visar fördelar i offerten)", "Ved ikke / ingen": "Vet inte / ingen", "Filterkaffe": "Bryggkaffe", "Forbrugermaskine (fx Elgiganten)": "Hushållsmaskin (t.ex. Elgiganten)", "Kapsler": "Kapslar", "Maskine": "Maskin", "Mulighed": "Alternativ", "(tilføj B og C for at lade kunden sammenligne)": "(lägg till B och C så att kunden kan jämföra)", "Model": "Modell", "Semiautomatisk": "Halvautomatisk", "Vandforsyning": "Vattenförsörjning", "Vandtank": "Vattentank", "8L vandtank": "Vattentank 8 L", "Fastvandstilslutning": "Fast vattenanslutning", "Mælk": "Mjölk", "Friskmælkskøleskab": "Kylskåp för färsk mjölk", "Mælkepulver": "Mjölkpulver", "Ingen mælk": "Ingen mjölk", "Ekstraudstyr til Simonelli": "Extrautrustning till Simonelli", "Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.": "Simonelli levereras alltid med fast vattenanslutning och utan mjölklösning.", "(vælg en eller flere)": "(välj en eller flera)", "Kakaopulver inkluderet": "Kakaopulver ingår", "Pris og aftale": "Pris och avtal", "Koppris": "Pris per kopp", "(kr., gælder alle maskiner i muligheden)": "(SEK, gäller alla maskiner i alternativet)", "Kaffedrikkere": "Kaffedrickare", "(valgfri)": "(valfritt)", "Betaling": "Betalning", "Minimumsforbrug pr. måned": "Minimiförbrukning per månad", "Fast betaling": "Fast betalning", "Kopper pr. måned": "Koppar per månad", "Pris pr. kg": "Pris per kg", "(kr.)": "(SEK)", "Kg pr. måned": "Kg per månad", "Min. leveringer pr. år": "Min. leveranser per år", "Leveres som": "Levereras som", "Hele bønner i 1 kg poser": "Hela bönor i 1 kg-påsar", "Formalet i 500 g poser": "Malet i 500 g-påsar", "(kun Early Bird)": "(endast Early Bird)", "Formalet i 75 g poser": "Malet i 75 g-påsar", "Tilbehør": "Tillbehör", "(valgfrit)": "(valfritt)", "Aftaleperiode": "Avtalsperiod", "(antal måneder)": "(antal månader)", "Aftaleperioden skal være mindst 12 måneder. Kortere perioder er ikke tilladt.": "Avtalsperioden måste vara minst 12 månader. Kortare perioder är inte tillåtna.", "Nævn ikke aftaleperiode": "Nämn inte avtalsperiod", "Mailen": "Mejlet", "Udløbsdato": "Utgångsdatum", "(valgfri, vises nederst i tilbuddet)": "(valfritt, visas längst ned i offerten)", "Svar-adresse": "Svarsadress", "(knappen i mailen)": "(knappen i mejlet)", "Kopiér tilbud": "Kopiera offert", "Kopiér emnefelt": "Kopiera ämnesrad", "Opfølgning i kalender": "Uppföljning i kalendern", "Opfølgning": "Uppföljning", "Tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.": "Tryck på «Kopiera offert», öppna ett nytt mejl och välj «Klistra in». Välj datum och tid och tryck på «Uppföljning i kalendern» för att få en påminnelse.", "Eksempel på mailen": "Exempel på mejlet", "Nuværende løsning": "Nuvarande lösning", "Seneste tilbud": "Senaste offerter", "Skriv din egen tekst her": "Skriv din egen text här", "egen tekst efter indledningen": "egen text efter inledningen", "egen tekst om maskinen": "egen text om maskinen", "egen tekst om kaffen": "egen text om kaffet", "egen tekst i prisboksen": "egen text i prisrutan", "egen tekst før afslutningen": "egen text före avslutningen", "+ Tilføj ": "+ Lägg till ", "− Fjern ": "− Ta bort ", "Duplikér": "Duplicera", "Fjern": "Ta bort","Tilbudsoversigt": "Offertöversikt", "Varebestilling": "Varubeställning", "To-do": "Att göra", "Sendte i alt": "Skickade totalt", "Afventer": "Väntar", "Accepteret": "Accepterad", "Afslået": "Avslagen", "Konverteringsrate": "Konverteringsgrad", "Vis:": "Visa:", "Alle": "Alla", "Afslag": "Avslag", "Ingen besvarede endnu": "Inga besvarade ännu", "kl.": "kl.", "ikke angivet": "ej angivet", "mdr.": "mån.", "Uden navn": "Utan namn", "Kontakt": "Kontakt", "Løsning": "Lösning", "Sendt": "Skickad", "Åbn": "Öppna", "Er du sikker?": "Är du säker?", "Ingen tilbud med denne status.": "Inga offerter med denna status.", "Ingen tilbud endnu. Når du trykker på «Kopiér tilbud», bliver det gemt her.": "Inga offerter ännu. När du trycker på «Kopiera offert» sparas den här.","Demoversion: Tilbuddene gemmes kun i denne browser på denne enhed. De kan forsvinde, hvis du rydder browserdata eller bruger privat visning, og de deles ikke med andre.":"Demoversion: Offerterna sparas bara i den här webbläsaren på den här enheten. De kan försvinna om du rensar webbläsardata eller använder privat läge, och de delas inte med andra."};
+const SVUI = {"Tilbudsgenerator": "Offertgenerator", "Seneste tilbud…": "Senaste offerter…", "Ny kunde (ryd felter)": "Ny kund (rensa fält)", "Kunde": "Kund", "Virksomhed": "Företag", "(fornavn)": "(förnamn)", "Indledning": "Inledning", "Sprog": "Språk", "(tilbuddets sprog)": "(offertens språk)", "Dansk": "Danska", "Tilbudstype": "Offerttyp", "Kaffemaskine": "Kaffemaskin", "Kun kaffeaftale": "Endast kaffeavtal", "Kundens nuværende løsning": "Kundens nuvarande lösning", "(valgfri, viser fordele i tilbuddet)": "(valfritt, visar fördelar i offerten)", "Ved ikke / ingen": "Vet inte / ingen", "Filterkaffe": "Bryggkaffe", "Forbrugermaskine (fx Elgiganten)": "Hushållsmaskin (t.ex. Elgiganten)", "Kapsler": "Kapslar", "Maskine": "Maskin", "Mulighed": "Alternativ", "(tilføj B og C for at lade kunden sammenligne)": "(lägg till B och C så att kunden kan jämföra)", "Model": "Modell", "Semiautomatisk": "Halvautomatisk", "Vandforsyning": "Vattenförsörjning", "Vandtank": "Vattentank", "8L vandtank": "Vattentank 8 L", "Fastvandstilslutning": "Fast vattenanslutning", "Mælk": "Mjölk", "Friskmælkskøleskab": "Kylskåp för färsk mjölk", "Mælkepulver": "Mjölkpulver", "Ingen mælk": "Ingen mjölk", "Ekstraudstyr til Simonelli": "Extrautrustning till Simonelli", "Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.": "Simonelli levereras alltid med fast vattenanslutning och utan mjölklösning.", "(vælg en eller flere)": "(välj en eller flera)", "Kakaopulver inkluderet": "Kakaopulver ingår", "Pris og aftale": "Pris och avtal", "Koppris": "Pris per kopp", "(kr., gælder alle maskiner i muligheden)": "(SEK, gäller alla maskiner i alternativet)", "Kaffedrikkere": "Kaffedrickare", "(valgfri)": "(valfritt)", "Betaling": "Betalning", "Minimumsforbrug pr. måned": "Minimiförbrukning per månad", "Fast betaling": "Fast betalning", "Kopper pr. måned": "Koppar per månad", "Pris pr. kg": "Pris per kg", "(kr.)": "(SEK)", "Kg pr. måned": "Kg per månad", "Min. leveringer pr. år": "Min. leveranser per år", "Leveres som": "Levereras som", "Hele bønner i 1 kg poser": "Hela bönor i 1 kg-påsar", "Formalet i 500 g poser": "Malet i 500 g-påsar", "(kun Early Bird)": "(endast Early Bird)", "Formalet i 75 g poser": "Malet i 75 g-påsar", "Tilbehør": "Tillbehör", "(valgfrit)": "(valfritt)", "Aftaleperiode": "Avtalsperiod", "(antal måneder)": "(antal månader)", "Aftaleperioden skal være mindst 12 måneder. Kortere perioder er ikke tilladt.": "Avtalsperioden måste vara minst 12 månader. Kortare perioder är inte tillåtna.", "Nævn ikke aftaleperiode": "Nämn inte avtalsperiod", "Mailen": "Mejlet", "Udløbsdato": "Utgångsdatum", "(valgfri, vises nederst i tilbuddet)": "(valfritt, visas längst ned i offerten)", "Svar-adresse": "Svarsadress", "(knappen i mailen)": "(knappen i mejlet)", "Kopiér tilbud": "Kopiera offert", "Kopiér emnefelt": "Kopiera ämnesrad", "Opfølgning i kalender": "Uppföljning i kalendern", "Opfølgning": "Uppföljning", "Tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.": "Tryck på «Kopiera offert», öppna ett nytt mejl och välj «Klistra in». Välj datum och tid och tryck på «Uppföljning i kalendern» för att få en påminnelse.", "Eksempel på mailen": "Exempel på mejlet", "Nuværende løsning": "Nuvarande lösning", "Seneste tilbud": "Senaste offerter", "Skriv din egen tekst her": "Skriv din egen text här", "egen tekst efter indledningen": "egen text efter inledningen", "egen tekst om maskinen": "egen text om maskinen", "egen tekst om kaffen": "egen text om kaffet", "egen tekst i prisboksen": "egen text i prisrutan", "egen tekst før afslutningen": "egen text före avslutningen", "+ Tilføj ": "+ Lägg till ", "− Fjern ": "− Ta bort ", "Duplikér": "Duplicera", "Fjern": "Ta bort","Tilbudsoversigt": "Offertöversikt", "Varebestilling": "Varubeställning", "To-do": "Att göra", "Sendte i alt": "Skickade totalt", "Afventer": "Väntar", "Accepteret": "Accepterad", "Afslået": "Avslagen", "Konverteringsrate": "Konverteringsgrad", "Vis:": "Visa:", "Alle": "Alla", "Afslag": "Avslag", "Ingen besvarede endnu": "Inga besvarade ännu", "kl.": "kl.", "ikke angivet": "ej angivet", "mdr.": "mån.", "Uden navn": "Utan namn", "Kontakt": "Kontakt", "Løsning": "Lösning", "Sendt": "Skickad", "Åbn": "Öppna", "Er du sikker?": "Är du säker?", "Ingen tilbud med denne status.": "Inga offerter med denna status.", "Ingen tilbud endnu. Når du trykker på «Kopiér tilbud», bliver det gemt her.": "Inga offerter ännu. När du trycker på «Kopiera offert» sparas den här.","Demoversion: Tilbuddene gemmes kun i denne browser på denne enhed. De kan forsvinde, hvis du rydder browserdata eller bruger privat visning, og de deles ikke med andre.":"Demoversion: Offerterna sparas bara i den här webbläsaren på den här enheten. De kan försvinna om du rensar webbläsardata eller använder privat läge, och de delas inte med andra.","+ Opfølgning": "+ Uppföljning", "Opgave oprettet": "Uppgift skapad", "Forfalden": "Förfallen", "Ingen frist": "Ingen deadline", "I dag": "Idag", "I morgen": "I morgon", "Om 3 dage": "Om 3 dagar", "Næste uge": "Nästa vecka", "Ring tilbage": "Ring tillbaka", "Send tilbud": "Skicka offert", "Følg op på tilbud": "Följ upp offert", "Book møde": "Boka möte", "Ring MGM": "Ring MGM", "henvisninger hos nye kunder": "hänvisningar hos nya kunder", "Andet": "Annat", "1. Vælg kategori": "1. Välj kategori", "2. Kundenavn": "2. Kundnamn", "2. Skriv opgaven": "2. Skriv uppgiften", "Kundenavn": "Kundnamn", "Skriv opgave": "Skriv uppgift", "+ Tilføj": "+ Lägg till", "Tryk Enter for at tilføje. Kategorien forbliver valgt, så du kan tilføje flere i træk.": "Tryck Enter för att lägga till. Kategorin förblir vald så att du kan lägga till flera i rad.", "Vælg en kategori for at oprette en opgave.": "Välj en kategori för att skapa en uppgift.", "Åbne": "Öppna", "Færdige": "Klara", "Færdig": "Klar", "Ret note": "Ändra anteckning", "+ note": "+ anteckning", "Note": "Anteckning", "Ingen opgaver her.": "Inga uppgifter här.", "Ingen opgaver endnu. Vælg en kategori ovenfor og skriv et kundenavn.": "Inga uppgifter ännu. Välj en kategori ovan och skriv ett kundnamn.", "Rediger kategorier": "Redigera kategorier", "Luk redigering": "Stäng redigering", "Kategori": "Kategori", "Ny kategori": "Ny kategori", "Gendan standard": "Återställ standard", "Demoversion: Opgaverne gemmes kun i denne browser på denne enhed. De kan forsvinde, hvis du rydder browserdata eller bruger privat visning, og de deles ikke med andre.": "Demoversion: Uppgifterna sparas bara i den här webbläsaren på den här enheten. De kan försvinna om du rensar webbläsardata eller använder privat läge, och de delas inte med andra."};
 const SVSUB = [["Ikke tilladt: ", "Inte tillåtet: "], ["\\. Tilbuddet er derfor ikke klar\\.", ". Offerten är därför inte klar."], [" Mangler også: ", " Saknas också: "], ["^Mangler stadig: ", "Saknas fortfarande: "], ["^Alt er udfyldt\\. Tilbuddet er klar til at kopiere\\.", "Allt är ifyllt. Offerten är redo att kopieras."], ["aftaleperioden er under 12 måneder, og det er ikke tilladt", "avtalsperioden är under 12 månader, och det är inte tillåtet"], ["aftaleperiode \\(eller afkryds, at den ikke skal nævnes\\)", "avtalsperiod (eller kryssa i att den inte ska nämnas)"], ["Early Bird \\(formalet fås kun som Early Bird\\)", "Early Bird (malet finns bara som Early Bird)"], ["forventet kg pr\\. måned", "förväntade kg per månad"], ["kopper pr\\. måned", "koppar per månad"], ["pris pr\\. kg", "pris per kg"], ["leveringsformat", "leveransformat"], ["kaffetype", "kaffesort"], ["svar-adresse", "svarsadress"], ["virksomhed", "företag"], ["vandforsyning", "vattenförsörjning"], ["\\bmælk\\b", "mjölk"], ["\\bkoppris\\b", "pris per kopp"], ["\\bmodel\\b", "modell"], ["\\bmulighed ([ABC]):", "alternativ $1:"], ["\\bmaskine (\\d+):", "maskin $1:"], ["Tilføj mulighed", "Lägg till alternativ"], ["\\(sammenlign\\)", "(jämför)"], ["Fjern mulighed", "Ta bort alternativ"], ["^Mulighed ([ABC])$", "Alternativ $1"], [" i mulighed ([ABC])", " i alternativ $1"], ["^Vælg model$", "Välj modell"], ["^Vandforsyning mangler$", "Vattenförsörjning saknas"], ["^Ingen model valgt$", "Ingen modell vald"], ["^\\+ Tilføj maskine$", "+ Lägg till maskin"], ["^(\\d+) af (\\d+)$", "$1 av $2"], ["^Indstillinger for maskine (\\d+)$", "Inställningar för maskin $1"], ["^Betaling og aftaleperiode for mulighed ([ABC])\\.$", "Betalning och avtalsperiod för alternativ $1."], ["^Tilbuddet er kopieret\\. Sæt det ind i en ny mail\\.$", "Offerten är kopierad. Klistra in den i ett nytt mejl."], ["^Kopiering blev afvist her\\. Markér tilbuddet i udkastet og tryk Cmd\\+C\\.$", "Kopieringen blockerades här. Markera offerten i utkastet och tryck Cmd+C."], ["^Emnefeltet er kopieret: ", "Ämnesraden är kopierad: "], ["^Kunne ikke kopiere\\. Emnefelt: ", "Kunde inte kopiera. Ämnesrad: "], ["^Vælg en dato for opfølgningen\\.$", "Välj ett datum för uppföljningen."], ["^Datoen eller tidspunktet er ugyldigt\\.$", "Datum eller tid är ogiltigt."], ["^Påmindelsen er hentet – åbn filen for at lægge den i din kalender", "Påminnelsen är hämtad – öppna filen för att lägga in den i din kalender"], ["^Tilbuddet til (.*) er hentet frem igen\\.$", "Offerten till $1 har hämtats igen."], ["^Seneste tilbud \\((\\d+)\\)…$", "Senaste offerter ($1)…"], ["^Ingen tidligere tilbud endnu$", "Inga tidigare offerter ännu"], ["Tilbud sendt ", "Offert skickad "], ["Løsning: ", "Lösning: "], ["Kaffevalg: ", "Kaffeval: "], ["Antal kaffedrikkere: ", "Antal kaffedrickare: "], ["Koppris: ", "Pris per kopp: "], ["\\(fast betaling", "(fast betalning"], ["kopper pr\\. md\\.", "koppar per mån."], ["Aftalelængde: ", "Avtalslängd: "], ["ikke angivet", "ej angivet"], [" mdr\\.", " mån."], ["MULIGHED ", "ALTERNATIV "], ["Emne: ", "Ämne: "], ["Kaffeaftale \\(uden maskine\\)", "Kaffeavtal (utan maskin)"], ["Pris pr\\. kg: ", "Pris per kg: "], ["Forventet forbrug: ", "Förväntad förbrukning: "], ["kg pr\\. måned", "kg per månad"], ["^Følg op på kaffetilbud til ", "Följ upp kaffeofferten till "], ["^Opfølgning$", "Uppföljning"]].map(([r, t]) => [new RegExp(r, "g"), t]);
 const uiSv = () => $("lang").value === "sv";
 const U = (s) => { if (!uiSv()) return s; if (SVUI[s] !== undefined) return SVUI[s]; return SVSUB.reduce((a, [r, t]) => a.replace(r, t), s); };
@@ -854,7 +910,7 @@ function uiApply() {
   const want = uiSv() ? "sv" : "da";
   if (want === curUi) { addLabelSync(); return; }
   curUi = want;
-  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement && n.parentElement.closest("#preview, script, style, textarea, .addbtn, #tab-over, #hist, #status, #mach-bar, #opt-bar, #opt-ctx, #mach-lbl, #mach-cnt, #mach-set, #flash")) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement && n.parentElement.closest("#preview, script, style, textarea, .addbtn, #tab-over, #tab-todo, #hist, #status, #mach-bar, #opt-bar, #opt-ctx, #mach-lbl, #mach-cnt, #mach-set, #flash")) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
   const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
   nodes.forEach((n) => {
     if (want === "sv") { const raw = n.nodeValue, k = raw.trim(); if (SVUI[k] !== undefined && !origTxt.has(n)) { origTxt.set(n, raw); n.nodeValue = raw.replace(k, SVUI[k]); } }
@@ -869,7 +925,7 @@ function uiApply() {
     });
   });
   document.documentElement.lang = want;
-  addLabelSync(); renderHist(); renderOver(); update();
+  addLabelSync(); renderHist(); renderOver(); renderTodo(); update();
 }
 let lastLang = "da";
 function renderBars() {
@@ -1135,9 +1191,10 @@ $("reset").addEventListener("click", () => {
 const LKEY = "bb-tilbud-log";
 let openedId = null, overFilter = "alle", sureId = null, sureTimer = null;
 function showTab(n) {
-  ["gen", "over"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
+  ["gen", "over", "todo"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
   $("hdr-gen").hidden = n !== "gen";
   if (n === "over") renderOver();
+  if (n === "todo") renderTodo();
   window.scrollTo({ top: 0 });
 }
 document.querySelectorAll(".tab:not(:disabled)").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
@@ -1157,6 +1214,7 @@ function logOffer() {
 const nf = (v) => (v === null || v === undefined || v === "" ? "–" : Number(v).toLocaleString(uiLoc(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
 function renderOver() {
   if (!$("kpis")) return;
+  noteSync();
   const log = lsGet(LKEY, []), n = (st) => log.filter((x) => x.status === st).length;
   const aft = n("afventer"), acc = n("accepteret"), rej = n("afslag"), ans = acc + rej;
   const conv = ans ? Math.round((acc / ans) * 100) + " %" : "–";
@@ -1176,7 +1234,7 @@ function renderOver() {
     return `<div class="ocard s-${x.status}" data-id="${x.id}">
 <div class="ohead"><b>${esc(x.firma || U("Uden navn"))}</b><span class="obadge">${U(SL[x.status])}</span></div>
 <div class="ometa"><strong>${U("Kontakt")}:</strong> ${esc(x.navn || "–")} · <strong>${U("Løsning")}:</strong> ${esc(x.maskine)}<br><strong>${x.aftale ? U("Pris pr. kg") : U("Koppris")}:</strong> ${esc(pris)} · <strong>${U("Aftaleperiode")}:</strong> ${esc(pe)}<br>${U("Sendt")} ${when(x.at)}</div>
-<div class="oacts"><button type="button" class="obtn acc" data-o="accepteret" aria-pressed="${x.status === "accepteret"}">✓ ${U("Accepteret")}</button><button type="button" class="obtn rej" data-o="afslag" aria-pressed="${x.status === "afslag"}">✕ ${U("Afslag")}</button><button type="button" class="obtn" data-o="open">${U("Åbn")}</button><button type="button" class="obtn del${sureId === x.id ? " sure" : ""}" data-o="del">${sureId === x.id ? U("Er du sikker?") : U("Fjern")}</button></div></div>`;
+<div class="oacts"><button type="button" class="obtn acc" data-o="accepteret" aria-pressed="${x.status === "accepteret"}">✓ ${U("Accepteret")}</button><button type="button" class="obtn rej" data-o="afslag" aria-pressed="${x.status === "afslag"}">✕ ${U("Afslag")}</button><button type="button" class="obtn" data-o="open">${U("Åbn")}</button><button type="button" class="obtn" data-o="todo">${U("+ Opfølgning")}</button><button type="button" class="obtn del${sureId === x.id ? " sure" : ""}" data-o="del">${sureId === x.id ? U("Er du sikker?") : U("Fjern")}</button></div></div>`;
   }).join("") : `<div class="oempty">${U(log.length ? "Ingen tilbud med denne status." : "Ingen tilbud endnu. Når du trykker på «Kopiér tilbud», bliver det gemt her.")}</div>`;
 }
 $("ofilter").addEventListener("click", (e) => { const b = e.target.closest("[data-f]"); if (!b) return; overFilter = b.dataset.f; renderOver(); });
@@ -1185,6 +1243,10 @@ $("olist").addEventListener("click", (e) => {
   const id = c.dataset.id, log = lsGet(LKEY, []), x = log.find((y) => y.id === id); if (!x) return;
   const act = b.dataset.o;
   if (act === "accepteret" || act === "afslag") { x.status = x.status === act ? "afventer" : act; lsSet(LKEY, log); }
+  else if (act === "todo") {
+    const all = tdAll(); all.unshift({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), cat: "Følg op på tilbud", free: false, kunde: x.firma || "", due: addDays(3), note: "", done: false, at: Date.now() });
+    lsSet(TKEY, all); b.textContent = "✓ " + U("Opgave oprettet"); renderTodoCount(); return;
+  }
   else if (act === "open") { openedId = x.id; restore(x.snap); showTab("gen"); flash("Tilbuddet til " + (x.firma || "kunden") + " er hentet frem igen.", "ok"); return; }
   else if (act === "del") {
     if (sureId !== id) { sureId = id; clearTimeout(sureTimer); sureTimer = setTimeout(() => { sureId = null; renderOver(); }, 3500); renderOver(); return; }
@@ -1192,6 +1254,104 @@ $("olist").addEventListener("click", (e) => {
   }
   renderOver();
 });
+
+/* ---- To-do ---- */
+const TKEY = "bb-todo", CKEY = "bb-todo-cats";
+const DEF_CATS = [
+  { id: "c1", label: "Ring tilbage" }, { id: "c2", label: "Send tilbud" }, { id: "c3", label: "Følg op på tilbud" }, { id: "c4", label: "Book møde" },
+  { id: "c5", label: "Ring MGM", hint: "henvisninger hos nye kunder" }, { id: "c6", label: "Andet", free: true }
+];
+let tdCat = null, tdDue = "", tdFilter = "aabne", tdSure = null, tdSureT = null, tdEditing = false, tdNoteOpen = null;
+const tdCats = () => { const c = lsGet(CKEY, null); return c && c.length ? c : DEF_CATS; };
+const tdAll = () => lsGet(TKEY, []);
+const isoDay = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const addDays = (n) => { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); return isoDay(d); };
+const DUES = [["", "Ingen frist"], ["0", "I dag"], ["1", "I morgen"], ["3", "Om 3 dage"], ["7", "Næste uge"]];
+function tdTitle(t) { const c = U(t.cat); return t.free || !t.kunde ? (t.kunde || c) : c + " – " + t.kunde; }
+function dueChip(t) {
+  if (!t.due) return "";
+  const today = isoDay(new Date());
+  const lbl = new Date(t.due + "T12:00:00").toLocaleDateString(uiLoc(), { weekday: "short", day: "numeric", month: "short" });
+  const cls = !t.done && t.due < today ? " late" : !t.done && t.due === today ? " today" : "";
+  const pre = !t.done && t.due < today ? U("Forfalden") + " · " : t.due === today ? U("I dag") + " · " : "";
+  return `<span class="tdchip${cls}">${pre}${lbl}</span>`;
+}
+function noteSync() { document.querySelectorAll(".onote").forEach((p) => { if (!p.dataset.da) p.dataset.da = p.textContent; p.textContent = U(p.dataset.da); }); $("tdadd").textContent = U("+ Tilføj"); $("tdlbl1").textContent = U("1. Vælg kategori"); }
+function renderTodoCount() { const n = tdAll().filter((t) => !t.done).length; $("todo-n").textContent = n ? String(n) : ""; }
+function renderTodo() {
+  if (!$("tdcats")) return;
+  const cats = tdCats(), all = tdAll(), cur = cats.find((c) => c.id === tdCat);
+  if (!cur) tdCat = null;
+  $("tdcats").innerHTML = cats.map((c) => `<button type="button" class="tdcat" data-c="${esc(c.id)}" aria-pressed="${c.id === tdCat}">${esc(U(c.label))}${c.hint ? `<small>${esc(U(c.hint))}</small>` : ""}</button>`).join("");
+  const c2 = cats.find((c) => c.id === tdCat);
+  $("tdform").hidden = !c2;
+  if (c2) { const free = !!c2.free; $("tdkunde").placeholder = U(free ? "Skriv opgave" : "Kundenavn"); $("tdkunde").setAttribute("aria-label", $("tdkunde").placeholder); $("tdlbl2").textContent = U(free ? "2. Skriv opgaven" : "2. Kundenavn"); }
+  $("tdadd").disabled = !c2 || !$("tdkunde").value.trim();
+  $("tddue").innerHTML = DUES.map(([k, l]) => `<button type="button" class="fpill" data-d="${k}" aria-pressed="${tdDue === k}">${U(l)}</button>`).join("");
+  $("tdhint").textContent = c2 ? U("Tryk Enter for at tilføje. Kategorien forbliver valgt, så du kan tilføje flere i træk.") : U("Vælg en kategori for at oprette en opgave.");
+  const names = [...new Set([...lsGet(LKEY, []).map((x) => x.firma), ...all.map((x) => x.kunde)].filter(Boolean))];
+  $("tdlist").innerHTML = names.map((n) => `<option value="${esc(n)}">`).join("");
+  const open = all.filter((t) => !t.done), done = all.filter((t) => t.done);
+  const F = [["aabne", "Åbne", open.length], ["faerdige", "Færdige", done.length], ["alle", "Alle", all.length]];
+  $("tdfilter").innerHTML = `<span class="lbl2">${U("Vis:")}</span>` + F.map(([k, l, n]) => `<button type="button" class="fpill" data-tf="${k}" aria-pressed="${tdFilter === k}">${U(l)} (${n})</button>`).join("");
+  open.sort((a, b) => (a.due || "9999") < (b.due || "9999") ? -1 : (a.due || "9999") > (b.due || "9999") ? 1 : b.at - a.at);
+  done.sort((a, b) => (b.doneAt || 0) - (a.doneAt || 0));
+  const item = (t) => `<div class="tditem${t.done ? " done" : ""}" data-id="${t.id}"><input type="checkbox" class="tdchk" data-t="chk" ${t.done ? "checked" : ""} aria-label="${esc(U("Færdig"))}"><div class="tdbody"><div class="tdtitle">${esc(tdTitle(t))}</div><div class="tdmeta">${dueChip(t)}${t.note ? "" : ""}<button type="button" class="tdmini" data-t="note">${t.note || tdNoteOpen === t.id ? U("Ret note") : U("+ note")}</button><button type="button" class="tdmini${tdSure === t.id ? " sure" : ""}" data-t="del">${tdSure === t.id ? U("Er du sikker?") : U("Fjern")}</button></div>${t.note && tdNoteOpen !== t.id ? `<div class="tdnote">${esc(t.note)}</div>` : ""}${tdNoteOpen === t.id ? `<input type="text" class="tdnoteinp" data-t="noteinp" value="${esc(t.note || "")}" placeholder="${esc(U("Note"))}" aria-label="${esc(U("Note"))}">` : ""}</div></div>`;
+  let out = "";
+  if (tdFilter !== "faerdige") out += (tdFilter === "alle" && done.length ? `<p class="tdsec">${U("Åbne")}</p>` : "") + open.map(item).join("");
+  if (tdFilter !== "aabne") out += (tdFilter === "alle" && done.length ? `<p class="tdsec">${U("Færdige")}</p>` : "") + done.map(item).join("");
+  $("tdlistbox").innerHTML = out || `<div class="oempty">${U(all.length ? "Ingen opgaver her." : "Ingen opgaver endnu. Vælg en kategori ovenfor og skriv et kundenavn.")}</div>`;
+  $("todo-n").textContent = open.length ? String(open.length) : "";
+  noteSync();
+  $("tdedit").textContent = U(tdEditing ? "Luk redigering" : "Rediger kategorier");
+  $("tdeditor").hidden = !tdEditing;
+  if (tdEditing) {
+    const cs = tdCats();
+    $("tdeditor").innerHTML = cs.map((c) => `<div class="tdrow2"><input type="text" data-ce="${esc(c.id)}" value="${esc(c.label)}" aria-label="${esc(U("Kategori"))}"><button type="button" class="tdmini" data-cdel="${esc(c.id)}">${U("Fjern")}</button></div>`).join("") +
+      `<div class="tdrow2"><input type="text" id="tdnewcat" placeholder="${esc(U("Ny kategori"))}"><button type="button" class="obtn" id="tdaddcat">${U("+ Tilføj")}</button><button type="button" class="tdmini" id="tdresetcat">${U("Gendan standard")}</button></div>`;
+  }
+}
+function tdAdd() {
+  const cats = tdCats(), c = cats.find((x) => x.id === tdCat), v = $("tdkunde").value.trim();
+  if (!c || !v) return;
+  const all = tdAll();
+  all.unshift({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), cat: c.label, free: !!c.free, kunde: v, due: tdDue === "" ? null : addDays(+tdDue), note: "", done: false, at: Date.now() });
+  lsSet(TKEY, all); $("tdkunde").value = ""; tdDue = ""; renderTodo(); $("tdkunde").focus();
+}
+$("tdcats").addEventListener("click", (e) => { const b = e.target.closest("[data-c]"); if (!b) return; tdCat = b.dataset.c; renderTodo(); $("tdkunde").focus(); });
+$("tddue").addEventListener("click", (e) => { const b = e.target.closest("[data-d]"); if (!b) return; tdDue = b.dataset.d; renderTodo(); $("tdkunde").focus(); });
+$("tdkunde").addEventListener("input", () => { $("tdadd").disabled = !$("tdkunde").value.trim(); });
+$("tdkunde").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); tdAdd(); } });
+$("tdadd").addEventListener("click", tdAdd);
+$("tdfilter").addEventListener("click", (e) => { const b = e.target.closest("[data-tf]"); if (!b) return; tdFilter = b.dataset.tf; renderTodo(); });
+$("tdedit").addEventListener("click", () => { tdEditing = !tdEditing; renderTodo(); });
+$("tdlistbox").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-t]"), c = e.target.closest("[data-id]"); if (!b || !c) return;
+  const id = c.dataset.id, all = tdAll(), t = all.find((x) => x.id === id); if (!t) return;
+  const k = b.dataset.t;
+  if (k === "chk") { t.done = b.checked; t.doneAt = t.done ? Date.now() : null; lsSet(TKEY, all); }
+  else if (k === "note") { tdNoteOpen = tdNoteOpen === id ? null : id; renderTodo(); const i = $("tdlistbox").querySelector(".tdnoteinp"); if (i) i.focus(); return; }
+  else if (k === "del") {
+    if (tdSure !== id) { tdSure = id; clearTimeout(tdSureT); tdSureT = setTimeout(() => { tdSure = null; renderTodo(); }, 3500); renderTodo(); return; }
+    lsSet(TKEY, all.filter((x) => x.id !== id)); tdSure = null;
+  } else return;
+  renderTodo();
+});
+function tdSaveNote(inp) { const c = inp.closest("[data-id]"), all = tdAll(), t = all.find((x) => x.id === c.dataset.id); if (t) { t.note = inp.value.trim(); lsSet(TKEY, all); } tdNoteOpen = null; renderTodo(); }
+$("tdlistbox").addEventListener("keydown", (e) => { if (e.target.classList.contains("tdnoteinp") && e.key === "Enter") { e.preventDefault(); tdSaveNote(e.target); } });
+$("tdlistbox").addEventListener("focusout", (e) => { if (e.target.classList.contains("tdnoteinp")) tdSaveNote(e.target); });
+$("tdeditor").addEventListener("change", (e) => {
+  const id = e.target.dataset.ce; if (!id) return;
+  const cs = tdCats().map((c) => (c.id === id ? Object.assign({}, c, { label: e.target.value.trim() || c.label }) : c)); lsSet(CKEY, cs); renderTodo();
+});
+$("tdeditor").addEventListener("click", (e) => {
+  const d = e.target.closest("[data-cdel]");
+  if (d) { const cs = tdCats().filter((c) => c.id !== d.dataset.cdel); lsSet(CKEY, cs.length ? cs : DEF_CATS); renderTodo(); return; }
+  if (e.target.closest("#tdaddcat")) { const v = $("tdnewcat").value.trim(); if (!v) return; const cs = tdCats().slice(); cs.push({ id: "c" + Date.now().toString(36), label: v }); lsSet(CKEY, cs); renderTodo(); $("tdnewcat").focus(); return; }
+  if (e.target.closest("#tdresetcat")) { lsSet(CKEY, DEF_CATS); renderTodo(); }
+});
+$("tdeditor").addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.id === "tdnewcat") { e.preventDefault(); $("tdaddcat").click(); } });
+renderTodoCount();
 const _upd = update;
 update = function () { _upd(); autosave(); };
 window.addEventListener("beforeunload", () => { if (!restoring) lsSet(DKEY, snapshot()); });
