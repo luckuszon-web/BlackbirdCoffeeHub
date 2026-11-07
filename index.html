@@ -2424,24 +2424,25 @@ function kvQ(q, opts = {}) {
 }
 /* ---- Kaffeopskriftsberegner (standardopskrifter ved 200 ml) ---- */
 const RC_REC = [
+  // [id, navn, kaffe(g), vand gennem kaffen (ml), rent varmt vand (ml), varm mælk (ml), mælkeskum (ml), note] – alt ved 200 ml
   ["filter", "Filterkaffe / sort kaffe", 12, 200, 0, 0, 0, ""],
-  ["americano", "Americano", 14, 166, 0, 0, 34, "Americano: vandet kommer ovenpå espressoen (kaffens udtræk, ca. %EXT% ml), så den samlede kop svarer til den valgte størrelse."],
-  ["latte", "Café latte", 14, 40, 130, 30, 0, ""],
-  ["cappuccino", "Cappuccino", 14, 40, 90, 70, 0, ""],
-  ["flatwhite", "Flat white", 14, 40, 140, 20, 0, ""],
-  ["cortado", "Cortado", 14, 40, 120, 40, 0, ""],
-  ["kaffemaelk", "Kaffe med mælk", 12, 150, 50, 0, 0, ""],
-  ["mocha", "Caffè mocha", 14, 40, 130, 30, 0, "Bemærk: chokolade/kakao er ikke medregnet i beregningen."]
+  ["americano", "Americano", 14, 34, 166, 0, 0, "Lav først espressoen (ca. %T% ml vand gennem kaffen), og fyld derefter %A% ml rent, varmt vand i koppen."],
+  ["latte", "Café latte", 14, 40, 0, 130, 30, ""],
+  ["cappuccino", "Cappuccino", 14, 40, 0, 90, 70, ""],
+  ["flatwhite", "Flat white", 14, 40, 0, 140, 20, ""],
+  ["cortado", "Cortado", 14, 40, 0, 120, 40, ""],
+  ["kaffemaelk", "Kaffe med mælk", 12, 150, 0, 50, 0, ""],
+  ["mocha", "Caffè mocha", 14, 40, 0, 130, 30, "Bemærk: chokolade/kakao er ikke medregnet i beregningen."]
 ];
 const rc = { v: "latte", raw: "200" };
 function rcCalc(id, ml) {
   const r = RC_REC.find((x) => x[0] === id), f = ml / 200;
   const g = Math.round(r[2] * f * 10) / 10;
-  const parts = { water: Math.round(r[3] * f), milk: Math.round(r[4] * f), foam: Math.round(r[5] * f), ext: Math.round(r[6] * f) };
+  const parts = { thr: Math.round(r[3] * f), add: Math.round(r[4] * f), milk: Math.round(r[5] * f), foam: Math.round(r[6] * f) };
   // Afrunding må ikke ændre totalen: differencen lægges på den største væskekomponent
-  const diff = ml - (parts.water + parts.milk + parts.foam + parts.ext);
-  if (diff) { const k = ["water", "milk", "foam"].reduce((a, b) => (parts[b] > parts[a] ? b : a), "water"); parts[k] += diff; }
-  return { g, ...parts, total: ml, note: r[7].replace("%EXT%", parts.ext) };
+  const diff = ml - (parts.thr + parts.add + parts.milk + parts.foam);
+  if (diff) { const k = ["thr", "add", "milk", "foam"].reduce((x, y) => (parts[y] > parts[x] ? y : x), "thr"); parts[k] += diff; }
+  return { g, ...parts, water: parts.thr + parts.add, total: ml, note: r[7].replace("%T%", parts.thr).replace("%A%", parts.add) };
 }
 function rcOut() {
   const raw = String(rc.raw).trim(), ml = Number(raw);
@@ -2452,14 +2453,13 @@ function rcOut() {
   err.hidden = ok; out.classList.toggle("dim", !ok);
   if (!ok) { err.textContent = "Indtast en kopstørrelse mellem 50 og 1.000 ml (hele tal)."; return; }
   const c = rcCalc(rc.v, ml), n = (x) => String(x).replace(".", ",");
-  const L = [["Vand", c.water, "#5B9BC1"], ["Varm mælk", c.milk, "#E9D6B8"], ["Mælkeskum", c.foam, "#FFF8EC"]];
-  if (c.ext) L.unshift(["Espresso (udtræk)", c.ext, "#6B4527"]);
-  const bar = L.filter((x) => x[1] > 0).map((x) => '<i style="width:' + (x[1] / ml * 100) + "%;background:" + x[2] + '" title="' + x[0] + " " + x[1] + ' ml"></i>').join("");
-  const tiles = [["Kaffebønner", n(c.g), "g", "#6B4527", Math.round(c.g / ml * 100 * 10) / 10 > 0 ? "" : ""]].concat(L.filter((x) => x[1] > 0 && x[0] !== "Espresso (udtræk)").map((x) => [x[0], x[1], "ml", x[2], Math.round(x[1] / ml * 100) + " % af koppen"]));
+  const L = [["Vand gennem kaffen", c.thr, "#8B5A33"], ["Rent varmt vand", c.add, "#5B9BC1"], ["Varm mælk", c.milk, "#E9D6B8"], ["Mælkeskum", c.foam, "#FFF8EC"]].filter((x) => x[1] > 0);
+  const bar = L.map((x) => '<i style="width:' + (x[1] / ml * 100) + "%;background:" + x[2] + '" title="' + x[0] + " " + x[1] + ' ml"></i>').join("");
+  const tiles = [["Kaffebønner", n(c.g), "g", "#6B4527", ""]].concat(L.map((x) => [x[0], x[1], "ml", x[2], Math.round(x[1] / ml * 100) + " % af koppen"]));
   document.getElementById("rc-total").textContent = ml + " ml";
   document.getElementById("rc-bar").innerHTML = bar;
   document.getElementById("rc-grid").innerHTML = tiles.map((t) => '<div class="rc-t" style="--c:' + t[3] + '"><span class="k">' + t[0] + "</span><b>" + t[1] + "<small>" + t[2] + "</small></b>" + (t[4] ? "<em>" + t[4] + "</em>" : "") + "</div>").join("");
-  document.getElementById("rc-note").textContent = c.note; document.getElementById("rc-note").hidden = !c.note;
+  const note = document.getElementById("rc-note"); note.textContent = c.note; note.hidden = !c.note;
 }
 function rcHtml() {
   return '<section class="rc" aria-labelledby="rc-h"><h2 id="rc-h">Beregn din kaffeopskrift</h2><p class="rc-s">Vælg kaffevariant og kopstørrelse, så får du den rigtige fordeling af kaffe, vand og mælk.</p>' +
