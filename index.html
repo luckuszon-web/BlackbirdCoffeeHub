@@ -1038,7 +1038,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
         </div>
         <div class="followup"><label for="fu-date">Opfølgning</label><input type="date" id="fu-date"><input type="time" id="fu-time" value="09:00">
         </div>
-        <p class="hint">«Åbn kladde i Outlook» kopierer tilbuddet og åbner en ny mail i dit mailprogram (Outlook-appen, hvis den er din standard) med modtager og emne udfyldt. Tryk Ctrl+V (Mac: Cmd+V) i mailen for at sætte teksten ind, og tryk selv send. <a href="#" id="outlook-app">Åbn i Outlook på nettet i stedet</a>. Eller tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
+        <p class="hint">«Åbn kladde i Outlook» henter en kladde-fil. Åbn den, så åbner Outlook en ny mail med modtager, emne og hele tilbuddet udfyldt. Tryk selv send. Andre muligheder: <a href="#" data-ol="mailto">tom kladde i mailprogrammet (indsæt selv)</a> · <a href="#" data-ol="web">Outlook på nettet</a>. Eller tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
       </div>
       <p class="prevlabel">Eksempel på mailen</p>
       <button type="button" class="secondary" id="pvzoom" hidden style="margin:0 0 8px">Forstør maileksempel</button>
@@ -1872,19 +1872,47 @@ document.querySelectorAll(".addbtn").forEach((b) => b.addEventListener("click", 
   if (open) { ta.hidden = false; b.setAttribute("aria-expanded", "true"); addLabel(b, true); ta.focus(); }
   else { ta.value = ""; ta.hidden = true; b.setAttribute("aria-expanded", "false"); addLabel(b, false); update(); }
 }));
-async function openOutlook(app) {
+/* .eml-kladde: åbnes i Outlook som en ikke-sendt mail med modtager, emne og hele tilbuddet (inkl. billeder) */
+const emlB64 = (str) => { const by = new TextEncoder().encode(str); let bin = ""; for (let i = 0; i < by.length; i += 8192) bin += String.fromCharCode.apply(null, by.subarray(i, i + 8192)); return btoa(bin); };
+const emlWrap = (b) => (b.match(/.{1,76}/g) || [""]).join("\r\n");
+function buildEml(to, subj, html) {
+  const imgs = [], seen = {};
+  html = html.replace(/(src=")data:(image\/[a-z0-9.+-]+);base64,([^"]+)(")/gi, (m, a, mime, b64, z) => {
+    const key = mime + b64.length + b64.slice(0, 80), c = b64.replace(/\s/g, "");
+    if (!seen[key]) { seen[key] = { cid: "img" + imgs.length + "@blackbirdcoffee", mime, b64: c }; imgs.push(seen[key]); }
+    return a + "cid:" + seen[key].cid + z;
+  });
+  const bd = "=_bb_" + Date.now().toString(36);
+  const sj = Array.from(subj).reduce((a, ch, i) => { if (i % 24 === 0) a.push(""); a[a.length - 1] += ch; return a; }, []).map((t) => "=?UTF-8?B?" + emlB64(t) + "?=").join("\r\n ");
+  let m = "MIME-Version: 1.0\r\nX-Unsent: 1\r\n" + (to ? "To: " + to + "\r\n" : "") + "Subject: " + sj + "\r\n" +
+    'Content-Type: multipart/related; type="text/html"; boundary="' + bd + '"\r\n\r\n' +
+    "--" + bd + '\r\nContent-Type: text/html; charset="utf-8"\r\nContent-Transfer-Encoding: base64\r\n\r\n' + emlWrap(emlB64(html)) + "\r\n";
+  imgs.forEach((im, i) => { m += "--" + bd + "\r\nContent-Type: " + im.mime + '; name="img' + i + "." + im.mime.split("/")[1].replace("jpeg", "jpg") + '"\r\nContent-Transfer-Encoding: base64\r\nContent-ID: <' + im.cid + ">\r\nContent-Disposition: inline\r\n\r\n" + emlWrap(im.b64) + "\r\n"; });
+  return m + "--" + bd + "--\r\n";
+}
+function downloadEml(name, eml) {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([eml], { type: "message/rfc822" })); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+async function openOutlook(mode) { // mode: "eml" (standard) | "mailto" | "web"
   const to = $("tomail").value.trim(), s = read();
   if (to && !/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(to)) { flash("Kundens mailadresse ser ikke rigtig ud. Ret den, eller lad feltet stå tomt.", "err"); return; }
   const subj = subjectLine(s), copied = await copyRich();
   addHist(); logOffer();
-  const url = app ? "mailto:" + encodeURIComponent(to).replace(/%40/g, "@") + "?subject=" + encodeURIComponent(subj)
+  if (mode === "eml") {
+    const fn = ("Tilbud - " + (s.firma || "kunde")).replace(/[\\/:*?"<>|]+/g, " ").trim() + ".eml";
+    downloadEml(fn, buildEml(to, subj, buildEmail(s)));
+    flash("Kladden «" + fn + "» er hentet. Åbn filen (klik på den i download-listen), så åbner Outlook en mail med modtager, emne og tilbud. Tryk selv send.", "ok");
+    return;
+  }
+  const url = mode === "mailto" ? "mailto:" + encodeURIComponent(to).replace(/%40/g, "@") + "?subject=" + encodeURIComponent(subj)
     : "https://outlook.office.com/mail/deeplink/compose?to=" + encodeURIComponent(to) + "&subject=" + encodeURIComponent(subj);
-  const w = app ? (location.href = url, true) : window.open(url, "_blank", "noopener");
+  const w = mode === "mailto" ? (location.href = url, true) : window.open(url, "_blank", "noopener");
   if (!w) { flash("Browseren blokerede det nye vindue. Tillad pop-ups for siden, og prøv igen.", "err"); return; }
   flash(copied ? "Tilbuddet er kopieret. Tryk Ctrl+V (Mac: Cmd+V) i den nye mail, og tryk send." : "Mailen er åbnet, men tilbuddet kunne ikke kopieres. Tryk «Kopiér tilbud», og sæt det ind.", copied ? "ok" : "err");
 }
-$("outlook").addEventListener("click", () => openOutlook(true));
-$("outlook-app").addEventListener("click", (e) => { e.preventDefault(); if (!$("outlook").disabled) openOutlook(false); else flash("Udfyld tilbuddet først.", "err"); });
+$("outlook").addEventListener("click", () => openOutlook("eml"));
+document.querySelectorAll("[data-ol]").forEach((l) => l.addEventListener("click", (e) => { e.preventDefault(); if (!$("outlook").disabled) openOutlook(l.dataset.ol); else flash("Udfyld tilbuddet først.", "err"); }));
 $("subj").addEventListener("click", async () => {
   const t = subjectLine(read()); let ok = false;
   try { await navigator.clipboard.writeText(t); ok = true; } catch (e) {
