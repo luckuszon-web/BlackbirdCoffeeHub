@@ -336,6 +336,115 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .hnx small { color: var(--muted); white-space: nowrap; }
 .hnx small.late { color: var(--accent); font-weight: 700; }
 @media (max-width: 520px) { .hero { min-height: 220px; } .hero h1 { font-size: 26px; } .hstats { gap: 6px; } .hstat { padding: 10px 2px; } .hstat span { font-size: 11px; } }
+/* ---- Kaffeakademi ---- */
+:root { --kg: #4C6B3A; --kg-soft: color-mix(in srgb, var(--kg) 12%, var(--surface)); --cream: #F7F0E6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --kg: #93B780; --cream: #2A221B; } }
+:root[data-theme="dark"] { --kg: #93B780; --cream: #2A221B; }
+#kv-root { animation: kvin .28s ease both; }
+@keyframes kvin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { #kv-root { animation: none; } .kcat, .kart { transition: none !important; } }
+.kv-hero { position: relative; border-radius: 20px; overflow: hidden; min-height: 250px; display: flex; align-items: flex-end; background: #2a1c12; }
+.kv-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 35%; }
+.kv-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(22,13,7,.9) 0%, rgba(22,13,7,.5) 50%, rgba(22,13,7,.15) 100%); }
+.kv-hero .t { position: relative; z-index: 1; padding: 24px 22px 22px; color: #fff; max-width: 560px; }
+.kv-hero .eb { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #F6C9A3; }
+.kv-hero h2 { margin: 0 0 8px; font-size: 30px; line-height: 1.1; color: #fff; letter-spacing: -.01em; }
+.kv-hero p.s { margin: 0; font-size: 15.5px; line-height: 1.45; color: rgba(255,255,255,.92); }
+.kv-search { margin: 16px 0 6px; }
+.kv-search input { width: 100%; font: inherit; font-size: 16px; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); min-height: 52px; }
+.kv-prog { display: flex; align-items: center; gap: 12px; margin: 14px 0 4px; font-size: 13.5px; color: var(--muted); }
+.kv-prog .bar { flex: 1; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.kv-prog .bar i { display: block; height: 100%; background: var(--kg); border-radius: 99px; transition: width .4s; }
+.kv-h { margin: 26px 0 12px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.kv-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.kcat { position: relative; display: flex !important; flex-direction: column; align-items: flex-start; justify-content: flex-end; text-align: left; min-height: 200px; padding: 16px !important; border: 0 !important; border-radius: 18px !important; color: #fff !important; cursor: pointer; overflow: hidden; font: inherit; box-shadow: var(--shadow-md); transition: transform .18s, box-shadow .18s; }
+.kcat:hover { transform: translateY(-3px); }
+.kcat .ic { position: absolute; top: 14px; right: 14px; width: 44px; height: 44px; opacity: .92; }
+.kcat .ic svg { width: 100%; height: 100%; fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.kcat .l { font-size: 12px; font-weight: 700; letter-spacing: .12em; opacity: .85; }
+.kcat .n { font-size: 18px; font-weight: 700; line-height: 1.2; margin: 2px 0 4px; }
+.kcat .d { font-size: 13px; line-height: 1.35; opacity: .92; font-weight: 400; }
+.kcat .m { font-size: 12px; margin-top: 8px; opacity: .85; }
+.kv-pop { display: flex; flex-wrap: wrap; gap: 8px; }
+.kv-chip { font: inherit; font-size: 14px; font-weight: 600; padding: 9px 14px !important; min-height: 40px !important; border-radius: 999px !important; border: 1.5px solid var(--line) !important; background: var(--surface) !important; color: var(--ink) !important; cursor: pointer; }
+.kv-chip:hover { border-color: var(--kg) !important; }
+.kv-wide { display: flex !important; align-items: center; justify-content: space-between; gap: 14px; width: 100%; text-align: left; font: inherit; padding: 16px 18px !important; border-radius: 16px !important; border: 1px solid var(--line) !important; background: var(--surface) !important; color: var(--ink) !important; cursor: pointer; margin-top: 12px; box-shadow: var(--shadow-sm); }
+.kv-wide:hover { border-color: var(--kg) !important; }
+.kv-wide b { display: block; font-size: 16px; } .kv-wide span.s { display: block; font-size: 13.5px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+.kv-wide .go { font-size: 22px; color: var(--kg); flex: 0 0 auto; }
+.kv-wide.fin { background: linear-gradient(135deg, #3A2417, #5A3A24) !important; color: #fff !important; border-color: transparent !important; }
+.kv-wide.fin span.s { color: rgba(255,255,255,.8); } .kv-wide.fin .go { color: #F6C9A3; }
+.kv-bc { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13.5px; color: var(--muted); margin-bottom: 14px; }
+.kv-bc button { font: inherit; font-size: 13.5px; font-weight: 600; color: var(--kg) !important; background: transparent !important; border: 0 !important; padding: 6px 2px !important; min-height: 32px !important; cursor: pointer; box-shadow: none !important; }
+.kv-ch { border-radius: 20px; padding: 24px 22px; color: #fff; margin-bottom: 18px; position: relative; overflow: hidden; }
+.kv-ch .l { font-size: 12px; font-weight: 700; letter-spacing: .14em; opacity: .85; }
+.kv-ch h2 { margin: 4px 0 6px; font-size: 26px; line-height: 1.15; color: #fff; }
+.kv-ch p { margin: 0; font-size: 15px; line-height: 1.45; opacity: .93; max-width: 520px; }
+.kv-ch .ic { position: absolute; right: 16px; top: 16px; width: 64px; height: 64px; opacity: .35; } .kv-ch .ic svg { width: 100%; height: 100%; fill: none; stroke: #fff; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.kart { display: block !important; width: 100%; text-align: left; font: inherit; background: var(--surface) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; border-radius: 16px !important; padding: 16px 18px !important; margin-bottom: 10px; cursor: pointer; transition: transform .15s, border-color .15s; box-shadow: var(--shadow-sm); }
+.kart:hover { transform: translateY(-2px); border-color: var(--kg) !important; }
+.kart .t { display: block; font-size: 17px; font-weight: 700; line-height: 1.3; }
+.kart .s { display: block; font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.4; font-weight: 400; }
+.kart .m { display: flex; gap: 10px; align-items: center; margin-top: 8px; font-size: 12.5px; color: var(--muted); font-weight: 400; }
+.kart .done { color: var(--kg); font-weight: 700; }
+.kv-art { max-width: 700px; margin: 0 auto; }
+.kv-art .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; color: #fff; }
+.kv-art h1 { font-size: 30px; line-height: 1.15; margin: 12px 0 10px; letter-spacing: -.01em; }
+.kv-art .lead { font-size: 18px; line-height: 1.55; color: var(--ink); margin: 0 0 8px; }
+.kv-art .meta { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.kv-art h2 { font-size: 21px; margin: 30px 0 10px; line-height: 1.25; }
+.kv-art p, .kv-art li { font-size: 16.5px; line-height: 1.65; }
+.kv-art p { margin: 0 0 14px; }
+.kv-art ul { padding-left: 22px; margin: 0 0 14px; } .kv-art li { margin-bottom: 6px; }
+.kv-art table.ktab { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 6px 0 18px; }
+.kv-art .ktab th, .kv-art .ktab td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.4; }
+.kv-art .ktab th { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.tblwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.kfig { margin: 20px -4px 22px; background: var(--cream); border: 1px solid var(--line); border-radius: 16px; padding: 14px 10px 12px; }
+.kfig svg { width: 100%; height: auto; display: block; font-family: inherit; }
+.kfig figcaption { font-size: 13.5px; line-height: 1.45; color: var(--muted); margin: 10px 8px 0; }
+.kfig .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.kfig .stp { text-align: center; font-size: 12.5px; line-height: 1.3; padding: 6px 2px; }
+.kfig .stp svg { width: 64px; height: 64px; margin: 0 auto 4px; }
+.kfig .stp b { display: block; font-size: 13px; }
+.kfig .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0 10px; font-size: 13px; }
+.kfig .flow span.c { padding: 6px 10px; border-radius: 99px; background: var(--surface); border: 1px solid var(--line); font-weight: 600; }
+.kfig .flow span.a { color: var(--muted); }
+.kfig .flowt { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+.kfig .bars .r { display: grid; grid-template-columns: 74px 1fr; align-items: center; gap: 10px; margin: 7px 0; font-size: 13px; }
+.kfig .bars .nm { font-weight: 700; margin: 12px 0 2px; font-size: 14px; }
+.kfig .bars .b { height: 9px; border-radius: 9px; background: var(--line); position: relative; overflow: hidden; } .kfig .bars .b i { position: absolute; inset: 0 auto 0 0; background: var(--kg); border-radius: 9px; }
+.kbox { border-radius: 16px; padding: 16px 18px; margin: 24px 0; }
+.kbox h3 { margin: 0 0 8px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+.kbox ul { margin: 0; padding-left: 20px; } .kbox li { font-size: 15.5px; line-height: 1.55; margin-bottom: 4px; }
+.kbox.know { background: var(--kg-soft); border: 1px solid color-mix(in srgb, var(--kg) 35%, var(--line)); } .kbox.know h3 { color: var(--kg); }
+.kbox.say { background: var(--cream); border-left: 4px solid var(--accent); border-radius: 4px 16px 16px 4px; } .kbox.say h3 { color: var(--accent); }
+.kbox.say p { font-size: 16.5px; font-style: italic; margin: 0 0 8px; } .kbox.say p:last-child { margin: 0; }
+.kqa details { border-bottom: 1px solid var(--line); } .kqa summary { cursor: pointer; font-weight: 700; padding: 14px 24px 14px 0; font-size: 16px; line-height: 1.4; list-style: none; position: relative; }
+.kqa summary::-webkit-details-marker { display: none; } .kqa summary::after { content: "+"; position: absolute; right: 4px; top: 11px; font-size: 22px; color: var(--kg); font-weight: 400; } .kqa details[open] summary::after { content: "–"; }
+.kqa details p { margin: 0 0 14px; font-size: 15.5px; }
+.qz { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin: 12px 0; }
+.qz .qq { font-weight: 700; font-size: 16.5px; line-height: 1.4; margin: 0 0 10px; }
+.qz .kfig { margin: 8px 0 12px; }
+.qopts { display: grid; gap: 8px; }
+.qo { display: flex !important; gap: 10px; align-items: flex-start; text-align: left; font: inherit; font-size: 15.5px; line-height: 1.4; padding: 12px 14px !important; min-height: 48px; border-radius: 12px !important; border: 1.5px solid var(--line) !important; background: var(--surface) !important; color: var(--ink) !important; cursor: pointer; box-shadow: none !important; }
+.qo b { flex: 0 0 auto; color: var(--muted); }
+.qo:hover:not(:disabled) { border-color: var(--kg) !important; }
+.qo.ok { border-color: var(--kg) !important; background: var(--kg-soft) !important; }
+.qo.no { border-color: var(--bad) !important; background: color-mix(in srgb, var(--bad) 10%, var(--surface)) !important; }
+.qo:disabled { cursor: default; }
+.qex { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--cream); font-size: 15px; line-height: 1.5; }
+.qex b.ok { color: var(--kg); } .qex b.no { color: var(--bad); }
+.kv-btn { font: inherit; font-size: 15.5px; font-weight: 700; padding: 13px 20px !important; min-height: 48px !important; border-radius: 12px !important; border: 0 !important; background: var(--brand) !important; color: var(--brand-ink) !important; cursor: pointer; }
+.kv-btn.sec { background: transparent !important; color: var(--ink) !important; border: 1.5px solid var(--line) !important; }
+.kv-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.kv-res { text-align: center; padding: 28px 18px; } .kv-res .sc { font-size: 54px; font-weight: 800; line-height: 1; } .kv-res h2 { margin: 10px 0 6px; }
+.kv-res .brk { text-align: left; max-width: 420px; margin: 18px auto; } .kv-res .brk div { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.kv-qp { font-size: 13.5px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+.kv-qbar { height: 6px; border-radius: 9px; background: var(--line); margin-bottom: 14px; overflow: hidden; } .kv-qbar i { display: block; height: 100%; background: var(--kg); transition: width .3s; }
+.kv-sr { display: grid; gap: 8px; } .kv-sr .grp { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 14px 0 2px; }
+.kv-empty { color: var(--muted); padding: 22px 4px; }
+@media (max-width: 520px) { .kv-hero { min-height: 230px; } .kv-hero h2 { font-size: 26px; } .kv-cats { gap: 10px; } .kcat { min-height: 196px; } .kv-art h1 { font-size: 26px; } .kv-art .lead { font-size: 17px; } .kfig { margin-left: -6px; margin-right: -6px; } .kfig .steps { grid-template-columns: repeat(2, 1fr); } }
 </style>
 
 <div class="page">
@@ -568,11 +677,15 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
   </section>
 
   <section id="tab-kaf" role="tabpanel" aria-labelledby="tabbtn-kaf" hidden>
-    <h2 class="tch tr" style="margin:6px 0 4px">Kaffeakademiet</h2>
-    <p class="hint" style="margin:0 0 10px">Sælgerens kaffeguide – find svaret på under 15 sekunder.</p>
-    <input type="search" id="kaf-q" class="kafsearch" placeholder="Søg fx havremælk, surt, Etiopien, kalk …" autocomplete="off" enterkeyhint="search" aria-label="Søg i Kaffeakademiet">
-    <div class="kafpills" id="kaf-pills" role="group" aria-label="Kategorier"><button type="button" class="fpill" data-kc="alle" aria-pressed="true">Alle</button><button type="button" class="fpill" data-kc="smag" aria-pressed="false">Fejlsøgning & Smagskompas</button><button type="button" class="fpill" data-kc="bryg" aria-pressed="false">Bryggemetoder</button><button type="button" class="fpill" data-kc="prod" aria-pressed="false">Kaffeproduktion & Bønner</button><button type="button" class="fpill" data-kc="lande" aria-pressed="false">Lande & Smagsnoter</button><button type="button" class="fpill" data-kc="maelk" aria-pressed="false">Mælk & Temperatur</button><button type="button" class="fpill" data-kc="vand" aria-pressed="false">Vand & Kalk</button><button type="button" class="fpill" data-kc="frisk" aria-pressed="false">Friskhed & Myter</button></div>
-    <div id="kaf-list"></div>
+    <div id="kv-root"></div>
+    <div id="kv-quick" hidden>
+      <div class="kv-bc"><button type="button" id="kaf-back">Akademiet</button><span>›</span><span>Hurtig viden</span></div>
+      <h2 class="tch tr" style="margin:6px 0 4px">Hurtig viden</h2>
+      <p class="hint" style="margin:0 0 10px">Korte svar til brug i kundemødet.</p>
+      <input type="search" id="kaf-q" class="kafsearch" placeholder="Søg fx havremælk, surt, Etiopien, kalk …" autocomplete="off" enterkeyhint="search" aria-label="Søg i Hurtig viden">
+      <div class="kafpills" id="kaf-pills" role="group" aria-label="Kategorier"><button type="button" class="fpill" data-kc="alle" aria-pressed="true">Alle</button><button type="button" class="fpill" data-kc="smag" aria-pressed="false">Fejlsøgning & Smagskompas</button><button type="button" class="fpill" data-kc="bryg" aria-pressed="false">Bryggemetoder</button><button type="button" class="fpill" data-kc="prod" aria-pressed="false">Kaffeproduktion & Bønner</button><button type="button" class="fpill" data-kc="lande" aria-pressed="false">Lande & Smagsnoter</button><button type="button" class="fpill" data-kc="maelk" aria-pressed="false">Mælk & Temperatur</button><button type="button" class="fpill" data-kc="vand" aria-pressed="false">Vand & Kalk</button><button type="button" class="fpill" data-kc="frisk" aria-pressed="false">Friskhed & Myter</button></div>
+      <div id="kaf-list"></div>
+    </div>
   </section>
 
   <section id="tab-tco" role="tabpanel" aria-labelledby="tabbtn-tco" hidden>
@@ -1366,12 +1479,12 @@ function showTab(n) {
   if (n === "over") renderOver();
   if (n === "todo") renderTodo();
   if (n === "tco") renderTco();
-  if (n === "kaf") renderKaf();
+  if (n === "kaf") kvRender();
   if (n === "home") renderHome();
   try { $("tabbtn-" + n).scrollIntoView({ inline: "center", block: "nearest" }); } catch (_) {}
   window.scrollTo({ top: 0 });
 }
-document.querySelectorAll(".tab:not(:disabled)").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
+document.querySelectorAll(".tab:not(:disabled)").forEach((b) => b.addEventListener("click", () => { if (b.dataset.tab === "kaf" && b.getAttribute("aria-selected") === "true") kv.view = "home"; showTab(b.dataset.tab); }));
 function logOffer() {
   const s = read(), snap = snapshot(), log = lsGet(LKEY, []);
   const aft = s.type === "aftale";
@@ -1669,6 +1782,555 @@ $("kaf-list").addEventListener("click", (e) => {
   if (nowOpen) { const d = document.createElement("div"); d.className = "kbody"; d.innerHTML = KAF[i].b.map((x) => "<p>" + x + "</p>").join("") + ''; card.appendChild(d); }
 });
 
+/* ---- Kaffeakademi: illustrationer (SVG) ---- */
+const sT = (x, y, s, o = {}) => `<text x="${x}" y="${y}" text-anchor="${o.a || "middle"}" font-size="${o.s || 13}" font-weight="${o.w || 600}" fill="${o.f || "var(--ink)"}">${s}</text>`;
+const shade = (hex, k = 0.62) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.round(v * k)); return "#" + c.map((v) => v.toString(16).padStart(2, "0")).join(""); };
+function bean(x, y, sc, col, kind, rot, gloss) {
+  const rx = kind === "r" ? 33 : 28, ry = kind === "r" ? 37 : 45;
+  const cr = kind === "r" ? `M0 ${-ry + 5} L0 ${ry - 5}` : `M0 ${-ry + 4} C ${rx * 0.7} ${-ry * 0.35}, ${-rx * 0.7} ${ry * 0.35}, 0 ${ry - 4}`;
+  const sh = shade(col);
+  return `<g transform="translate(${x} ${y}) rotate(${rot || 0}) scale(${sc || 1})"><ellipse rx="${rx}" ry="${ry}" fill="${col}"/><ellipse rx="${rx * 0.78}" ry="${ry * 0.8}" cx="${-rx * 0.14}" cy="${-ry * 0.14}" fill="#fff" opacity="${gloss ? 0.2 : 0.1}"/><path d="${cr}" fill="none" stroke="${sh}" stroke-width="3.4" stroke-linecap="round"/><ellipse rx="${rx}" ry="${ry}" fill="none" stroke="${sh}" stroke-opacity=".4" stroke-width="1.6"/></g>`;
+}
+const rng = (seed) => () => { seed |= 0; seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+const ROAST = { green: "#9AA36A", light: "#B98650", medium: "#7B4828", dark: "#33190D" };
+
+const VIS = {};
+VIS.arabica = () => `<svg viewBox="0 0 560 270" role="img" aria-label="Arabica og robusta side om side">
+<rect x="10" y="10" width="262" height="250" rx="14" fill="var(--surface)" stroke="var(--line)"/><rect x="288" y="10" width="262" height="250" rx="14" fill="var(--surface)" stroke="var(--line)"/>
+${bean(141, 120, 1.9, "#8C5A33", "a", 8, 1)}${bean(419, 120, 1.9, "#7E5030", "r", -6, 1)}
+${sT(141, 36, "ARABICA", { s: 15, w: 800 })}${sT(419, 36, "ROBUSTA", { s: 15, w: 800 })}
+${sT(141, 232, "Aflang oval · S-formet fure", { s: 13 })}${sT(141, 250, "Typisk større og fladere", { s: 12, w: 400, f: "var(--muted)" })}
+${sT(419, 232, "Rundere · lige fure", { s: 13 })}${sT(419, 250, "Typisk mindre og tykkere", { s: 12, w: 400, f: "var(--muted)" })}
+</svg>`;
+VIS.roast = () => `<svg viewBox="0 0 560 300" role="img" aria-label="Fra grøn til mørk ristning">
+${[["green", "Grøn", "uristet", 70], ["light", "Lys", "ristning", 205], ["medium", "Mellem", "ristning", 350], ["dark", "Mørk", "ristning", 490]].map(([k, a, b, x]) => bean(x, 82, 1.3, ROAST[k], "a", k === "light" ? 12 : k === "dark" ? -10 : 4, k === "dark") + sT(x, 168, a, { s: 14, w: 800 }) + sT(x, 184, b, { s: 12, w: 400, f: "var(--muted)" })).join("")}
+<defs><linearGradient id="gSy"><stop offset="0" stop-color="#C8601E" stop-opacity=".95"/><stop offset="1" stop-color="#C8601E" stop-opacity=".1"/></linearGradient><linearGradient id="gBi"><stop offset="0" stop-color="#3A2417" stop-opacity=".1"/><stop offset="1" stop-color="#3A2417" stop-opacity=".95"/></linearGradient></defs>
+${sT(20, 224, "Syre og frugt", { a: "start", s: 12, w: 700 })}<rect x="190" y="214" width="340" height="10" rx="5" fill="url(#gSy)"/>
+${sT(20, 252, "Bitterhed og røg", { a: "start", s: 12, w: 700 })}<rect x="190" y="242" width="340" height="10" rx="5" fill="url(#gBi)"/>
+${sT(20, 280, "Oprindelsens præg", { a: "start", s: 12, w: 700 })}<rect x="190" y="270" width="340" height="10" rx="5" fill="var(--kg)" opacity=".15"/><rect x="190" y="270" width="130" height="10" rx="5" fill="var(--kg)"/>
+</svg>`;
+VIS.grind = () => {
+  const panels = [["Grov", "Stempelkande · cold brew", 11, [6, 9], 18, "groft havsalt"], ["Mellem", "Filter · batch-bryg", 33, [3.4, 5.2], 55, "strandsand"], ["Fin", "Espresso", 77, [1.3, 2.3], 220, "fint bordsalt"]];
+  return `<svg viewBox="0 0 560 250" role="img" aria-label="Grov, mellem og fin formaling">` + panels.map(([n, use, seed, [a, b], cnt, like], i) => {
+    const x0 = 10 + i * 184, r = rng(seed); let p = "";
+    for (let k = 0; k < cnt; k++) { const cx = x0 + 12 + r() * 136, cy = 22 + r() * 106, rad = a + r() * (b - a), v = 0.55 + r() * 0.45, pts = [0, 1, 2, 3, 4, 5].map((j) => { const an = j * Math.PI / 3 + r() * 0.5, rr = rad * (0.75 + r() * 0.4); return (cx + Math.cos(an) * rr).toFixed(1) + "," + (cy + Math.sin(an) * rr).toFixed(1); }).join(" "); p += `<polygon points="${pts}" fill="${["#5B3A24", "#6E4829", "#4A2E1B", "#7A5232"][Math.floor(r() * 4)]}" opacity="${v.toFixed(2)}"/>`; }
+    return `<rect x="${x0}" y="10" width="160" height="130" rx="12" fill="#E9DCC8"/>${p}${sT(x0 + 80, 166, n, { s: 15, w: 800 })}${sT(x0 + 80, 184, use, { s: 12, w: 600 })}${sT(x0 + 80, 202, "ca. som " + like, { s: 12, w: 400, f: "var(--muted)" })}`;
+  }).join("") + `</svg>`;
+};
+VIS.drinks = () => {
+  const D = [["Espresso", 30, [["#3B2112", 0.82], ["#B98A58", 0.18]]], ["Americano", 150, [["#7A4C2A", 0.93], ["#B98A58", 0.07]]], ["Cappuccino", 160, [["#3B2112", 0.3], ["#D3B28A", 0.37], ["#FBF3E4", 0.33]]], ["Café latte", 240, [["#3B2112", 0.14], ["#D9BC95", 0.76], ["#FBF3E4", 0.1]]], ["Flat white", 160, [["#3B2112", 0.36], ["#D3B28A", 0.58], ["#FBF3E4", 0.06]]], ["Cortado", 100, [["#3B2112", 0.5], ["#D3B28A", 0.5]]]];
+  const W = 62, base = 190;
+  return `<svg viewBox="0 0 620 262" role="img" aria-label="Seks kaffedrikke sammenlignet">` + D.map(([n, ml, L], i) => {
+    const cx = 52 + i * 103, h = Math.round(34 + ml * 0.5), top = base - h, id = "kd" + i;
+    let y = base, lay = "";
+    L.slice().forEach(([c, f]) => { const hh = h * f; y -= hh; lay += `<rect x="${cx - W / 2}" y="${y.toFixed(1)}" width="${W}" height="${(hh + 0.5).toFixed(1)}" fill="${c}"/>`; });
+    return `<defs><clipPath id="${id}"><path d="M${cx - W / 2} ${top} H${cx + W / 2} V${base - 12} Q${cx + W / 2} ${base} ${cx + W / 2 - 12} ${base} H${cx - W / 2 + 12} Q${cx - W / 2} ${base} ${cx - W / 2} ${base - 12} Z"/></clipPath></defs><g clip-path="url(#${id})">${lay}</g><path d="M${cx - W / 2} ${top} V${base - 12} Q${cx - W / 2} ${base} ${cx - W / 2 + 12} ${base} H${cx + W / 2 - 12} Q${cx + W / 2} ${base} ${cx + W / 2} ${base - 12} V${top}" fill="none" stroke="var(--ink)" stroke-opacity=".55" stroke-width="2.2"/>${sT(cx, 212, n, { s: 12.5, w: 800 })}${sT(cx, 229, "ca. " + ml + " ml", { s: 11.5, w: 400, f: "var(--muted)" })}`;
+  }).join("") + `<g font-size="11" font-weight="600">${[["#3B2112", "Espresso", 12], ["#7A4C2A", "Espresso + vand", 108], ["#D3B28A", "Dampet mælk", 232], ["#FBF3E4", "Mælkeskum", 330]].map(([c, t, x]) => `<rect x="${x}" y="244" width="12" height="12" rx="3" fill="${c}" stroke="var(--ink)" stroke-opacity=".4"/>` + sT(x + 17, 254, t, { a: "start", s: 11.5, w: 600 })).join("")}</g></svg>`;
+};
+VIS.berry = () => `<svg viewBox="0 0 560 290" role="img" aria-label="Tværsnit af et kaffekirsebær">
+<ellipse cx="170" cy="145" rx="112" ry="125" fill="#B3261E"/><ellipse cx="170" cy="145" rx="98" ry="110" fill="#E58A6A"/><ellipse cx="170" cy="145" rx="84" ry="95" fill="#F2D9A6"/><ellipse cx="170" cy="145" rx="72" ry="82" fill="#D8C48F"/>
+<ellipse cx="140" cy="145" rx="30" ry="64" fill="#C9D3A0" stroke="#AEB787" stroke-width="2"/><ellipse cx="200" cy="145" rx="30" ry="64" fill="#C9D3A0" stroke="#AEB787" stroke-width="2"/><path d="M146 88 Q132 145 146 202" fill="none" stroke="#8E986B" stroke-width="2.5"/><path d="M194 88 Q208 145 194 202" fill="none" stroke="#8E986B" stroke-width="2.5"/>
+${[["Yderskal", 40, 128, 62], ["Frugtkød", 76, 170, 90], ["Slimlag", 112, 188, 118], ["Pergamentskal", 148, 188, 144], ["Sølvhinde", 184, 172, 175], ["Bønnen (frøet)", 226, 200, 150]].map(([t, y, x1, y1]) => `<path d="M${x1} ${y1} L330 ${y}" stroke="var(--muted)" stroke-width="1.2" fill="none"/><circle cx="${x1}" cy="${y1}" r="2.6" fill="var(--ink)"/>` + sT(338, y + 4, t, { a: "start", s: 14, w: 700 })).join("")}
+</svg>`;
+VIS.belt = () => {
+  const y = (lat) => 20 + (70 - lat) * 1.83;
+  return `<svg viewBox="0 0 560 260" role="img" aria-label="Kaffebæltet omkring ækvator">
+<rect x="10" y="10" width="540" height="240" rx="14" fill="var(--surface)" stroke="var(--line)"/>
+<rect x="10" y="${y(25)}" width="540" height="${y(-30) - y(25)}" fill="var(--kg)" opacity=".2"/>
+${[[23.4, "Krebsens vendekreds 23,4° N", -5], [0, "Ækvator 0°", -5], [-23.4, "Stenbukkens vendekreds 23,4° S", 15]].map(([l, t, d]) => `<line x1="10" x2="550" y1="${y(l)}" y2="${y(l)}" stroke="var(--muted)" stroke-dasharray="${l === 0 ? "0" : "5 4"}" stroke-width="1.3"/>` + sT(544, y(l) + d, t, { a: "end", s: 10.5, w: 500, f: "var(--muted)" })).join("")}
+${sT(22, y(25) + 15, "Kaffebæltet: ca. 25° N – 30° S", { a: "start", s: 12.5, w: 800, f: "var(--kg)" })}
+${[["Mellem- og Sydamerika", 110], ["Afrika", 262], ["Asien og Stillehavet", 380]].map(([t, x]) => sT(x, y(0) + 8, t, { s: 13, w: 800 })).join("")}
+${sT(110, y(0) + 24, "Brasilien · Colombia", { s: 10.5, w: 500, f: "var(--muted)" })}${sT(262, y(0) + 24, "Etiopien · Kenya", { s: 10.5, w: 500, f: "var(--muted)" })}${sT(380, y(0) + 24, "Indonesien · Vietnam", { s: 10.5, w: 500, f: "var(--muted)" })}
+<circle cx="290" cy="${y(56)}" r="5" fill="var(--accent)"/>${sT(302, y(56) + 4, "Danmark ca. 56° N", { a: "start", s: 12.5, w: 700, f: "var(--accent)" })}
+</svg>`;
+};
+VIS.altitude = () => `<svg viewBox="0 0 560 250" role="img" aria-label="Højde over havet for arabica og robusta">
+<line x1="40" x2="540" y1="190" y2="190" stroke="var(--muted)"/>${[0, 400, 800, 1200, 1600, 2000, 2400].map((m) => `<line x1="${40 + m * 0.2}" x2="${40 + m * 0.2}" y1="186" y2="194" stroke="var(--muted)"/>` + sT(40 + m * 0.2, 210, m + " m", { s: 11, w: 500, f: "var(--muted)" })).join("")}
+<rect x="40" y="40" width="${800 * 0.2}" height="34" rx="8" fill="#8A5A38"/>${sT(46, 62, "Robusta · ca. 0–800 m", { a: "start", s: 13, w: 700, f: "#fff" })}
+<rect x="${40 + 600 * 0.2}" y="90" width="${1400 * 0.2}" height="34" rx="8" fill="var(--kg)"/>${sT(170, 112, "Arabica · ca. 600–2.000 m", { a: "start", s: 13, w: 700, f: "#fff" })}
+${sT(280, 150, "Højere op: køligere nætter, langsommere modning,", { s: 12.5, w: 700, f: "var(--accent)" })}${sT(280, 168, "tættere bønner, mere syre og kompleksitet", { s: 12.5, w: 700, f: "var(--accent)" })}
+</svg>`;
+VIS.extraction = () => `<svg viewBox="0 0 560 270" role="img" aria-label="Under-, balanceret og overekstraktion">
+<defs><linearGradient id="gEx" x1="0" x2="1"><stop offset="0" stop-color="#E7B35C"/><stop offset=".5" stop-color="#6FA25C"/><stop offset="1" stop-color="#7A4527"/></linearGradient></defs>
+<rect x="20" y="20" width="520" height="34" rx="10" fill="url(#gEx)"/>
+${sT(95, 42, "SYRE", { s: 12.5, w: 800, f: "#2b1d10" })}${sT(280, 42, "SØDME", { s: 12.5, w: 800, f: "#fff" })}${sT(465, 42, "BITTERSTOFFER", { s: 12.5, w: 800, f: "#fff" })}
+${sT(280, 76, "Kaffens smagsstoffer opløses i denne rækkefølge, efterhånden som vandet arbejder", { s: 12, w: 400, f: "var(--muted)" })}
+<rect x="20" y="100" width="170" height="124" rx="12" fill="#E7B35C" opacity=".22" stroke="#E7B35C"/><rect x="195" y="100" width="170" height="124" rx="12" fill="var(--kg)" opacity=".2" stroke="var(--kg)"/><rect x="370" y="100" width="170" height="124" rx="12" fill="#7A4527" opacity=".2" stroke="#7A4527"/>
+${sT(105, 124, "Underekstraheret", { s: 14, w: 800 })}${sT(105, 144, "under ca. 18 %", { s: 12, w: 400, f: "var(--muted)" })}${sT(105, 172, "Sur · tynd · salt", { s: 13 })}${sT(105, 192, "Mangler sødme", { s: 12, w: 400, f: "var(--muted)" })}
+${sT(280, 124, "Balanceret", { s: 14, w: 800, f: "var(--kg)" })}${sT(280, 144, "ca. 18–22 %", { s: 12, w: 400, f: "var(--muted)" })}${sT(280, 172, "Sød · rund · fyldig", { s: 13 })}${sT(280, 192, "Lang, ren eftersmag", { s: 12, w: 400, f: "var(--muted)" })}
+${sT(455, 124, "Overekstraheret", { s: 14, w: 800 })}${sT(455, 144, "over ca. 22 %", { s: 12, w: 400, f: "var(--muted)" })}${sT(455, 172, "Bitter · tør · askeagtig", { s: 13 })}${sT(455, 192, "Smagen bliver flad", { s: 12, w: 400, f: "var(--muted)" })}
+${sT(280, 252, "Tallet er andelen af kaffens tørvægt, der er opløst i vandet", { s: 12, w: 400, f: "var(--muted)" })}
+</svg>`;
+VIS.methods3 = () => `<svg viewBox="0 0 560 280" role="img" aria-label="Tre bryggeprincipper">
+${["Espresso", "Filter", "Stempelkande"].map((n, i) => `<rect x="${10 + i * 184}" y="10" width="172" height="262" rx="14" fill="var(--surface)" stroke="var(--line)"/>` + sT(96 + i * 184, 34, n, { s: 15, w: 800 })).join("")}
+<g><rect x="56" y="62" width="80" height="30" rx="6" fill="#3A6F9B"/>${sT(96, 82, "9 bar", { s: 12, w: 800, f: "#fff" })}<path d="M96 94 V118" stroke="#3A6F9B" stroke-width="3"/><path d="M90 112 L96 122 L102 112" fill="#3A6F9B"/>
+<rect x="60" y="124" width="72" height="34" rx="4" fill="#5B3A24"/><path d="M52 158 H140 L128 176 H64 Z" fill="var(--muted)"/><path d="M90 178 V196 M102 178 V198" stroke="#3B2112" stroke-width="3"/>
+<path d="M68 214 h56 v22 a14 14 0 0 1 -14 14 h-28 a14 14 0 0 1 -14 -14 z" fill="#3B2112"/><rect x="68" y="214" width="56" height="7" fill="#B98A58"/>${sT(96, 112, "", {})}</g>
+${sT(96, 268, "Tryk", { s: 12.5, w: 500, f: "var(--muted)" })}
+<g><circle cx="280" cy="66" r="14" fill="var(--muted)"/>${[266, 280, 294].map((x) => `<path d="M${x} 82 V96" stroke="#3A6F9B" stroke-width="3"/>`).join("")}<path d="M248 108 H312 L292 156 H268 Z" fill="#E9DCC8" stroke="var(--muted)" stroke-width="1.5"/><path d="M262 122 H298 L290 148 H270 Z" fill="#5B3A24"/>
+<path d="M280 158 V176" stroke="#3B2112" stroke-width="3"/><path d="M254 180 h52 v50 a8 8 0 0 1 -8 8 h-36 a8 8 0 0 1 -8 -8 z" fill="#3B2112" opacity=".9"/><path d="M306 190 h10 a8 8 0 0 1 0 22 h-10" fill="none" stroke="var(--muted)" stroke-width="3"/></g>
+${sT(280, 268, "Tyngdekraft", { s: 12.5, w: 500, f: "var(--muted)" })}
+<g><rect x="428" y="66" width="62" height="130" rx="8" fill="#B8884E" opacity=".35" stroke="var(--muted)" stroke-width="2"/><rect x="430" y="110" width="58" height="84" rx="6" fill="#6B4527" opacity=".85"/><rect x="456" y="40" width="6" height="92" fill="var(--muted)"/><rect x="440" y="36" width="38" height="8" rx="4" fill="var(--ink)"/><rect x="436" y="126" width="46" height="5" rx="2" fill="var(--muted)"/>${sT(459, 222, "4 min", { s: 12, w: 800, f: "var(--accent)" })}</g>
+${sT(464, 268, "Nedsænkning", { s: 12.5, w: 500, f: "var(--muted)" })}
+</svg>`;
+VIS.fullauto = () => {
+  const box = (x, y, w, h, t, c) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${c || "var(--surface)"}" stroke="var(--ink)" stroke-opacity=".5" stroke-width="1.6"/>` + sT(x + w / 2, y + h / 2 + 4.5, t, { s: 13, w: 700, f: c ? "#fff" : "var(--ink)" });
+  const ar = (d) => `<path d="${d}" fill="none" stroke="var(--accent)" stroke-width="2.4" marker-end="url(#fa)"/>`;
+  return `<svg viewBox="0 0 560 330" role="img" aria-label="Opbygning af en fuldautomatisk kaffemaskine"><defs><marker id="fa" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto"><path d="M0 0 L9 4.5 L0 9 z" fill="var(--accent)"/></marker></defs>
+${box(20, 20, 140, 44, "Bønnebeholder", "#6B4527")}${box(20, 110, 140, 44, "Kværn", "#6B4527")}${ar("M90 66 V106")}
+${box(210, 110, 140, 44, "Bryggeenhed", "#3B2112")}${ar("M162 132 H206")}
+${box(400, 20, 140, 44, "Vandtank / filter", "#3A6F9B")}${box(400, 110, 140, 44, "Pumpe + varmeblok", "#3A6F9B")}${ar("M470 66 V106")}${ar("M398 132 H354")}
+${box(210, 210, 140, 44, "Kop", "#4C6B3A")}${ar("M280 156 V206")}
+${box(20, 210, 140, 44, "Mælkesystem", "#8A8A8A")}${ar("M162 232 H206")}${box(20, 276, 140, 38, "Mælk (kølet)")}${ar("M90 274 V258")}
+${box(400, 210, 140, 44, "Spildbakke", "#8A8A8A")}${ar("M352 128 C 380 160 390 200 396 226")}
+${sT(280, 72, "Friske bønner kværnes til hver kop", { s: 11.5, w: 500, f: "var(--muted)" })}${sT(280, 290, "Vand ved ca. 90–95 °C og højt tryk", { s: 11.5, w: 500, f: "var(--muted)" })}${sT(280, 306, "giver espresso", { s: 11.5, w: 500, f: "var(--muted)" })}
+</svg>`;
+};
+VIS.wheel = () => {
+  const S = [["Frugt", "#C4423B"], ["Blomster", "#C9709B"], ["Sødme", "#D69A3A"], ["Nødder", "#A9743F"], ["Chokolade", "#5B3A24"], ["Krydret", "#B5532A"], ["Ristet", "#6B6B6B"], ["Jordlig", "#6D7F42"]];
+  const cx = 180, cy = 180, R = 165, r = 58;
+  const pt = (rad, a) => [(cx + rad * Math.sin(a)).toFixed(1), (cy - rad * Math.cos(a)).toFixed(1)];
+  return `<svg viewBox="0 0 360 360" role="img" aria-label="Forenklet smagshjul" style="max-width:340px;margin:0 auto">` + S.map(([n, c], i) => {
+    const a0 = i * Math.PI / 4, a1 = (i + 1) * Math.PI / 4, [x0, y0] = pt(R, a0), [x1, y1] = pt(R, a1), [x2, y2] = pt(r, a1), [x3, y3] = pt(r, a0), [tx, ty] = pt((R + r) / 2, (a0 + a1) / 2);
+    return `<path d="M${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r} ${r} 0 0 0 ${x3} ${y3} Z" fill="${c}" stroke="var(--cream)" stroke-width="3"/>` + sT(tx, (+ty + 4).toFixed(1), n, { s: 12.5, w: 800, f: "#fff" });
+  }).join("") + `<circle cx="${cx}" cy="${cy}" r="${r - 4}" fill="var(--surface)"/>${sT(cx, cy + 5, "Smag", { s: 16, w: 800 })}</svg>`;
+};
+VIS.bbprofile = () => {
+  const rows = KAFFE.map((k) => `<div class="nm">${k.name}</div>` + [["Ristning", k.scores[0]], ["Fylde", k.scores[1]], ["Syre", k.scores[2]]].map(([n, v]) => `<div class="r"><span>${n}</span><div class="b"><i style="width:${v * 20}%"></i></div></div>`).join("")).join("");
+  return `<div class="bars">${rows}</div>`;
+};
+VIS.process = () => `<div class="flowt">Vasket (våd)</div><div class="flow"><span class="c">Modent kirsebær</span><span class="a">→</span><span class="c">Frugtkød fjernes</span><span class="a">→</span><span class="c">Gæring i vand</span><span class="a">→</span><span class="c">Vask</span><span class="a">→</span><span class="c">Tørring</span></div>
+<div class="flowt">Natural (tør)</div><div class="flow"><span class="c">Modent kirsebær</span><span class="a">→</span><span class="c">Tørres hele i sol</span><span class="a">→</span><span class="c">Frugten fjernes først bagefter</span></div>
+<div class="flowt">Honey (pulped natural)</div><div class="flow"><span class="c">Modent kirsebær</span><span class="a">→</span><span class="c">Skal og frugtkød fjernes</span><span class="a">→</span><span class="c">Slimlag bliver siddende</span><span class="a">→</span><span class="c">Tørring</span></div>`;
+VIS.journey = () => {
+  const ic = {
+    ber: `<svg viewBox="0 0 64 64"><path d="M10 14 Q32 4 54 16" stroke="#6B8E3A" stroke-width="3" fill="none"/><circle cx="20" cy="26" r="8" fill="#B3261E"/><circle cx="34" cy="30" r="8" fill="#C4423B"/><circle cx="46" cy="24" r="7" fill="#B3261E"/><path d="M14 14 q-10 10 -2 14 q10 -2 2 -14z" fill="#6B8E3A"/></svg>`,
+    har: `<svg viewBox="0 0 64 64"><path d="M10 28 H54 L48 56 H16 Z" fill="#B8884E"/><circle cx="22" cy="24" r="6" fill="#B3261E"/><circle cx="34" cy="21" r="6" fill="#C4423B"/><circle cx="45" cy="24" r="6" fill="#B3261E"/><path d="M14 36 H50 M16 46 H48" stroke="#8A6234" stroke-width="2"/></svg>`,
+    dry: `<svg viewBox="0 0 64 64"><circle cx="48" cy="14" r="8" fill="#E5A03A"/><rect x="6" y="38" width="52" height="14" rx="3" fill="#B8884E"/>${[14, 24, 34, 44, 52].map((x) => `<circle cx="${x}" cy="45" r="3.2" fill="#B3261E" opacity=".85"/>`).join("")}<path d="M10 52 v8 M54 52 v8" stroke="#8A6234" stroke-width="3"/></svg>`,
+    grn: `<svg viewBox="0 0 64 64">${bean(32, 32, 0.66, ROAST.green, "a", 20)}</svg>`,
+    rst: `<svg viewBox="0 0 64 64">${bean(32, 32, 0.66, ROAST.medium, "a", 20, 1)}</svg>`,
+    cup: `<svg viewBox="0 0 64 64"><path d="M10 28 H46 V40 a14 14 0 0 1 -14 14 H24 a14 14 0 0 1 -14 -14 Z" fill="#3B2112"/><path d="M46 31 h4 a7 7 0 0 1 0 14 h-4" fill="none" stroke="#3B2112" stroke-width="4"/><path d="M20 22 q-4 -6 0 -10 M30 22 q-4 -6 0 -10 M40 22 q-4 -6 0 -10" stroke="var(--muted)" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>`
+  };
+  const S = [["ber", "1. Kaffebær", "Modner på planten"], ["har", "2. Høst", "Plukkes i hånden eller maskinelt"], ["dry", "3. Forarbejdning", "Frugtkød fjernes, bønnen tørres"], ["grn", "4. Grøn kaffe", "Skræl fjernes, sorteres og sejles"], ["rst", "5. Ristning", "Smagen udvikles i risteriet"], ["cup", "6. Kop", "Kværnes og brygges"]];
+  return `<div class="steps">` + S.map(([k, a, b]) => `<div class="stp">${ic[k]}<b>${a}</b>${b}</div>`).join("") + `</div>`;
+};
+VIS.roast_q = () => `<svg viewBox="0 0 560 190" role="img" aria-label="Tre kaffebønner A, B og C">${[["A", ROAST.dark, 100], ["B", ROAST.light, 280], ["C", ROAST.medium, 460]].map(([l, c, x]) => bean(x, 82, 1.35, c, "a", 8, l === "A") + sT(x, 170, l, { s: 20, w: 800 })).join("")}</svg>`;
+VIS.ara_q = () => `<svg viewBox="0 0 560 190" role="img" aria-label="To kaffebønner A og B">${bean(150, 80, 1.5, "#85552F", "r", 4, 1) + sT(150, 172, "A", { s: 20, w: 800 }) + bean(410, 80, 1.5, "#85552F", "a", 6, 1) + sT(410, 172, "B", { s: 20, w: 800 })}</svg>`;
+const VICON = {
+  A: `<svg viewBox="0 0 64 64"><path d="M32 56 V28"/><path d="M32 40 C14 40 10 24 12 12 C26 12 34 22 32 40Z"/><path d="M32 32 C48 32 54 20 52 8 C38 8 30 18 32 32Z"/></svg>`,
+  B: `<svg viewBox="0 0 64 64"><ellipse cx="32" cy="32" rx="18" ry="26" transform="rotate(22 32 32)"/><path d="M24 8 C42 22 20 42 40 56" transform="rotate(0)"/></svg>`,
+  C: `<svg viewBox="0 0 64 64"><path d="M14 14 H50 L40 40 H24 Z"/><path d="M32 44 V52"/><path d="M20 58 H44"/></svg>`,
+  D: `<svg viewBox="0 0 64 64"><path d="M20 10 H44 L41 54 H23 Z"/><path d="M21.5 28 H42.5 M22.5 40 H41.5"/></svg>`,
+  E: `<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="8"/><path d="M32 10 V24 M32 40 V54 M10 32 H24 M40 32 H54 M16 16 L26 26 M38 38 L48 48 M48 16 L38 26 M26 38 L16 48"/></svg>`,
+  F: `<svg viewBox="0 0 64 64"><rect x="14" y="10" width="36" height="46" rx="3"/><path d="M22 20 H28 M36 20 H42 M22 30 H28 M36 30 H42 M27 56 V44 H37 V56"/></svg>`
+};
+
+/* ---- Kaffeakademi: kategorier og artikler (del 1: A, B) ---- */
+const KV_CATS = [
+  { id: "A", t: "Kaffens oprindelse", d: "Fra plantage til kop: dyrkning, klima og arter", c: ["#5E7B3A", "#2F4A1F"] },
+  { id: "B", t: "Bønner og ristning", d: "Hvad der sker i risteriet, og hvorfor det smager, som det gør", c: ["#8A5A33", "#4A2C17"] },
+  { id: "C", t: "Brygning og kaffeteknik", d: "Ekstraktion, formaling, vand og bryggemetoder", c: ["#3A6F9B", "#1E3F5E"] },
+  { id: "D", t: "Kaffedrikkene", d: "Espresso, latte, cortado og mælkens betydning", c: ["#B5532A", "#6E2E14"] },
+  { id: "E", t: "Smag og oplevelser", d: "Lær at smage, beskrive og matche kaffe", c: ["#8E4B6B", "#552640"] },
+  { id: "F", t: "Kaffe på arbejdspladsen", d: "Vælg løsning, vurdér forbrug og sikr kvaliteten", c: ["#3B2A20", "#17100B"] }
+];
+const KV_ART = [
+/* ============ A: OPRINDELSE ============ */
+{ id: "a-rejse", cat: "A", t: "Kaffens rejse: fra kaffebær til kop", min: 7,
+  lead: "Kaffe er ikke en bønne, men kernen i en frugt. Når du kender hele rejsen, kan du forklare, hvorfor kaffe smager, som den gør, og hvorfor to kaffer kan være så forskellige.",
+  sec: [
+    { h: "Kaffekirsebæret", p: ["Kaffetræet (slægten <i>Coffea</i>) bærer små frugter, som kaldes kaffekirsebær eller kaffebær. De er grønne, mens de vokser, og bliver røde (hos nogle sorter gule), når de er modne. Inde i frugten sidder normalt to bønner med de flade sider mod hinanden. Bønnerne er frøene.", "Et nyplantet kaffetræ bærer typisk først frugt efter 3–4 år, og kirsebærene modner over flere måneder. Det betyder, at ét træ ofte skal plukkes flere gange i løbet af en sæson."], v: "berry", cap: "Kaffekirsebærets lag. Det er bønnen i midten, der ender i din kop." },
+    { h: "Høst: håndplukning eller maskine", p: ["Kvaliteten afgøres allerede ved høsten. <b>Selektiv håndplukning</b> betyder, at pluk­kerne kun tager de modne røde kirsebær og kommer igen senere for resten. Det giver en jævn og sød kaffe, men er arbejdskrævende og dyrt.", "Ved <b>strip picking</b> eller maskinhøst tages alle kirsebær på én gang. Det er hurtigt og billigt og bruges især på store, flade plantager (fx i dele af Brasilien). Prisen er, at umodne og overmodne kirsebær kommer med, og de giver adstringerende, græsagtig eller gæret smag, hvis de ikke sorteres fra."] },
+    { h: "Forarbejdning: at få bønnen ud af frugten", p: ["Frugten skal af, og bønnen skal tørres ned til ca. 10–12 % fugt, ellers kan den skimle eller gære. Der findes tre hovedmetoder, og de påvirker smagen næsten lige så meget som oprindelsen:"], v: "process", cap: "Tre måder at forarbejde kaffe på.", p2: ["<b>Vasket:</b> Giver typisk en ren, klar kop med tydelig syre. <b>Natural:</b> Giver mere sødme, krop og modne bærnoter, men også større variation. <b>Honey:</b> Ligger imellem: sød og afrundet, men stadig ren. Navnet kommer af det klæbrige slimlag, ikke af honning."] },
+    { h: "Tørring, afskalning og sortering", p: ["Bønnerne tørres på tørrebede i solen eller i mekaniske tørrere. Derefter fjernes den tynde pergamentskal (hulling), og bønnerne sorteres efter størrelse, vægt og farve, så fejlbehæftede bønner kan frasorteres. Resultatet kaldes <b>grøn kaffe</b>: uristede bønner, som er grågrønne og næsten uden kaffens kendte duft.", "Grøn kaffe pakkes typisk i sække på ca. 60 kg og sejles i containere til risterierne. Den holder sig langt bedre end ristet kaffe, fordi smagen først udvikles ved ristningen."] },
+    { h: "Ristning, afgasning og levering", p: ["I risteriet bliver de grønne bønner varmet op, og smagen opstår. Se artiklen om ristning for detaljerne. Efter ristning afgiver bønnerne CO₂ i en til to uger, og kaffen smager bedst en tid efter ristning. Hos Blackbird leveres kaffen friskristet, så kunden ikke selv skal holde øje med datoer."], v: "journey", cap: "Kaffens rejse fra bær til kop i seks trin." }
+  ],
+  know: ["Kaffebønnen er frøet i en rød frugt, kaffekirsebæret.", "Håndplukning giver jævn kvalitet; maskinhøst er billigere, men kræver sortering.", "Vasket = ren og klar, natural = sød og frugtig, honey = imellem.", "Grøn kaffe er uristet, holder længe og sælges som råvare til risterier.", "Smagen udvikles først ved ristning."],
+  say: ["«Kaffe er faktisk en frugt. Den røde kirsebær plukkes og tørres, og først i risteriet får bønnen den smag, vi kender. Derfor betyder både plantagen, forarbejdningen og ristningen noget for, hvordan kaffen smager i jeres kop.»"],
+  qa: [["Er kaffe en bønne?", "Botanisk set er det et frø fra en frugt. Vi kalder det en bønne, fordi den ligner en. Kaffeplanten er i øvrigt ikke i bønnefamilien."], ["Hvorfor smager kaffe forskelligt fra år til år?", "Hver høst er en ny årgang. Vejr, regn og tørke påvirker kirsebærene. Derfor blender mange risterier flere partier, så smagen holder sig stabil."], ["Hvad er forskellen på vasket og natural?", "Ved vasket kaffe fjernes frugtkødet før tørring, så kaffen bliver ren og syrlig. Ved natural tørrer bønnen inde i hele frugten og optager mere sødme og bærsmag."]],
+  quiz: [
+    { q: "Hvad er en kaffebønne egentlig?", o: ["Frøet i en rød frugt (kaffekirsebær)", "Roden på kaffetræet", "En bælgfrugt som en sojabønne"], a: 0, e: "Kaffebønnen er kernen i kaffekirsebæret. Den kaldes bønne, fordi formen minder om en." },
+    { q: "Hvilken forarbejdning tørrer hele kirsebær med frugtkødet på?", o: ["Vasket", "Natural", "Pulped"], a: 1, e: "Ved natural-forarbejdning tørrer kirsebærene hele, og bønnen optager sødme og bærsmag fra frugten." },
+    { q: "Hvad kaldes uristede kaffebønner?", o: ["Grøn kaffe", "Rå espresso", "Bryg-kaffe"], a: 0, e: "Uristet kaffe kaldes grøn kaffe. Den er grågrøn og har næsten ingen kaffeduft før ristning." }
+  ], rel: ["a-belt", "a-arabica", "b-ristning"] },
+
+{ id: "a-belt", cat: "A", t: "Kaffebæltet, klima og højde", min: 7,
+  lead: "Kaffe kan kun dyrkes i en smal zone omkring ækvator. Her får du overblik over, hvor kaffen kommer fra, og hvorfor klima, højde og jord gør så stor forskel i kopsmagen.",
+  sec: [
+    { h: "Kort historie: fra Etiopien til hele verden", p: ["Kaffeplanten vokser oprindeligt vildt i Etiopiens højland. Der findes en kendt legende om hyrden Kaldi, som lagde mærke til, at hans geder blev livlige af kaffebær, men den er en legende og ikke dokumenteret historie. Vi ved, at kaffe blev dyrket og drukket på Den Arabiske Halvø, især i Yemen, fra 1400-tallet.", "I 1600-tallet kom kaffe til Europa og de første kaffehuse åbnede. Europæiske handelsmagter tog derefter planten med til nye områder, bl.a. Java, Caribien og Sydamerika, hvor kaffen blev en af verdens vigtigste landbrugsråvarer. I dag er Brasilien verdens største kaffeproducent."] },
+    { h: "Kaffebæltet", p: ["Kaffe vokser mellem Krebsens og Stenbukkens vendekreds, groft sagt mellem 25° nord og 30° syd. Her er der stabil varme, rigelig regn og ingen frost. Kaffebæltet deles typisk i tre store regioner:"], v: "belt", cap: "Kaffebæltet omkring ækvator. Danmark ligger langt uden for.", p2: ["<b>Mellem- og Sydamerika:</b> Brasilien, Colombia, Guatemala, Costa Rica. Typisk mild, afrundet og sød kaffe med chokolade, nødder og karamel.", "<b>Afrika:</b> Etiopien, Kenya og flere. Ofte frugtig, floral og livlig med tydelig syre.", "<b>Asien og Stillehavet:</b> Indonesien, Vietnam, Indien og flere. Typisk fyldig og jordagtig, med lav syre. Vietnam er verdens største producent af robusta."] },
+    { h: "Højde: bønnens hemmelige kvalitetsfaktor", p: ["Jo højere kaffen vokser, jo køligere bliver nætterne (temperaturen falder ca. 0,6 °C pr. 100 meter). Kirsebærene modner langsommere, og bønnen når at opbygge flere sukkerstoffer og syrer. Resultatet er tættere bønner med mere kompleksitet og mere syre. Arabica dyrkes typisk mellem ca. 600 og 2.000 meters højde, robusta lavere."], v: "altitude", cap: "Typisk højde for arabica og robusta." },
+    { h: "Jord, regn og skygge", p: ["Vulkansk jord (fx i Mellemamerika og Etiopien) er rig på mineraler og drænet, og mange kendte kaffeområder ligger netop omkring vulkaner. Regntid og tørretid skal komme på de rigtige tidspunkter: regn udløser blomstring, og tørvejr under høst gør tørringen nemmere. Skyggetræer beskytter kaffetræerne mod stærk sol og giver et mere stabilt mikroklima.", "Klimaændringer gør det vanskeligere at dyrke arabica flere steder, bl.a. fordi temperaturerne stiger, og sygdomme som kaffebladrust spreder sig. Det er en af grundene til, at kaffepriserne kan svinge."] }
+  ],
+  know: ["Kaffe vokser kun mellem ca. 25° nord og 30° syd.", "Tre regioner: Mellem- og Sydamerika (mild og sød), Afrika (frugtig og floral), Asien (kraftig og jordagtig).", "Højde giver køligere klima, langsommere modning og mere kompleks smag.", "Kaffens oprindelse er Etiopien, men Brasilien er i dag verdens største producent.", "Vejr og klima er en vigtig årsag til variation og prisudsving."],
+  say: ["«Kaffe kan kun dyrkes tæt på ækvator, og det er faktisk stedet og højden, der giver kaffen sin personlighed. Derfor smager en kaffe fra Brasilien af chokolade og nødder, mens en fra Etiopien kan minde om blomster og bær.»"],
+  qa: [["Hvorfor kan vi ikke dyrke kaffe i Danmark?", "Kaffetræer kræver frostfrit klima og stabil varme året rundt. Danmark ligger langt uden for kaffebæltet, så det kræver drivhus og giver meget små mængder."], ["Hvorfor er kaffe blevet dyrere?", "Priser påvirkes af høstudfald på grund af vejr i store lande som Brasilien, af efterspørgsel, valuta og transportomkostninger. Det er derfor, faste aftaler kan skabe ro for kunden."], ["Hvilket land har den bedste kaffe?", "Der er ikke ét bedste land. Det afhænger af smagen: Brasilien er sød og afrundet, Etiopien er floral og frugtig, Sumatra er kraftig og jordagtig."]],
+  quiz: [
+    { q: "Hvor ligger kaffebæltet groft sagt?", o: ["Mellem ca. 25° nord og 30° syd", "Mellem polcirklerne", "Kun syd for ækvator"], a: 0, e: "Kaffe vokser mellem Krebsens og Stenbukkens vendekreds, hvor der er varme og ingen frost." },
+    { q: "Hvad sker der typisk, når kaffe dyrkes højere oppe?", o: ["Kirsebærene modner hurtigere", "Bønnerne bliver tættere med mere syre og kompleksitet", "Kaffen bliver mere bitter"], a: 1, e: "Køligere klima giver langsommere modning, og bønnen når at opbygge flere smagsstoffer." },
+    { q: "Hvilken region forbindes typisk med frugtig og floral kaffe?", o: ["Afrika, fx Etiopien og Kenya", "Sydamerika", "Nordeuropa"], a: 0, e: "Etiopien og Kenya er kendt for floral og frugtig kaffe med tydelig syre." }
+  ], rel: ["a-rejse", "a-arabica", "e-smag"] },
+
+{ id: "a-arabica", cat: "A", t: "Arabica og robusta: to arter, to verdener", min: 6,
+  lead: "Næsten al verdens kaffe kommer fra to arter. De ligner hinanden, men smager meget forskelligt. Her lærer du forskellen, så du kan svare sikkert, når kunden spørger.",
+  sec: [
+    { h: "To arter", p: ["<b>Arabica</b> (<i>Coffea arabica</i>) udgør ca. 60 % af verdens kaffeproduktion, og <b>robusta</b> (<i>Coffea canephora</i>) størstedelen af resten. Der findes flere kaffearter, men det er disse to, der betyder noget for handel og kop."] },
+    { h: "Planten og dyrkningen", p: ["Arabica trives højt oppe (ca. 600–2.000 m) i et køligt klima og er sårbar over for sygdom, skadedyr og vejr. Det gør den dyrere at dyrke. Robusta vokser lavere (ca. 0–800 m), tåler varme og sygdom bedre og giver ofte større udbytte pr. træ. Navnet kommer netop af, at planten er robust."] },
+    { h: "Bønnen", p: ["Arabica-bønnen er typisk lidt større, aflang og oval med en S-formet midterfure. Robusta-bønnen er oftest mindre, rundere og med en lige midterfure. Forskellen er tydelig, når man ser dem ved siden af hinanden, men hos risteren er det som regel smagen og kvalitetskontrollen, der afgør."], v: "arabica", cap: "Arabica og robusta ved siden af hinanden." },
+    { h: "Smag og koffein", p: ["<table class='ktab'><tr><th></th><th>Arabica</th><th>Robusta</th></tr><tr><td>Koffein</td><td>ca. 1–1,5 %</td><td>ca. 2–2,7 %</td></tr><tr><td>Smag</td><td>Sødme, frugt, blomster, nødder, chokolade, behagelig syre</td><td>Kraftig, bitter, jordagtig, trælignende, evt. gummiagtig</td></tr><tr><td>Krop og crema</td><td>Blød og afrundet</td><td>Fyldig, tyk crema</td></tr><tr><td>Pris</td><td>Typisk dyrere</td><td>Typisk billigere</td></tr><tr><td>Bruges til</td><td>Specialty, filter, espresso</td><td>Instant, traditionelle espressoblends</td></tr></table>", "Koffein er plantens naturlige forsvar mod insekter, og det er årsagen til, at robusta, som vokser lavere og er mere udsat, indeholder mere. Robusta har også flere bitterstoffer (bl.a. klorogensyrer), som bidrager til den hårde smag."] },
+    { h: "Er robusta så altid dårlig?", p: ["Nej. Robusta af høj kvalitet findes, og små mængder kan give crema og krop i en espressoblend. Men en stor del af den robusta, der handles, er af lavere kvalitet og bruges, fordi den er billig. Derfor er arabica normalt valget, når målet er en rund, sød og behagelig kop.", "<b>Blackbirds tre kaffer er 100 % arabica.</b>"] }
+  ],
+  know: ["Arabica ≈ 60 % af verdens kaffe. Robusta ≈ størstedelen af resten.", "Arabica: sødme, frugt og syre. Robusta: kraftig, bitter og jordagtig.", "Robusta har næsten dobbelt så meget koffein som arabica.", "Arabica har S-formet fure og er aflang. Robusta er rundere med lige fure.", "Robusta er billigere og mere robust; arabica er dyrere og mere kompleks."],
+  say: ["«Vi bruger udelukkende 100 % arabica. Den har en blødere, sødere smag og mindre bitterhed end robusta. Robusta har mere koffein, men også en mere hård og bitter smag, så arabica giver en kop, som flest bryder sig om.»"],
+  qa: [["Hvilken har mest koffein?", "Robusta har typisk ca. 2–2,7 % koffein mod ca. 1–1,5 % i arabica."], ["Er robusta dårlig kaffe?", "Ikke nødvendigvis, men den er ofte mere bitter og bruges oftest, fordi den er billig. Arabica giver normalt en mere rund og sød smag."], ["Hvorfor er arabica dyrere?", "Planten er mere sårbar og vokser højt oppe, hvor udbyttet er lavere og høsten sværere."]],
+  quiz: [
+    { q: "Hvilken kaffetype har typisk det højeste koffeinindhold?", o: ["Arabica", "Robusta", "De har altid samme koffeinindhold"], a: 1, e: "Robusta har typisk ca. 2–2,7 % koffein, næsten dobbelt så meget som arabica." },
+    { q: "Hvilken af bønnerne er arabica?", img: "ara_q", fix: true, o: ["A", "B"], a: 1, e: "Arabica-bønnen er mere aflang og oval med en S-formet midterfure. Bønne A er rund med lige fure og er robusta." },
+    { q: "Hvilken smag forbindes typisk med robusta?", o: ["Blomster og citrus", "Kraftig, bitter og jordagtig", "Karamel og vanilje"], a: 1, e: "Robusta er kraftig og bitter med jordagtige og trælignende noter." }
+  ], rel: ["b-ristning", "a-belt", "b-blend"] },
+
+/* ============ B: BØNNER OG RISTNING ============ */
+{ id: "b-ristning", cat: "B", t: "Ristning: hvad der sker i tromlen", min: 8,
+  lead: "Ristningen forvandler en grøn, næsten smagsløs bønne til kaffe. Den er den enkeltfaktor, som kunderne mærker tydeligst, og en vigtig forklaring på, hvorfor kaffer smager så forskelligt.",
+  sec: [
+    { h: "Hvad sker der under ristning?", p: ["En grøn bønne indeholder ca. 10–12 % vand og smager groft sagt af hø og græs. Ved ristning varmes den typisk til ca. 180–230 °C i ca. 10–15 minutter, mens den drejer rundt i en tromle. Undervejs sker flere ting:", "<ul><li><b>Tørring:</b> Bønnen mister vand og skifter fra grøn til gul.</li><li><b>Maillard-reaktion og karamellisering:</b> Sukker og aminosyrer reagerer, bønnen bliver brun, og hundredvis af aromastoffer opstår.</li><li><b>Første knæk:</b> Ved ca. 196 °C høres en knitren, som når popcorn poppes. Bønnen udvider sig, og lyse ristninger stoppes omkring her.</li><li><b>Andet knæk:</b> Ved ca. 225 °C høres igen knitren, og olier trækkes ud mod overfladen. Mørke ristninger rister til omkring dette punkt eller lidt længere.</li></ul>", "I alt mister bønnen ca. 12–20 % af sin vægt, mest vand, og svulmer op i størrelse."] },
+    { h: "Lys, mellem og mørk", p: ["Ristningsgraden er et valg, der afgør, hvilken side af kaffen der kommer frem. Jo længere ristning, desto mere omdannes syrerne, og desto mere kommer røg- og bitterstofferne frem."], v: "roast", cap: "Den samme bønne i forskellige ristningsgrader.", p2: ["<div class='tblwrap'><table class='ktab'><tr><th></th><th>Lys</th><th>Mellem</th><th>Mørk</th></tr><tr><td>Farve</td><td>Lysebrun</td><td>Mellembrun</td><td>Mørkebrun til næsten sort</td></tr><tr><td>Syre</td><td>Høj</td><td>Moderat</td><td>Lav</td></tr><tr><td>Krop</td><td>Let</td><td>Medium</td><td>Fyldig</td></tr><tr><td>Smag</td><td>Frugt, blomster, citrus, oprindelse tydelig</td><td>Karamel, nødder, chokolade, balance</td><td>Mørk chokolade, kakao, ristede nødder, røg</td></tr><tr><td>Overflade</td><td>Tør</td><td>Tør til let skinnende</td><td>Skinnende, evt. olieret</td></tr><tr><td>Passer til</td><td>Filter, nørdet kaffe</td><td>Allround</td><td>Espresso og mælkedrikke</td></tr></table></div>"] },
+    { h: "Fire myter om ristning", p: ["<ul><li><b>«Mørk kaffe er stærk kaffe.»</b> Styrken afhænger af, hvor meget kaffe du bruger pr. kop vand, ikke af farven.</li><li><b>«Mørk kaffe har mere koffein.»</b> Ristningen ændrer kun marginalt på koffeinen.</li><li><b>«Olie på bønnerne betyder friskhed.»</b> Nej. Olien trækkes ud mod overfladen ved mørk ristning, og olieret kaffe kan med tiden blive harsk. Se på ristedatoen.</li><li><b>«Mørkere er bedre.»</b> Ristningen skal passe til kaffen og drikken. Ved for kraftig ristning dækkes bønnens karakter af brændte noter.</li></ul>"] },
+    { h: "Ristning hos Blackbird", p: ["Early Bird er <b>mellemristet</b>: rund og fyldig med frisk aroma og let krydret smag. Early Bird Dark Roast og Black Wings er <b>mørkristede</b> med lav syre, fyldig krop og noter af mørk chokolade. De mørke kaffer skærer godt igennem mælk og er derfor oplagte til cappuccino og latte."] }
+  ],
+  know: ["Ristning udvikler smagen: Maillard og karamellisering skaber hundredvis af aromastoffer.", "Lys ristning = syre og frugt. Mørk ristning = krop, chokolade og røg.", "Farve siger ikke noget om styrke eller koffein.", "Skinnende, olieret bønne er ikke et tegn på friskhed.", "Blackbird: Early Bird er mellemristet, Dark Roast og Black Wings er mørkristede."],
+  say: ["«Ristningen er som at stege et stykke kød. Rister man kort, bevarer man bønnens egen frugt og syre. Rister man længere, får man mere kraft, chokolade og fylde. Vi har både en mellemristet og to mørkristede kaffer, så vi kan ramme præcis den smag, som jeres medarbejdere bryder sig om.»"],
+  qa: [["Er mørk kaffe stærkere?", "Nej. Mørk ristning giver en mere kraftig og fyldig smag, men styrken afhænger af dosering. Koffeinindholdet er stort set det samme."], ["Hvorfor skinner nogle bønner?", "Ved mørk ristning trækkes bønnens naturlige olier ud mod overfladen. Det er ikke et tegn på friskhed."], ["Hvad er bedst til latte?", "Mørkristet kaffe, fordi smagen skærer igennem mælken og giver chokolade- og nøddenoter."]],
+  quiz: [
+    { q: "Hvilken bønne er mellemristet?", img: "roast_q", fix: true, o: ["A", "B", "C"], a: 2, e: "Mellemristningen har en mellembrun farve (C). A er mørk, og B er lys." },
+    { q: "Hvilken ristningsgrad giver typisk mest syre?", o: ["Lys ristning", "Mørk ristning", "Ingen forskel"], a: 0, e: "Ved længere ristning omdannes syrerne. Lyse ristninger bevarer mest syre og frugt." },
+    { q: "Hvad betyder en olieret overflade på bønnerne?", o: ["At kaffen er helt frisk", "At bønnen er mørkristet", "At kaffen er af lav kvalitet"], a: 1, e: "Olien trækkes ud mod overfladen ved mørk ristning. Den siger intet om friskhed." }
+  ], rel: ["b-blend", "e-smag", "d-drikke"] },
+
+{ id: "b-blend", cat: "B", t: "Blend, single origin og kvalitetskaffe", min: 8,
+  lead: "Hvad er en blend, hvad betyder single origin, og hvad kendetegner kvalitet? Her får du de svar, du skal bruge, når kunden spørger, hvorfor jeres kaffe er et godt valg.",
+  sec: [
+    { h: "Single origin og blend", p: ["<b>Single origin</b> er kaffe fra ét bestemt land, område eller en enkelt farm. Den viser stedets karakter tydeligt, men kan variere fra høst til høst og kan være udfordrende at drikke hver dag.", "En <b>blend</b> er en sammensætning af bønner fra flere oprindelser. Risteren kan balancere syre, sødme og krop og få en kaffe, der smager ens fra levering til levering, selv når de enkelte høstudbytter varierer.", "Til arbejdspladsen er konsistens vigtigere end overraskelser. Medarbejderne vil have en kop, de kender og kan lide, hver dag. Derfor er en god blend oftest det rigtige valg."] },
+    { h: "Hvad kendetegner kvalitetskaffe?", p: ["Kvalitet er summen af hele kæden:", "<ul><li><b>Moden frugt</b> ved høst, ikke umodne eller overmodne kirsebær.</li><li><b>Ren forarbejdning</b> uden gæring, skimmel eller dårlig tørring.</li><li><b>Få fejl</b> i bønnerne efter sortering.</li><li><b>Korrekt ristning</b> og friskhed.</li><li><b>God brygning</b> med rent vand og rent udstyr.</li></ul>", "Kaffe, som scorer mindst 80 af 100 point på Specialty Coffee Associations (SCA) smagsskala, kaldes <b>specialty</b>. Begrebet bruges om kaffe af høj kvalitet, men du skal ikke kalde Blackbirds kaffer for specialty, med mindre det er dokumenteret."] },
+    { h: "Friskhed og holdbarhed", p: ["Efter ristning afgiver bønnerne CO₂ i op til to uger. Kaffen smager bedst fra ca. 10 til 60 dage efter ristning. Derefter oxiderer de æteriske olier, og aromaen falder. Formalet kaffe mister aroma meget hurtigere end hele bønner, fordi overfladen er langt større.", "Se altid efter <b>ristedatoen</b>, ikke kun «bedst før»-datoen. Bedst før siger kun, hvornår producenten garanterer holdbarheden, ofte 12 måneder eller mere."] },
+    { h: "Blackbirds tre kaffer", p: ["Early Bird er en blend af 100 % arabica fra Colombia, Guatemala, Brasilien, Kenya, Etiopien og Sumatra. Early Bird Dark Roast kommer fra de samme oprindelseslande, men er mørkristet. Black Wings er 100 % arabica fra Syd- og Mellemamerika og den mest kraftfulde. Alle er friskristede inden levering, og kunden kan frit skifte mellem dem fra levering til levering. Formalet kaffe fås kun som Early Bird."], v: "bbprofile", cap: "Blackbirds tre kaffer på de tre parametre i tilbuddet (skala 1–5)." }
+  ],
+  know: ["Single origin viser stedet; blend giver stabilitet.", "Kvalitet kommer af høst, forarbejdning, ristning, friskhed og bryg.", "Specialty = mindst 80 af 100 point (SCA). Brug ikke begrebet om vores kaffer uden dokumentation.", "Kaffen smager bedst ca. 10–60 dage efter ristning.", "Kig på ristedato, ikke bedst før."],
+  say: ["«Vores kaffe er friskristet inden levering og er 100 % arabica. Vi bruger blends, så kaffen smager ens hver dag, uanset hvordan høsten har været. Og I kan frit skifte mellem tre varianter fra levering til levering, hvis medarbejderne vil have noget andet.»", "<b>Når kunden spørger: «Hvorfor skal vi vælge jeres kaffe frem for den, vi har?»</b><br>Spørg først, hvad de bruger i dag, og hvad de er tilfredse og utilfredse med. Svar derefter ud fra det: friskhed (friskristet), smag (100 % arabica, stabil blend), fleksibilitet (frit skifte mellem varianter) og service (maskine, vedligehold og levering er en del af løsningen)."],
+  qa: [["Er en blend dårligere end single origin?", "Nej. En blend er et bevidst valg for balance og ensartethed. Single origin viser stedets karakter, men varierer mere."], ["Hvor længe holder kaffen?", "Bedst 10–60 dage efter ristning. Efter 2–3 måneder falder aromaen tydeligt."], ["Er jeres kaffe specialty?", "Specialty er en bestemt kvalitetsskala (80+ point). Hold dig til, hvad vi kan dokumentere: 100 % arabica, friskristet og en bevidst sammensat blend."]],
+  quiz: [
+    { q: "Hvad er hovedfordelen ved en blend på kontoret?", o: ["Den er altid billigere", "Den giver ensartet smag fra levering til levering", "Den har mere koffein"], a: 1, e: "En blend balanceres af risteren, så smagen er den samme, selv når enkelte høstudbytter varierer." },
+    { q: "Hvilken dato siger mest om friskhed?", o: ["Bedst før", "Ristedato", "Pakkedato i butikken"], a: 1, e: "Ristedatoen viser, hvornår kaffen blev ristet. Bedst før siger kun noget om holdbarhed." },
+    { q: "Hvad kræver kaffe for at blive kaldt specialty?", o: ["Mindst 80 af 100 point efter SCA-skalaen", "At den er økologisk", "At den er single origin"], a: 0, e: "Specialty er kaffe, der scorer mindst 80 point på SCA's skala." }
+  ], rel: ["b-ristning", "e-profil", "f-vaelg"] },
+];
+
+/* ---- Kaffeakademi: artikler (del 2: C, D) ---- */
+KV_ART.push(
+/* ============ C: BRYGNING ============ */
+{ id: "c-ekstraktion", cat: "C", t: "Ekstraktion: sådan brygger du en god kop", min: 7,
+  lead: "Al brygning handler om det samme: at trække de rigtige stoffer ud af kaffen i den rigtige mængde. Når du forstår ekstraktion, kan du forklare, hvorfor kaffe kan smage både surt og bittert, og hvad der skal justeres.",
+  sec: [
+    { h: "Hvad er ekstraktion?", p: ["Vand er et opløsningsmiddel. Når det løber gennem formalet kaffe, opløser det en del af kaffens stoffer. Ca. 30 % af bønnens vægt kan opløses, men en god kop trækker typisk kun ca. 18–22 % ud. Resten bliver i kaffegrumsen.", "Stofferne opløses i en bestemt rækkefølge: først <b>syrer</b>, så <b>sødme</b> og til sidst <b>bitterstoffer</b>. Derfor handler kunsten om at stoppe på det rigtige tidspunkt."], v: "extraction", cap: "Under-, balanceret og overekstraheret kaffe." },
+    { h: "Underekstraktion og overekstraktion", p: ["<b>Underekstraheret</b> kaffe er trukket for lidt. Der er kun syrerne, men ikke sødmen: kaffen smager sur, tynd og nogle gange salt. <b>Overekstraheret</b> kaffe er trukket for meget: bitterstofferne dominerer, og kaffen smager tør, brændt og askeagtig.", "En <b>balanceret</b> kop har både syre, sødme og en lille bitterhed, som holder hinanden i skak."] },
+    { h: "De fire håndtag", p: ["Fire ting styrer ekstraktionen:", "<ul><li><b>Formaling:</b> Finere = mere overflade = hurtigere ekstraktion.</li><li><b>Dosering:</b> Mere kaffe pr. mængde vand giver en stærkere kop og kan påvirke ekstraktionen.</li><li><b>Temperatur:</b> Varmere vand opløser mere og hurtigere.</li><li><b>Tid:</b> Jo længere vand og kaffe er i kontakt, desto mere trækkes ud.</li></ul>", "Tommelfingerregel: skift kun én ting ad gangen, og smag efter hver justering."] },
+    { h: "Brygforhold", p: ["Forholdet mellem kaffe og vand kaldes <b>brygforholdet</b> (ratio). Til filterkaffe bruges typisk ca. 60 g kaffe pr. liter vand (ca. 1:16–1:17). Til espresso bruges ofte ca. 1:2, fx 18 g kaffe til 36 g espresso på 25–30 sekunder. Forholdet afgør kaffens styrke, men det er ekstraktionen, der afgør, om den smager godt."] },
+    { h: "Fejlfinding på 10 sekunder", p: ["<table class='ktab'><tr><th>Smager</th><th>Årsag</th><th>Justér</th></tr><tr><td>Surt, tyndt, salt</td><td>Underekstraheret</td><td>Finere formaling, mere kaffe, varmere vand</td></tr><tr><td>Bittert, tørt, brændt</td><td>Overekstraheret</td><td>Grovere formaling, mindre tid, rens maskinen</td></tr><tr><td>Vandet, mangler krop</td><td>For lidt kaffe eller for grov</td><td>Øg dosering</td></tr><tr><td>Gammelt, kemisk, sæbe</td><td>Snavs eller rensemiddel</td><td>Rens og skyl grundigt</td></tr></table>", "På en fuldautomatisk kaffemaskine justeres kværn og dosering af en tekniker eller via maskinens menu, så rådgiv kunden om at kontakte service frem for at skrue selv."] }
+  ],
+  know: ["God kaffe: ca. 18–22 % af kaffen er opløst i vandet.", "Rækkefølge: syre, sødme, bitterhed.", "Surt = underekstraheret. Bittert = overekstraheret.", "Fire håndtag: formaling, dosering, temperatur, tid.", "Ændr én ting ad gangen."],
+  say: ["«Kaffen smager surt, fordi vandet løber for hurtigt igennem, og så når det kun at trække syren ud. Vi justerer kværnen en anelse finere, så vandet også trækker sødmen med.»", "«Er den bitter, trækker den for længe. Så stiller vi kværnen en anelse grovere og kører en rens af maskinen.»"],
+  qa: [["Hvorfor smager min kaffe surt?", "Typisk fordi kaffen er underekstraheret, dvs. for grov formaling, for lidt kaffe eller for lav temperatur. Kværnen skal stilles finere."], ["Hvorfor bitter?", "Overekstraheret: for fin formaling, for høj temperatur, for lang tid eller en beskidt maskine."], ["Hvad er den perfekte opskrift?", "Der findes ikke én. Men filterkaffe ligger typisk omkring 60 g/l, og espresso omkring 1:2 på 25–30 sekunder."]],
+  quiz: [
+    { q: "Hvordan smager underekstraheret kaffe typisk?", o: ["Sur og tynd", "Bitter og tør", "Sød og rund"], a: 0, e: "Når der trækkes for lidt, når vandet kun at tage syrerne, ikke sødmen." },
+    { q: "I hvilken rækkefølge opløses kaffens stoffer?", o: ["Bitterstoffer, sødme, syre", "Syre, sødme, bitterstoffer", "Sødme, bitterstoffer, syre"], a: 1, e: "Syrerne opløses først, så sødmen og til sidst bitterstofferne." },
+    { q: "Hvad kan du justere for at få mere ekstraktion?", o: ["Grovere formaling", "Finere formaling", "Koldere vand"], a: 1, e: "Finere formaling giver mere overflade, så vandet trækker mere ud." }
+  ], rel: ["c-formaling", "c-metoder", "e-smag"] },
+
+{ id: "c-formaling", cat: "C", t: "Formaling, vand og temperatur", min: 7,
+  lead: "Formalingen, vandet og temperaturen er de tre faktorer, kunderne oftest overser. Her får du den viden, der gør, at du kan forklare, hvorfor selv den bedste bønne kan smage dårligt.",
+  sec: [
+    { h: "Formalingens betydning", p: ["Når bønnen males, bliver overfladen enormt meget større. Jo finere formaling, desto mere overflade møder vandet, og desto hurtigere sker ekstraktionen. Derfor skal formalingen passe til bryggemetoden: grov formaling kræver lang kontakttid, fin formaling kort."], v: "grind", cap: "Formalingsgrader og hvad de bruges til.", p2: ["<table class='ktab'><tr><th>Formaling</th><th>Bruges til</th></tr><tr><td>Grov</td><td>Stempelkande, cold brew</td></tr><tr><td>Mellem</td><td>Filterkaffe og batch-bryg</td></tr><tr><td>Fin</td><td>Espresso og fuldautomater</td></tr></table>"] },
+    { h: "Kværntyper", p: ["Der findes to hovedtyper. En <b>knivkværn</b> hakker bønnerne med en rotor og giver ujævne partikler, så noget er for fint og noget for groft. En <b>skivekværn</b> (burr) knuser bønnerne mellem to skiver og giver mere ensartede partikler. Fuldautomatiske kaffemaskiner bruger skivekværne. Kværnen slides over tid, og skiverne skal skiftes, ellers falder kvaliteten gradvist."] },
+    { h: "Vandtemperatur", p: ["Filterkaffe brygges typisk med vand ved ca. 92–96 °C. Espresso brygges ved ca. 90–95 °C. For koldt vand giver underekstraktion og sur kaffe, mens for varmt vand kan give bitter kaffe. Kogende vand (100 °C) bør undgås i filterbrygning, fordi det let overekstraherer."] },
+    { h: "Vandkvalitet: næsten hele koppen", p: ["En kop kaffe består af ca. 98 % vand, så vandet er afgørende. Kaffe har brug for mineraler, især magnesium og calcium, som hjælper med at binde smags- og aromastoffer. Helt blødt vand (0 °dH) giver en flad, tom og sur kop. Til gengæld er meget hårdt vand dårligt for både smag og maskine, fordi kalk neutraliserer syrerne og lægger sig i kedel og rør.", "SCA anbefaler en samlet hårdhed på ca. 50–175 mg/l (ca. 3–10 °dH). Vandet i Østdanmark og på Sjælland ligger ofte på 18–25 °dH, altså langt over. Derfor bruges vandfiltre, der fjerner en del af kalken og beskytter maskinen."] },
+    { h: "Dosering og bryggetid", p: ["Dosering (hvor meget kaffe) og bryggetid (hvor længe) hænger sammen med formalingen. På en professionel fuldautomat er dosering, temperatur og tryk indstillet af teknikeren. Hvis kunden klager over smagen, er det oftest kværn, vand eller rengøring, der skal tjekkes først."] }
+  ],
+  know: ["Finere formaling = hurtigere ekstraktion.", "Grov: stempel. Mellem: filter. Fin: espresso.", "Skivekværn giver ensartede partikler, og fuldautomater bruger skivekværn.", "Brygtemperatur: ca. 92–96 °C til filter, ca. 90–95 °C til espresso.", "Vand = ca. 98 % af koppen. Hverken for blødt eller for hårdt vand er godt."],
+  say: ["«Vandet er 98 % af koppen. Når der er meget kalk i vandet, bliver kaffen flad, og maskinen belastes. Derfor bruger vi et vandfilter, som beskytter maskinen og giver en renere smag.»"],
+  qa: [["Hvorfor må vandet ikke være helt blødt?", "Kaffe kræver mineraler for at binde smagsstoffer. Helt blødt vand giver en flad og sur kop."], ["Skal kunden skifte vandfilter?", "Ja, et mættet filter virker ikke længere. Følg producentens interval, og lad service tage sig af det."], ["Hvilken formaling er bedst?", "Den, der passer til metoden: grov til stempel, mellem til filter, fin til espresso."]],
+  quiz: [
+    { q: "Hvilken formaling bruges til espresso?", o: ["Grov", "Mellem", "Fin"], a: 2, e: "Espresso har kort kontakttid og højt tryk og kræver fin formaling." },
+    { q: "Hvilken kværntype giver mest ensartede partikler?", o: ["Knivkværn", "Skivekværn", "Der er ingen forskel"], a: 1, e: "En skivekværn knuser bønnerne mellem to skiver og giver mere ens partikler end en knivkværn." },
+    { q: "Hvad sker der typisk med kaffen, hvis vandet er meget hårdt?", o: ["Den bliver mere syrlig", "Den bliver flad og kalket i eftersmagen", "Den bliver sødere"], a: 1, e: "Kalk neutraliserer kaffens syrer og giver en flad og tung smag, og det belaster maskinen." }
+  ], rel: ["c-ekstraktion", "c-metoder", "f-drift"] },
+
+{ id: "c-metoder", cat: "C", t: "Espresso, filter og friskbryg: tre måder at brygge på", min: 8,
+  lead: "Alle kaffemaskiner bygger på nogle få principper. Når du kender dem, kan du forklare forskellen mellem en fuldautomatisk espressomaskine og et friskbryganlæg på 30 sekunder.",
+  sec: [
+    { h: "Tre principper", p: ["Man kan inddele de fleste bryggemetoder i tre principper: <b>tryk</b> (espresso), <b>gravitation/perkolation</b> (filter) og <b>nedsænkning</b> (stempelkande)."], v: "methods3", cap: "De tre bryggeprincipper." },
+    { h: "Espresso", p: ["Espresso er ikke en bønne eller en ristning, men en bryggemetode: varmt vand presses igennem fint formalet, sammenpresset kaffe med ca. 9 bars tryk. Et typisk shot er ca. 18–20 g kaffe, der giver ca. 36–40 g espresso på 25–30 sekunder. Trykket trækker olier ud og danner <b>crema</b>, det gyldne skum øverst. Resultatet er en koncentreret, kraftig og cremet kaffe, som også er basen i cappuccino, latte og de andre drikke."] },
+    { h: "Filterkaffe og friskbryg", p: ["Ved filterbrygning drypper varmt vand (92–96 °C) over formalet kaffe i et filter og løber ved tyngdekraft ned i en kande. Det tager typisk 4–6 minutter. Resultatet er en ren og let kop, hvor kaffens frugt og syre kommer frem.", "<b>Friskbryg</b> er det, man typisk kalder et professionelt filteranlæg, der brygger flere liter ad gangen i en termokande eller glaskande. Det er rigtig godt til møder og kantiner. Ulempen er, at kaffe, der står på varmeplade eller kande i mere end ca. 30–45 minutter, mister aroma og bliver bitter, og at der ofte hældes kaffe ud."] },
+    { h: "Fuldautomatisk espressomaskine", p: ["En fuldautomat gør alt på ét tryk: den kværner friske bønner, doserer og presser kaffen, brygger og skummer evt. mælk. Det betyder, at hver kop er frisk, og at hver medarbejder kan vælge sin egen drik (typisk 15–30 forskellige). Kaffen er ensartet, fordi maskinen styrer dosering, temperatur og tryk."], v: "fullauto", cap: "Fuldautomatens vigtigste komponenter." },
+    { h: "Hvordan påvirker maskinen resultatet?", p: ["Maskinen styrer fire ting: <b>kværn</b> (formalingens jævnhed), <b>temperatur</b> (stabil vandvarme), <b>tryk</b> (konstant tryk gennem kaffen) og <b>dosering</b> (præcis mængde). Det er derfor, to maskiner med samme bønner kan give vidt forskelligt resultat, og hvorfor service, rengøring og kalkfilter er så vigtigt for smagen."] }
+  ],
+  know: ["Espresso bruger ca. 9 bar tryk, 25–30 sek. og giver crema.", "Filter bruger tyngdekraft og tager 4–6 minutter.", "Stempelkande: nedsænkning, fyldig krop, men besværlig rengøring.", "Friskbryg er godt til mange kopper på én gang, men kaffen holder sig kun ca. 30–45 minutter.", "Fuldautomat: frisk kop hver gang, valgfrihed og ensartethed."],
+  say: ["«En friskbryger laver en kande ad gangen, og hvis ikke kaffen bliver drukket inden for en halv times tid, bliver den bitter, og der hældes ofte kaffe ud. En fuldautomat brygger præcis én frisk kop, når man har lyst, og giver også mælkedrikke. For mange arbejdspladser er den bedste løsning en fuldautomat og evt. en friskbryger til store møder.»"],
+  qa: [["Er espresso stærkere end filterkaffe?", "Espresso er mere koncentreret pr. ml, men en kop filterkaffe indeholder ofte mere koffein i alt, fordi den er større."], ["Hvorfor ikke bare en kande?", "Kande er godt til møder, men giver spild og ingen mælkedrikke eller valgfrihed. Det er en god kombination med en fuldautomat."], ["Hvad er crema?", "Det gyldne skum øverst på espresso, som dannes af kaffens olier og CO₂ under tryk."]],
+  quiz: [
+    { q: "Hvilket tryk bruges typisk ved espresso?", o: ["Ca. 1 bar", "Ca. 9 bar", "Ca. 30 bar"], a: 1, e: "Espresso brygges typisk ved ca. 9 bar." },
+    { q: "Hvor længe kan filterkaffe typisk stå på kanden, før den mister kvalitet?", o: ["Ca. 30–45 minutter", "Ca. 5 timer", "Et døgn"], a: 0, e: "Efter ca. 30–45 minutter mister kaffen aroma og bliver bitter." },
+    { q: "Hvilken komponent i en fuldautomat kværner bønnerne til hver kop?", o: ["Pumpen", "Kværnen", "Mælkesystemet"], a: 1, e: "Kværnen maler friske bønner til hver enkelt kop." }
+  ], rel: ["c-ekstraktion", "f-vaelg", "d-drikke"] },
+
+/* ============ D: DRIKKENE ============ */
+{ id: "d-drikke", cat: "D", t: "Kaffedrikkene: forskellen på espresso, latte og co.", min: 6,
+  lead: "Kunderne spørger ofte om forskellen på de mange kaffedrikke. Her får du den på ét overblik, så du kan forklare den på ti sekunder og hjælpe kunden med at vælge den rette drikkemenu.",
+  sec: [
+    { h: "Alt starter med espresso", p: ["Næsten alle drikkene bygger på ét eller to shots espresso. Forskellen ligger i, hvor meget mælk og mælkeskum der tilføjes, og i koppens størrelse."], v: "drinks", cap: "Typiske sammensætninger. Mængderne varierer fra café til café." },
+    { h: "Drikkene", p: ["<div class='tblwrap'><table class='ktab'><tr><th>Drik</th><th>Sammensætning</th><th>Smag</th></tr><tr><td><b>Espresso</b></td><td>Ca. 30 ml koncentreret kaffe med crema</td><td>Kraftig og intens</td></tr><tr><td><b>Lungo</b></td><td>Espresso trukket længere med mere vand (ca. 50–60 ml)</td><td>Mildere, men mere bitter</td></tr><tr><td><b>Americano</b></td><td>Espresso fortyndet med varmt vand</td><td>Mild og kaffeagtig</td></tr><tr><td><b>Cappuccino</b></td><td>Espresso med lige dele varm mælk og mælkeskum</td><td>Kraftig med luftigt skum</td></tr><tr><td><b>Café latte</b></td><td>Espresso med meget varm mælk og et tyndt lag skum</td><td>Blød og mild</td></tr><tr><td><b>Flat white</b></td><td>Dobbelt espresso med fint mikroskum, mindre mælk end latte</td><td>Tydelig kaffesmag og cremet tekstur</td></tr><tr><td><b>Cortado</b></td><td>Lige dele espresso og varm mælk</td><td>Intens, men blød</td></tr><tr><td><b>Macchiato</b></td><td>Espresso med en lille klat mælkeskum</td><td>Kraftig med et strejf af mælk</td></tr></table></div>", "Betegnelserne bruges lidt forskelligt fra land til land og café til café, så betragt mængderne som typiske eksempler."] },
+    { h: "Hvilke drikke skal en kontormaskine kunne?", p: ["På en arbejdsplads handler det om at kunne tilbyde noget til alle: sort kaffe (kaffe/americano), espresso, cappuccino og latte som de mest populære, samt varm chokolade til dem, der ikke drikker kaffe. En professionel fuldautomat kan typisk tilbyde 15–30 forskellige drikke. Spørg altid, hvad medarbejderne faktisk drikker, og find ud af, om mælk og plantemælk skal være en del af løsningen."] }
+  ],
+  know: ["Espresso = 30 ml koncentreret kaffe. Americano = espresso + varmt vand.", "Cappuccino: lige dele espresso, mælk og skum. Latte: meget mælk, lidt skum.", "Flat white: mindre mælk end latte, fint mikroskum og tydeligere kaffesmag.", "Cortado: lige dele espresso og varm mælk.", "Macchiato: espresso med en klat skum."],
+  say: ["«Alle kaffedrikke starter med espresso. Hvis man vil have det mildt og blødt, vælger man latte. Hvis man vil have mere kaffesmag, er det flat white eller cortado, og hvis man vil have skum, er det cappuccino. En fuldautomat kan lave dem alle på et tryk, så alle medarbejdere får lige det, de kan lide.»"],
+  qa: [["Hvad er forskellen på latte og cappuccino?", "Latte har meget mere mælk og kun et tyndt lag skum og smager mildere. Cappuccino har lige dele espresso, mælk og skum og et kraftigere kaffesmag."], ["Hvad er en flat white?", "En kop med dobbelt espresso og fint mikroskum, ofte mindre end en latte. Den smager mere af kaffe end en latte."], ["Er americano det samme som filterkaffe?", "Nej. Americano er espresso fortyndet med vand og smager anderledes end filterkaffe."]],
+  quiz: [
+    { q: "Hvad er en cortado?", o: ["Lige dele espresso og varm mælk", "Espresso med meget skum", "Espresso fortyndet med vand"], a: 0, e: "En cortado består af cirka lige dele espresso og varm mælk." },
+    { q: "Hvad er den største forskel på latte og cappuccino?", o: ["Latte har mere mælk og mindre skum", "Cappuccino har ingen espresso", "Latte er altid sort"], a: 0, e: "En latte har meget mælk og et tyndt lag skum. En cappuccino har lige dele espresso, mælk og skum." },
+    { q: "Hvilken drik består af espresso og varmt vand?", o: ["Macchiato", "Americano", "Flat white"], a: 1, e: "Americano er espresso fortyndet med varmt vand." }
+  ], rel: ["d-maelk", "c-metoder", "f-vaelg"] },
+
+{ id: "d-maelk", cat: "D", t: "Mælk, mælkeskum og latte art", min: 7,
+  lead: "Mælken udgør størstedelen af en latte eller cappuccino. Her får du overblik over, hvad der giver godt skum, hvorfor temperaturen er afgørende, og hvorfor plantemælk kræver barista-varianter.",
+  sec: [
+    { h: "Hvorfor kan mælk skummes?", p: ["Mælkeskum dannes, når der tilføres luft til mælken. Mælkens <b>proteiner</b> lægger sig om luftboblerne og stabiliserer dem, mens <b>fedtet</b> giver en cremet mundfølelse og smag. Laktosen (mælkesukkeret) giver mælken sødme. Når mælken opvarmes, føles den sødere."] },
+    { h: "Mikroskum og temperatur", p: ["Godt skum kaldes <b>mikroskum</b>: bittesmå, ensartede bobler, så mælken er glinsende og flydende som våd maling. Stort, tørt skum med store bobler giver ikke samme mundfølelse.", "Temperaturen skal ligge omkring <b>55–65 °C</b>. Over ca. 68–70 °C denaturerer proteinerne, sukkeret brænder på, mælken får en smag af risengrød, og skummet falder sammen. Mælken skal være kold (under ca. 5 °C), før den skummes, for bedste resultat."] },
+    { h: "Typer af mælk", p: ["<ul><li><b>Sødmælk:</b> Mest fedt, giver cremet skum og smag.</li><li><b>Letmælk/minimælk:</b> Giver stabilt skum, men en mindre cremet smag.</li><li><b>Laktosefri mælk:</b> Smager sødere, fordi laktosen er spaltet, og skummer let.</li></ul>"] },
+    { h: "Plantemælk", p: ["Plantemælk kan skille eller skumme dårligt, fordi kaffens syre og varme får planteproteinerne til at klumpe. Derfor findes der <b>barista-varianter</b>, som indeholder surhedsregulerende salte (fx dikaliumfosfat) og en tilsat fedtbase, der giver stabil tekstur og bedre skum.", "<ul><li><b>Havre (barista):</b> Mest populær: naturlig sødme og godt skum.</li><li><b>Soja:</b> Skummer godt, men kan skille i meget syrlig kaffe.</li><li><b>Mandel:</b> Mild og nøddeagtig, men giver tyndere skum.</li></ul>"] },
+    { h: "Latte art", p: ["Latte art er mønstre (hjerte, rosette, tulipan), der hældes i overfladen af en espresso med mikroskum. Det kræver både en kvalitetsespresso med god crema og perfekt mikroskum, og at man hælder fra en kande med den rette teknik. Det er et håndværk, som baristaer træner i lang tid, og som fuldautomater typisk ikke laver. Til gengæld giver en fuldautomat ensartet skum hver gang."] },
+    { h: "Mælkehygiejne", p: ["Mælkesystemet skal rengøres dagligt. Rester af mælk i slanger og dyse kan give dårlig smag, spruttende eller tyndt skum og er en hygiejnerisiko. Mælken skal opbevares kølig."] }
+  ],
+  know: ["Proteiner stabiliserer skummet; fedt giver fylde.", "Mikroskum er finkornet og glinsende. Temperatur: ca. 55–65 °C.", "Over ca. 70 °C ødelægges mælkeproteinerne, og skummet falder sammen.", "Barista-plantemælk skiller mindre og skummer bedre.", "Mælkesystem skal rengøres dagligt."],
+  say: ["«Mælken er halvdelen af en cappuccino. Hvis den bliver for varm, mister den sin sødme og skummet falder sammen. Det er derfor, en god maskine styrer temperaturen præcist. Og til plantemælk anbefaler vi barista-varianter, så den ikke skiller i kaffen.»"],
+  qa: [["Hvorfor skiller havremælken i kaffen?", "Syren og varmen fra kaffen får proteinerne til at klumpe. Barista-versioner indeholder stabiliserende salte, der forhindrer det."], ["Kan maskinen lave latte art?", "Typisk ikke. Latte art kræver en barista med kande. Maskinen laver til gengæld ensartet og lækkert skum."], ["Hvorfor sprutter mælkeskummet?", "Oftest indtørret mælk eller fedtrester i dysen. En grundig mælkerens løser problemet."]],
+  quiz: [
+    { q: "Hvilken temperatur bør mælk til skum højst have?", o: ["Ca. 45 °C", "Ca. 55–65 °C", "Ca. 85 °C"], a: 1, e: "Over ca. 68–70 °C denaturerer proteinerne, og skummet mister kvalitet." },
+    { q: "Hvorfor anbefales barista-havremælk?", o: ["Den indeholder mere koffein", "Den indeholder stabilisatorer, der forhindrer, at den skiller", "Den er koldere"], a: 1, e: "Barista-varianter har surhedsregulerende salte og en fedtbase, så den skiller mindre og skummer bedre." },
+    { q: "Hvad kendetegner mikroskum?", o: ["Store, tørre bobler", "Meget små, ensartede bobler og en glinsende overflade", "Det er et andet ord for crema"], a: 1, e: "Mikroskum er finkornet og glinsende, så det flyder sammen med espressoen." }
+  ], rel: ["d-drikke", "e-smag", "f-drift"] }
+);
+
+/* ---- Kaffeakademi: artikler (del 3: E, F) ---- */
+KV_ART.push(
+/* ============ E: SMAG ============ */
+{ id: "e-smag", cat: "E", t: "Sådan smager du på kaffe", min: 7,
+  lead: "At smage kaffe handler ikke om at have en særlig gane, men om at lægge mærke til nogle få ting. Når du har et sprog for smagen, bliver du en langt bedre rådgiver, og kunderne føler sig taget alvorligt.",
+  sec: [
+    { h: "De fem begreber", p: ["<ul><li><b>Syre:</b> Friskhed og saftighed, som i et æble eller en citrusfrugt. Det er ikke det samme som sur kaffe, som er en fejl.</li><li><b>Sødme:</b> Karamel, honning, brun farin eller chokolade.</li><li><b>Bitterhed:</b> Lidt bitterhed, som mørk chokolade, er ønskværdigt. Brændt og askeagtigt er en fejl.</li><li><b>Krop (fylde):</b> Hvor tung eller let kaffen føles i munden, fra te-agtig til sirupsagtig.</li><li><b>Eftersmag:</b> Hvor lang og behagelig smagen er, efter du har sunket.</li></ul>", "Hertil kommer <b>aromaen</b>. Vores tunge kan kun registrere nogle få grundsmage (sødt, surt, salt, bittert, umami), men næsen opfatter hundredvis af dufte. Størstedelen af det, vi opfatter som kaffens smag, er i virkeligheden aroma, som når bag næsen, mens vi drikker."] },
+    { h: "Smagshjulet", p: ["Smagshjulet er et værktøj, der hjælper med at sætte ord på det, man smager. Her er en forenklet udgave. Start i midten med de brede kategorier (fx frugt eller chokolade), og gå så videre ud til det konkrete (fx rødt æble eller mælkechokolade)."], v: "wheel", cap: "Forenklet smagshjul med otte hovedkategorier.", p2: ["<ul><li><b>Frugt:</b> Æble, citrus, solbær, fersken, blåbær</li><li><b>Blomster:</b> Jasmin, bergamotte, hyldeblomst</li><li><b>Sødme:</b> Karamel, honning, brun farin</li><li><b>Nødder:</b> Hasselnød, mandel, valnød</li><li><b>Chokolade:</b> Mælkechokolade, mørk chokolade, kakao</li><li><b>Krydret:</b> Kanel, nelliker, peber</li><li><b>Ristet:</b> Toast, tobak, røg</li><li><b>Jordlig:</b> Træ, cedertræ, skovbund</li></ul>"] },
+    { h: "Sådan smager du, trin for trin", p: ["<ol><li>Duft til kaffen, før du smager.</li><li>Tag en slurk, og <b>slurp</b> den ind med luft, så aromaerne når næsen.</li><li>Lad den rulle over tungen, og notér syre, sødme, bitterhed og krop.</li><li>Lad kaffen køle lidt af og smag igen. Mange nuancer åbner sig ved ca. 50–55 °C.</li><li>Smag den sort, og derefter med mælk, hvis kunden drikker det.</li></ol>", "Den bedste måde at lære på er at smage to kaffer side om side, fx Early Bird og Black Wings. Så mærker man forskellen tydeligt."] },
+    { h: "Hvad kendetegner en velafbalanceret kop?", p: ["En velafbalanceret kop har syre, sødme og bitterhed i et indbyrdes forhold, hvor ingen dominerer. Den er ren (uden fejlsmag), har en behagelig krop og en lang, positiv eftersmag. Smag er personlig, så «den bedste kaffe» findes ikke. Opgaven er at finde den kaffe, som passer til kunden."] }
+  ],
+  know: ["De fem begreber: syre, sødme, bitterhed, krop og eftersmag.", "Syre er ikke det samme som sur. Syre er friskhed.", "Det meste af smagen er aroma, ikke tunge.", "Slurp, smag igen ved ca. 50–55 °C, og smag både sort og med mælk.", "Balance er vigtigere end styrke."],
+  say: ["«Smag den lige og sig, hvad du synes, om syre, sødme og fylde. Er kaffen for sur? For mild? Så ved jeg, hvilken af vores tre kaffer I skal have.»"],
+  qa: [["Hvad er forskellen på syre og sur kaffe?", "Syre er en positiv friskhed (som i et æble). Sur kaffe er underekstraheret og smager skarpt og tyndt, og det er en fejl."], ["Hvorfor smager kaffe forskelligt med mælk?", "Mælk dæmper syre og bitterhed og tilføjer sødme og fylde. Derfor kræver mælkedrikke en kaffe med nok kraft."], ["Hvorfor smager kaffe forskelligt, når den køler af?", "Når kaffen køler, kommer flere nuancer frem. Ved 50–55 °C opfattes sødme og frugt tydeligere."]],
+  quiz: [
+    { q: "Hvad er størstedelen af det, vi opfatter som kaffens smag?", o: ["Aroma", "Bitterhed", "Temperatur"], a: 0, e: "Næsen opfanger hundredvis af dufte, og aromaen står for størstedelen af smagsoplevelsen." },
+    { q: "Hvad betyder 'krop' i kaffe?", o: ["Hvor tung eller let kaffen føles i munden", "Hvor stærk koffeinen er", "Hvor mørk kaffen er"], a: 0, e: "Krop (fylde) er mundfølelsen, fra tynd og te-agtig til tyk og sirupsagtig." },
+    { q: "Hvilken af disse er en fejl i kaffe?", o: ["En frisk, citrusagtig syre", "Askeagtig, brændt bitterhed", "Noter af mørk chokolade"], a: 1, e: "Brændt og askeagtigt skyldes overekstraktion eller for kraftig ristning. Lidt bitterhed som i mørk chokolade er derimod fint." }
+  ], rel: ["e-profil", "c-ekstraktion", "b-ristning"] },
+
+{ id: "e-profil", cat: "E", t: "Smagsprofiler og at finde den rette kaffe", min: 7,
+  lead: "Hvad påvirker kaffens smag, og hvordan finder man den kaffe, som passer til en bestemt kunde? Her samler vi trådene, så du kan matche smag og behov, og forklare det, så kunden forstår det.",
+  sec: [
+    { h: "Hvad er en smagsprofil?", p: ["En smagsprofil beskriver, hvordan en kaffe smager, på de få dimensioner, vi lige har lært: syre, sødme, bitterhed, krop og aroma, samt hvilke noter der kommer frem (fx chokolade, nødder eller frugt). To kaffer med samme ristning kan have vidt forskellige profiler afhængigt af oprindelse og forarbejdning."] },
+    { h: "Hvad påvirker smagen?", p: ["<ol><li><b>Oprindelse og højde:</b> Sted, klima og jord.</li><li><b>Art og sort:</b> Arabica eller robusta, og sorten.</li><li><b>Forarbejdning:</b> Vasket (ren), natural (sød og frugtig), honey (imellem).</li><li><b>Ristning:</b> Lys (syre og frugt) til mørk (krop og chokolade).</li><li><b>Friskhed:</b> Hvor længe siden bønnen blev ristet.</li><li><b>Formaling og bryg:</b> Ekstraktion.</li><li><b>Vandet:</b> Kalk og mineraler.</li><li><b>Mælk:</b> Hvis der drikkes mælkedrikke.</li></ol>"] },
+    { h: "Match kaffe og kunde", p: ["Mange kunder kan ikke beskrive den kaffe, de ønsker. Stil enkle spørgsmål, og brug tabellen:", "<div class='tblwrap'><table class='ktab'><tr><th>Kunden siger</th><th>Anbefal</th></tr><tr><td>«God, klassisk kaffe uden pjat»</td><td>Early Bird (mellemristet)</td></tr><tr><td>«Vi drikker mest cappuccino og latte»</td><td>Early Bird Dark Roast eller Black Wings</td></tr><tr><td>«Vi vil have noget kraftigt og mørkt»</td><td>Black Wings</td></tr><tr><td>«Den må ikke være sur»</td><td>Black Wings eller Early Bird Dark Roast (lav syre)</td></tr><tr><td>«Vi vil have noget frisk og levende»</td><td>Early Bird (mest syre og friskhed)</td></tr><tr><td>«Vi er ikke enige»</td><td>Early Bird og en mørk variant. De kan skiftes frit fra levering til levering.</td></tr></table></div>"], v: "bbprofile", cap: "Ristning, fylde og syre for de tre kaffer." },
+    { h: "Opbevaring: sådan holder du smagen", p: ["Kaffens fjender er <b>ilt, lys, varme og fugt</b>. Opbevar bønner i original pose eller en lufttæt beholder, køligt og mørkt, og luk posen efter brug. Opbevar dem ikke ved varme fra maskinen. I bønnebeholderen skal du kun fylde så meget på, som drikkes inden for få dage, og beholderen skal tømmes og rengøres jævnligt, så gamle olier ikke bliver harske."] }
+  ],
+  know: ["En smagsprofil = syre, sødme, bitterhed, krop og aroma plus smagsnoter.", "Smagen påvirkes af oprindelse, forarbejdning, ristning, friskhed, bryg og vand.", "Early Bird = frisk og balanceret. Dark Roast og Black Wings = kraftig og lav syre.", "Spørg: hvad drikker I mest, og hvad savner I?", "Opbevar kaffen køligt, tørt, mørkt og lufttæt."],
+  say: ["«Hvis kaffen skal bruges til mange latte og cappuccino, anbefaler vi en af de mørkristede, fordi de skærer igennem mælken. Hvis I mest drikker den sort, kan Early Bird være perfekt, fordi den er rund og har lidt friskhed. Og I kan altid skifte, hvis I ønsker noget andet.»"],
+  qa: [["Hvilken kaffe passer til de fleste?", "Early Bird er en rund og balanceret mellemristet kaffe, som passer til de fleste, og de mørke er oplagte til mælkedrikke."], ["Hvorfor smager kaffen anderledes end sidst?", "Det kan skyldes en ny høst, bønner, der har stået længe i beholderen, kværnen, vandet eller rengøringen. Tjek de fire først."], ["Kan vi blande kaffe i beholderen?", "Det er bedre at tømme og fylde op med én kaffe ad gangen, så smagen er forudsigelig."]],
+  quiz: [
+    { q: "Hvilken kaffe anbefales til en kunde, der mest drikker cappuccino og latte?", o: ["En mørkristet kaffe", "En lysristet filterkaffe", "Grøn kaffe"], a: 0, e: "Mørkristet kaffe har fylde og chokolade, som skærer igennem mælken." },
+    { q: "Hvilke faktorer er kaffens fjender under opbevaring?", o: ["Ilt, lys, varme og fugt", "Kun lys", "Kun kulde"], a: 0, e: "Ilt, lys, varme og fugt får kaffen til at miste aroma. Opbevar den lufttæt, mørkt og køligt." },
+    { q: "Hvad af følgende har IKKE direkte betydning for kaffens smag?", o: ["Vandets hårdhed", "Ristningsgraden", "Farven på maskinen"], a: 2, e: "Vand, ristning og friskhed påvirker smagen. Maskinens farve gør ikke." }
+  ], rel: ["e-smag", "b-blend", "f-vaelg"] },
+
+/* ============ F: ARBEJDSPLADSEN ============ */
+{ id: "f-vaelg", cat: "F", t: "Vælg den rigtige kaffeløsning til arbejdspladsen", min: 8,
+  lead: "Det vigtigste, du kan gøre i et kundemøde, er at forstå, hvordan kaffen bruges. Her får du overblikket over løsningerne, og hvilken der passer til hvilken type arbejdsplads.",
+  sec: [
+    { h: "Fuldautomat eller friskbryg?", p: ["<div class='tblwrap'><table class='ktab'><tr><th></th><th>Fuldautomat</th><th>Friskbryg (filter)</th></tr><tr><td>Princip</td><td>Frisk kop ad gangen, med friskkværnede bønner</td><td>Kande med flere liter ad gangen</td></tr><tr><td>Drikke</td><td>15–30, inkl. mælkedrikke</td><td>Kun sort kaffe</td></tr><tr><td>Tid pr. kop</td><td>Ca. 25–40 sek.</td><td>Kande klar efter 4–6 min.</td></tr><tr><td>Spild</td><td>Meget lille: man brygger kun, hvad man drikker</td><td>Kan blive højt, hvis kanden står</td></tr><tr><td>Rengøring</td><td>Daglig automatik og mælkerens</td><td>Meget enkel</td></tr><tr><td>Pris</td><td>Højere</td><td>Lavere</td></tr><tr><td>Passer bedst til</td><td>Kontorer med mange medarbejdere (ca. 10–150)</td><td>Møder, kantiner, arrangementer</td></tr></table></div>"] },
+    { h: "Hvilken løsning til hvilken arbejdsplads?", p: ["<ul><li><b>Mindre og mellemstore kontorer:</b> En fuldautomat er typisk det bedste valg: frisk kaffe, valgfrihed og lav spild.</li><li><b>Større virksomheder:</b> Flere fuldautomater, evt. fordelt på flere køkkener, så der ikke opstår kø.</li><li><b>Mødecentre og kantiner:</b> Friskbryg i kombination med fuldautomat.</li><li><b>Showrooms og receptioner:</b> En fuldautomat med mælkedrikke, eller en semiautomatisk maskine, hvis der er tid og lyst til håndværk.</li></ul>", "Brug <b>kombinationsløsninger</b> uden at tøve. En fuldautomat til hverdagen og en friskbryger til store møder giver ofte det bedste resultat."] },
+    { h: "Faresignaler hos kunden", p: ["Spørg efter disse, når du afdækker behovet:", "<ul><li>Kaffe, som bliver hældt ud, fordi den er kold eller for gammel.</li><li>Medarbejdere, der går udenfor for at købe kaffe.</li><li>Klager over smag, kø eller en maskine, der ofte er i stykker.</li><li>Ingen, der har ansvaret for rengøring og indkøb.</li></ul>"] },
+    { h: "Svar på de svære spørgsmål", p: ["<b>«Hvorfor skal vi vælge jeres kaffe frem for den, vi har?»</b> Stil spørgsmål først: Hvad er I tilfredse med? Hvad savner I? Hvad koster det jer i dag, når I regner tid, spild og indkøb med? Brug derefter det, de har fortalt, til at forklare, hvordan jeres løsning (friskristet arabica, frit skift mellem varianter, service og fast pris pr. kop) løser netop deres problemer.", "<b>«Vi har jo kaffe på kanden i dag.»</b> Anerkend, at kande fungerer til møder. Peg så på spild, kold kaffe og manglende valgfrihed, og foreslå en kombination."] }
+  ],
+  know: ["Fuldautomat: frisk kop, valgfrihed og lavt spild. Friskbryg: mange kopper på én gang, men højere spild.", "Fuldautomat passer typisk til kontorer med ca. 10–150 medarbejdere.", "Kombinationsløsninger er ofte bedst.", "Afdæk behovet, før du anbefaler.", "Beregn altid den totale omkostning (TCO) sammen med kunden."],
+  say: ["«Jeg vil gerne forstå, hvordan I bruger kaffen i dag, før jeg anbefaler noget. Hvor mange drikker kaffe? Hvornår er der mest travlt? Og drikker I mest sort kaffe eller også cappuccino og latte?»"],
+  qa: [["Er en fuldautomat ikke dyrere end en kande?", "Maskinen er dyrere end en filtermaskine, men man brygger kun den kop, man drikker, og får færre spildte kander. Brug TCO Beregneren til at vise regnestykket."], ["Hvor mange kan en fuldautomat betjene?", "En professionel fuldautomat passer typisk til 10–150 medarbejdere, afhængig af model og antal maskiner."], ["Hvad med en semiautomatisk maskine?", "Den giver den højeste kvalitet, men kræver oplæring og er langsom. Den er mest relevant til receptioner og showrooms."]],
+  quiz: [
+    { q: "Hvilken løsning er mest oplagt til et kontor med 40 medarbejdere, der drikker mange cappuccino og latte?", o: ["En fuldautomat", "En kande på varmeplade", "Instant-kaffe"], a: 0, e: "En fuldautomat kan lave mælkedrikke på et tryk, giver lavt spild og passer til mange medarbejdere." },
+    { q: "Hvad er den typiske ulempe ved friskbryg?", o: ["Man kan ikke få mælkedrikke, og kaffe kan stå for længe", "Den smager aldrig godt", "Den kræver tryk på 9 bar"], a: 0, e: "Friskbryg giver kun sort kaffe, og kaffe, der står på kanden, mister kvalitet og bliver ofte spildt." },
+    { q: "Hvad bør du gøre, før du anbefaler en løsning?", o: ["Afdække kundens behov med spørgsmål", "Sende et tilbud med det samme", "Foreslå den dyreste maskine"], a: 0, e: "Gode anbefalinger bygger på kundens faktiske behov og forbrug." }
+  ], rel: ["f-forbrug", "c-metoder", "d-drikke"] },
+
+{ id: "f-forbrug", cat: "F", t: "Kaffeforbrug: sådan vurderer du kundens behov", min: 6,
+  lead: "Hvor meget kaffe drikker en arbejdsplads? Når du kan regne på det, kan du anbefale den rette løsning og vise kunden, hvad kaffen koster i dag.",
+  sec: [
+    { h: "Fra medarbejdere til kopper", p: ["Det er sjældent alle medarbejdere, der drikker kaffe. Start med at spørge: <b>«Hvor mange af jer drikker kaffe?»</b> Brug derefter en forsigtig tommelfingerregel. Blackbird regner typisk med <b>3 kopper pr. kaffedrikker pr. arbejdsdag</b> og <b>20 arbejdsdage pr. måned</b>.", "Eksempel: 10 kaffedrikkere × 3 kopper × 20 dage = <b>600 kopper pr. måned</b>."] },
+    { h: "Fra kopper til bønner", p: ["Med ca. 8 g kaffe pr. kop bliver 600 kopper til 600 × 8 g = <b>4,8 kg bønner pr. måned</b>. Det er en brugbar tommelfingerregel, når du skal sammenligne med kundens nuværende kaffeindkøb eller vurdere, hvilken beholderstørrelse og levering der passer."] },
+    { h: "Hvad koster det i dag?", p: ["Kunden kender sjældent den reelle pris pr. kop. Spørg efter, hvad de bruger på bønner eller kapsler, maskine eller leje, service og tid, og regn også med spild (ved filterkaffe ofte ca. 30 %, hvis kanden ikke drikkes ud). Brug <b>TCO Beregneren</b> til at samle det til en pris pr. kop, som kunden kan sammenligne med vores koppris. Når kunden selv har givet tallene, bliver sammenligningen langt mere overbevisende."] },
+    { h: "Faldgruber", p: ["<ul><li><b>Overvurdering:</b> Ikke alle medarbejdere drikker kaffe, og mange er på møder, ferie eller hjemmearbejde.</li><li><b>Undervurdering:</b> Gæster og møder fylder meget, og nogle drikker mere end tre kopper.</li><li><b>Glemte omkostninger:</b> Tid til indkøb, rengøring og reparationer indgår ikke i kundens regnestykke, før du spørger.</li></ul>", "Et estimat er altid et estimat. Brug det som et udgangspunkt for en god samtale, ikke som en garanti."] }
+  ],
+  know: ["Spørg efter antal kaffedrikkere, ikke antal ansatte.", "Tommelfingerregel: 3 kopper pr. person pr. dag og 20 arbejdsdage pr. måned.", "Ca. 8 g kaffe pr. kop.", "10 kaffedrikkere ≈ 600 kopper og ≈ 4,8 kg bønner pr. måned.", "Brug TCO Beregneren til at sammenligne med kundens nuværende løsning."],
+  say: ["«Hvis ti af jer drikker tre kopper om dagen, er det omkring 600 kopper om måneden. Lad os se, hvad det koster jer i dag, når vi tager både kaffe, maskine, service og spild med.»"],
+  qa: [["Hvor mange kopper drikker en medarbejder?", "Vi regner typisk med 3 kopper pr. kaffedrikker pr. arbejdsdag. Tallet varierer, så spørg kunden."], ["Hvorfor 20 arbejdsdage?", "Det er en praktisk tilnærmelse til en måned uden weekender, og den bruges konsekvent i Blackbirds beregninger."], ["Hvordan regner jeg bønneforbrug ud?", "Antal kopper × ca. 8 g. 600 kopper giver ca. 4,8 kg."]],
+  quiz: [
+    { q: "Med 3 kopper pr. dag og 20 arbejdsdage, hvor mange kopper drikker 12 kaffedrikkere om måneden?", o: ["360", "720", "1.200"], a: 1, e: "12 × 3 × 20 = 720 kopper." },
+    { q: "Hvor meget kaffe går der cirka til 600 kopper med 8 g pr. kop?", o: ["Ca. 4,8 kg", "Ca. 48 kg", "Ca. 0,5 kg"], a: 0, e: "600 × 8 g = 4.800 g = 4,8 kg." },
+    { q: "Hvad bør du spørge kunden om, før du regner på forbruget?", o: ["Hvor mange der faktisk drikker kaffe", "Hvor mange der er ansat i alt", "Hvilken farve maskinen skal have"], a: 0, e: "Det er antallet af kaffedrikkere, ikke antallet af ansatte, der afgør forbruget." }
+  ], rel: ["f-vaelg", "f-drift", "c-metoder"] },
+
+{ id: "f-drift", cat: "F", t: "Vedligehold, rengøring og ensartet kvalitet", min: 7,
+  lead: "En god maskine og gode bønner kan stadig give dårlig kaffe, hvis hverdagsrutinerne svigter. Her lærer du, hvad der skal gøres hvornår, og hvordan kaffen forbliver god hele dagen.",
+  sec: [
+    { h: "Hvorfor rengøring betyder så meget", p: ["Kaffeolier og mælkerester sætter sig i maskinens bryggeenhed, slanger og dyser. Det giver harsk, bitter eller kemisk smag, og i værste fald hygiejneproblemer og nedbrud. En ren maskine giver ikke bare bedre kaffe, men også færre fejl og længere levetid."] },
+    { h: "Rutiner i hverdagen", p: ["<table class='ktab'><tr><th>Hvornår</th><th>Hvad</th></tr><tr><td>Dagligt</td><td>Tøm kaffegrums og spildbakke, rengør mælkesystemet, tør maskinen af, og tjek bønne- og mælkebeholdere</td></tr><tr><td>Ugentligt</td><td>Kør rensecyklus med rensetabletter, og rengør bønnebeholder og drypbakke grundigt</td></tr><tr><td>Efter behov</td><td>Skift vandfilter efter producentens interval, og kontrollér kværnindstilling</td></tr><tr><td>Periodisk</td><td>Forebyggende service: kontrol af kværn, pumper, pakninger og kalk</td></tr></table>", "Rutinerne varierer med maskinmodel, så følg altid producentens anvisning."] },
+    { h: "Ensartet kvalitet gennem hele dagen", p: ["Kunderne klager ofte over, at kaffen smager forskelligt fra morgen til eftermiddag. De hyppigste årsager og løsninger:", "<ul><li><b>Bønnerne:</b> Fyld op med friske bønner, og lad ikke bønner stå i dagevis.</li><li><b>Kværnen:</b> Hold den justeret.</li><li><b>Vandet:</b> Skift filter til tiden.</li><li><b>Maskinen:</b> Rengør regelmæssigt, så bryggeenheden er ren.</li><li><b>Filterkande:</b> Undgå, at kaffen står mere end ca. 30–45 minutter.</li></ul>"] },
+    { h: "Service og overvågning", p: ["Blackbirds maskiner er internetforbundne, så de kan fjernstyres og overvåges, og kaffen kan genbestilles automatisk. Det betyder, at problemer kan opdages tidligt, og at kunden ikke skal huske at bestille bønner. Brug det som et konkret argument, når kunden spørger, hvem der tager sig af maskinen."] }
+  ],
+  know: ["Rengøring er den vigtigste enkeltfaktor for kaffens smag og maskinens levetid.", "Dagligt: grums, spildbakke og mælkesystem. Ugentligt: rensecyklus.", "Skift vandfilter til tiden, og hold kværnen justeret.", "Fyld kun så mange bønner på, som drikkes inden for få dage.", "Internetforbundne maskiner gør service og genbestilling nemmere."],
+  say: ["«Kaffe er et friskvareprodukt, og maskinen skal passes på ligesom en god kaffemaskine derhjemme. Vi sørger for service og ser på maskinen løbende, så kaffen smager ens hver dag, og I ikke skal tænke på det.»"],
+  qa: [["Hvem skal rengøre maskinen?", "Det afhænger af aftalen. Afklar tydeligt, hvad der er kundens daglige opgaver (fx grums og mælkesystem), og hvad der håndteres af service."], ["Hvorfor smager kaffen anderledes om eftermiddagen?", "Typisk fordi bønnerne har stået længe, kværnen har drevet, eller bryggeenheden trænger til rengøring. Tjek disse først."], ["Hvad sker der, hvis maskinen ikke rengøres?", "Kaffen bliver bitter og kemisk, mælkeskummet sprutter, og risikoen for nedbrud stiger."]],
+  quiz: [
+    { q: "Hvad skal typisk gøres hver dag på en fuldautomat med mælk?", o: ["Rengøre mælkesystemet og tømme grums", "Skifte kværn", "Skifte vandfilter"], a: 0, e: "Mælkesystem og grums skal håndteres dagligt, ellers kan smag og hygiejne lide." },
+    { q: "Hvad kan give kaffe, der smager forskelligt fra morgen til eftermiddag?", o: ["Gamle bønner, en afdrivende kværn eller en beskidt maskine", "At kaffen er blevet mørkere", "At vandet har skiftet farve"], a: 0, e: "Bønner, kværn, vand og rengøring er de hyppigste årsager til svingende kvalitet." },
+    { q: "Hvorfor er internetforbundne maskiner en fordel?", o: ["Problemer opdages tidligt, og kaffe kan genbestilles automatisk", "De laver stærkere kaffe", "De kræver ikke rengøring"], a: 0, e: "Fjernovervågning giver hurtigere service og sikrer, at kunden ikke løber tør." }
+  ], rel: ["f-vaelg", "c-formaling", "d-maelk"] }
+);
+
+/* ---- Kaffeakademi: app ---- */
+const KVK = "bb-kaf-prog";
+const kvProg = () => { const p = lsGet(KVK, {}); p.read = p.read || {}; p.best = p.best || {}; return p; };
+const kvSave = (p) => { try { localStorage.setItem(KVK, JSON.stringify(p)); } catch (_) {} };
+const kvCat = (id) => KV_CATS.find((c) => c.id === id);
+const kvArt = (id) => KV_ART.find((a) => a.id === id);
+let kv = { view: "home", cat: null, art: null, run: null };
+const kvStrip = (s) => String(s).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const kvEsc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const kvShuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const KV_QREG = {};
+KV_ART.forEach((a) => a.quiz.forEach((q, i) => { q.id = a.id + "-" + i; q.cat = a.cat; q.art = a.id; KV_QREG[q.id] = q; }));
+const KV_INDEX = KV_ART.map((a) => ({ a, txt: kvStrip(a.t + " " + a.lead + " " + a.sec.map((s) => s.h + " " + s.p.join(" ") + " " + (s.p2 || []).join(" ")).join(" ") + " " + a.qa.map((x) => x.join(" ")).join(" ") + " " + a.know.join(" ")).toLowerCase() }));
+
+const kvP = (x) => (/^<(table|ul|ol|div)/.test(x) ? x : "<p>" + x + "</p>");
+function kvFigure(key, cap) {
+  const f = VIS[key]; if (!f) return "";
+  return '<figure class="kfig">' + f() + (cap ? "<figcaption>" + cap + "</figcaption>" : "") + "</figure>";
+}
+function kvQ(q, opts = {}) {
+  const idx = q.o.map((_, i) => i), order = q.fix ? idx : kvShuffle(idx);
+  return '<div class="qz" data-qid="' + q.id + '"><p class="qq">' + q.q + "</p>" + (q.img ? kvFigure(q.img) : "") +
+    '<div class="qopts">' + order.map((i, n) => '<button type="button" class="qo" data-i="' + i + '"><b>' + (q.fix ? "" : String.fromCharCode(65 + n) + ".") + "</b><span>" + q.o[i] + "</span></button>").join("") + '</div><div class="qex" hidden></div></div>';
+}
+function kvHome() {
+  const p = kvProg(), total = KV_ART.length, read = KV_ART.filter((a) => p.read[a.id]).length;
+  const src = (document.querySelector("#tab-home .hero img") || {}).src || "";
+  const POP = [["a-arabica", "Arabica vs. robusta"], ["b-ristning", "Ristningsgrader"], ["c-ekstraktion", "Surt eller bittert?"], ["d-maelk", "Havremælk skiller"], ["c-formaling", "Kalk og vand"], ["d-drikke", "Latte vs. cappuccino"], ["f-vaelg", "Fuldautomat eller friskbryg"], ["f-forbrug", "Kaffeforbrug"], ["b-blend", "Hvorfor jeres kaffe?"]];
+  return '<div class="kv-hero"><img src="' + src + '" alt=""><div class="t"><p class="eb">Blackbird Coffee</p><h2>Kaffeakademiet</h2><p class="s">Lær kaffe fra bunden, eller slå det op, mens kunden venter. Seks kategorier, ' + total + " artikler, quizzer og en afsluttende videntest.</p></div></div>" +
+    '<div class="kv-search"><input type="search" id="kv-q" placeholder="Søg fx arabica, ristning, havremælk, ekstraktion …" autocomplete="off" enterkeyhint="search" aria-label="Søg i Kaffeakademiet"></div><div id="kv-res" hidden></div><div id="kv-body">' +
+    '<div class="kv-prog"><span>' + read + " af " + total + ' artikler læst</span><div class="bar"><i style="width:' + Math.round(read / total * 100) + '%"></i></div></div>' +
+    '<h3 class="kv-h">Læringskategorier</h3><div class="kv-cats">' + KV_CATS.map((c) => {
+      const n = KV_ART.filter((a) => a.cat === c.id).length, r = KV_ART.filter((a) => a.cat === c.id && p.read[a.id]).length;
+      return '<button type="button" class="kcat" data-kv="cat:' + c.id + '" style="background:linear-gradient(145deg,' + c.c[0] + "," + c.c[1] + ')"><span class="ic">' + VICON[c.id] + '</span><span class="l">' + c.id + '</span><span class="n">' + c.t + '</span><span class="d">' + c.d + '</span><span class="m">' + n + " artikler · " + r + "/" + n + " læst</span></button>";
+    }).join("") + "</div>" +
+    '<h3 class="kv-h">Populære emner</h3><div class="kv-pop">' + POP.map(([id, t]) => '<button type="button" class="kv-chip" data-kv="art:' + id + '">' + t + "</button>").join("") + "</div>" +
+    '<h3 class="kv-h">Test og opslag</h3><button type="button" class="kv-wide fin" data-kv="final"><span><b>Afsluttende videntest</b><span class="s">20 spørgsmål på tværs af alle kategorier' + (p.best.final != null ? " · bedste: " + p.best.final + "/20" : "") + '</span></span><span class="go">→</span></button>' +
+    '<button type="button" class="kv-wide" data-kv="quick"><span><b>Hurtig viden</b><span class="s">Korte svar til brug i kundemødet. ' + KAF.length + " opslag med søgning og filtre.</span></span><span class=\"go\">→</span></button></div>";
+}
+function kvBc(items) { return '<div class="kv-bc">' + items.map((x, i) => (x[1] ? '<button type="button" data-kv="' + x[1] + '">' + x[0] + "</button>" : "<span>" + x[0] + "</span>") + (i < items.length - 1 ? "<span>›</span>" : "")).join("") + "</div>"; }
+function kvCatView(id) {
+  const c = kvCat(id), p = kvProg(), arts = KV_ART.filter((a) => a.cat === id), nq = arts.reduce((s, a) => s + a.quiz.length, 0);
+  return kvBc([["Akademiet", "home"], [c.t]]) + '<div class="kv-ch" style="background:linear-gradient(145deg,' + c.c[0] + "," + c.c[1] + ')"><span class="ic">' + VICON[c.id] + '</span><div class="l">KATEGORI ' + c.id + "</div><h2>" + c.t + "</h2><p>" + c.d + ".</p></div>" +
+    arts.map((a) => '<button type="button" class="kart" data-kv="art:' + a.id + '"><span class="t">' + a.t + '</span><span class="s">' + a.lead + '</span><span class="m"><span>' + a.min + " min. læsning</span>" + (p.read[a.id] ? '<span class="done">✓ Læst</span>' : "") + "</span></button>").join("") +
+    '<button type="button" class="kv-wide fin" data-kv="catquiz:' + id + '"><span><b>Quiz: ' + c.t + '</b><span class="s">' + nq + " spørgsmål" + (p.best["cat" + id] != null ? " · bedste: " + p.best["cat" + id] + "/" + nq : "") + '</span></span><span class="go">→</span></button>';
+}
+function kvArtView(id) {
+  const a = kvArt(id), c = kvCat(a.cat), p = kvProg(), arts = KV_ART.filter((x) => x.cat === a.cat), i = arts.indexOf(a), prev = arts[i - 1], next = arts[i + 1];
+  let h = kvBc([["Akademiet", "home"], [c.t, "cat:" + a.cat], [a.t.length > 34 ? a.t.slice(0, 32) + "…" : a.t]]) + '<article class="kv-art"><span class="tag" style="background:' + c.c[0] + '">' + c.t + "</span><h1>" + a.t + '</h1><div class="meta">' + a.min + ' min. læsning</div><p class="lead">' + a.lead + "</p>";
+  a.sec.forEach((s) => { h += "<h2>" + s.h + "</h2>" + s.p.map(kvP).join(""); if (s.v) h += kvFigure(s.v, s.cap); if (s.p2) h += s.p2.map(kvP).join(""); });
+  h += '<div class="kbox know"><h3>Det skal du vide</h3><ul>' + a.know.map((x) => "<li>" + x + "</li>").join("") + "</ul></div>";
+  h += '<div class="kbox say"><h3>Sådan forklarer du det til kunden</h3>' + a.say.map((x) => "<p>" + x + "</p>").join("") + "</div>";
+  h += "<h2>Typiske kundespørgsmål</h2><div class='kqa'>" + a.qa.map(([q, r]) => "<details><summary>" + q + "</summary><p>" + r + "</p></details>").join("") + "</div>";
+  h += "<h2>Test din viden</h2>" + a.quiz.map((q) => kvQ(q)).join("");
+  h += '<div class="kv-row"><button type="button" class="kv-btn" data-kv="markread:' + id + '">' + (p.read[id] ? "✓ Læst – fjern markering" : "Marker som læst") + '</button><button type="button" class="kv-btn sec" data-kv="cat:' + a.cat + '">Til kategorien</button></div>';
+  h += "<h2>Relaterede artikler</h2>" + a.rel.map((r) => kvArt(r)).filter(Boolean).map((r) => '<button type="button" class="kart" data-kv="art:' + r.id + '"><span class="t">' + r.t + '</span><span class="m"><span>' + kvCat(r.cat).t + " · " + r.min + " min.</span></span></button>").join("");
+  h += '<div class="kv-row">' + (prev ? '<button type="button" class="kv-btn sec" data-kv="art:' + prev.id + '">← ' + prev.t.slice(0, 28) + (prev.t.length > 28 ? "…" : "") + "</button>" : "") + (next ? '<button type="button" class="kv-btn sec" data-kv="art:' + next.id + '">' + next.t.slice(0, 28) + (next.t.length > 28 ? "…" : "") + " →</button>" : "") + "</div></article>";
+  return h;
+}
+function kvRun(title, qs, key, back) {
+  kv.run = { title, qs, key, back, i: 0, score: 0, done: false, ans: [], answered: false };
+  kv.view = "run"; kvRender(); window.scrollTo({ top: 0 });
+}
+function kvRunView() {
+  const r = kv.run, n = r.qs.length;
+  if (r.done) {
+    const pct = Math.round(r.score / n * 100), msg = pct >= 90 ? "Fremragende. Du er klar til at rådgive med faglig sikkerhed." : pct >= 70 ? "Rigtig godt. Kig på de spørgsmål, du misforstod, og prøv igen." : pct >= 50 ? "Godt på vej. Læs artiklerne igen, og prøv testen en gang til." : "Der er plads til at lære mere. Start med artiklerne i kategorien, og prøv igen.";
+    const brk = r.key === "final" ? KV_CATS.map((c) => { const sub = r.ans.filter((x) => x.cat === c.id); return sub.length ? '<div><span>' + c.t + "</span><b>" + sub.filter((x) => x.ok).length + "/" + sub.length + "</b></div>" : ""; }).join("") : "";
+    return '<div class="kv-res"><div class="sc">' + r.score + "/" + n + "</div><h2>" + pct + " % rigtige</h2><p>" + msg + "</p>" + (brk ? '<div class="brk">' + brk + "</div>" : "") +
+      '<div class="kv-row" style="justify-content:center"><button type="button" class="kv-btn" data-kv="rerun">Prøv igen</button><button type="button" class="kv-btn sec" data-kv="' + r.back + '">Tilbage</button></div></div>';
+  }
+  const q = r.qs[r.i];
+  return kvBc([["Akademiet", "home"], [r.title]]) + '<div class="kv-qp"><span>Spørgsmål ' + (r.i + 1) + " af " + n + "</span><span>" + r.score + ' rigtige</span></div><div class="kv-qbar"><i style="width:' + Math.round(r.i / n * 100) + '%"></i></div>' + kvQ(q) +
+    '<div class="kv-row" id="kv-nextrow" hidden><button type="button" class="kv-btn" data-kv="next">' + (r.i + 1 < n ? "Næste spørgsmål" : "Se resultat") + "</button></div>";
+}
+function kvSearch(v) {
+  const q = v.trim().toLowerCase(), box = $("kv-res"), body = $("kv-body");
+  if (!q) { box.hidden = true; body.hidden = false; return; }
+  const words = q.split(/\s+/);
+  const arts = KV_INDEX.filter((x) => words.every((w) => x.txt.indexOf(w) > -1)).slice(0, 8);
+  const quick = KAF.map((c, i) => ({ c, i })).filter(({ c }) => words.every((w) => c.q.indexOf(w) > -1)).slice(0, 8);
+  box.hidden = false; body.hidden = true;
+  box.innerHTML = '<div class="kv-sr">' + (arts.length ? '<div class="grp">Artikler</div>' + arts.map(({ a }) => '<button type="button" class="kart" data-kv="art:' + a.id + '"><span class="t">' + a.t + '</span><span class="m"><span>' + kvCat(a.cat).t + "</span></span></button>").join("") : "") +
+    (quick.length ? '<div class="grp">Hurtig viden</div>' + quick.map(({ c }) => '<button type="button" class="kart" data-kv="qk:' + kvEsc(c.t) + '"><span class="t">' + kvEsc(c.t) + '</span><span class="s">' + kvEsc(c.s) + "</span></button>").join("") : "") + "</div>" + (arts.length + quick.length ? "" : '<p class="kv-empty">Ingen resultater. Prøv et andet søgeord.</p>');
+}
+function kvRender() {
+  const root = $("kv-root"), qk = $("kv-quick");
+  qk.hidden = kv.view !== "quick"; root.hidden = kv.view === "quick";
+  if (kv.view === "quick") { renderKaf(); return; }
+  root.innerHTML = kv.view === "cat" ? kvCatView(kv.cat) : kv.view === "art" ? kvArtView(kv.art) : kv.view === "run" ? kvRunView() : kvHome();
+  root.style.animation = "none"; void root.offsetWidth; root.style.animation = "";
+  if (kv.view === "home") { $("kv-q").addEventListener("input", (e) => kvSearch(e.target.value)); }
+}
+function kvGo(a) {
+  const [k, v] = a.split(/:(.*)/s);
+  if (k === "home") { kv.view = "home"; }
+  else if (k === "cat") { kv.view = "cat"; kv.cat = v; }
+  else if (k === "art") { kv.view = "art"; kv.art = v; }
+  else if (k === "quick") { kv.view = "quick"; $("kaf-q").value = ""; kafCat = "alle"; document.querySelectorAll("#kaf-pills .fpill").forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.kc === "alle"))); }
+  else if (k === "qk") { kv.view = "quick"; $("kaf-q").value = v; kafCat = "alle"; document.querySelectorAll("#kaf-pills .fpill").forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.kc === "alle"))); }
+  else if (k === "markread") { const p = kvProg(); if (p.read[v]) delete p.read[v]; else p.read[v] = 1; kvSave(p); kvRender(); return; }
+  else if (k === "catquiz") { const c = kvCat(v); kvRun("Quiz: " + c.t, kvShuffle(KV_ART.filter((a) => a.cat === v).flatMap((a) => a.quiz)), "cat" + v, "cat:" + v); return; }
+  else if (k === "final") { kvRun("Afsluttende videntest", kvShuffle(Object.values(KV_QREG)).slice(0, 20), "final", "home"); return; }
+  else if (k === "rerun") { const r = kv.run; kvRun(r.title, kvShuffle(r.qs), r.key, r.back); return; }
+  else if (k === "next") { const r = kv.run; r.i++; r.answered = false; if (r.i >= r.qs.length) { r.done = true; const p = kvProg(); if (p.best[r.key] == null || r.score > p.best[r.key]) p.best[r.key] = r.score; kvSave(p); } kvRender(); window.scrollTo({ top: 0 }); return; }
+  kvRender(); window.scrollTo({ top: 0 });
+}
+$("tab-kaf").addEventListener("click", (e) => {
+  const o = e.target.closest(".qo");
+  if (o) {
+    const z = o.closest(".qz"), q = KV_QREG[z.dataset.qid]; if (!q || z.dataset.done) return;
+    z.dataset.done = "1"; const i = +o.dataset.i, ok = i === q.a;
+    z.querySelectorAll(".qo").forEach((b) => { b.disabled = true; if (+b.dataset.i === q.a) b.classList.add("ok"); else if (b === o) b.classList.add("no"); });
+    const ex = z.querySelector(".qex"); ex.hidden = false; ex.innerHTML = (ok ? '<b class="ok">Rigtigt.</b> ' : '<b class="no">Ikke helt.</b> ') + q.e;
+    if (kv.view === "run" && kv.run && !kv.run.answered) { kv.run.answered = true; if (ok) kv.run.score++; kv.run.ans.push({ cat: q.cat, ok }); const row = $("kv-nextrow"); if (row) row.hidden = false; const sp = document.querySelector(".kv-qp span:last-child"); if (sp) sp.textContent = kv.run.score + " rigtige"; }
+    return;
+  }
+  const b = e.target.closest("[data-kv]"); if (b) kvGo(b.dataset.kv);
+});
+function kvSearchFromHome(v) { kv.view = "home"; kvRender(); $("kv-q").value = v; kvSearch(v); }
+const kvBack = $("kaf-back"); if (kvBack) kvBack.addEventListener("click", () => kvGo("home"));
+
 /* ---- Forside ---- */
 const HFACTS = [
   "Kaffe er ikke en bønne, men kernen i en rød frugt – kaffekirsebæret. Hver kirsebær indeholder normalt to bønner.",
@@ -1706,9 +2368,7 @@ $("tab-home").addEventListener("click", (e) => { const b = e.target.closest("[da
 $("hsearch").addEventListener("submit", (e) => e.preventDefault());
 $("hq").addEventListener("keydown", (e) => {
   if (e.key !== "Enter") return;
-  const v = $("hq").value.trim();
-  kafCat = "alle"; document.querySelectorAll("#kaf-pills .fpill").forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.kc === "alle")));
-  $("kaf-q").value = v; $("hq").value = ""; $("hq").blur(); showTab("kaf");
+  const v = $("hq").value.trim(); $("hq").value = ""; $("hq").blur(); showTab("kaf"); kvSearchFromHome(v);
 });
 renderHome();
 
