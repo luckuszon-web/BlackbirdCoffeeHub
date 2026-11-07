@@ -767,6 +767,7 @@ details[open] > summary .chev { transform: rotate(-135deg); margin-top: 14px; }
    Som almindelig blok med fast afstand ser kortene ens ud i alle browsere. */
 fieldset { display: block; }
 fieldset > :not(legend) ~ :not(legend) { margin-top: 12px; }
+fieldset > .blok { width: 100%; box-sizing: border-box; } /* ellers kollapser «Kun kaffeaftale» til 0 bredde */
 /* Forklaringen i overskriften på sin egen linje i stedet for at klemme titlen */
 legend { flex-wrap: wrap; row-gap: 2px; }
 legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var(--muted); }
