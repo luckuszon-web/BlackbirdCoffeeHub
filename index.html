@@ -1820,12 +1820,14 @@ function update() {
   if (!semi) { $("qpress").checked = false; $("grinder").checked = false; }
   if (cur !== "jura") $("kort").checked = false;
   if (cur !== "falcon" && $("maelk").value === "pulver") $("maelk").value = "";
+  if (cur === "falcon" && $("vand").value === "tank") $("vand").value = "tank8"; // Falcon har altid 8 L vandtank som standard
   syncChoices();
   commit();
   enforceMin();
   updateCalc();
   const type = $("type").value || "maskine", a = type === "aftale";
   $("pill-pulver").hidden = cur !== "falcon";
+  document.querySelector('[data-for="vand"] [data-value="tank"]').hidden = cur === "falcon";
   $("f-vand").hidden = semi || a;
   $("f-maelk").hidden = semi || a;
   $("f-sim").hidden = !semi;
