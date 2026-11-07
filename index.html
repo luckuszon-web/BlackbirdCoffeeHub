@@ -394,6 +394,38 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .kv-prog { display: flex; align-items: center; gap: 12px; margin: 14px 0 4px; font-size: 13.5px; color: var(--muted); }
 .kv-prog .bar { flex: 1; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
 .kv-prog .bar i { display: block; height: 100%; background: var(--kg); border-radius: 99px; transition: width .4s; }
+
+/* ---- Kaffeopskriftsberegner ---- */
+.rc { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-top: 26px; box-shadow: var(--shadow-sm); }
+.rc h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.01em; }
+.rc .rc-s { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
+.rc-in { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+.rc-in label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.rc select, .rc input[type="number"] { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; min-height: 48px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); }
+.rc-ml { display: flex; gap: 6px; }
+.rc-ml button { flex: 0 0 48px; min-height: 48px; padding: 0 !important; font-size: 22px !important; border-radius: 12px !important; background: var(--bg) !important; color: var(--ink) !important; border: 1.5px solid var(--line) !important; cursor: pointer; }
+.rc-ml input { text-align: center; min-width: 0; }
+.rc-pre { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.rc-pre button { font: inherit; font-size: 14px; font-weight: 600; min-height: 38px; padding: 6px 14px !important; border-radius: 999px !important; background: var(--bg) !important; color: var(--ink) !important; border: 1.5px solid var(--line) !important; cursor: pointer; }
+.rc-pre button[aria-pressed="true"] { background: var(--brand) !important; color: var(--brand-ink) !important; border-color: var(--brand) !important; }
+.rc-err { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--warn-bg); color: var(--warn-ink); font-size: 14px; }
+.rc-out { margin-top: 18px; }
+.rc-out.dim { opacity: .4; }
+.rc-tot { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.rc-tot span { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.rc-tot b { font-size: 34px; line-height: 1; letter-spacing: -.02em; }
+.rc-bar { display: flex; height: 22px; border-radius: 999px; overflow: hidden; border: 1px solid var(--line); background: var(--bg); }
+.rc-bar i { display: block; height: 100%; transition: width .35s ease; }
+.rc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
+.rc-t { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--bg); }
+.rc-t .k { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.rc-t .k::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); border: 1px solid rgba(0,0,0,.25); flex: none; }
+.rc-t b { display: block; font-size: 26px; line-height: 1.15; margin-top: 4px; }
+.rc-t small { font-weight: 600; font-size: 14px; color: var(--muted); margin-left: 3px; }
+.rc-t em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.rc-note { margin: 14px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+@media (max-width: 520px) { .rc { padding: 16px; } .rc-in { grid-template-columns: 1fr; } .rc-t b { font-size: 22px; } }
+@media (prefers-reduced-motion: reduce) { .rc-bar i { transition: none; } }
 .kv-h { margin: 26px 0 12px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .kv-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .kcat { position: relative; display: flex !important; flex-direction: column; align-items: flex-start; justify-content: flex-end; text-align: left; min-height: 200px; padding: 16px !important; border: 0 !important; border-radius: 18px !important; color: #fff !important; cursor: pointer; overflow: hidden; font: inherit; box-shadow: var(--shadow-md); transition: transform .18s, box-shadow .18s; }
@@ -2390,6 +2422,53 @@ function kvQ(q, opts = {}) {
   return '<div class="qz" data-qid="' + q.id + '"><p class="qq">' + q.q + "</p>" + (q.img ? kvFigure(q.img) : "") +
     '<div class="qopts">' + order.map((i, n) => '<button type="button" class="qo" data-i="' + i + '"><b>' + (q.fix ? "" : String.fromCharCode(65 + n) + ".") + "</b><span>" + q.o[i] + "</span></button>").join("") + '</div><div class="qex" hidden></div></div>';
 }
+/* ---- Kaffeopskriftsberegner (standardopskrifter ved 200 ml) ---- */
+const RC_REC = [
+  ["filter", "Filterkaffe / sort kaffe", 12, 200, 0, 0, 0, ""],
+  ["americano", "Americano", 14, 166, 0, 0, 34, "Americano: vandet kommer ovenpå espressoen (kaffens udtræk, ca. %EXT% ml), så den samlede kop svarer til den valgte størrelse."],
+  ["latte", "Café latte", 14, 40, 130, 30, 0, ""],
+  ["cappuccino", "Cappuccino", 14, 40, 90, 70, 0, ""],
+  ["flatwhite", "Flat white", 14, 40, 140, 20, 0, ""],
+  ["cortado", "Cortado", 14, 40, 120, 40, 0, ""],
+  ["kaffemaelk", "Kaffe med mælk", 12, 150, 50, 0, 0, ""],
+  ["mocha", "Caffè mocha", 14, 40, 130, 30, 0, "Bemærk: chokolade/kakao er ikke medregnet i beregningen."]
+];
+const rc = { v: "latte", raw: "200" };
+function rcCalc(id, ml) {
+  const r = RC_REC.find((x) => x[0] === id), f = ml / 200;
+  const g = Math.round(r[2] * f * 10) / 10;
+  const parts = { water: Math.round(r[3] * f), milk: Math.round(r[4] * f), foam: Math.round(r[5] * f), ext: Math.round(r[6] * f) };
+  // Afrunding må ikke ændre totalen: differencen lægges på den største væskekomponent
+  const diff = ml - (parts.water + parts.milk + parts.foam + parts.ext);
+  if (diff) { const k = ["water", "milk", "foam"].reduce((a, b) => (parts[b] > parts[a] ? b : a), "water"); parts[k] += diff; }
+  return { g, ...parts, total: ml, note: r[7].replace("%EXT%", parts.ext) };
+}
+function rcOut() {
+  const raw = String(rc.raw).trim(), ml = Number(raw);
+  const ok = raw !== "" && Number.isInteger(ml) && ml >= 50 && ml <= 1000;
+  const out = document.getElementById("rc-out"), err = document.getElementById("rc-err");
+  if (!out) return;
+  document.querySelectorAll("#rc-pre button").forEach((b) => b.setAttribute("aria-pressed", String(ok && Number(b.dataset.ml) === ml)));
+  err.hidden = ok; out.classList.toggle("dim", !ok);
+  if (!ok) { err.textContent = "Indtast en kopstørrelse mellem 50 og 1.000 ml (hele tal)."; return; }
+  const c = rcCalc(rc.v, ml), n = (x) => String(x).replace(".", ",");
+  const L = [["Vand", c.water, "#5B9BC1"], ["Varm mælk", c.milk, "#E9D6B8"], ["Mælkeskum", c.foam, "#FFF8EC"]];
+  if (c.ext) L.unshift(["Espresso (udtræk)", c.ext, "#6B4527"]);
+  const bar = L.filter((x) => x[1] > 0).map((x) => '<i style="width:' + (x[1] / ml * 100) + "%;background:" + x[2] + '" title="' + x[0] + " " + x[1] + ' ml"></i>').join("");
+  const tiles = [["Kaffebønner", n(c.g), "g", "#6B4527", Math.round(c.g / ml * 100 * 10) / 10 > 0 ? "" : ""]].concat(L.filter((x) => x[1] > 0 && x[0] !== "Espresso (udtræk)").map((x) => [x[0], x[1], "ml", x[2], Math.round(x[1] / ml * 100) + " % af koppen"]));
+  document.getElementById("rc-total").textContent = ml + " ml";
+  document.getElementById("rc-bar").innerHTML = bar;
+  document.getElementById("rc-grid").innerHTML = tiles.map((t) => '<div class="rc-t" style="--c:' + t[3] + '"><span class="k">' + t[0] + "</span><b>" + t[1] + "<small>" + t[2] + "</small></b>" + (t[4] ? "<em>" + t[4] + "</em>" : "") + "</div>").join("");
+  document.getElementById("rc-note").textContent = c.note; document.getElementById("rc-note").hidden = !c.note;
+}
+function rcHtml() {
+  return '<section class="rc" aria-labelledby="rc-h"><h2 id="rc-h">Beregn din kaffeopskrift</h2><p class="rc-s">Vælg kaffevariant og kopstørrelse, så får du den rigtige fordeling af kaffe, vand og mælk.</p>' +
+    '<div class="rc-in"><div><label for="rc-v">Kaffevariant</label><select id="rc-v">' + RC_REC.map((r) => '<option value="' + r[0] + '"' + (r[0] === rc.v ? " selected" : "") + ">" + r[1] + "</option>").join("") + "</select></div>" +
+    '<div><label for="rc-ml">Kopstørrelse (ml)</label><div class="rc-ml"><button type="button" id="rc-minus" aria-label="Mindre">\u2212</button><input type="number" id="rc-ml" inputmode="numeric" min="50" max="1000" step="10" value="' + esc(rc.raw) + '"><button type="button" id="rc-plus" aria-label="Mere">+</button></div></div></div>' +
+    '<div class="rc-pre" id="rc-pre">' + [150, 200, 250, 300, 400].map((m) => '<button type="button" data-ml="' + m + '" aria-pressed="false">' + m + " ml</button>").join("") + "</div>" +
+    '<p class="rc-err" id="rc-err" role="alert" hidden></p>' +
+    '<div class="rc-out" id="rc-out" aria-live="polite"><div class="rc-tot"><span>Samlet kopstørrelse</span><b id="rc-total"></b></div><div class="rc-bar" id="rc-bar"></div><div class="rc-grid" id="rc-grid"></div><p class="rc-note" id="rc-note" hidden></p></div></section>';
+}
 function kvHome() {
   const p = kvProg(), total = KV_ART.length, read = KV_ART.filter((a) => p.read[a.id]).length;
   const src = (document.querySelector("#tab-home .hero img") || {}).src || "";
@@ -2401,6 +2480,7 @@ function kvHome() {
       const n = KV_ART.filter((a) => a.cat === c.id).length, r = KV_ART.filter((a) => a.cat === c.id && p.read[a.id]).length;
       return '<button type="button" class="kcat" data-kv="cat:' + c.id + '" style="background:linear-gradient(145deg,' + c.c[0] + "," + c.c[1] + ')"><span class="ic">' + VICON[c.id] + '</span><span class="l">' + c.id + '</span><span class="n">' + c.t + '</span><span class="d">' + c.d + '</span><span class="m">' + n + " artikler · " + r + "/" + n + " læst</span></button>";
     }).join("") + "</div>" +
+    rcHtml() +
     '<h3 class="kv-h">Populære emner</h3><div class="kv-pop">' + POP.map(([id, t]) => '<button type="button" class="kv-chip" data-kv="art:' + id + '">' + t + "</button>").join("") + "</div>" +
     '<h3 class="kv-h">Test og opslag</h3><button type="button" class="kv-wide fin" data-kv="final"><span><b>Afsluttende videntest</b><span class="s">20 spørgsmål på tværs af alle kategorier' + (p.best.final != null ? " · bedste: " + p.best.final + "/20" : "") + '</span></span><span class="go">→</span></button>' +
     '<button type="button" class="kv-wide" data-kv="quick"><span><b>Hurtig viden</b><span class="s">Korte svar til brug i kundemødet. ' + KAF.length + " opslag med søgning og filtre.</span></span><span class=\"go\">→</span></button></div>";
@@ -2455,8 +2535,18 @@ function kvRender() {
   if (kv.view === "quick") { renderKaf(); return; }
   root.innerHTML = kv.view === "cat" ? kvCatView(kv.cat) : kv.view === "art" ? kvArtView(kv.art) : kv.view === "run" ? kvRunView() : kvHome();
   root.style.animation = "none"; void root.offsetWidth; root.style.animation = "";
-  if (kv.view === "home") { $("kv-q").addEventListener("input", (e) => kvSearch(e.target.value)); }
+  if (kv.view === "home") { $("kv-q").addEventListener("input", (e) => kvSearch(e.target.value)); rcOut(); }
 }
+$("kv-root").addEventListener("input", (e) => { if (e.target.id === "rc-ml") { rc.raw = e.target.value; rcOut(); } });
+$("kv-root").addEventListener("change", (e) => {
+  if (e.target.id === "rc-v") { rc.v = e.target.value; rcOut(); }
+  if (e.target.id === "rc-ml") { const v = Number(e.target.value); if (Number.isFinite(v) && e.target.value !== "") { rc.raw = String(Math.min(1000, Math.max(50, Math.round(v)))); e.target.value = rc.raw; } rcOut(); }
+});
+$("kv-root").addEventListener("click", (e) => {
+  const pre = e.target.closest("#rc-pre button"), st = e.target.closest("#rc-minus, #rc-plus");
+  if (pre) { rc.raw = pre.dataset.ml; $("rc-ml").value = rc.raw; rcOut(); }
+  else if (st) { const cur = Number(rc.raw) || 200, nv = Math.min(1000, Math.max(50, cur + (st.id === "rc-plus" ? 10 : -10))); rc.raw = String(nv); $("rc-ml").value = rc.raw; rcOut(); }
+});
 function kvGo(a) {
   const [k, v] = a.split(/:(.*)/s);
   if (k === "home") { kv.view = "home"; }
