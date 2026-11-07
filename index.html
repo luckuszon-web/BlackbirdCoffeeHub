@@ -786,16 +786,47 @@ function syncChoices() {
     g.querySelectorAll('[role="radio"]').forEach((b) => b.setAttribute("aria-checked", String(b.dataset.value === v)));
   });
 }
+/* ---- UI-sprog (svensk) ---- */
+const SVUI = {"Tilbudsgenerator": "Offertgenerator", "Seneste tilbud…": "Senaste offerter…", "Ny kunde (ryd felter)": "Ny kund (rensa fält)", "Kunde": "Kund", "Virksomhed": "Företag", "(fornavn)": "(förnamn)", "Indledning": "Inledning", "Sprog": "Språk", "(tilbuddets sprog)": "(offertens språk)", "Dansk": "Danska", "Tilbudstype": "Offerttyp", "Kaffemaskine": "Kaffemaskin", "Kun kaffeaftale": "Endast kaffeavtal", "Kundens nuværende løsning": "Kundens nuvarande lösning", "(valgfri, viser fordele i tilbuddet)": "(valfritt, visar fördelar i offerten)", "Ved ikke / ingen": "Vet inte / ingen", "Filterkaffe": "Bryggkaffe", "Forbrugermaskine (fx Elgiganten)": "Hushållsmaskin (t.ex. Elgiganten)", "Kapsler": "Kapslar", "Maskine": "Maskin", "Mulighed": "Alternativ", "(tilføj B og C for at lade kunden sammenligne)": "(lägg till B och C så att kunden kan jämföra)", "Model": "Modell", "Semiautomatisk": "Halvautomatisk", "Vandforsyning": "Vattenförsörjning", "Vandtank": "Vattentank", "8L vandtank": "Vattentank 8 L", "Fastvandstilslutning": "Fast vattenanslutning", "Mælk": "Mjölk", "Friskmælkskøleskab": "Kylskåp för färsk mjölk", "Mælkepulver": "Mjölkpulver", "Ingen mælk": "Ingen mjölk", "Ekstraudstyr til Simonelli": "Extrautrustning till Simonelli", "Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.": "Simonelli levereras alltid med fast vattenanslutning och utan mjölklösning.", "(vælg en eller flere)": "(välj en eller flera)", "Kakaopulver inkluderet": "Kakaopulver ingår", "Pris og aftale": "Pris och avtal", "Koppris": "Pris per kopp", "(kr., gælder alle maskiner i muligheden)": "(SEK, gäller alla maskiner i alternativet)", "Kaffedrikkere": "Kaffedrickare", "(valgfri)": "(valfritt)", "Betaling": "Betalning", "Minimumsforbrug pr. måned": "Minimiförbrukning per månad", "Fast betaling": "Fast betalning", "Kopper pr. måned": "Koppar per månad", "Pris pr. kg": "Pris per kg", "(kr.)": "(SEK)", "Kg pr. måned": "Kg per månad", "Min. leveringer pr. år": "Min. leveranser per år", "Leveres som": "Levereras som", "Hele bønner i 1 kg poser": "Hela bönor i 1 kg-påsar", "Formalet i 500 g poser": "Malet i 500 g-påsar", "(kun Early Bird)": "(endast Early Bird)", "Formalet i 75 g poser": "Malet i 75 g-påsar", "Tilbehør": "Tillbehör", "(valgfrit)": "(valfritt)", "Aftaleperiode": "Avtalsperiod", "(antal måneder)": "(antal månader)", "Aftaleperioden skal være mindst 12 måneder. Kortere perioder er ikke tilladt.": "Avtalsperioden måste vara minst 12 månader. Kortare perioder är inte tillåtna.", "Nævn ikke aftaleperiode": "Nämn inte avtalsperiod", "Mailen": "Mejlet", "Udløbsdato": "Utgångsdatum", "(valgfri, vises nederst i tilbuddet)": "(valfritt, visas längst ned i offerten)", "Svar-adresse": "Svarsadress", "(knappen i mailen)": "(knappen i mejlet)", "Kopiér tilbud": "Kopiera offert", "Kopiér emnefelt": "Kopiera ämnesrad", "Opfølgning i kalender": "Uppföljning i kalendern", "Opfølgning": "Uppföljning", "Tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.": "Tryck på «Kopiera offert», öppna ett nytt mejl och välj «Klistra in». Välj datum och tid och tryck på «Uppföljning i kalendern» för att få en påminnelse.", "Eksempel på mailen": "Exempel på mejlet", "Nuværende løsning": "Nuvarande lösning", "Seneste tilbud": "Senaste offerter", "Skriv din egen tekst her": "Skriv din egen text här", "egen tekst efter indledningen": "egen text efter inledningen", "egen tekst om maskinen": "egen text om maskinen", "egen tekst om kaffen": "egen text om kaffet", "egen tekst i prisboksen": "egen text i prisrutan", "egen tekst før afslutningen": "egen text före avslutningen", "+ Tilføj ": "+ Lägg till ", "− Fjern ": "− Ta bort ", "Duplikér": "Duplicera", "Fjern": "Ta bort"};
+const SVSUB = [["Ikke tilladt: ", "Inte tillåtet: "], ["\\. Tilbuddet er derfor ikke klar\\.", ". Offerten är därför inte klar."], [" Mangler også: ", " Saknas också: "], ["^Mangler stadig: ", "Saknas fortfarande: "], ["^Alt er udfyldt\\. Tilbuddet er klar til at kopiere\\.", "Allt är ifyllt. Offerten är redo att kopieras."], ["aftaleperioden er under 12 måneder, og det er ikke tilladt", "avtalsperioden är under 12 månader, och det är inte tillåtet"], ["aftaleperiode \\(eller afkryds, at den ikke skal nævnes\\)", "avtalsperiod (eller kryssa i att den inte ska nämnas)"], ["Early Bird \\(formalet fås kun som Early Bird\\)", "Early Bird (malet finns bara som Early Bird)"], ["forventet kg pr\\. måned", "förväntade kg per månad"], ["kopper pr\\. måned", "koppar per månad"], ["pris pr\\. kg", "pris per kg"], ["leveringsformat", "leveransformat"], ["kaffetype", "kaffesort"], ["svar-adresse", "svarsadress"], ["virksomhed", "företag"], ["vandforsyning", "vattenförsörjning"], ["\\bmælk\\b", "mjölk"], ["\\bkoppris\\b", "pris per kopp"], ["\\bmodel\\b", "modell"], ["\\bmulighed ([ABC]):", "alternativ $1:"], ["\\bmaskine (\\d+):", "maskin $1:"], ["Tilføj mulighed", "Lägg till alternativ"], ["\\(sammenlign\\)", "(jämför)"], ["Fjern mulighed", "Ta bort alternativ"], ["^Mulighed ([ABC])$", "Alternativ $1"], [" i mulighed ([ABC])", " i alternativ $1"], ["^Vælg model$", "Välj modell"], ["^Vandforsyning mangler$", "Vattenförsörjning saknas"], ["^Ingen model valgt$", "Ingen modell vald"], ["^\\+ Tilføj maskine$", "+ Lägg till maskin"], ["^(\\d+) af (\\d+)$", "$1 av $2"], ["^Indstillinger for maskine (\\d+)$", "Inställningar för maskin $1"], ["^Betaling og aftaleperiode for mulighed ([ABC])\\.$", "Betalning och avtalsperiod för alternativ $1."], ["^Tilbuddet er kopieret\\. Sæt det ind i en ny mail\\.$", "Offerten är kopierad. Klistra in den i ett nytt mejl."], ["^Kopiering blev afvist her\\. Markér tilbuddet i udkastet og tryk Cmd\\+C\\.$", "Kopieringen blockerades här. Markera offerten i utkastet och tryck Cmd+C."], ["^Emnefeltet er kopieret: ", "Ämnesraden är kopierad: "], ["^Kunne ikke kopiere\\. Emnefelt: ", "Kunde inte kopiera. Ämnesrad: "], ["^Vælg en dato for opfølgningen\\.$", "Välj ett datum för uppföljningen."], ["^Datoen eller tidspunktet er ugyldigt\\.$", "Datum eller tid är ogiltigt."], ["^Påmindelsen er hentet – åbn filen for at lægge den i din kalender", "Påminnelsen är hämtad – öppna filen för att lägga in den i din kalender"], ["^Tilbuddet til (.*) er hentet frem igen\\.$", "Offerten till $1 har hämtats igen."], ["^Seneste tilbud \\((\\d+)\\)…$", "Senaste offerter ($1)…"], ["^Ingen tidligere tilbud endnu$", "Inga tidigare offerter ännu"], ["Tilbud sendt ", "Offert skickad "], ["Løsning: ", "Lösning: "], ["Kaffevalg: ", "Kaffeval: "], ["Antal kaffedrikkere: ", "Antal kaffedrickare: "], ["Koppris: ", "Pris per kopp: "], ["\\(fast betaling", "(fast betalning"], ["kopper pr\\. md\\.", "koppar per mån."], ["Aftalelængde: ", "Avtalslängd: "], ["ikke angivet", "ej angivet"], [" mdr\\.", " mån."], ["MULIGHED ", "ALTERNATIV "], ["Emne: ", "Ämne: "], ["Kaffeaftale \\(uden maskine\\)", "Kaffeavtal (utan maskin)"], ["Pris pr\\. kg: ", "Pris per kg: "], ["Forventet forbrug: ", "Förväntad förbrukning: "], ["kg pr\\. måned", "kg per månad"], ["^Følg op på kaffetilbud til ", "Följ upp kaffeofferten till "], ["^Opfølgning$", "Uppföljning"]].map(([r, t]) => [new RegExp(r, "g"), t]);
+const uiSv = () => $("lang").value === "sv";
+const U = (s) => { if (!uiSv()) return s; if (SVUI[s] !== undefined) return SVUI[s]; return SVSUB.reduce((a, [r, t]) => a.replace(r, t), s); };
+const uiLoc = () => (uiSv() ? "sv-SE" : "da-DK");
+document.querySelectorAll(".addbtn").forEach((b) => { b.dataset.base = b.textContent.replace(/^[+−] (Fjern|Tilføj) /, ""); });
+const addLabel = (b, open) => { const base = b.dataset.base || ""; b.textContent = uiSv() ? (open ? "− Ta bort " : "+ Lägg till ") + (SVUI[base] || base) : (open ? "− Fjern " : "+ Tilføj ") + base; };
+const addLabelSync = () => document.querySelectorAll(".addbtn").forEach((b) => addLabel(b, !$(b.dataset.note).hidden));
+let curUi = "da"; const origTxt = new WeakMap();
+function uiApply() {
+  const want = uiSv() ? "sv" : "da";
+  if (want === curUi) { addLabelSync(); return; }
+  curUi = want;
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement && n.parentElement.closest("#preview, script, style, textarea, .addbtn, #hist, #status, #mach-bar, #opt-bar, #opt-ctx, #mach-lbl, #mach-cnt, #mach-set, #flash")) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach((n) => {
+    if (want === "sv") { const raw = n.nodeValue, k = raw.trim(); if (SVUI[k] !== undefined && !origTxt.has(n)) { origTxt.set(n, raw); n.nodeValue = raw.replace(k, SVUI[k]); } }
+    else if (origTxt.has(n)) { n.nodeValue = origTxt.get(n); origTxt.delete(n); }
+  });
+  document.querySelectorAll("[placeholder], [aria-label], [title]").forEach((el) => {
+    if (el.closest("#preview")) return;
+    ["placeholder", "aria-label", "title"].forEach((a) => {
+      const k = "o_" + a.replace("-", "");
+      if (want === "sv") { const v = el.getAttribute(a); if (v && SVUI[v] !== undefined && el.dataset[k] === undefined) { el.dataset[k] = v; el.setAttribute(a, SVUI[v]); } }
+      else if (el.dataset[k] !== undefined) { el.setAttribute(a, el.dataset[k]); delete el.dataset[k]; }
+    });
+  });
+  document.documentElement.lang = want;
+  addLabelSync(); renderHist(); update();
+}
 let lastLang = "da";
 function renderBars() {
   const ob = $("opt-bar"), mb = $("mach-bar"), o = ST.opts[ST.ai];
   const chip = (act, idx, label, on) => `<button type="button" class="pill" role="radio" aria-checked="${on}" data-act="${act}" data-i="${idx}">${label}</button>`;
-  let h = ST.opts.map((_, i) => chip("opt", i, "Mulighed " + LET[i], i === ST.ai)).join("");
-  if (ST.opts.length < 3) h += `<button type="button" class="chipadd" data-act="addopt">+ ${ST.opts.length === 1 ? "Tilføj mulighed B (sammenlign)" : "Tilføj mulighed " + LET[ST.opts.length]}</button>`;
-  if (ST.opts.length > 1) h += `<button type="button" class="chipx" data-act="delopt">Fjern mulighed ${LET[ST.ai]}</button>`;
+  let h = ST.opts.map((_, i) => chip("opt", i, U("Mulighed " + LET[i]), i === ST.ai)).join("");
+  if (ST.opts.length < 3) h += `<button type="button" class="chipadd" data-act="addopt">+ ${U(ST.opts.length === 1 ? "Tilføj mulighed B (sammenlign)" : "Tilføj mulighed " + LET[ST.opts.length])}</button>`;
+  if (ST.opts.length > 1) h += `<button type="button" class="chipx" data-act="delopt">${U("Fjern mulighed " + LET[ST.ai])}</button>`;
   if (ob.innerHTML !== h) ob.innerHTML = h;
   const ml = ST.opts.length > 1 ? " i mulighed " + LET[ST.ai] : "";
-  $("mach-lbl").textContent = "Maskiner" + ml;
+  $("mach-lbl").textContent = U("Maskiner" + ml);
   const MAXM = 8, multi = o.mach.length > 1;
   const lab = (g, v) => { const b = document.querySelector("#f-" + g + ' .pill[data-value="' + v + '"]'); return b ? b.textContent.trim() : ""; };
   let m = "";
@@ -803,17 +834,17 @@ function renderBars() {
     const d = mc.maskine && MACH[mc.maskine];
     const img = d ? (document.querySelector('.tile[data-value="' + mc.maskine + '"] img') || {}).src || "" : "";
     const parts = [];
-    if (!d) parts.push(`<span class="bad">Vælg model</span>`);
+    if (!d) parts.push(`<span class="bad">${U("Vælg model")}</span>`);
     else {
-      parts.push(mc.vand ? `<span>${lab("vand", mc.vand)}${mc.maelk && mc.maelk !== "ingen" ? " · " + lab("maelk", mc.maelk) : ""}</span>` : `<span class="bad">Vandforsyning mangler</span>`);
+      parts.push(mc.vand ? `<span>${lab("vand", mc.vand)}${mc.maelk && mc.maelk !== "ingen" ? " · " + lab("maelk", mc.maelk) : ""}</span>` : `<span class="bad">${U("Vandforsyning mangler")}</span>`);
     }
-    return `<div class="mcard" data-act="mach" data-i="${i}" aria-current="${i === ST.am}">${img ? `<img src="${img}" alt="">` : ""}<div class="mt"><b>${i + 1}. ${d ? d.name : "Ingen model valgt"}${mc.antal && +mc.antal > 1 ? " × " + (+mc.antal) : ""}</b>${parts.join("")}</div><div class="macts"><button type="button" class="mbtn" data-act="dupmach" data-i="${i}"${o.mach.length >= MAXM ? " disabled" : ""}>Duplikér</button><button type="button" class="mbtn" data-act="delmach" data-i="${i}">Fjern</button></div></div>`;
+    return `<div class="mcard" data-act="mach" data-i="${i}" aria-current="${i === ST.am}">${img ? `<img src="${img}" alt="">` : ""}<div class="mt"><b>${i + 1}. ${d ? d.name : U("Ingen model valgt")}${mc.antal && +mc.antal > 1 ? " × " + (+mc.antal) : ""}</b>${parts.join("")}</div><div class="macts"><button type="button" class="mbtn" data-act="dupmach" data-i="${i}"${o.mach.length >= MAXM ? " disabled" : ""}>${U("Duplikér")}</button><button type="button" class="mbtn" data-act="delmach" data-i="${i}">${U("Fjern")}</button></div></div>`;
   }).join("");
-  m += `<button type="button" class="maddbtn" data-act="addmach"${o.mach.length >= MAXM ? " disabled" : ""}>+ Tilføj maskine</button>`;
+  m += `<button type="button" class="maddbtn" data-act="addmach"${o.mach.length >= MAXM ? " disabled" : ""}>${U("+ Tilføj maskine")}</button>`;
   if (mb.innerHTML !== m) mb.innerHTML = m;
-  $("mach-cnt").textContent = multi ? o.mach.length + " af " + MAXM : "";
-  const ms = $("mach-set"); ms.hidden = !multi; ms.textContent = "Indstillinger for maskine " + (ST.am + 1);
-  $("opt-ctx").textContent = ST.opts.length > 1 ? "Betaling og aftaleperiode for mulighed " + LET[ST.ai] + "." : "";
+  $("mach-cnt").textContent = multi ? U(o.mach.length + " af " + MAXM) : "";
+  const ms = $("mach-set"); ms.hidden = !multi; ms.textContent = U("Indstillinger for maskine " + (ST.am + 1));
+  $("opt-ctx").textContent = ST.opts.length > 1 ? U("Betaling og aftaleperiode for mulighed " + LET[ST.ai] + ".") : "";
 }
 function barClick(e) {
   const b = e.target.closest("[data-act]"); if (!b) return;
@@ -866,11 +897,13 @@ function update() {
   const miss = missing(s);
   const ready = miss.length === 0 && bad.length === 0;
   $("copy").disabled = !ready;
-  if (bad.length) setStatus("Ikke tilladt: " + bad.join("; ") + ". Tilbuddet er derfor ikke klar." + (miss.length ? " Mangler også: " + miss.join(", ") + "." : ""), "warn");
-  else if (!ready) setStatus("Mangler stadig: " + miss.join(", ") + ".", "warn");
-  else setStatus("Alt er udfyldt. Tilbuddet er klar til at kopiere.", "ok");
+  if (bad.length) setStatus(U("Ikke tilladt: " + bad.join("; ") + ". Tilbuddet er derfor ikke klar." + (miss.length ? " Mangler også: " + miss.join(", ") + "." : "")), "warn");
+  else if (!ready) setStatus(U("Mangler stadig: " + miss.join(", ") + "."), "warn");
+  else setStatus(U("Alt er udfyldt. Tilbuddet er klar til at kopiere."), "ok");
+  uiApply();
 }
 function flash(text, kind) {
+  text = U(text);
   setStatus(text, kind);
   clearTimeout(statusTimer);
   statusTimer = setTimeout(update, 3500);
@@ -913,9 +946,8 @@ $("copy").addEventListener("click", async () => {
 });
 document.querySelectorAll(".addbtn").forEach((b) => b.addEventListener("click", () => {
   const ta = $(b.dataset.note), open = ta.hidden;
-  const base = b.textContent.replace(/^[+−] (Fjern|Tilføj) /, "");
-  if (open) { ta.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = "− Fjern " + base; ta.focus(); }
-  else { ta.value = ""; ta.hidden = true; b.setAttribute("aria-expanded", "false"); b.textContent = "+ Tilføj " + base; update(); }
+  if (open) { ta.hidden = false; b.setAttribute("aria-expanded", "true"); addLabel(b, true); ta.focus(); }
+  else { ta.value = ""; ta.hidden = true; b.setAttribute("aria-expanded", "false"); addLabel(b, false); update(); }
 }));
 $("subj").addEventListener("click", async () => {
   const t = subjectLine(read()); let ok = false;
@@ -930,7 +962,7 @@ function followDate(days) {
   d.setHours(9, 0, 0, 0); return d;
 }
 $("cal").addEventListener("click", () => {
-  const s = read(); LANG = "da";
+  const s = read(); LANG = s.lang;
   const f = s.firma || "kunde";
   const dv = $("fu-date").value, tv = $("fu-time").value || "09:00";
   if (!dv) { flash("Vælg en dato for opfølgningen.", "err"); return; }
@@ -942,7 +974,7 @@ $("cal").addEventListener("click", () => {
   const icsEsc = (t) => String(t).replace(/\\/g, "\\\\").replace(/[,;]/g, (m) => "\\" + m).replace(/\n/g, "\\n");
   const kaffeTxt = (s.kaffe.length ? s.kaffe.join(", ") : "-") + (s.kakao ? " + kakaopulver" : "");
   const mt = (o) => o.ingenper ? "ikke angivet" : (o.periode ? Math.round(o.periode) + " mdr." : "-");
-  const L = ["Tilbud sendt " + new Date().toLocaleDateString("da-DK"), "Kontakt: " + (s.navn || "-") + (s.mail ? " (" + s.mail + ")" : "")];
+  const L = ["Tilbud sendt " + new Date().toLocaleDateString(uiLoc()), "Kontakt: " + (s.navn || "-") + (s.mail ? " (" + s.mail + ")" : "")];
   if (s.type === "aftale") {
     L.push("", "Løsning: Kaffeaftale (uden maskine)", "Kaffevalg: " + kaffeTxt,
       "Pris pr. kg: " + (s.kgpris ? fmt2(s.kgpris) + " kr." : "-"),
@@ -963,17 +995,17 @@ $("cal").addEventListener("click", () => {
     });
   }
   L.push("", "Emne: " + subjectLine(s));
-  const desc = L.join("\n");
+  const desc = U(L.join("\n"));
   const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Blackbird Coffee//Tilbud//DA", "BEGIN:VEVENT",
     "UID:" + Date.now() + "@blackbirdcoffee.dk", "DTSTAMP:" + fmt(new Date()), "DTSTART:" + fmt(d), "DTEND:" + fmt(e),
-    "SUMMARY:" + icsEsc("Følg op på kaffetilbud til " + f + (s.navn ? " (" + s.navn + ")" : "")),
+    "SUMMARY:" + icsEsc(U("Følg op på kaffetilbud til ") + f + (s.navn ? " (" + s.navn + ")" : "")),
     "DESCRIPTION:" + icsEsc(desc),
-    "BEGIN:VALARM", "TRIGGER:-PT0M", "ACTION:DISPLAY", "DESCRIPTION:Opfølgning", "END:VALARM",
+    "BEGIN:VALARM", "TRIGGER:-PT0M", "ACTION:DISPLAY", "DESCRIPTION:" + U("Opfølgning"), "END:VALARM",
     "END:VEVENT", "END:VCALENDAR"].join("\r\n");
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
   a.download = "Opfølgning - " + f + ".ics"; document.body.appendChild(a); a.click(); a.remove();
-  flash("Påmindelsen er hentet – åbn filen for at lægge den i din kalender (" + d.toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long" }) + " kl. " + tv + ").", "ok");
+  flash("Påmindelsen er hentet – åbn filen for at lægge den i din kalender (" + d.toLocaleDateString(uiLoc(), { weekday: "long", day: "numeric", month: "long" }) + " kl. " + tv + ").", "ok");
 });
 /* Kladde og historik */
 const DKEY = "bb-tilbud-kladde", HKEY = "bb-tilbud-historik";
@@ -992,9 +1024,9 @@ function restore(snap) {
   Object.keys(snap.f).forEach((id) => { const el = $(id); if (!el) return; if (el.type === "checkbox") el.checked = !!snap.f[id]; else el.value = snap.f[id]; });
   if (snap.st && snap.st.opts && snap.st.opts.length) { ST = snap.st; ST.ai = Math.min(ST.ai || 0, ST.opts.length - 1); ST.am = Math.min(ST.am || 0, ST.opts[ST.ai].mach.length - 1); }
   document.querySelectorAll(".addbtn").forEach((b) => {
-    const ta = $(b.dataset.note), base = b.textContent.replace(/^[+−] (Fjern|Tilføj) /, "");
+    const ta = $(b.dataset.note);
     const has = ta.value.trim() !== "";
-    ta.hidden = !has; b.setAttribute("aria-expanded", String(has)); b.textContent = (has ? "− Fjern " : "+ Tilføj ") + base;
+    ta.hidden = !has; b.setAttribute("aria-expanded", String(has)); addLabel(b, has);
   });
   lastLang = ["da", "en", "sv"].includes($("lang").value) ? $("lang").value : "da";
   load(); autoVand = !!snap.auto;
@@ -1005,8 +1037,8 @@ let saveTimer;
 function autosave() { if (restoring) return; clearTimeout(saveTimer); saveTimer = setTimeout(() => lsSet(DKEY, snapshot()), 400); }
 function renderHist() {
   const h = lsGet(HKEY, []), sel = $("hist");
-  sel.innerHTML = '<option value="">' + (h.length ? "Seneste tilbud (" + h.length + ")…" : "Ingen tidligere tilbud endnu") + "</option>" +
-    h.map((x, i) => "<option value=\"" + i + "\">" + esc(x.title) + " · " + new Date(x.at).toLocaleString("da-DK", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + "</option>").join("");
+  sel.innerHTML = '<option value="">' + U(h.length ? "Seneste tilbud (" + h.length + ")…" : "Ingen tidligere tilbud endnu") + "</option>" +
+    h.map((x, i) => "<option value=\"" + i + "\">" + esc(x.title) + " · " + new Date(x.at).toLocaleString(uiLoc(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + "</option>").join("");
 }
 function addHist() {
   const s = read(), snap = snapshot();
