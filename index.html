@@ -1133,7 +1133,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   </section>
 
   <section id="tab-kaf" role="tabpanel" aria-labelledby="tabbtn-kaf" hidden>
-    <div class="kvtabs" id="kvtabs" role="group" aria-label="Kaffeakademiet"><button type="button" data-kvt="home" aria-pressed="true">Akademiet</button><button type="button" data-kvt="sales" aria-pressed="false">Salgsguide</button><button type="button" data-kvt="recipe" aria-pressed="false">Kaffeopskrift</button></div>
+    <div class="kvtabs" id="kvtabs" role="group" aria-label="Kaffeakademiet"><button type="button" data-kvt="home" aria-pressed="true">Akademiet</button><button type="button" data-kvt="sales" aria-pressed="false">Indvendinger</button><button type="button" data-kvt="recipe" aria-pressed="false">Kaffeopskrift</button></div>
     <div id="kv-recipe" class="rx" hidden>
       <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="rxclip" clipPathUnits="objectBoundingBox"><path d="M0.05,0.02 L0.95,0.02 L0.86,0.935 Q0.85,0.99 0.79,0.99 L0.21,0.99 Q0.15,0.99 0.14,0.935 Z"/></clipPath></defs></svg>
       <h2 class="rx-h">Beregn din kaffeopskrift</h2>
@@ -2924,7 +2924,7 @@ function kvHome() {
       return '<button type="button" class="kcat" data-kv="cat:' + c.id + '" style="background:linear-gradient(145deg,' + c.c[0] + "," + c.c[1] + ')"><span class="ic">' + VICON[c.id] + '</span><span class="l">' + c.id + '</span><span class="n">' + c.t + '</span><span class="d">' + c.d + '</span><span class="m">' + n + " artikler · " + r + "/" + n + " læst</span></button>";
     }).join("") + "</div>" +
     '<h3 class="kv-h">Populære emner</h3><div class="kv-pop">' + POP.map(([id, t]) => '<button type="button" class="kv-chip" data-kv="art:' + id + '">' + t + "</button>").join("") + "</div>" +
-    '<h3 class="kv-h">Salg</h3><button type="button" class="kv-wide fin" data-kv="sales"><span><b>Salgsguide og indvendinger</b><span class="s">Mødet trin for trin, ' + OB.length + ' indvendinger med svar og en øve-tilstand</span></span><span class="go">→</span></button>' +
+    '<h3 class="kv-h">Salg</h3><button type="button" class="kv-wide fin" data-kv="sales"><span><b>Klassiske indvendinger</b><span class="s">' + OB.length + ' indvendinger med svar, du kan kopiere</span></span><span class="go">→</span></button>' +
     '<h3 class="kv-h">Test og opslag</h3><button type="button" class="kv-wide fin" data-kv="final"><span><b>Afsluttende videntest</b><span class="s">20 spørgsmål på tværs af alle kategorier' + (p.best.final != null ? " · bedste: " + p.best.final + "/20" : "") + '</span></span><span class="go">→</span></button>' +
     '<button type="button" class="kv-wide" data-kv="quick"><span><b>Hurtig viden</b><span class="s">Korte svar til brug i kundemødet. ' + KAF.length + " opslag med søgning og filtre.</span></span><span class=\"go\">→</span></button></div>";
 }
@@ -3062,7 +3062,7 @@ $("rx-pre").addEventListener("click", (e) => { const b = e.target.closest("butto
 $("kvtabs").addEventListener("click", (e) => { const b = e.target.closest("[data-kvt]"); if (b) { kvGo(b.dataset.kvt); } });
 function kvGo(a) {
   const [k, v] = a.split(/:(.*)/s);
-  const sg = sgGo(k, v); if (sg === false) return; if (sg === true) { kv.view = "sales"; kvRender(); if (k === "sv" || k === "drnext") window.scrollTo({ top: 0 }); return; }
+  const sg = sgGo(k, v); if (sg === false) return; if (sg === true) { kv.view = "sales"; kvRender(); return; }
   if (k === "home") { kv.view = "home"; }
   else if (k === "sales") { kv.view = "sales"; }
   else if (k === "recipe") { kv.view = "recipe"; }
@@ -3093,42 +3093,6 @@ function kvSearchFromHome(v) { kv.view = "home"; kvRender(); $("kv-q").value = v
 const kvBack = $("kaf-back"); if (kvBack) kvBack.addEventListener("click", () => kvGo("home"));
 
 /* ---- Salgsguide og indvendingshåndtering ---- */
-const SG_PH = [
-  { id: "prep", r: "Forbered", t: "Forberedelse", when: "Før mødet", goal: "Mødet er kvalificeret, og du kender kunden, før du træder ind ad døren.",
-    do: ["Tjek salgsreglerne: min. 2 kg kaffe om måneden, købt maskine min. 2 år, maks. 6 måneder tilbage på leasing eller leje", "Bekræft, at du mødes med en tegningsberettiget person eller en, der kan skrive under", "Kig på virksomhedens hjemmeside: antal ansatte, lokaler, gæster og møder", "Pak maskinen, Early Bird og Early Bird Dark Roast, kopper og mælk", "Gør TCO Beregneren klar, så du kan regne på kundens tal i mødet"],
-    ask: [], say: [],
-    avoid: ["At møde op uden at vide, hvem der træffer beslutningen", "At booke et møde, som ikke lever op til salgsreglerne"], tool: "rules" },
-  { id: "open", r: "Åbning", t: "Åbning", when: "De første 5 minutter", goal: "Kunden ved, hvad der skal ske, og I er enige om, at mødet slutter med et tilbud.",
-    do: ["Præsentér dig kort, og tak for tiden", "Sæt dagsordenen: behov, smagning, løsning og pris", "Afstem tid og hvem der er med i beslutningen", "Sæt maskinen op, mens I taler, så den er klar til smagningen"],
-    ask: ["Hvor lang tid har I sat af?", "Hvem udover dig er med til at beslutte, hvilken kaffeløsning I vælger?"],
-    say: ["«Tak, fordi I har tid. Jeg vil gerne starte med at høre, hvordan I bruger kaffe i dag. Så brygger vi et par kopper, og til sidst ser vi på, om det giver mening for jer. Lyder det fint?»"],
-    avoid: ["At begynde med produktet, før du kender behovet"] },
-  { id: "need", r: "Behov", t: "Behovsafdækning", when: "Mødets vigtigste del", goal: "Du kender forbrug, nuværende løsning, udgift og hvad kunden savner. Det er grundlaget for både løsning og pris.",
-    do: ["Spørg efter antal kaffedrikkere, ikke antal ansatte", "Find ud af, hvad de har i dag, og hvad det koster, inkl. maskine, service, tid og spild", "Lyt efter faresignaler: kold kaffe der hældes ud, medarbejdere der køber kaffe udenfor, kø, nedbrud", "Gentag det vigtigste med kundens egne ord, før du går videre"],
-    ask: ["Hvor mange af jer drikker kaffe?", "Hvad har I i dag, og hvad er I tilfredse med?", "Hvad savner I ved jeres nuværende løsning?", "Drikker I mest sort kaffe, eller også cappuccino og latte?", "Hvem står for indkøb og rengøring i dag?", "Hvad bruger I på kaffe og maskine om måneden?"],
-    say: ["«Hvis ti af jer drikker tre kopper om dagen, er det omkring 600 kopper om måneden. Lad os se, hvad det koster jer i dag, når vi tager både kaffe, maskine, service og spild med.»"],
-    avoid: ["At gætte på forbruget i stedet for at spørge", "At springe direkte til pris, før kunden har sagt, hvad de savner"], tool: "tco" },
-  { id: "demo", r: "Smagning", t: "Smagning og demo", when: "Lad kaffen tale", goal: "Kunden har smagt forskellen og kan se sig selv bruge maskinen i hverdagen.",
-    do: ["Lad kunden vælge sin yndlingsdrik, og bryg den først", "Inviter gerne flere medarbejdere til at smage", "Fortæl kort om bønnen og ristningen, ikke en hel forelæsning", "Vis, at maskinen er internetforbundet og fjernstyres, og at kaffen fyldes op automatisk", "Kobl det, de smager, til det, de fortalte, at de savnede"],
-    ask: ["Hvordan smager den i forhold til det, I drikker i dag?", "Hvem andre her ville have glæde af den?"],
-    say: ["«I sagde, at kaffen ofte står og bliver kold på kanden. Her brygger I kun den kop, I drikker, og den er frisk hver gang.»"],
-    avoid: ["At tale mere, end kunden smager", "At vise alle maskinens funktioner i stedet for dem, kunden har brug for"] },
-  { id: "offer", r: "Pris", t: "Løsning og pris", when: "Fra behov til tilbud", goal: "Kunden forstår, hvad prisen dækker, og kan sammenligne med det, de betaler i dag.",
-    do: ["Opsummér behovet, før du nævner prisen", "Præsentér prisen pr. kop og minimumsforbruget ud fra deres forbrug", "Fortæl, hvad der er inkluderet: maskine uden startomkostning, service, levering og support", "Vær ærlig om, at renseprodukter ikke er inkluderet", "Afstem aftaleperioden: 12, 24, 36 eller 60 måneder", "Sammenlign med deres nuværende udgift i TCO Beregneren"],
-    ask: ["Ud fra det, I har fortalt, giver det mening at se på den her model?", "Hvordan ser det ud i forhold til det, I bruger i dag?"],
-    say: ["«I får maskinen sat op uden startomkostning, og I betaler pr. kop. Service, levering og support er med i prisen, så I ved præcis, hvad kaffen koster.»"],
-    avoid: ["At give rabat, før kunden har set værdien", "At love noget om pause i aftalen: forbruget beregnes som et gennemsnit over 12 måneder"], tool: "tco" },
-  { id: "close", r: "Luk aftalen", t: "Afslutning", when: "Bed om beslutningen", goal: "Mødet slutter med en aftale eller et konkret næste skridt med dato.",
-    do: ["Prøveluk: spørg, om der er noget, der står i vejen", "Håndtér indvendinger én ad gangen", "Foreslå en dato for installation", "Hvis de ikke beslutter i dag: aftal dato og tid for opfølgning, mens I sidder sammen"],
-    ask: ["Hvis vi har fundet den rette løsning, er der så noget, der forhindrer jer i at komme i gang?", "Passer det jer bedst at få maskinen installeret i næste uge eller ugen efter?"],
-    say: ["«Det lyder til, at den her løsning passer til jer. Skal vi finde en dato for installationen?»"],
-    avoid: ["At slutte mødet med «I hører fra mig» uden en konkret aftale"], tool: "gen" },
-  { id: "follow", r: "Opfølgning", t: "Opfølgning", when: "Efter mødet", goal: "Ingen salgsmuligheder bliver glemt, og sagen er lukket inden for 21 dage.",
-    do: ["Registrér et outcome inden dagens udgang, ellers går mødet til Teleclose", "Send tilbuddet samme dag fra Tilbudsgeneratoren", "Ring et par dage efter tilbuddet er sendt", "Luk salget inden for 21 dage, eller tal med din leder, før sagen går til Teleclose"],
-    ask: ["Har I haft mulighed for at kigge på tilbuddet?", "Er der noget i tilbuddet, I gerne vil have uddybet?"],
-    say: ["«Jeg ringer, som vi aftalte. Har I haft tid til at kigge på tilbuddet, og er der noget, I gerne vil have uddybet?»"],
-    avoid: ["At lade et møde stå uden status eller plan"], tool: "gen" }
-];
 const SG_TOOL = { tco: ["TCO Beregner", "tco"], gen: ["Tilbudsgenerator", "gen"], rules: ["Salgsregler", "rules"] };
 
 const OB_CATS = [["pris", "Pris"], ["nu", "Nuværende løsning"], ["aftale", "Aftale"], ["tid", "Timing"], ["beslut", "Beslutning"], ["prak", "Praktisk"]];
@@ -3203,25 +3167,12 @@ const sgEsc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").repl
 const SGK = "bb-sg";
 const sgState = () => { try { return JSON.parse(localStorage.getItem(SGK)) || {}; } catch (_) { return {}; } };
 const sgSave = (s) => { try { localStorage.setItem(SGK, JSON.stringify(s)); } catch (_) {} sbQueue(SGK); };
-kv.sv = "guide"; kv.oc = "alle"; kv.oq = ""; kv.dr = null;
+kv.oc = "alle"; kv.oq = "";
 
 function sgHead() {
-  return '<div class="sg-hero"><p class="eb">Blackbird Coffee · Salg</p><h2>Salgsguide</h2><p class="s">Fra forberedelse til lukket aftale, og svar på de indvendinger, du møder undervejs.</p></div>' +
-    '<div class="sg-seg" role="group" aria-label="Salgsguide">' + [["guide", "Mødeguide"], ["obj", "Indvendinger"], ["drill", "Øv dig"]].map(([k, t]) => '<button type="button" data-kv="sv:' + k + '" aria-pressed="' + (kv.sv === k) + '">' + t + "</button>").join("") + "</div>";
+  return '<div class="sg-hero"><p class="eb">Blackbird Coffee · Salg</p><h2>Klassiske indvendinger</h2><p class="s">Svar på de indvendinger, du oftest møder hos kunderne.</p></div><div style="height:16px"></div>';
 }
 function sgToolBtn(k) { const t = SG_TOOL[k]; return t ? '<button type="button" class="sg-tool" data-kv="goto:' + t[1] + '">' + t[0] + ' <span aria-hidden="true">→</span></button>' : ""; }
-function sgGuide() {
-  const st = sgState(), ck = st.ck || {};
-  const done = (p) => p.do.filter((_, i) => ck[p.id + i]).length;
-  let h = '<ol class="sg-rail">' + SG_PH.map((p, i) => '<li><a href="#sg-' + p.id + '" data-sgjump="' + p.id + '"><span class="n' + (done(p) === p.do.length ? " ok" : "") + '">' + (done(p) === p.do.length ? "✓" : i + 1) + "</span><span class=\"t\">" + p.r + "</span></a></li>").join("") + "</ol>";
-  h += SG_PH.map((p, i) => '<details class="sg-ph" id="sg-' + p.id + '"' + (i === (st.open ?? 0) ? " open" : "") + '><summary><span class="n">' + (i + 1) + '</span><span class="h"><span class="w">' + p.when + "</span><b>" + p.t + '</b><span class="g">' + p.goal + '</span></span><span class="cnt">' + done(p) + "/" + p.do.length + '</span><span class="chev" aria-hidden="true"></span></summary><div class="sg-body">' +
-    '<div class="sg-col"><h4>Det gør du</h4><ul class="sg-ck">' + p.do.map((d, j) => '<li><label><input type="checkbox" data-sgck="' + p.id + j + '"' + (ck[p.id + j] ? " checked" : "") + "><span>" + d + "</span></label></li>").join("") + "</ul></div>" +
-    '<div class="sg-col">' + (p.ask.length ? '<h4>Spørg fx</h4><ul class="sg-ask">' + p.ask.map((a) => "<li>" + a + "</li>").join("") + "</ul>" : "") +
-    (p.say.length ? '<div class="sg-say"><h4>Sig fx</h4>' + p.say.map((s) => "<p>" + s + "</p>").join("") + "</div>" : "") +
-    '<h4 class="av">Undgå</h4><ul class="sg-av">' + p.avoid.map((a) => "<li>" + a + "</li>").join("") + "</ul>" + (p.tool ? sgToolBtn(p.tool) : "") + "</div></div></details>").join("");
-  h += '<div class="kv-row"><button type="button" class="kv-btn sec" data-kv="sgreset">Nulstil tjeklisten</button></div>';
-  return h;
-}
 function sgObjList() {
   const q = kv.oq.trim().toLowerCase();
   return OB.filter((o) => (kv.oc === "alle" || o.c === kv.oc) && (!q || (o.q + " " + o.why + " " + o.ask + " " + o.say).toLowerCase().indexOf(q) > -1));
@@ -3235,46 +3186,18 @@ function sgObjCards() {
     '<div class="sg-say"><h4>Svar</h4><p>«' + o.say + '»</p></div><div class="ob-act"><button type="button" class="sg-copy" data-sgcopy="' + o.id + '">Kopiér svar</button>' + (o.tool ? sgToolBtn(o.tool) : "") + "</div></div></details>").join("");
 }
 function sgObj() {
-  return '<div class="sg-method" aria-label="Metode"><h4>Sådan håndterer du en indvending</h4><ol>' +
-    [["Lyt", "Lad kunden tale færdig uden at afbryde."], ["Anerkend", "Vis, at du forstår bekymringen. Du behøver ikke være enig."], ["Undersøg", "Stil et spørgsmål, så du finder den reelle årsag."], ["Svar", "Svar på det, kunden faktisk er bekymret for, og tjek, om det hjalp."]]
-      .map(([t, d], i) => '<li><span class="n">' + (i + 1) + "</span><b>" + t + "</b><span>" + d + "</span></li>").join("") + "</ol></div>" +
-    '<div class="kv-search"><input type="search" id="sg-q" placeholder="Søg fx pris, binding, chef, ferie …" autocomplete="off" enterkeyhint="search" aria-label="Søg i indvendinger" value="' + sgEsc(kv.oq) + '"></div>' +
+  return '<div class="kv-search"><input type="search" id="sg-q" placeholder="Søg fx pris, binding, chef, ferie …" autocomplete="off" enterkeyhint="search" aria-label="Søg i indvendinger" value="' + sgEsc(kv.oq) + '"></div>' +
     '<div class="sg-pills" role="group" aria-label="Kategori">' + [["alle", "Alle"]].concat(OB_CATS).map(([k, t]) => '<button type="button" class="fpill" data-kv="oc:' + k + '" aria-pressed="' + (kv.oc === k) + '">' + t + (k === "alle" ? "" : ' <span class="c">' + OB.filter((o) => o.c === k).length + "</span>") + "</button>").join("") + "</div>" +
     '<div id="sg-obs">' + sgObjCards() + "</div>";
 }
-function sgDrill() {
-  if (!kv.dr) kv.dr = { order: kvShuffle(OB.map((o) => o.id)), i: 0, shown: false };
-  const d = kv.dr, o = OB.find((x) => x.id === d.order[d.i]), cat = Object.fromEntries(OB_CATS);
-  return '<div class="sg-drill"><div class="kv-qp"><span>Indvending ' + (d.i + 1) + " af " + d.order.length + "</span><span>" + cat[o.c] + '</span></div><div class="kv-qbar"><i style="width:' + Math.round(d.i / d.order.length * 100) + '%"></i></div>' +
-    '<div class="sg-card"><p class="lbl">Kunden siger</p><p class="q">«' + o.q + '»</p><p class="hint">Sig dit svar højt, før du ser forslaget. Husk: lyt, anerkend, undersøg, svar.</p></div>' +
-    (d.shown ? '<div class="ob-row"><h4>Spørg først</h4><p class="ask">«' + o.ask + '»</p></div><div class="sg-say"><h4>Forslag til svar</h4><p>«' + o.say + "»</p></div>" : "") +
-    '<div class="kv-row">' + (d.shown ? '<button type="button" class="kv-btn" data-kv="drnext">' + (d.i + 1 < d.order.length ? "Næste indvending" : "Start forfra") + "</button>" : '<button type="button" class="kv-btn" data-kv="drshow">Vis forslag</button><button type="button" class="kv-btn sec" data-kv="drnext">Spring over</button>') + "</div></div>";
-}
-function kvSalesView() { return sgHead() + '<div class="sg-pane">' + (kv.sv === "obj" ? sgObj() : kv.sv === "drill" ? sgDrill() : sgGuide()) + "</div>"; }
+function kvSalesView() { return sgHead() + '<div class="sg-pane">' + sgObj() + "</div>"; }
 function sgGo(k, v) {
-  if (k === "sv") { kv.sv = v; return true; }
   if (k === "oc") { kv.oc = v; document.querySelectorAll(".sg-pills .fpill").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.kv === "oc:" + v))); $("sg-obs").innerHTML = sgObjCards(); return false; }
-  if (k === "drshow") { kv.dr.shown = true; return true; }
-  if (k === "drnext") { const d = kv.dr; d.shown = false; d.i++; if (d.i >= d.order.length) kv.dr = null; return true; }
-  if (k === "sgreset") { const s = sgState(); s.ck = {}; sgSave(s); return true; }
   if (k === "goto") { showTab(v); window.scrollTo({ top: 0 }); return false; }
   return null;
 }
-$("tab-kaf").addEventListener("change", (e) => {
-  const c = e.target.closest("[data-sgck]"); if (!c) return;
-  const s = sgState(); s.ck = s.ck || {}; if (c.checked) s.ck[c.dataset.sgck] = 1; else delete s.ck[c.dataset.sgck]; sgSave(s);
-  const ph = c.closest(".sg-ph"), p = SG_PH.find((x) => "sg-" + x.id === ph.id), n = p.do.filter((_, i) => s.ck[p.id + i]).length;
-  ph.querySelector(".cnt").textContent = n + "/" + p.do.length;
-  const r = document.querySelector('.sg-rail [data-sgjump="' + p.id + '"] .n'); if (r) { const all = n === p.do.length; r.classList.toggle("ok", all); r.textContent = all ? "✓" : SG_PH.indexOf(p) + 1; }
-});
-$("tab-kaf").addEventListener("toggle", (e) => {
-  const d = e.target; if (!d.classList || !d.classList.contains("sg-ph") || !d.open) return;
-  const s = sgState(); s.open = SG_PH.findIndex((x) => "sg-" + x.id === d.id); sgSave(s);
-}, true);
 $("tab-kaf").addEventListener("input", (e) => { if (e.target.id === "sg-q") { kv.oq = e.target.value; $("sg-obs").innerHTML = sgObjCards(); } });
 $("tab-kaf").addEventListener("click", async (e) => {
-  const j = e.target.closest("[data-sgjump]");
-  if (j) { e.preventDefault(); const d = $("sg-" + j.dataset.sgjump); d.open = true; d.scrollIntoView({ behavior: "smooth", block: "start" }); return; }
   const c = e.target.closest("[data-sgcopy]"); if (!c) return;
   const o = OB.find((x) => x.id === c.dataset.sgcopy); let ok = false;
   try { await navigator.clipboard.writeText(o.say); ok = true; } catch (_) {
