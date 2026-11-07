@@ -797,6 +797,28 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .swrow input:checked + .swtrack { background: var(--accent); }
 .swrow input:checked + .swtrack::after { transform: translateX(18px); }
 .swrow input:focus-visible + .swtrack { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* Trustpilot-side */
+.tp { max-width: 520px; margin: 8px auto 0; text-align: center; background: linear-gradient(160deg, #3A2417, #1E130C); color: #fff; border-radius: 24px; padding: 30px 22px 26px; box-shadow: var(--shadow-md, 0 8px 24px -10px rgba(58,36,23,.3)); }
+.tp-eb { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #F6C9A3; }
+.tp h2 { margin: 0 0 10px; font-size: 28px; line-height: 1.15; color: #fff; text-wrap: balance; }
+.tp-s { margin: 0 auto 14px; max-width: 400px; font-size: 15.5px; line-height: 1.45; color: rgba(255,255,255,.88); }
+.tp-stars { font-size: 30px; letter-spacing: 4px; color: #00B67A; margin: 0 0 14px; }
+.tp-qr { background: #fff; border-radius: 18px; padding: 10px; width: min(78vw, 320px); margin: 0 auto 14px; }
+.tp-qr svg { display: block; width: 100%; height: auto; }
+.tp-link { margin: 0 0 16px; font-size: 13px; word-break: break-all; }
+.tp-link a { color: #F6C9A3; }
+.tp-btns { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.tp-btns button, .tp-btns .tpb { font: inherit !important; font-size: 14.5px !important; font-weight: 700 !important; padding: 11px 18px !important; min-height: 44px; border-radius: 999px !important; border: 2px solid #DA6D2B !important; background: #DA6D2B !important; color: #fff !important; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+.tp-btns .sec { background: transparent !important; color: #fff !important; border-color: rgba(255,255,255,.4) !important; }
+.tp-hint { margin: 16px 0 0; font-size: 13px; color: rgba(255,255,255,.65); }
+#tp-over { position: fixed; inset: 0; z-index: 9998; background: #fff; display: flex; align-items: center; justify-content: center; padding: 16px; }
+#tp-over[hidden] { display: none; }
+.tp-ov-in { text-align: center; width: 100%; max-width: 560px; }
+.tp-ov-in p { margin: 0 0 14px; font-size: clamp(22px, 5vw, 34px); font-weight: 700; color: #1E130C; }
+.tp-ov-qr { width: min(86vw, 70vh, 520px); margin: 0 auto 16px; }
+.tp-ov-qr svg { display: block; width: 100%; height: auto; }
+#tp-close { font: inherit !important; font-weight: 700 !important; padding: 11px 26px !important; border-radius: 999px !important; border: 2px solid #3A2417 !important; background: #3A2417 !important; color: #fff !important; cursor: pointer; }
 .bar .hint a { color: var(--focus); font-weight: 600; }
 /* Login + synkronisering (Supabase) */
 #sblogin { position: fixed; inset: 0; z-index: 9999; background: #3A2417 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%20opacity%3D%22.16%22%3E%3Cg%20transform%3D%22translate%2840%2048%29%20rotate%28-30%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%2030%29%20rotate%2825%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28250%2095%29%20rotate%28-60%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%2855%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28190%20170%29%20rotate%2810%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2830%20250%29%20rotate%28-15%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%20260%29%20rotate%2870%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28255%20225%29%20rotate%2835%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E") center / 300px 300px repeat; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; }
@@ -822,6 +844,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .sbuser button { background: transparent !important; color: var(--ink) !important; border: 1px solid var(--line) !important; border-radius: 8px !important; padding: 4px 10px !important; font-size: 13px !important; cursor: pointer; white-space: nowrap; }
 </style>
 
+<div id="tp-over" hidden role="dialog" aria-modal="true" aria-label="QR-kode til Trustpilot"><div class="tp-ov-in"><p>Scan og giv os en anmeldelse</p><div class="tp-ov-qr" id="tp-ov-qr"></div><button type="button" id="tp-close">Luk</button></div></div>
 <div id="sblogin" hidden role="dialog" aria-modal="true" aria-labelledby="sbtitle">
   <form class="sbcard" id="sbform" autocomplete="on">
     <div class="sblogo"><img id="sblogoimg" alt="Blackbird Coffee"></div>
@@ -851,6 +874,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       <button type="button" role="tab" class="tab" id="tabbtn-tco" data-tab="tco" aria-selected="false">TCO Beregner</button>
       <button type="button" role="tab" class="tab" id="tabbtn-kaf" data-tab="kaf" aria-selected="false">Kaffeakademiet</button>
       <button type="button" role="tab" class="tab" id="tabbtn-rules" data-tab="rules" aria-selected="false">Salgsregler</button>
+      <button type="button" role="tab" class="tab" id="tabbtn-tp" data-tab="tp" aria-selected="false">Trustpilot</button>
     </nav>
   </div>
 
@@ -882,6 +906,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       <button type="button" class="htile" data-go="tco"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg></span><span class="htt">TCO Beregner</span><span class="hts">Vis hvad kaffen koster i dag</span></button>
       <button type="button" class="htile" data-go="kaf"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v3M12 3v3"/></svg></span><span class="htt">Kaffeakademiet</span><span class="hts">Slå kaffeviden op på 15 sekunder</span></button>
       <button type="button" class="htile" data-go="rules"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="htt">Salgsregler</span><span class="hts">Booking, outcome og 21-dages fristen</span></button>
+      <button type="button" class="htile" data-go="tp"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></span><span class="htt">Trustpilot</span><span class="hts">QR-kode til kundens anmeldelse</span></button>
       <button type="button" class="htile" data-go="todo"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg></span><span class="htt">To-do</span><span class="hts" id="hts-todo">Opfølgninger og opkald</span></button>
     </div>
     <div class="hcard" id="hnext" hidden><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
@@ -1092,6 +1117,23 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   </section>
   </section>
 
+  <section id="tab-tp" role="tabpanel" aria-labelledby="tabbtn-tp" hidden>
+    <div class="tp">
+      <p class="tp-eb">Blackbird Coffee</p>
+      <h2>Del din oplevelse på Trustpilot</h2>
+      <p class="tp-s">Scan koden med kameraet på din telefon. Det tager under et minut, og din mening betyder meget for os.</p>
+      <div class="tp-stars" aria-hidden="true">★★★★★</div>
+      <div class="tp-qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" id="tpqr" role="img" aria-label="QR-kode til Trustpilot-anmeldelse af Blackbird Coffee" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#1e130c" d="M4 4.5h7m5 0h2m2 0h4m1 0h3m2 0h7m-33 1h1m5 0h1m6 0h6m5 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m1 0h5m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h5m1 0h4m3 0h2m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m5 0h1m2 0h1m1 0h3m-23 1h1m1 0h5m2 0h7m1 0h1m2 0h1m1 0h1m3 0h5m-31 1h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h2m1 0h1m-30 1h2m1 0h1m2 0h2m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m1 0h2m-31 1h2m2 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h5m2 0h2m1 0h3m-31 1h2m3 0h3m1 0h1m2 0h1m2 0h1m2 0h2m2 0h1m1 0h2m1 0h3m1 0h1m-31 1h4m2 0h3m2 0h5m1 0h4m1 0h1m2 0h1m2 0h4m-33 1h2m1 0h1m1 0h2m1 0h4m1 0h1m3 0h2m5 0h3m2 0h3m-32 1h1m1 0h1m4 0h2m1 0h2m1 0h1m2 0h1m2 0h9m2 0h1m-28 1h1m1 0h2m1 0h4m2 0h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h2m3 0h1m-33 1h2m5 0h2m2 0h2m1 0h1m1 0h8m2 0h2m1 0h4m-32 1h1m1 0h1m1 0h5m1 0h1m3 0h3m4 0h1m1 0h1m1 0h3m1 0h2m-32 1h2m1 0h2m5 0h2m1 0h1m1 0h4m1 0h2m1 0h1m1 0h7m-31 1h2m3 0h2m2 0h4m1 0h2m2 0h1m2 0h2m1 0h1m1 0h3m-30 1h1m1 0h1m1 0h2m2 0h2m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m-33 1h1m5 0h2m1 0h2m1 0h1m2 0h3m2 0h3m2 0h1m1 0h1m1 0h1m1 0h1m-32 1h1m4 0h1m2 0h1m2 0h1m3 0h1m4 0h2m2 0h1m3 0h4m-32 1h1m2 0h13m1 0h1m4 0h7m2 0h1m-24 1h1m1 0h3m1 0h1m1 0h1m1 0h5m1 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m3 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m7 0h1m4 0h1m2 0h1m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h6m4 0h2m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h7m1 0h3m1 0h1m1 0h1m2 0h1m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m7 0h2m4 0h2m-28 1h1m5 0h1m2 0h1m2 0h1m1 0h1m1 0h1m3 0h2m6 0h3m-31 1h7m1 0h5m4 0h2m3 0h3m1 0h2m3 0h1"/></svg></div>
+      <p class="tp-link"><a href="https://dk.trustpilot.com/evaluate/blackbirdcoffee.dk" target="_blank" rel="noopener">dk.trustpilot.com/evaluate/blackbirdcoffee.dk</a></p>
+      <div class="tp-btns">
+        <button type="button" id="tp-full">Vis stort til kunden</button>
+        <button type="button" id="tp-copy" class="sec">Kopiér link</button>
+        <a class="tpb sec" href="https://dk.trustpilot.com/evaluate/blackbirdcoffee.dk" target="_blank" rel="noopener">Åbn Trustpilot</a>
+        <button type="button" id="tp-png" class="sec">Hent QR som billede</button>
+      </div>
+      <p class="tp-hint">Tip: Vis siden på din telefon eller tablet, og lad kunden scanne direkte fra skærmen.</p>
+    </div>
+  </section>
   <section id="tab-rules" role="tabpanel" aria-labelledby="tabbtn-rules" hidden>
     <div class="kv-art" style="max-width:760px">
       <div class="rl-hero"><p class="eb">Blackbird Coffee · Intern</p><h2>Interne salgsregler og retningslinjer</h2><p>Opslagsværk til hverdagen. Reglerne sikrer en ensartet salgsproces, høj kvalitet i kundemøderne og tydelig forventningsafstemning mellem sælger, kunde og ledelse. Er du i tvivl om en situation, skal du kunne finde svaret her.</p></div>
@@ -2190,7 +2232,7 @@ function wkCounts() {
 }
 function showTab(n) {
   if (n === "over" || n === "todo") { wkView = n; n = "work"; }
-  ["home", "gen", "work", "tco", "kaf", "rules"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
+  ["home", "gen", "work", "tco", "kaf", "rules", "tp"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
   $("hdr-gen").hidden = n !== "gen"; placeHdrGen();
   if (n === "gen") fitPreview();
   if (n === "work") {
@@ -3255,6 +3297,26 @@ $("tab-kaf").addEventListener("click", async (e) => {
   c.textContent = ok ? "✓ Kopieret" : "Kunne ikke kopiere"; setTimeout(() => { c.textContent = "Kopiér svar"; }, 1600);
 });
 
+
+/* ---- Trustpilot ---- */
+const TP_URL = "https://dk.trustpilot.com/evaluate/blackbirdcoffee.dk";
+{
+  const full = (on) => { const o = $("tp-over"); if (on) $("tp-ov-qr").innerHTML = $("tpqr").outerHTML.replace('id="tpqr"', ""); o.hidden = !on; document.body.style.overflow = on ? "hidden" : ""; };
+  $("tp-full").addEventListener("click", () => full(true));
+  $("tp-close").addEventListener("click", () => full(false));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("tp-over").hidden) full(false); });
+  $("tp-copy").addEventListener("click", async (e) => {
+    const b = e.currentTarget; let ok = false;
+    try { await navigator.clipboard.writeText(TP_URL); ok = true; } catch (_) { try { const t = document.createElement("textarea"); t.value = TP_URL; document.body.appendChild(t); t.select(); ok = document.execCommand("copy"); t.remove(); } catch (_) {} }
+    b.textContent = ok ? "✓ Kopieret" : "Kunne ikke kopiere"; setTimeout(() => { b.textContent = "Kopiér link"; }, 1800);
+  });
+  $("tp-png").addEventListener("click", () => {
+    const svg = new XMLSerializer().serializeToString($("tpqr")), img = new Image();
+    img.onload = () => { const c = document.createElement("canvas"); c.width = c.height = 1200; const x = c.getContext("2d"); x.imageSmoothingEnabled = false; x.fillStyle = "#fff"; x.fillRect(0, 0, 1200, 1200); x.drawImage(img, 0, 0, 1200, 1200);
+      c.toBlob((bl) => { const a = document.createElement("a"); a.href = URL.createObjectURL(bl); a.download = "Blackbird-Trustpilot-QR.png"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); }); };
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg.indexOf("width=") > -1 ? svg : svg.replace("<svg ", '<svg width="1200" height="1200" '));
+  });
+}
 /* ---- Salgsregler ---- */
 const RL_ITEMS = [
   ["Kaffeforbrug: minimum 2 kg om måneden", "Ca. 250 kopper eller 12 kopper om dagen. Eller potentiale til at sælge det."],
