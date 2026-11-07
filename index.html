@@ -568,9 +568,18 @@ function payLines(s, o) {
 function singlePrice(s) {
   const o = s.opts[0], mcs = o.mach, pl = payLines(s, o);
   const lines = [priceLine(T(`Prisen inkluderer ${joinOg(inclList(s, mcs))}.`, `The price includes ${joinOg(inclList(s, mcs))}.`, `Priset inkluderar ${joinOg(inclList(s, mcs))}.`))];
-  if (o.drikkere) lines.push(priceLine(T(`Prisen er beregnet ud fra ${Math.round(o.drikkere)} kaffedrikkere.`, `The price is calculated based on ${Math.round(o.drikkere)} coffee drinkers.`, `Priset är beräknat utifrån ${Math.round(o.drikkere)} kaffedrickare.`)));
+  const minModel = o.model !== "fast", kp = pl.kopper, dr = o.drikkere ? Math.round(o.drikkere) : null;
+  if (minModel) {
+    lines.push(priceLine(T(`Estimatet er lavet ud fra ${dr || "[antal]"} kaffedrikkere, som drikker 3 kopper i snit pr. arbejdsdag.`, `The estimate is based on ${dr || "[number]"} coffee drinkers, who drink 3 cups on average per working day.`, `Uppskattningen är gjord utifrån ${dr || "[antal]"} kaffedrickare, som dricker i snitt 3 koppar per arbetsdag.`)));
+    lines.push(priceLine(T(`Med vores nye koncept betaler I for jeres faktiske forbrug – dog med en minimumsbetaling svarende til ${kp} kopper om måneden.`, `With our new concept, you pay for your actual consumption – but with a minimum payment corresponding to ${kp} cups per month.`, `Med vårt nya koncept betalar ni för er faktiska förbrukning – dock med en minimibetalning motsvarande ${kp} koppar per månad.`)));
+    lines.push(priceLine(T("Der faktureres ud fra estimeret forbrug, baseret på antal ansatte.", "Invoicing is based on the estimated consumption, based on the number of employees.", "Fakturering sker utifrån den uppskattade förbrukningen, baserat på antalet anställda.")));
+    lines.push(priceLine(T(`Hvis I drikker mindre end estimeret, tilbagebetaler vi differencen ned til ${kp} kopper pr. md. i forbindelse med årsopgørelsen. Ligesom en varmeregning 🙂`, `If you drink less than estimated, we refund the difference down to ${kp} cups per month with the annual settlement. Just like a heating bill 🙂`, `Om ni dricker mindre än uppskattat återbetalar vi mellanskillnaden ner till ${kp} koppar per månad i samband med årsavräkningen. Precis som en värmeräkning 🙂`), !pl.periodeLine && !s.notes.pris));
+  } else {
+    if (o.drikkere) lines.push(priceLine(T(`Prisen er beregnet ud fra ${dr} kaffedrikkere.`, `The price is calculated based on ${dr} coffee drinkers.`, `Priset är beräknat utifrån ${dr} kaffedrickare.`)));
+  }
   const np = s.notes.pris ? esc(s.notes.pris).replace(/\n/g, "<br>") : null;
-  if (pl.periodeLine) lines.push(priceLine(pl.modelLine), priceLine(pl.periodeLine, !np)); else lines.push(priceLine(pl.modelLine, !np));
+  const ml = minModel ? [] : [priceLine(pl.modelLine, !np && !pl.periodeLine)];
+  if (pl.periodeLine) lines.push(...ml, priceLine(pl.periodeLine, !np)); else lines.push(...ml);
   if (np) lines.push(priceLine(np, true));
   const same = mcs.every((m) => m.pris === mcs[0].pris);
   const head = mcs.length === 1 || same
