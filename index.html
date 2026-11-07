@@ -7,6 +7,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#3A2417">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="icon" href="icon-192.png" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
@@ -401,37 +403,87 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .kv-prog .bar { flex: 1; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
 .kv-prog .bar i { display: block; height: 100%; background: var(--kg); border-radius: 99px; transition: width .4s; }
 
-/* ---- Kaffeopskriftsberegner ---- */
-.rc { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-top: 26px; box-shadow: var(--shadow-sm); }
-.rc h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -.01em; }
-.rc .rc-s { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
-.rc-in { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
-.rc-in label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-.rc select, .rc input[type="number"] { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; min-height: 48px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink); }
-.rc-ml { display: flex; gap: 6px; }
-.rc-ml button { flex: 0 0 48px; min-height: 48px; padding: 0 !important; font-size: 22px !important; border-radius: 12px !important; background: var(--bg) !important; color: var(--ink) !important; border: 1.5px solid var(--line) !important; cursor: pointer; }
-.rc-ml input { text-align: center; min-width: 0; }
-.rc-pre { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-.rc-pre button { font: inherit; font-size: 14px; font-weight: 600; min-height: 38px; padding: 6px 14px !important; border-radius: 999px !important; background: var(--bg) !important; color: var(--ink) !important; border: 1.5px solid var(--line) !important; cursor: pointer; }
-.rc-pre button[aria-pressed="true"] { background: var(--brand) !important; color: var(--brand-ink) !important; border-color: var(--brand) !important; }
-.rc-err { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--warn-bg); color: var(--warn-ink); font-size: 14px; }
-.rc-out { margin-top: 18px; }
-.rc-out.dim { opacity: .4; }
-.rc-tot { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-.rc-tot span { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.rc-tot b { font-size: 34px; line-height: 1; letter-spacing: -.02em; }
-.rc-bar { display: flex; height: 22px; border-radius: 999px; overflow: hidden; border: 1px solid var(--line); background: var(--bg); }
-.rc-bar i { display: block; height: 100%; transition: width .35s ease; }
-.rc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
-.rc-t { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--bg); }
-.rc-t .k { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); font-weight: 600; }
-.rc-t .k::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c); border: 1px solid rgba(0,0,0,.25); flex: none; }
-.rc-t b { display: block; font-size: 26px; line-height: 1.15; margin-top: 4px; }
-.rc-t small { font-weight: 600; font-size: 14px; color: var(--muted); margin-left: 3px; }
-.rc-t em { display: block; font-style: normal; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
-.rc-note { margin: 14px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
-@media (max-width: 520px) { .rc { padding: 16px; } .rc-in { grid-template-columns: 1fr; } .rc-t b { font-size: 22px; } }
-@media (prefers-reduced-motion: reduce) { .rc-bar i { transition: none; } }
+
+/* ---- Kaffeopskrift (fane i Kaffeakademiet) ---- */
+.kvtabs { display: flex; gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 16px; }
+.kvtabs button { flex: 1; font: inherit !important; font-weight: 700 !important; font-size: 15px !important; min-height: 44px; border-radius: 10px !important; border: 0 !important; background: transparent !important; color: var(--muted) !important; cursor: pointer; padding: 8px 12px !important; }
+.kvtabs button[aria-pressed="true"] { background: var(--brand) !important; color: var(--brand-ink) !important; }
+.rx { --c-coffee: #4A2B17; --c-crema: #B77B45; --c-water: #7FB1CE; --c-milk: #E8D3B3; --c-foam: #FFF5E4; --glass-rim: #3A2417; --glass-fill: rgba(255,255,255,.55); --disp: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif; --rx-soft: #F8E4D4; --rx-shadow: 0 1px 2px rgba(58,36,23,.06), 0 8px 24px rgba(58,36,23,.07); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rx { --c-coffee: #5A3720; --c-crema: #C58C55; --c-water: #5F93B2; --c-milk: #D8C09C; --c-foam: #F6E9D3; --glass-rim: #D9C7B4; --glass-fill: rgba(255,255,255,.06); --rx-soft: #3F2517; --rx-shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35); } }
+:root[data-theme="dark"] .rx { --c-coffee: #5A3720; --c-crema: #C58C55; --c-water: #5F93B2; --c-milk: #D8C09C; --c-foam: #F6E9D3; --glass-rim: #D9C7B4; --glass-fill: rgba(255,255,255,.06); --rx-soft: #3F2517; --rx-shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35); }
+.rx h2.rx-h { margin: 0; font-family: var(--disp); font-weight: 800; font-size: clamp(28px, 6vw, 38px); line-height: 1.04; letter-spacing: -.02em; text-wrap: balance; }
+.rx .rx-sub { margin: 8px 0 18px; color: var(--muted); max-width: 52ch; }
+.rx-layout { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); grid-template-areas: "var" "cup" "size" "res"; }
+.rx-var { grid-area: var; } .rx-cup { grid-area: cup; } .rx-size { grid-area: size; } .rx-res { grid-area: res; }
+@media (min-width: 700px) { .rx-layout { grid-template-columns: 270px minmax(0, 1fr); grid-template-areas: "var var" "cup size" "cup res"; column-gap: 20px; align-items: start; } .rx-cup { position: sticky; top: 76px; } }
+.rx .rx-lbl { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.rx-vrow { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; padding: 4px 2px 10px; margin: 0 -2px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.rx-vrow::-webkit-scrollbar { display: none; }
+.rx button.rx-vc { flex: 0 0 112px; scroll-snap-align: start; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; text-align: left; min-height: 132px; padding: 12px !important; border-radius: 16px !important; border: 1.5px solid var(--line) !important; background: var(--surface) !important; color: var(--ink) !important; font: inherit; transition: border-color .2s, background .2s; }
+.rx button.rx-vc:hover { border-color: var(--accent) !important; }
+.rx-vc svg { width: 34px; height: 42px; flex: none; }
+.rx-vc .n { font-weight: 700; font-size: 14.5px; line-height: 1.2; }
+.rx-vc .g { margin-top: auto; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rx button.rx-vc[aria-checked="true"] { background: var(--brand) !important; border-color: var(--brand) !important; color: var(--brand-ink) !important; box-shadow: var(--rx-shadow); }
+.rx-vc[aria-checked="true"] .g { color: color-mix(in srgb, var(--brand-ink) 72%, transparent); }
+.rx-vc[aria-checked="true"] svg .rim { stroke: var(--brand-ink); }
+@media (min-width: 700px) { .rx-vrow { flex-wrap: wrap; overflow: visible; } .rx button.rx-vc { flex: 0 0 calc(25% - 8px); min-height: 124px; } }
+.rx-cup { display: flex; flex-direction: column; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 22px 16px 16px; box-shadow: var(--rx-shadow); }
+.rx-stage { position: relative; width: min(190px, 52vw); aspect-ratio: 100 / 124; }
+.rx-glass { position: absolute; inset: 0; clip-path: url(#rxclip); background: var(--glass-fill); }
+.rx-layers { position: absolute; left: 0; right: 0; bottom: 1%; top: 7%; display: flex; flex-direction: column-reverse; }
+.rx-layer { position: relative; flex: 0 0 auto; height: 0; transition: height .7s cubic-bezier(.3,.8,.2,1); overflow: hidden; }
+.rx-layer.coffee { background: linear-gradient(180deg, var(--c-crema) 0, var(--c-coffee) 14%, var(--c-coffee) 100%); }
+.rx-layer.water { background: var(--c-water); }
+.rx-layer.milk { background: var(--c-milk); }
+.rx-layer.foam { background-color: var(--c-foam); background-image: radial-gradient(circle at 20% 40%, rgba(0,0,0,.07) 0 2px, transparent 3px), radial-gradient(circle at 60% 65%, rgba(0,0,0,.06) 0 2.5px, transparent 3.5px), radial-gradient(circle at 85% 30%, rgba(0,0,0,.06) 0 1.5px, transparent 2.5px); background-size: 34px 22px; }
+.rx-layer + .rx-layer { box-shadow: inset 0 1px 0 rgba(255,255,255,.35); }
+.rx-outline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.rx-outline .rim { fill: none; stroke: var(--glass-rim); stroke-width: 2.4; stroke-linejoin: round; }
+.rx-outline .shine { fill: none; stroke: #fff; stroke-opacity: .55; stroke-width: 2.2; stroke-linecap: round; }
+.rx-shadow { width: 62%; height: 10px; margin-top: 6px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(58,36,23,.28), transparent 70%); }
+.rx-capt { margin-top: 14px; text-align: center; }
+.rx-capt span { display: block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.rx-capt b { display: block; font-family: var(--disp); font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.rx-capt b small { font-size: 20px; font-weight: 600; color: var(--muted); margin-left: 3px; }
+.rx-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+.rx i.rx-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; border: 1px solid rgba(0,0,0,.22); vertical-align: -1px; background: var(--c); }
+.rx-size { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--rx-shadow); }
+.rx-srow { display: flex; align-items: center; gap: 14px; }
+.rx-num { position: relative; flex: 0 0 120px; }
+.rx .rx-num input { box-sizing: border-box !important; width: 100% !important; max-width: 100% !important; min-width: 0 !important; margin: 0 !important; min-height: 52px; padding: 8px 40px 8px 14px; font-family: var(--disp); font-weight: 700; font-size: 24px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg); color: var(--ink); font-variant-numeric: tabular-nums; -moz-appearance: textfield; }
+.rx-num input::-webkit-outer-spin-button, .rx-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.rx-num span { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 600; pointer-events: none; }
+.rx .rx-num input[aria-invalid="true"] { border-color: var(--accent); }
+.rx input[type="range"] { -webkit-appearance: none; appearance: none; flex: 1; min-width: 0; height: 44px; background: transparent; margin: 0; padding: 0; border: 0; }
+.rx input[type="range"]::-webkit-slider-runnable-track { height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--accent) var(--p, 0%), var(--line) var(--p, 0%)); }
+.rx input[type="range"]::-moz-range-track { height: 8px; border-radius: 999px; background: var(--line); }
+.rx input[type="range"]::-moz-range-progress { height: 8px; border-radius: 999px; background: var(--accent); }
+.rx input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.rx input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,.25); }
+.rx-scale { display: flex; justify-content: space-between; margin: -4px 0 0; padding-left: 134px; font-size: 12px; color: var(--muted); }
+.rx-pre { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.rx .rx-pre button { min-height: 44px; padding: 8px 16px !important; border-radius: 999px !important; border: 1.5px solid var(--line) !important; background: var(--bg) !important; color: var(--ink) !important; font: inherit; font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
+.rx .rx-pre button:hover { border-color: var(--accent) !important; }
+.rx .rx-pre button[aria-pressed="true"] { background: var(--accent) !important; border-color: var(--accent) !important; color: #fff !important; }
+.rx .rx-err { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--warn-bg); color: var(--warn-ink); font-size: 14.5px; }
+.rx-res { transition: opacity .25s; }
+.rx-res.dim { opacity: .4; }
+.rx-beans { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; background: var(--brand); color: var(--brand-ink); border-radius: 20px; padding: 18px 20px; box-shadow: var(--rx-shadow); }
+.rx-beans span { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+.rx-beans b { font-family: var(--disp); font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.rx-beans b small { font-size: 24px; font-weight: 600; margin-left: 4px; opacity: .8; }
+.rx-liq { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.rx-liq li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 12px; padding: 14px 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 16px; }
+.rx-liq .rx-dot { width: 14px !important; height: 14px !important; margin: 0 !important; }
+.rx-liq .t { font-weight: 600; min-width: 0; }
+.rx-liq .t small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rx-liq .v { font-family: var(--disp); font-weight: 800; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
+.rx-liq .v small { font-size: 15px; font-weight: 600; color: var(--muted); margin-left: 3px; }
+.rx .rx-note { margin: 12px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--rx-soft); color: var(--ink); font-size: 14.5px; }
+@media (max-width: 420px) { .rx-beans b { font-size: 48px; } .rx-liq .v { font-size: 26px; } .rx-scale { padding-left: 0; } .rx-srow { flex-wrap: wrap; } .rx-num { flex: 1 1 100%; } .rx input[type="range"] { flex: 1 1 100%; } }
+@media (prefers-reduced-motion: reduce) { .rx-layer, .rx-vc, .rx-res { transition: none; } }
+@media print { #kv-recipe, .kvtabs { display: none !important; } }
 .kv-h { margin: 26px 0 12px; font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .kv-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .kcat { position: relative; display: flex !important; flex-direction: column; align-items: flex-start; justify-content: flex-end; text-align: left; min-height: 200px; padding: 16px !important; border: 0 !important; border-radius: 18px !important; color: #fff !important; cursor: pointer; overflow: hidden; font: inherit; box-shadow: var(--shadow-md); transition: transform .18s, box-shadow .18s; }
@@ -867,6 +919,36 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
   </section>
 
   <section id="tab-kaf" role="tabpanel" aria-labelledby="tabbtn-kaf" hidden>
+    <div class="kvtabs" id="kvtabs" role="group" aria-label="Kaffeakademiet"><button type="button" data-kvt="home" aria-pressed="true">Akademiet</button><button type="button" data-kvt="recipe" aria-pressed="false">Kaffeopskrift</button></div>
+    <div id="kv-recipe" class="rx" hidden>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="rxclip" clipPathUnits="objectBoundingBox"><path d="M0.05,0.02 L0.95,0.02 L0.86,0.935 Q0.85,0.99 0.79,0.99 L0.21,0.99 Q0.15,0.99 0.14,0.935 Z"/></clipPath></defs></svg>
+      <h2 class="rx-h">Beregn din kaffeopskrift</h2>
+      <p class="rx-sub">Vælg kaffevariant og kopstørrelse. Du får mængden af kaffebønner, vand og mælk til præcis den kop.</p>
+      <div class="rx-layout">
+        <section class="rx-var" aria-labelledby="rx-vl"><p class="rx-lbl" id="rx-vl">Kaffevariant</p><div class="rx-vrow" id="rx-vrow" role="radiogroup" aria-labelledby="rx-vl"></div></section>
+        <section class="rx-cup" aria-label="Glas med lag af kaffe, vand og mælk">
+          <div class="rx-stage">
+            <div class="rx-glass"><div class="rx-layers" id="rx-layers"><div class="rx-layer coffee" data-k="thr"></div><div class="rx-layer water" data-k="add"></div><div class="rx-layer milk" data-k="milk"></div><div class="rx-layer foam" data-k="foam"></div></div></div>
+            <svg class="rx-outline" viewBox="0 0 100 124" aria-hidden="true"><path class="rim" d="M5,2.5 L95,2.5 L86,115.5 Q85,122.8 79,122.8 L21,122.8 Q15,122.8 14,115.5 Z"/><path class="shine" d="M13,14 L18.5,100"/></svg>
+          </div>
+          <div class="rx-shadow"></div>
+          <div class="rx-capt"><span>Samlet kopstørrelse</span><b id="rx-total">200<small>ml</small></b></div>
+          <div class="rx-legend" id="rx-legend"></div>
+        </section>
+        <section class="rx-size" aria-labelledby="rx-sl">
+          <p class="rx-lbl" id="rx-sl">Kopstørrelse</p>
+          <div class="rx-srow"><div class="rx-num"><input type="number" id="rx-ml" inputmode="numeric" min="50" max="1000" step="10" value="200" aria-label="Kopstørrelse i ml"><span>ml</span></div><input type="range" id="rx-slider" min="50" max="1000" step="10" value="200" aria-label="Kopstørrelse, skyder"></div>
+          <div class="rx-scale" aria-hidden="true"><span>50</span><span>1.000 ml</span></div>
+          <div class="rx-pre" id="rx-pre"></div>
+          <p class="rx-err" id="rx-err" role="alert" hidden></p>
+        </section>
+        <section class="rx-res" id="rx-res" aria-live="polite" aria-label="Ingredienser">
+          <div class="rx-beans"><span>Kaffebønner</span><b id="rx-g">14<small>g</small></b></div>
+          <ul class="rx-liq" id="rx-liq"></ul>
+          <p class="rx-note" id="rx-note" hidden></p>
+        </section>
+      </div>
+    </div>
     <div id="kv-root"></div>
     <div id="kv-quick" hidden>
       <div class="kv-bc"><button type="button" id="kaf-back">Akademiet</button><span>›</span><span>Hurtig viden</span></div>
@@ -2443,53 +2525,6 @@ function kvQ(q, opts = {}) {
   return '<div class="qz" data-qid="' + q.id + '"><p class="qq">' + q.q + "</p>" + (q.img ? kvFigure(q.img) : "") +
     '<div class="qopts">' + order.map((i, n) => '<button type="button" class="qo" data-i="' + i + '"><b>' + (q.fix ? "" : String.fromCharCode(65 + n) + ".") + "</b><span>" + q.o[i] + "</span></button>").join("") + '</div><div class="qex" hidden></div></div>';
 }
-/* ---- Kaffeopskriftsberegner (standardopskrifter ved 200 ml) ---- */
-const RC_REC = [
-  // [id, navn, kaffe(g), vand gennem kaffen (ml), rent varmt vand (ml), varm mælk (ml), mælkeskum (ml), note] – alt ved 200 ml
-  ["filter", "Filterkaffe / sort kaffe", 12, 200, 0, 0, 0, ""],
-  ["americano", "Americano", 14, 34, 166, 0, 0, "Lav først espressoen (ca. %T% ml vand gennem kaffen), og fyld derefter %A% ml rent, varmt vand i koppen."],
-  ["latte", "Café latte", 14, 40, 0, 130, 30, ""],
-  ["cappuccino", "Cappuccino", 14, 40, 0, 90, 70, ""],
-  ["flatwhite", "Flat white", 14, 40, 0, 140, 20, ""],
-  ["cortado", "Cortado", 14, 40, 0, 120, 40, ""],
-  ["kaffemaelk", "Kaffe med mælk", 12, 150, 0, 50, 0, ""],
-  ["mocha", "Caffè mocha", 14, 40, 0, 130, 30, "Bemærk: chokolade/kakao er ikke medregnet i beregningen."]
-];
-const rc = { v: "latte", raw: "200" };
-function rcCalc(id, ml) {
-  const r = RC_REC.find((x) => x[0] === id), f = ml / 200;
-  const g = Math.round(r[2] * f * 10) / 10;
-  const parts = { thr: Math.round(r[3] * f), add: Math.round(r[4] * f), milk: Math.round(r[5] * f), foam: Math.round(r[6] * f) };
-  // Afrunding må ikke ændre totalen: differencen lægges på den største væskekomponent
-  const diff = ml - (parts.thr + parts.add + parts.milk + parts.foam);
-  if (diff) { const k = ["thr", "add", "milk", "foam"].reduce((x, y) => (parts[y] > parts[x] ? y : x), "thr"); parts[k] += diff; }
-  return { g, ...parts, water: parts.thr + parts.add, total: ml, note: r[7].replace("%T%", parts.thr).replace("%A%", parts.add) };
-}
-function rcOut() {
-  const raw = String(rc.raw).trim(), ml = Number(raw);
-  const ok = raw !== "" && Number.isInteger(ml) && ml >= 50 && ml <= 1000;
-  const out = document.getElementById("rc-out"), err = document.getElementById("rc-err");
-  if (!out) return;
-  document.querySelectorAll("#rc-pre button").forEach((b) => b.setAttribute("aria-pressed", String(ok && Number(b.dataset.ml) === ml)));
-  err.hidden = ok; out.classList.toggle("dim", !ok);
-  if (!ok) { err.textContent = "Indtast en kopstørrelse mellem 50 og 1.000 ml (hele tal)."; return; }
-  const c = rcCalc(rc.v, ml), n = (x) => String(x).replace(".", ",");
-  const L = [["Vand gennem kaffen", c.thr, "#8B5A33"], ["Rent varmt vand", c.add, "#5B9BC1"], ["Varm mælk", c.milk, "#E9D6B8"], ["Mælkeskum", c.foam, "#FFF8EC"]].filter((x) => x[1] > 0);
-  const bar = L.map((x) => '<i style="width:' + (x[1] / ml * 100) + "%;background:" + x[2] + '" title="' + x[0] + " " + x[1] + ' ml"></i>').join("");
-  const tiles = [["Kaffebønner", n(c.g), "g", "#6B4527", ""]].concat(L.map((x) => [x[0], x[1], "ml", x[2], Math.round(x[1] / ml * 100) + " % af koppen"]));
-  document.getElementById("rc-total").textContent = ml + " ml";
-  document.getElementById("rc-bar").innerHTML = bar;
-  document.getElementById("rc-grid").innerHTML = tiles.map((t) => '<div class="rc-t" style="--c:' + t[3] + '"><span class="k">' + t[0] + "</span><b>" + t[1] + "<small>" + t[2] + "</small></b>" + (t[4] ? "<em>" + t[4] + "</em>" : "") + "</div>").join("");
-  const note = document.getElementById("rc-note"); note.textContent = c.note; note.hidden = !c.note;
-}
-function rcHtml() {
-  return '<section class="rc" aria-labelledby="rc-h"><h2 id="rc-h">Beregn din kaffeopskrift</h2><p class="rc-s">Vælg kaffevariant og kopstørrelse, så får du den rigtige fordeling af kaffe, vand og mælk.</p>' +
-    '<div class="rc-in"><div><label for="rc-v">Kaffevariant</label><select id="rc-v">' + RC_REC.map((r) => '<option value="' + r[0] + '"' + (r[0] === rc.v ? " selected" : "") + ">" + r[1] + "</option>").join("") + "</select></div>" +
-    '<div><label for="rc-ml">Kopstørrelse (ml)</label><div class="rc-ml"><button type="button" id="rc-minus" aria-label="Mindre">\u2212</button><input type="number" id="rc-ml" inputmode="numeric" min="50" max="1000" step="10" value="' + esc(rc.raw) + '"><button type="button" id="rc-plus" aria-label="Mere">+</button></div></div></div>' +
-    '<div class="rc-pre" id="rc-pre">' + [150, 200, 250, 300, 400].map((m) => '<button type="button" data-ml="' + m + '" aria-pressed="false">' + m + " ml</button>").join("") + "</div>" +
-    '<p class="rc-err" id="rc-err" role="alert" hidden></p>' +
-    '<div class="rc-out" id="rc-out" aria-live="polite"><div class="rc-tot"><span>Samlet kopstørrelse</span><b id="rc-total"></b></div><div class="rc-bar" id="rc-bar"></div><div class="rc-grid" id="rc-grid"></div><p class="rc-note" id="rc-note" hidden></p></div></section>';
-}
 function kvHome() {
   const p = kvProg(), total = KV_ART.length, read = KV_ART.filter((a) => p.read[a.id]).length;
   const src = (document.querySelector("#tab-home .hero img") || {}).src || "";
@@ -2501,7 +2536,6 @@ function kvHome() {
       const n = KV_ART.filter((a) => a.cat === c.id).length, r = KV_ART.filter((a) => a.cat === c.id && p.read[a.id]).length;
       return '<button type="button" class="kcat" data-kv="cat:' + c.id + '" style="background:linear-gradient(145deg,' + c.c[0] + "," + c.c[1] + ')"><span class="ic">' + VICON[c.id] + '</span><span class="l">' + c.id + '</span><span class="n">' + c.t + '</span><span class="d">' + c.d + '</span><span class="m">' + n + " artikler · " + r + "/" + n + " læst</span></button>";
     }).join("") + "</div>" +
-    rcHtml() +
     '<h3 class="kv-h">Populære emner</h3><div class="kv-pop">' + POP.map(([id, t]) => '<button type="button" class="kv-chip" data-kv="art:' + id + '">' + t + "</button>").join("") + "</div>" +
     '<h3 class="kv-h">Test og opslag</h3><button type="button" class="kv-wide fin" data-kv="final"><span><b>Afsluttende videntest</b><span class="s">20 spørgsmål på tværs af alle kategorier' + (p.best.final != null ? " · bedste: " + p.best.final + "/20" : "") + '</span></span><span class="go">→</span></button>' +
     '<button type="button" class="kv-wide" data-kv="quick"><span><b>Hurtig viden</b><span class="s">Korte svar til brug i kundemødet. ' + KAF.length + " opslag med søgning og filtre.</span></span><span class=\"go\">→</span></button></div>";
@@ -2552,25 +2586,96 @@ function kvSearch(v) {
 }
 function kvRender() {
   const root = $("kv-root"), qk = $("kv-quick");
-  qk.hidden = kv.view !== "quick"; root.hidden = kv.view === "quick";
+  qk.hidden = kv.view !== "quick"; root.hidden = kv.view === "quick" || kv.view === "recipe";
+  $("kv-recipe").hidden = kv.view !== "recipe";
+  document.querySelectorAll("#kvtabs [data-kvt]").forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.kvt === "recipe") === (kv.view === "recipe"))));
+  if (kv.view === "recipe") { rxRender(); return; }
   if (kv.view === "quick") { renderKaf(); return; }
   root.innerHTML = kv.view === "cat" ? kvCatView(kv.cat) : kv.view === "art" ? kvArtView(kv.art) : kv.view === "run" ? kvRunView() : kvHome();
   root.style.animation = "none"; void root.offsetWidth; root.style.animation = "";
-  if (kv.view === "home") { $("kv-q").addEventListener("input", (e) => kvSearch(e.target.value)); rcOut(); }
+  if (kv.view === "home") { $("kv-q").addEventListener("input", (e) => kvSearch(e.target.value)); }
 }
-$("kv-root").addEventListener("input", (e) => { if (e.target.id === "rc-ml") { rc.raw = e.target.value; rcOut(); } });
-$("kv-root").addEventListener("change", (e) => {
-  if (e.target.id === "rc-v") { rc.v = e.target.value; rcOut(); }
-  if (e.target.id === "rc-ml") { const v = Number(e.target.value); if (Number.isFinite(v) && e.target.value !== "") { rc.raw = String(Math.min(1000, Math.max(50, Math.round(v)))); e.target.value = rc.raw; } rcOut(); }
+/* ---- Kaffeopskrift: standardopskrifter ved 200 ml ----
+   [id, navn, kaffe (g), vand gennem kaffen (ml), rent varmt vand (ml), varm mælk (ml), mælkeskum (ml), note] */
+const RX_REC = [
+  ["filter", "Filterkaffe / sort kaffe", 12, 200, 0, 0, 0, ""],
+  ["americano", "Americano", 14, 34, 166, 0, 0, "Lav først espressoen (ca. %T% ml vand gennem kaffen), og fyld derefter %A% ml rent, varmt vand i koppen."],
+  ["latte", "Café latte", 14, 40, 0, 130, 30, ""],
+  ["cappuccino", "Cappuccino", 14, 40, 0, 90, 70, ""],
+  ["flatwhite", "Flat white", 14, 40, 0, 140, 20, ""],
+  ["cortado", "Cortado", 14, 40, 0, 120, 40, ""],
+  ["kaffemaelk", "Kaffe med mælk", 12, 150, 0, 50, 0, ""],
+  ["mocha", "Caffè mocha", 14, 40, 0, 130, 30, "Bemærk: chokolade/kakao er ikke medregnet i beregningen."]
+];
+const RX_LAYERS = [["thr", "Vand gennem kaffen", "var(--c-coffee)"], ["add", "Rent varmt vand", "var(--c-water)"], ["milk", "Varm mælk", "var(--c-milk)"], ["foam", "Mælkeskum", "var(--c-foam)"]];
+const rx = { v: "latte", ml: 200, built: false, last: null, tw: {} };
+function rxCalc(id, ml) {
+  const r = RX_REC.find((x) => x[0] === id), f = ml / 200;
+  const g = Math.round(r[2] * f * 10) / 10;
+  const p = { thr: Math.round(r[3] * f), add: Math.round(r[4] * f), milk: Math.round(r[5] * f), foam: Math.round(r[6] * f) };
+  // Afrunding må ikke ændre totalen: differencen lægges på den største væskekomponent
+  const diff = ml - (p.thr + p.add + p.milk + p.foam);
+  if (diff) { const k = ["thr", "add", "milk", "foam"].reduce((a, b) => (p[b] > p[a] ? b : a), "thr"); p[k] += diff; }
+  return { g, ...p, note: r[7].replace("%T%", p.thr).replace("%A%", p.add) };
+}
+const rxG = (g) => String(g).replace(".", ",");
+function rxIcon(r) {
+  const c = rxCalc(r[0], 200), top = 7, bot = 123, H = bot - top, cols = { thr: "var(--c-coffee)", add: "var(--c-water)", milk: "var(--c-milk)", foam: "var(--c-foam)" };
+  let y = bot, rects = "";
+  ["thr", "add", "milk", "foam"].forEach((k) => { if (!c[k]) return; const h = c[k] / 200 * H; y -= h; rects += '<rect x="0" y="' + y.toFixed(2) + '" width="100" height="' + (h + .4).toFixed(2) + '" fill="' + cols[k] + '"/>'; });
+  const d = "M5,2.5 L95,2.5 L86,115.5 Q85,122.8 79,122.8 L21,122.8 Q15,122.8 14,115.5 Z";
+  return '<svg viewBox="0 0 100 124" aria-hidden="true"><defs><clipPath id="rxi-' + r[0] + '"><path d="' + d + '"/></clipPath></defs><g clip-path="url(#rxi-' + r[0] + ')">' + rects + '</g><path class="rim" d="' + d + '" fill="none" stroke="var(--glass-rim)" stroke-width="6" stroke-linejoin="round"/></svg>';
+}
+function rxNum(el, from, to, unit) {
+  const fmt = (v) => (unit === "g" ? rxG(Math.round(v * 10) / 10) : String(Math.round(v))), small = "<small>" + unit + "</small>";
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || from === to) { el.innerHTML = fmt(to) + small; return; }
+  cancelAnimationFrame(rx.tw[el.id]);
+  const t0 = performance.now();
+  const step = (t) => { const k = Math.min(1, (t - t0) / 350), e = 1 - Math.pow(1 - k, 3); el.innerHTML = fmt(from + (to - from) * e) + small; if (k < 1) rx.tw[el.id] = requestAnimationFrame(step); };
+  rx.tw[el.id] = requestAnimationFrame(step);
+}
+function rxRender() {
+  if (!rx.built) {
+    rx.built = true;
+    $("rx-vrow").innerHTML = RX_REC.map((r) => '<button type="button" class="rx-vc" role="radio" data-v="' + r[0] + '" aria-checked="false">' + rxIcon(r) + '<span class="n">' + r[1] + '</span><span class="g">' + rxG(r[2]) + " g kaffe</span></button>").join("");
+    $("rx-pre").innerHTML = [150, 200, 250, 300, 400].map((m) => '<button type="button" data-ml="' + m + '" aria-pressed="false">' + m + " ml</button>").join("");
+    document.querySelectorAll("#rx-layers .rx-layer").forEach((el) => { el.style.transition = "none"; });
+    rx.firstPaint = true;
+  }
+  const raw = String($("rx-ml").value).trim(), n = Number(raw);
+  const ok = raw !== "" && Number.isInteger(n) && n >= 50 && n <= 1000;
+  document.querySelectorAll(".rx-vc").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.v === rx.v)));
+  $("rx-err").hidden = ok; $("rx-res").classList.toggle("dim", !ok); $("rx-ml").setAttribute("aria-invalid", String(!ok));
+  if (!ok) { $("rx-err").textContent = "Indtast en kopstørrelse mellem 50 og 1.000 ml (hele tal)."; return; }
+  rx.ml = n;
+  document.querySelectorAll("#rx-pre button").forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.ml) === n)));
+  const sl = $("rx-slider"); sl.value = n; sl.style.setProperty("--p", ((n - 50) / 950 * 100) + "%");
+  const c = rxCalc(rx.v, n);
+  document.querySelectorAll("#rx-layers .rx-layer").forEach((el) => { el.style.height = (c[el.dataset.k] / n * 100) + "%"; });
+  const prev = rx.last || { g: c.g, total: n };
+  rxNum($("rx-g"), prev.g, c.g, "g"); rxNum($("rx-total"), prev.total, n, "ml");
+  rx.last = { g: c.g, total: n };
+  const rows = RX_LAYERS.filter((l) => c[l[0]] > 0);
+  $("rx-liq").innerHTML = rows.map((l) => '<li><i class="rx-dot" style="background:' + l[2] + '"></i><span class="t">' + l[1] + "<small>" + Math.round(c[l[0]] / n * 100) + ' % af koppen</small></span><span class="v">' + c[l[0]] + "<small>ml</small></span></li>").join("");
+  $("rx-legend").innerHTML = rows.map((l) => '<span><i class="rx-dot" style="--c:' + l[2] + '"></i>' + l[1] + "</span>").join("");
+  $("rx-note").textContent = c.note; $("rx-note").hidden = !c.note;
+  if (rx.firstPaint) { rx.firstPaint = false; requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll("#rx-layers .rx-layer").forEach((el) => { el.style.transition = ""; }))); }
+}
+$("rx-vrow").addEventListener("click", (e) => { const b = e.target.closest(".rx-vc"); if (!b) return; rx.v = b.dataset.v; rxRender(); b.scrollIntoView({ inline: "nearest", block: "nearest", behavior: "smooth" }); });
+$("rx-vrow").addEventListener("keydown", (e) => {
+  if (!["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(e.key)) return;
+  const i = RX_REC.findIndex((r) => r[0] === rx.v), d = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1;
+  rx.v = RX_REC[(i + d + RX_REC.length) % RX_REC.length][0]; rxRender(); document.querySelector('.rx-vc[data-v="' + rx.v + '"]').focus(); e.preventDefault();
 });
-$("kv-root").addEventListener("click", (e) => {
-  const pre = e.target.closest("#rc-pre button"), st = e.target.closest("#rc-minus, #rc-plus");
-  if (pre) { rc.raw = pre.dataset.ml; $("rc-ml").value = rc.raw; rcOut(); }
-  else if (st) { const cur = Number(rc.raw) || 200, nv = Math.min(1000, Math.max(50, cur + (st.id === "rc-plus" ? 10 : -10))); rc.raw = String(nv); $("rc-ml").value = rc.raw; rcOut(); }
-});
+$("rx-slider").addEventListener("input", (e) => { $("rx-ml").value = e.target.value; rxRender(); });
+$("rx-ml").addEventListener("input", rxRender);
+$("rx-ml").addEventListener("change", () => { const v = Number($("rx-ml").value); if ($("rx-ml").value !== "" && Number.isFinite(v)) $("rx-ml").value = String(Math.min(1000, Math.max(50, Math.round(v)))); rxRender(); });
+$("rx-pre").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; $("rx-ml").value = b.dataset.ml; rxRender(); });
+$("kvtabs").addEventListener("click", (e) => { const b = e.target.closest("[data-kvt]"); if (b) { kvGo(b.dataset.kvt); } });
 function kvGo(a) {
   const [k, v] = a.split(/:(.*)/s);
   if (k === "home") { kv.view = "home"; }
+  else if (k === "recipe") { kv.view = "recipe"; }
   else if (k === "cat") { kv.view = "cat"; kv.cat = v; }
   else if (k === "art") { kv.view = "art"; kv.art = v; }
   else if (k === "quick") { kv.view = "quick"; $("kaf-q").value = ""; kafCat = "alle"; document.querySelectorAll("#kaf-pills .fpill").forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.kc === "alle"))); }
