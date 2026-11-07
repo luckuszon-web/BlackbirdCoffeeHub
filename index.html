@@ -1581,7 +1581,7 @@ function renderKaf() {
     const cat = KCATS.find((x) => x[0] === c.c)[1];
     return '<div class="kcard' + (open ? " open" : "") + '" data-i="' + i + '">' +
       '<button type="button" class="kh" aria-expanded="' + open + '"><span class="kico" aria-hidden="true">' + c.i + '</span><span class="ktx"><span class="kt">' + kafEsc(c.t) + '</span><span class="ks">' + kafEsc(c.s) + '</span><span class="ktag ' + c.c + '">' + kafEsc(cat) + '</span></span><span class="kchev" aria-hidden="true">▾</span></button>' +
-      (open ? '<div class="kbody">' + c.b.map((x) => "<p>" + x + "</p>").join("") + '<div class="kact"><button type="button" class="kcopy" data-kcopy="' + i + '">📋 Kopiér forklaring til kunde</button></div></div>' : "") + "</div>";
+      (open ? '<div class="kbody">' + c.b.map((x) => "<p>" + x + "</p>").join("") + '</div>' : "") + "</div>";
   }).join("");
 }
 $("kaf-q").addEventListener("input", renderKaf);
@@ -1592,14 +1592,6 @@ $("kaf-pills").addEventListener("click", (e) => {
   renderKaf();
 });
 $("kaf-list").addEventListener("click", (e) => {
-  const cp = e.target.closest("[data-kcopy]");
-  if (cp) {
-    const txt = KAF[+cp.dataset.kcopy].k;
-    const ok = () => { const o = cp.textContent; cp.textContent = "✓ Kopieret"; cp.classList.add("done"); setTimeout(() => { cp.textContent = o; cp.classList.remove("done"); }, 1600); };
-    const fb = () => { const t = document.createElement("textarea"); t.value = txt; t.style.cssText = "position:fixed;opacity:0;font-size:16px"; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (_) {} t.remove(); ok(); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fb); else fb();
-    return;
-  }
   const h = e.target.closest(".kh"); if (!h) return;
   const i = +h.parentNode.dataset.i, card = h.parentNode;
   const nowOpen = !card.classList.contains("open");
@@ -1608,7 +1600,7 @@ $("kaf-list").addEventListener("click", (e) => {
   card.classList.toggle("open", nowOpen);
   h.setAttribute("aria-expanded", String(nowOpen));
   const old = card.querySelector(".kbody"); if (old) old.remove();
-  if (nowOpen) { const d = document.createElement("div"); d.className = "kbody"; d.innerHTML = KAF[i].b.map((x) => "<p>" + x + "</p>").join("") + '<div class="kact"><button type="button" class="kcopy" data-kcopy="' + i + '">📋 Kopiér forklaring til kunde</button></div>'; card.appendChild(d); }
+  if (nowOpen) { const d = document.createElement("div"); d.className = "kbody"; d.innerHTML = KAF[i].b.map((x) => "<p>" + x + "</p>").join("") + ''; card.appendChild(d); }
 });
 
 const _upd = update;
