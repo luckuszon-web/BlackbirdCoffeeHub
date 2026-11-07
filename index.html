@@ -1,3 +1,4 @@
+<!doctype html>
 <meta charset="utf-8">
 <title>Tilbudsgenerator</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -127,6 +128,49 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 .tile:focus-visible, .pill:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .blok { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 [hidden] { display: none !important; }
+/* ---- Design brushup ---- */
+:root { --shadow-sm: 0 1px 2px rgba(58,36,23,.06), 0 1px 1px rgba(58,36,23,.04); --shadow-md: 0 8px 24px -10px rgba(58,36,23,.22); --radius: 12px; }
+body { -webkit-font-smoothing: antialiased; background: radial-gradient(1200px 500px at 50% -200px, color-mix(in srgb, var(--accent) 10%, transparent), transparent), var(--bg); background-attachment: fixed; }
+h1 { font-size: 22px; letter-spacing: -0.02em; }
+header { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.brand img { height: 40px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+form { gap: 16px; }
+fieldset { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 20px; box-shadow: var(--shadow-sm); }
+legend { float: left; width: 100%; margin-bottom: 14px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+legend::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+legend + * { clear: both; }
+input[type="text"], input[type="email"], select, textarea { border-radius: 8px; padding: 10px 12px; background: var(--bg); transition: border-color .15s, box-shadow .15s, background .15s; }
+input[type="text"]:hover, input[type="email"]:hover, select:hover, textarea:hover { border-color: var(--muted); }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; background: var(--surface); border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); }
+button, .tile, .pill, .mcard, .chipadd, .maddbtn, .addbtn, .mbtn { transition: border-color .15s, background .15s, box-shadow .15s, transform .1s; }
+button:not(.tile):not(.pill):not(.addbtn):not(.chipx):not(.chipadd) { border-radius: 10px; }
+button.primary { box-shadow: var(--shadow-md); }
+button.primary:hover:not(:disabled) { filter: brightness(1.12); }
+button.secondary:hover { border-color: var(--muted); background: var(--surface); }
+button:active:not(:disabled) { transform: translateY(1px); }
+.pill { padding: 8px 16px; }
+.tile { border-radius: 12px; padding: 10px 8px 12px; }
+.tile:hover, .pill:hover, .mcard:hover { border-color: var(--muted); box-shadow: var(--shadow-sm); }
+.tile[aria-checked="true"], .pill[aria-checked="true"] { box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 15%, transparent); }
+.pill[aria-checked="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.mcard[aria-current="true"] { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+.bar { border-radius: 14px; box-shadow: 0 12px 32px -8px rgba(0,0,0,.22); backdrop-filter: blur(8px); background: color-mix(in srgb, var(--surface) 92%, transparent); }
+.previewwrap { border-radius: var(--radius); box-shadow: var(--shadow-md); background: #fff; }
+.prevlabel { margin: 8px 0 -14px; color: var(--accent); }
+@media (max-width: 520px) { fieldset { padding: 16px; } }
+@media print { fieldset { box-shadow: none; } .previewwrap { box-shadow: none !important; } body { background: #fff !important; } }
+.bar { position: static; backdrop-filter: none; background: var(--surface); box-shadow: 0 1px 2px rgba(58,36,23,.06); }
+.hist { display:flex; align-items:center; gap:8px; }
+.hist select { font: inherit; font-size: 14px; padding: 8px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); max-width: 260px; }
+.followup { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:10px; font-size:14px; font-weight:600; }
+.followup input { font: inherit; font-size: 14px; padding: 7px 10px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); }
+input[type="date"], input[type="time"] { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-height: 44px; box-sizing: border-box; width: 100%; max-width: 100%; transition: border-color .15s, box-shadow .15s, background .15s; }
+input[type="date"]:hover, input[type="time"]:hover { border-color: var(--muted); }
+input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: none; background: var(--surface); border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); }
+.followup input[type="date"], .followup input[type="time"] { width: auto; min-height: 40px; padding: 7px 10px; background: var(--surface); }
+@media (max-width: 520px) { .mcard { gap: 8px; padding: 10px 8px; } .mcard img { width: 40px; height: 40px; } .mcard .mt b { font-size: 14px; } .mcard .macts { flex-direction: column; gap: 6px; } .mcard .macts .mbtn { min-height: 34px !important; padding: 5px 8px !important; font-size: 12px !important; } }
+.hdr-r { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+@media print { .hist { display:none !important; } }
 </style>
 
 <div class="page">
@@ -135,7 +179,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
       <img src="data:image/png;base64,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" alt="Blackbird Coffee">
       <h1>Tilbudsgenerator</h1>
     </div>
-    <button type="button" class="secondary" id="reset">Ny kunde (ryd felter)</button>
+    <div class="hdr-r"><div class="hist"><select id="hist" aria-label="Seneste tilbud"><option value="">Seneste tilbud…</option></select></div><button type="button" class="secondary" id="reset">Ny kunde (ryd felter)</button></div>
   </header>
 
   <div class="grid">
@@ -165,6 +209,17 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
           <button type="button" role="radio" class="pill" data-value="aftale">Kun kaffeaftale</button>
         </div>
         <input type="hidden" id="type" value="maskine">
+      </fieldset>
+
+      <fieldset>
+        <legend>Kundens nuværende løsning <small style="text-transform:none;letter-spacing:0;font-weight:400">(valgfri, viser fordele i tilbuddet)</small></legend>
+        <div class="pills" role="radiogroup" aria-label="Nuværende løsning" data-for="nuv">
+          <button type="button" role="radio" class="pill" data-value="">Ved ikke / ingen</button>
+          <button type="button" role="radio" class="pill" data-value="filter">Filterkaffe</button>
+          <button type="button" role="radio" class="pill" data-value="forbruger">Forbrugermaskine (fx Elgiganten)</button>
+          <button type="button" role="radio" class="pill" data-value="kapsler">Kapsler</button>
+        </div>
+        <input type="hidden" id="nuv" value="">
       </fieldset>
 
       <fieldset id="sek-maskine">
@@ -207,10 +262,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
           <label class="check"><input type="checkbox" id="grinder"> Grinder</label>
           <p class="hint">Simonelli leveres altid med fastvandstilslutning og uden mælkeløsning.</p>
         </div>
-        <div class="row">
-          <div class="field"><label for="antal">Antal af denne maskine</label><input type="text" id="antal" inputmode="numeric" value="1" autocomplete="off"></div>
-          <div class="field"><label for="pris">Koppris <small>(kr., gælder alle maskiner i muligheden)</small></label><input type="text" id="pris" inputmode="decimal" value="" autocomplete="off"></div>
-        </div>
+        <input type="hidden" id="antal" value="1">
         <div class="addnote"><button type="button" class="addbtn" data-note="n-maskine" aria-expanded="false">+ Tilføj egen tekst om maskinen</button><textarea id="n-maskine" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
@@ -227,6 +279,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <legend>Pris og aftale</legend>
         <div id="maskine-pris" class="blok">
           <p class="hint" id="opt-ctx"></p>
+          <div class="field"><label for="pris">Koppris <small>(kr., gælder alle maskiner i muligheden)</small></label><input type="text" id="pris" inputmode="decimal" value="" autocomplete="off"></div>
           <div class="field"><label for="drikkere">Kaffedrikkere <small>(valgfri)</small></label><input type="text" id="drikkere" inputmode="numeric" value="" autocomplete="off"></div>
           <div class="field"><span class="lbl" id="lbl-model">Betaling</span>
             <div class="pills" role="radiogroup" aria-labelledby="lbl-model" data-for="model">
@@ -273,9 +326,12 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         <p class="status" id="status" role="status" aria-live="polite"></p>
         <div class="buttons">
           <button type="button" class="primary" id="copy">Kopiér tilbud</button>
-          <button type="button" class="secondary" id="pdf">Download som PDF</button>
+          <button type="button" class="secondary" id="subj">Kopiér emnefelt</button>
+          <button type="button" class="secondary" id="cal">Opfølgning i kalender</button>
         </div>
-        <p class="hint">Sæt tilbuddet ind i en ny mail med Cmd+V. PDF: vælg «Gem som PDF» som printer i vinduet, der åbnes.</p>
+        <div class="followup"><label for="fu-date">Opfølgning</label><input type="date" id="fu-date"><input type="time" id="fu-time" value="09:00">
+        </div>
+        <p class="hint">Tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
       </div>
       <p class="prevlabel">Eksempel på mailen</p>
       <div class="previewwrap"><div id="preview"></div></div>
@@ -415,7 +471,7 @@ function read() {
     periode: num($("periode").value), ingenper: $("ingenper").checked,
     opts: ST.opts.map((o) => ({ model: o.model, kopper: num(o.kopper), periode: num(o.periode), ingenper: o.ingenper, drikkere: num(o.drikkere),
       mach: o.mach.map((m) => Object.assign({}, m, { pris: num(m.pris), antal: num(m.antal) })) })),
-    intro: $("intro").value.trim(), mail: $("mail").value.trim(), udloeb: $("udloeb").value
+    nuv: $("nuv").value, intro: $("intro").value.trim(), mail: $("mail").value.trim(), udloeb: $("udloeb").value
   };
 }
 const isSemi = (mc) => !!(MACH[mc.maskine] && MACH[mc.maskine].semi);
@@ -651,6 +707,40 @@ ${multi ? "" : singlePrice(s)}
 `;
 }
 
+const NUV = {
+  filter: { h: ["Det vinder I ved at skifte fra filterkaffe", "What you gain by switching from filter coffee", "Det här vinner ni på att byta från bryggkaffe"],
+    b: [["Frisk kaffe på 30 sekunder – slut med at vente på kanden", "Fresh coffee in 30 seconds – no more waiting for the pot", "Färskt kaffe på 30 sekunder – slut på att vänta på kannan"],
+        ["Mindre spild – brygges kop for kop, ingen bitre halve kander", "Less waste – brewed cup by cup, no half pots going bitter", "Mindre spill – bryggs kopp för kopp, inga bittra halva kannor"],
+        ["Frit valg mellem espresso, sort kaffe, café latte og mere", "Free choice of espresso, black coffee, café latte and more", "Fritt val mellan espresso, svart kaffe, café latte och mer"],
+        ["Et mere professionelt indtryk over for kunder og gæster", "A more professional impression for clients and guests", "Ett mer professionellt intryck för kunder och gäster"]] },
+  forbruger: { h: ["Det vinder I ved en professionel erhvervsmaskine", "What you gain with a professional business machine", "Det här vinner ni på en professionell maskin"],
+    b: [["Mindre vedligehold og fast service – ingen værkstedsregninger", "Less maintenance and regular service – no repair bills", "Mindre underhåll och fast service – inga verkstadsräkningar"],
+        ["Større vandtank, bønnebeholder og drypbakke", "Larger water tank, bean hopper and drip tray", "Större vattentank, bönbehållare och droppbricka"],
+        ["Mere støjsvag – forstyrrer ikke kontoret", "Quieter – doesn't disturb the office", "Tystare – stör inte kontoret"],
+        ["Mærkbart bedre kaffe med ægte crema", "Noticeably better coffee with real crema", "Märkbart bättre kaffe med äkta crema"]] },
+  kapsler: { h: ["Det vinder I ved at skifte fra kapsler", "What you gain by switching from capsules", "Det här vinner ni på att byta från kapslar"],
+    b: [["Bedre kaffe af friskkværnede hele bønner", "Better coffee from freshly ground whole beans", "Bättre kaffe av nymalda hela bönor"],
+        ["Mere klimabevidst – intet kapselaffald", "More climate-conscious – no capsule waste", "Mer klimatmedvetet – inget kapselavfall"],
+        ["Typisk en lavere pris pr. kop", "Typically a lower price per cup", "Normalt ett lägre pris per kopp"],
+        ["Ingen kø – klarer mange kopper i træk", "No queues – handles many cups in a row", "Ingen kö – klarar många koppar i rad"]] }
+};
+const NUVI = () => (LANG === "en" ? 1 : LANG === "sv" ? 2 : 0);
+function nuvBlock(k) {
+  const n = NUV[k]; if (!n) return "";
+  const li = n.b.map((x) => `<tr><td valign="top" width="18" style="font-family:${FONT};font-size:15px;line-height:22px;color:#DA6D2B;">✓</td><td style="font-family:${FONT};font-size:14px;line-height:22px;color:#4A3A2E;padding-bottom:4px;">${esc(x[NUVI()])}</td></tr>`).join("");
+  return `<tr><td style="padding:28px 40px 0 40px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F3EE" style="background-color:#F7F3EE;border-left:3px solid #DA6D2B;"><tr><td style="padding:18px 22px;"><div style="font-family:${SERIF};font-size:18px;line-height:24px;color:#2B1D14;padding-bottom:10px;">${esc(n.h[NUVI()])}</div><table role="presentation" cellpadding="0" cellspacing="0" border="0">${li}</table></td></tr></table></td></tr>`;
+}
+function machNames(s) {
+  if (s.type === "aftale") return T("kaffeaftale", "coffee agreement", "kaffeavtal");
+  const names = [];
+  s.opts.forEach((o) => o.mach.forEach((m) => { const n = MACH[m.maskine] && MACH[m.maskine].name; if (n && !names.includes(n)) names.push(n); }));
+  return names.length ? names.join(" / ") : T("kaffeløsning", "coffee solution", "kaffelösning");
+}
+function subjectLine(s) {
+  LANG = s.lang;
+  const f = s.firma || T("[Virksomhed]", "[Company]", "[Företag]");
+  return T("Kaffeløsning til " + f + " – tilbud på " + machNames(s), "Coffee solution for " + f + " – quote for " + machNames(s), "Kaffelösning för " + f + " – offert på " + machNames(s));
+}
 function buildEmail(s) {
   LANG = s.lang;
   const en = LANG === "en";
@@ -674,6 +764,7 @@ ${para(T("Hej ", "Hi ", "Hej ") + esc(navn) + ",", "0 40px 14px 40px")}
 ${para(esc(s.intro).replace(/\n/g, "<br>"))}
 ${noteRow(s.notes.kunde)}
 ${MAIN}
+${nuvBlock(s.nuv)}
 ${noteRow(s.notes.slut)}
 ${para(T("Sig endelig til, hvis der er noget, I ønsker tilpasset.", "Please let me know if there is anything you would like adjusted.", "Hör gärna av er om det är något ni vill få justerat."), "32px 40px 0 40px")}
 <tr><td style="padding:20px 40px 36px 40px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#3A2417" style="background-color:#3A2417;"><a href="${mailto}" style="display:inline-block;padding:14px 28px;font-family:${FONT};font-size:15px;line-height:20px;color:#FFFFFF;text-decoration:none;">${T("Svar på tilbuddet", "Reply to the quote", "Svara på offerten")}</a></td></tr></table></td></tr>
@@ -772,7 +863,7 @@ function update() {
   $("preview").innerHTML = buildEmail(s);
   const miss = missing(s);
   const ready = miss.length === 0 && bad.length === 0;
-  $("copy").disabled = !ready; $("pdf").disabled = !ready;
+  $("copy").disabled = !ready;
   if (bad.length) setStatus("Ikke tilladt: " + bad.join("; ") + ". Tilbuddet er derfor ikke klar." + (miss.length ? " Mangler også: " + miss.join(", ") + "." : ""), "warn");
   else if (!ready) setStatus("Mangler stadig: " + miss.join(", ") + ".", "warn");
   else setStatus("Alt er udfyldt. Tilbuddet er klar til at kopiere.", "ok");
@@ -812,18 +903,11 @@ document.querySelectorAll("[data-for]").forEach((g) => g.addEventListener("click
   inp.value = b.dataset.value;
   inp.dispatchEvent(new Event("input", { bubbles: true }));
 }));
-$("form").addEventListener("input", update);
-$("form").addEventListener("change", update);
+$("form").addEventListener("input", () => update());
+$("form").addEventListener("change", () => update());
 $("copy").addEventListener("click", async () => {
   if (await copyRich()) flash("Tilbuddet er kopieret. Sæt det ind i en ny mail.", "ok");
   else flash("Kopiering blev afvist her. Markér tilbuddet i udkastet og tryk Cmd+C.", "err");
-});
-$("pdf").addEventListener("click", () => {
-  const old = document.title, f = $("firma").value.trim();
-  document.title = "Tilbud" + (f ? " - " + f : "") + " - Blackbird Coffee";
-  const back = () => { document.title = old; window.removeEventListener("afterprint", back); };
-  window.addEventListener("afterprint", back);
-  try { window.print(); } catch (e) { flash("Udskrift er blokeret her. Åbn siden i en almindelig browserfane.", "err"); back(); }
 });
 document.querySelectorAll(".addbtn").forEach((b) => b.addEventListener("click", () => {
   const ta = $(b.dataset.note), open = ta.hidden;
@@ -831,6 +915,87 @@ document.querySelectorAll(".addbtn").forEach((b) => b.addEventListener("click", 
   if (open) { ta.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = "− Fjern " + base; ta.focus(); }
   else { ta.value = ""; ta.hidden = true; b.setAttribute("aria-expanded", "false"); b.textContent = "+ Tilføj " + base; update(); }
 }));
+$("subj").addEventListener("click", async () => {
+  const t = subjectLine(read()); let ok = false;
+  try { await navigator.clipboard.writeText(t); ok = true; } catch (e) {
+    try { const ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); ok = document.execCommand("copy"); ta.remove(); } catch (e2) {}
+  }
+  flash(ok ? "Emnefeltet er kopieret: " + t : "Kunne ikke kopiere. Emnefelt: " + t, ok ? "ok" : "err");
+});
+function followDate(days) {
+  const d = new Date(); let n = 0;
+  while (n < days) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0 && d.getDay() !== 6) n++; }
+  d.setHours(9, 0, 0, 0); return d;
+}
+$("cal").addEventListener("click", () => {
+  const s = read(); LANG = "da";
+  const f = s.firma || "kunde";
+  const dv = $("fu-date").value, tv = $("fu-time").value || "09:00";
+  if (!dv) { flash("Vælg en dato for opfølgningen.", "err"); return; }
+  const d = new Date(dv + "T" + tv + ":00");
+  if (isNaN(d)) { flash("Datoen eller tidspunktet er ugyldigt.", "err"); return; }
+  const e = new Date(d.getTime() + 15 * 60000);
+  const p = (x) => String(x).padStart(2, "0");
+  const fmt = (x) => x.getFullYear() + p(x.getMonth() + 1) + p(x.getDate()) + "T" + p(x.getHours()) + p(x.getMinutes()) + "00";
+  const icsEsc = (t) => String(t).replace(/\\/g, "\\\\").replace(/[,;]/g, (m) => "\\" + m).replace(/\n/g, "\\n");
+  const desc = "Tilbud sendt " + new Date().toLocaleDateString("da-DK") + "\nKontakt: " + (s.navn || "-") + "\nLøsning: " + machNames(s) + "\nEmne: " + subjectLine(s);
+  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Blackbird Coffee//Tilbud//DA", "BEGIN:VEVENT",
+    "UID:" + Date.now() + "@blackbirdcoffee.dk", "DTSTAMP:" + fmt(new Date()), "DTSTART:" + fmt(d), "DTEND:" + fmt(e),
+    "SUMMARY:" + icsEsc("Følg op på kaffetilbud til " + f + (s.navn ? " (" + s.navn + ")" : "")),
+    "DESCRIPTION:" + icsEsc(desc),
+    "BEGIN:VALARM", "TRIGGER:-PT0M", "ACTION:DISPLAY", "DESCRIPTION:Opfølgning", "END:VALARM",
+    "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+  a.download = "Opfølgning - " + f + ".ics"; document.body.appendChild(a); a.click(); a.remove();
+  flash("Påmindelsen er hentet – åbn filen for at lægge den i din kalender (" + d.toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long" }) + " kl. " + tv + ").", "ok");
+});
+/* Kladde og historik */
+const DKEY = "bb-tilbud-kladde", HKEY = "bb-tilbud-historik";
+const lsGet = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+function snapshot() {
+  commit();
+  const f = {};
+  $("form").querySelectorAll("input[id], textarea[id], select[id]").forEach((el) => { f[el.id] = el.type === "checkbox" ? el.checked : el.value; });
+  return { f, st: JSON.parse(JSON.stringify(ST)), auto: autoVand };
+}
+let restoring = false;
+function restore(snap) {
+  if (!snap || !snap.f) return;
+  restoring = true;
+  Object.keys(snap.f).forEach((id) => { const el = $(id); if (!el) return; if (el.type === "checkbox") el.checked = !!snap.f[id]; else el.value = snap.f[id]; });
+  if (snap.st && snap.st.opts && snap.st.opts.length) { ST = snap.st; ST.ai = Math.min(ST.ai || 0, ST.opts.length - 1); ST.am = Math.min(ST.am || 0, ST.opts[ST.ai].mach.length - 1); }
+  document.querySelectorAll(".addbtn").forEach((b) => {
+    const ta = $(b.dataset.note), base = b.textContent.replace(/^[+−] (Fjern|Tilføj) /, "");
+    const has = ta.value.trim() !== "";
+    ta.hidden = !has; b.setAttribute("aria-expanded", String(has)); b.textContent = (has ? "− Fjern " : "+ Tilføj ") + base;
+  });
+  lastLang = ["da", "en", "sv"].includes($("lang").value) ? $("lang").value : "da";
+  load(); autoVand = !!snap.auto;
+  restoring = false;
+  update();
+}
+let saveTimer;
+function autosave() { if (restoring) return; clearTimeout(saveTimer); saveTimer = setTimeout(() => lsSet(DKEY, snapshot()), 400); }
+function renderHist() {
+  const h = lsGet(HKEY, []), sel = $("hist");
+  sel.innerHTML = '<option value="">' + (h.length ? "Seneste tilbud (" + h.length + ")…" : "Ingen tidligere tilbud endnu") + "</option>" +
+    h.map((x, i) => "<option value=\"" + i + "\">" + esc(x.title) + " · " + new Date(x.at).toLocaleString("da-DK", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + "</option>").join("");
+}
+function addHist() {
+  const s = read(), snap = snapshot();
+  const title = (s.firma || "Uden navn") + " – " + machNames(s);
+  let h = lsGet(HKEY, []).filter((x) => x.title !== title);
+  h.unshift({ title, at: Date.now(), snap }); h = h.slice(0, 15);
+  lsSet(HKEY, h); renderHist();
+}
+$("hist").addEventListener("change", (e) => {
+  const i = e.target.value; if (i === "") return;
+  const x = lsGet(HKEY, [])[Number(i)]; e.target.value = "";
+  if (x) { restore(x.snap); flash("Tilbuddet til " + x.title + " er hentet frem igen.", "ok"); }
+});
+$("copy").addEventListener("click", addHist);
 $("reset").addEventListener("click", () => {
   ST = { opts: [newOpt()], ai: 0, am: 0 }; autoVand = false;
   ["firma", "navn", "pris", "drikkere", "periode"].forEach((id) => { $(id).value = ""; });
@@ -849,8 +1014,14 @@ $("reset").addEventListener("click", () => {
   KAFFE.forEach((k) => { $(k.id).checked = false; });
   $("model").value = "min";
   $("kopper").value = "100";
+  $("nuv").value = "";
   update();
   $("firma").focus();
 });
-update();
+const _upd = update;
+update = function () { _upd(); autosave(); };
+window.addEventListener("beforeunload", () => { if (!restoring) lsSet(DKEY, snapshot()); });
+{ const fd = followDate(4), p2 = (x) => String(x).padStart(2, "0"); $("fu-date").value = fd.getFullYear() + "-" + p2(fd.getMonth() + 1) + "-" + p2(fd.getDate()); }
+renderHist();
+{ const d = lsGet(DKEY, null); if (d) restore(d); else update(); }
 </script>
