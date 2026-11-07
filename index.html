@@ -2370,7 +2370,6 @@ function kvArtView(id) {
   a.sec.forEach((s) => { h += "<h2>" + s.h + "</h2>" + s.p.map(kvP).join(""); if (s.v) h += kvFigure(s.v, s.cap); if (s.p2) h += s.p2.map(kvP).join(""); });
   h += '<div class="kbox know"><h3>Det skal du vide</h3><ul>' + a.know.map((x) => "<li>" + x + "</li>").join("") + "</ul></div>";
   h += '<div class="kbox say"><h3>Sådan forklarer du det til kunden</h3>' + a.say.map((x) => "<p>" + x + "</p>").join("") + "</div>";
-  h += "<h2>Typiske kundespørgsmål</h2><div class='kqa'>" + a.qa.map(([q, r]) => "<details><summary>" + q + "</summary><p>" + r + "</p></details>").join("") + "</div>";
   h += '<div class="kv-row"><button type="button" class="kv-btn" data-kv="markread:' + id + '">' + (p.read[id] ? "✓ Læst – fjern markering" : "Marker som læst") + '</button><button type="button" class="kv-btn sec" data-kv="cat:' + a.cat + '">Til kategorien</button></div>';
   h += "<h2>Relaterede artikler</h2>" + a.rel.map((r) => kvArt(r)).filter(Boolean).map((r) => '<button type="button" class="kart" data-kv="art:' + r.id + '"><span class="t">' + r.t + '</span><span class="m"><span>' + kvCat(r.cat).t + " · " + r.min + " min.</span></span></button>").join("");
   h += '<div class="kv-row">' + (prev ? '<button type="button" class="kv-btn sec" data-kv="art:' + prev.id + '">← ' + prev.t.slice(0, 28) + (prev.t.length > 28 ? "…" : "") + "</button>" : "") + (next ? '<button type="button" class="kv-btn sec" data-kv="art:' + next.id + '">' + next.t.slice(0, 28) + (next.t.length > 28 ? "…" : "") + " →</button>" : "") + "</div></article>";
