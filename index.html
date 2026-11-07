@@ -940,7 +940,30 @@ $("cal").addEventListener("click", () => {
   const p = (x) => String(x).padStart(2, "0");
   const fmt = (x) => x.getFullYear() + p(x.getMonth() + 1) + p(x.getDate()) + "T" + p(x.getHours()) + p(x.getMinutes()) + "00";
   const icsEsc = (t) => String(t).replace(/\\/g, "\\\\").replace(/[,;]/g, (m) => "\\" + m).replace(/\n/g, "\\n");
-  const desc = "Tilbud sendt " + new Date().toLocaleDateString("da-DK") + "\nKontakt: " + (s.navn || "-") + "\nLøsning: " + machNames(s) + "\nEmne: " + subjectLine(s);
+  const kaffeTxt = (s.kaffe.length ? s.kaffe.join(", ") : "-") + (s.kakao ? " + kakaopulver" : "");
+  const mt = (o) => o.ingenper ? "ikke angivet" : (o.periode ? Math.round(o.periode) + " mdr." : "-");
+  const L = ["Tilbud sendt " + new Date().toLocaleDateString("da-DK"), "Kontakt: " + (s.navn || "-") + (s.mail ? " (" + s.mail + ")" : "")];
+  if (s.type === "aftale") {
+    L.push("", "Løsning: Kaffeaftale (uden maskine)", "Kaffevalg: " + kaffeTxt,
+      "Pris pr. kg: " + (s.kgpris ? fmt2(s.kgpris) + " kr." : "-"),
+      "Forventet forbrug: " + (s.kgmaaned ? s.kgmaaned + " kg pr. måned" : "-"),
+      "Aftalelængde: " + (s.periode ? Math.round(s.periode) + " mdr." : (s.ingenper ? "ikke angivet" : "-")));
+  } else {
+    s.opts.forEach((o, oi) => {
+      L.push("");
+      if (s.opts.length > 1) L.push("MULIGHED " + LET[oi]);
+      o.mach.forEach((mc) => {
+        const eq = equipList(mc).filter(Boolean);
+        L.push("Løsning: " + cnt(mc) + " × " + nameOf(mc) + (eq.length ? " (" + eq.join(", ") + ")" : ""));
+      });
+      L.push("Kaffevalg: " + kaffeTxt);
+      L.push("Antal kaffedrikkere: " + (o.drikkere ? Math.round(o.drikkere) : "-"));
+      L.push("Koppris: " + (o.mach[0].pris ? fmt2(o.mach[0].pris) + " kr." : "-") + (o.model === "fast" ? " (fast betaling" : " (minimum") + (o.kopper ? " " + Math.round(o.kopper) + " kopper pr. md.)" : ")"));
+      L.push("Aftalelængde: " + mt(o));
+    });
+  }
+  L.push("", "Emne: " + subjectLine(s));
+  const desc = L.join("\n");
   const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Blackbird Coffee//Tilbud//DA", "BEGIN:VEVENT",
     "UID:" + Date.now() + "@blackbirdcoffee.dk", "DTSTAMP:" + fmt(new Date()), "DTSTART:" + fmt(d), "DTEND:" + fmt(e),
     "SUMMARY:" + icsEsc("Følg op på kaffetilbud til " + f + (s.navn ? " (" + s.navn + ")" : "")),
