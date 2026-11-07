@@ -190,7 +190,7 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
         </div>
         <div class="row">
           <div class="field"><label for="antal">Antal af denne maskine</label><input type="text" id="antal" inputmode="numeric" value="1" autocomplete="off"></div>
-          <div class="field"><label for="pris">Koppris <small>(kr.)</small></label><input type="text" id="pris" inputmode="decimal" value="" autocomplete="off"></div>
+          <div class="field"><label for="pris">Koppris <small>(kr., gælder alle maskiner i muligheden)</small></label><input type="text" id="pris" inputmode="decimal" value="" autocomplete="off"></div>
         </div>
         <div class="addnote"><button type="button" class="addbtn" data-note="n-maskine" aria-expanded="false">+ Tilføj egen tekst om maskinen</button><textarea id="n-maskine" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
@@ -374,13 +374,13 @@ const FORMATER = [
 function commit() {
   const o = ST.opts[ST.ai], m = o.mach[ST.am];
   m.maskine = $("maskine").value; m.vand = $("vand").value; m.maelk = $("maelk").value;
-  m.qpress = $("qpress").checked; m.grinder = $("grinder").checked; m.antal = $("antal").value; m.pris = $("pris").value; m.auto = autoVand;
+  m.qpress = $("qpress").checked; m.grinder = $("grinder").checked; m.antal = $("antal").value; o.mach.forEach((x) => { x.pris = $("pris").value; }); m.auto = autoVand;
   o.model = $("model").value; o.kopper = $("kopper").value; o.periode = $("periode").value; o.ingenper = $("ingenper").checked; o.drikkere = $("drikkere").value;
 }
 function load() {
   const o = ST.opts[ST.ai], m = o.mach[ST.am];
   $("maskine").value = m.maskine; $("vand").value = m.vand; $("maelk").value = m.maelk;
-  $("qpress").checked = m.qpress; $("grinder").checked = m.grinder; $("antal").value = m.antal; $("pris").value = m.pris; autoVand = m.auto;
+  $("qpress").checked = m.qpress; $("grinder").checked = m.grinder; $("antal").value = m.antal; $("pris").value = o.mach[0].pris; autoVand = m.auto;
   $("model").value = o.model; $("kopper").value = o.kopper; $("periode").value = o.periode; $("ingenper").checked = o.ingenper; $("drikkere").value = o.drikkere;
 }
 function read() {
@@ -690,7 +690,7 @@ function barClick(e) {
   else if (act === "mach") ST.am = i;
   else if (act === "addopt") { ST.opts.push(JSON.parse(JSON.stringify(ST.opts[ST.ai]))); ST.ai = ST.opts.length - 1; ST.am = 0; }
   else if (act === "delopt") { ST.opts.splice(ST.ai, 1); ST.ai = Math.max(0, ST.ai - 1); ST.am = 0; }
-  else if (act === "addmach") { ST.opts[ST.ai].mach.push(newMach()); ST.am = ST.opts[ST.ai].mach.length - 1; }
+  else if (act === "addmach") { { const nm = newMach(); nm.pris = ST.opts[ST.ai].mach[0].pris; ST.opts[ST.ai].mach.push(nm); } ST.am = ST.opts[ST.ai].mach.length - 1; }
   else if (act === "delmach") { ST.opts[ST.ai].mach.splice(ST.am, 1); ST.am = Math.max(0, ST.am - 1); }
   load();
   update();
