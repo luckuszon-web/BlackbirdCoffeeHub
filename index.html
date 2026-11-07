@@ -371,6 +371,26 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .hnx small { color: var(--muted); white-space: nowrap; }
 .hnx small.late { color: var(--accent); font-weight: 700; }
 @media (max-width: 520px) { .hero { min-height: 220px; } .hero h1 { font-size: 26px; } .hstats { gap: 6px; } .hstat { padding: 10px 2px; } .hstat span { font-size: 11px; } }
+
+/* ---- Computer / bred skærm ---- */
+@media (min-width: 1000px) {
+  body { padding-top: 28px; }
+  .page { max-width: 1240px; }
+  .page > header, .navwrap { max-width: none; }
+  .grid { grid-template-columns: minmax(0, 1fr) minmax(0, 680px); gap: 32px; }
+  .side { display: block; position: sticky; top: 72px; align-self: start; max-height: calc(100vh - 88px); overflow-y: auto; padding-right: 4px; }
+  #tab-home .hero { min-height: 300px; }
+  #tab-home .hero h1 { font-size: 38px; }
+  #tab-home .hgrid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  #tab-home .htile:last-child:nth-child(odd) { grid-column: auto; }
+  .dm { padding: 34px 40px 22px; }
+  .dm-q { font-size: 32px; } .dm-q.long { font-size: 27px; }
+  .kv-art { max-width: 860px; }
+  .dm-body { min-height: 90px; }
+  #tab-tco, #tab-rules, #tab-todo { max-width: 1000px; margin-left: auto; margin-right: auto; }
+  .prevlabel { margin-top: 18px; }
+}
+@media (min-width: 1400px) { .page { max-width: 1360px; } }
 /* ---- Kaffeakademi ---- */
 :root { --kg: #4C6B3A; --kg-soft: color-mix(in srgb, var(--kg) 12%, var(--surface)); --cream: #F7F0E6; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --kg: #93B780; --cream: #2A221B; } }
