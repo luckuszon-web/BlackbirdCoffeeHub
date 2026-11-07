@@ -787,9 +787,14 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   .hstat span { display: inline; margin: 0; font-size: 12px !important; }
 }
 /* Login + synkronisering (Supabase) */
-#sblogin { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 16px; }
+#sblogin { position: fixed; inset: 0; z-index: 9999; background: #3A2417 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%20opacity%3D%22.16%22%3E%3Cg%20transform%3D%22translate%2840%2048%29%20rotate%28-30%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%2030%29%20rotate%2825%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28250%2095%29%20rotate%28-60%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%2855%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28190%20170%29%20rotate%2810%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2830%20250%29%20rotate%28-15%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%20260%29%20rotate%2870%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28255%20225%29%20rotate%2835%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E") center / 300px 300px repeat; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; }
 #sblogin[hidden] { display: none; }
-#sblogin .sbcard { width: 100%; max-width: 380px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px; box-shadow: var(--shadow-md, 0 8px 24px -10px rgba(58,36,23,.25)); }
+#sblogin .sbcard { width: 100%; max-width: 380px; background: var(--surface); border: 0; border-radius: 20px; padding: 0 24px 26px; box-shadow: 0 24px 60px -18px rgba(0,0,0,.55); overflow: hidden; }
+#sblogin .sblogo { display: flex; justify-content: center; align-items: center; margin: 0 -24px 22px; padding: 30px 20px 24px; background: #FFFFFF; border-bottom: 3px solid #DA6D2B; }
+#sblogin .sblogo img { display: block; width: 190px; max-width: 70%; height: auto; }
+#sblogin h1 { text-align: center; }
+#sblogin p { text-align: center; }
+#sblogin .sbfoot { margin: 16px 0 0; font-size: 12px; text-align: center; color: var(--muted); }
 #sblogin h1 { font-size: 22px; margin: 0 0 4px; color: var(--ink); }
 #sblogin p { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
 #sblogin label { display: block; font-size: 14px; font-weight: 600; margin: 0 0 6px; color: var(--ink); }
@@ -807,12 +812,14 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 
 <div id="sblogin" hidden role="dialog" aria-modal="true" aria-labelledby="sbtitle">
   <form class="sbcard" id="sbform" autocomplete="on">
+    <div class="sblogo"><img id="sblogoimg" alt="Blackbird Coffee"></div>
     <h1 id="sbtitle">Blackbird Coffee Hub</h1>
     <p>Log ind for at se dine egne tilbud og to-dos.</p>
     <label for="sbemail">Mail</label><input type="email" id="sbemail" name="email" autocomplete="username" required>
     <label for="sbpass">Adgangskode</label><input type="password" id="sbpass" name="password" autocomplete="current-password" required>
     <div class="sberr" id="sberr" role="alert"></div>
     <button type="submit" id="sbgo">Log ind</button>
+    <p class="sbfoot">Kun for Blackbird Coffee-teamet ☕</p>
   </form>
 </div>
 <div class="page">
@@ -1936,6 +1943,7 @@ function sbStat(t, tip) { const e = document.getElementById("sbstat"); if (e) { 
 function sbShowLogin(msg) {
   document.getElementById("sbuser").hidden = true;
   const o = document.getElementById("sblogin"); o.hidden = false;
+  const li = document.querySelector("#logo-home img"), lg = document.getElementById("sblogoimg"); if (li && lg && !lg.src.startsWith("data:")) lg.src = li.src;
   document.getElementById("sberr").textContent = msg || "";
   setTimeout(() => document.getElementById("sbemail").focus(), 50);
 }
