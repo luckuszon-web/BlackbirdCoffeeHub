@@ -786,6 +786,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   .hstat b { display: inline; font-size: 19px; }
   .hstat span { display: inline; margin: 0; font-size: 12px !important; }
 }
+.bar .hint a { color: var(--focus); font-weight: 600; }
 /* Login + synkronisering (Supabase) */
 #sblogin { position: fixed; inset: 0; z-index: 9999; background: #3A2417 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%20opacity%3D%22.16%22%3E%3Cg%20transform%3D%22translate%2840%2048%29%20rotate%28-30%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%2030%29%20rotate%2825%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28250%2095%29%20rotate%28-60%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%2855%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28190%20170%29%20rotate%2810%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2830%20250%29%20rotate%28-15%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%20260%29%20rotate%2870%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28255%20225%29%20rotate%2835%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E") center / 300px 300px repeat; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; }
 #sblogin[hidden] { display: none; }
@@ -1028,14 +1029,16 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
     <div class="side">
       <div class="bar">
         <p class="status" id="status" role="status" aria-live="polite"></p>
+        <div class="field" id="f-tomail"><label for="tomail">Kundens mailadresse <small>(valgfri, til Outlook-kladden)</small></label><input type="email" id="tomail" inputmode="email" autocomplete="off" placeholder="navn@virksomhed.dk"></div>
         <div class="buttons">
           <button type="button" class="primary" id="copy">Kopiér tilbud</button>
+          <button type="button" class="primary" id="outlook">Åbn kladde i Outlook</button>
           <button type="button" class="secondary" id="subj">Kopiér emnefelt</button>
           <button type="button" class="secondary" id="cal">Opfølgning i kalender</button>
         </div>
         <div class="followup"><label for="fu-date">Opfølgning</label><input type="date" id="fu-date"><input type="time" id="fu-time" value="09:00">
         </div>
-        <p class="hint">Tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
+        <p class="hint">«Åbn kladde i Outlook» kopierer tilbuddet og åbner en ny mail med modtager og emne udfyldt. Tryk Ctrl+V (Mac: Cmd+V) i mailen for at sætte teksten ind, og tryk selv send. <a href="#" id="outlook-app">Brug mailprogrammet på computeren i stedet</a>. Eller tryk på «Kopiér tilbud», åbn en ny mail og vælg «Sæt ind». Vælg dato og tid, og tryk «Opfølgning i kalender» for at få en påmindelse.</p>
       </div>
       <p class="prevlabel">Eksempel på mailen</p>
       <button type="button" class="secondary" id="pvzoom" hidden style="margin:0 0 8px">Forstør maileksempel</button>
@@ -1816,7 +1819,7 @@ function update() {
   fitPreview();
   const miss = missing(s);
   const ready = miss.length === 0 && bad.length === 0;
-  $("copy").disabled = !ready;
+  $("copy").disabled = !ready; $("outlook").disabled = !ready;
   if (bad.length) setStatus(U("Ikke tilladt: " + bad.join("; ") + ". Tilbuddet er derfor ikke klar." + (miss.length ? " Mangler også: " + miss.join(", ") + "." : "")), "warn");
   else if (!ready) setStatus(U("Mangler stadig: " + miss.join(", ") + "."), "warn");
   else setStatus(U("Alt er udfyldt. Tilbuddet er klar til at kopiere."), "ok");
@@ -1869,6 +1872,19 @@ document.querySelectorAll(".addbtn").forEach((b) => b.addEventListener("click", 
   if (open) { ta.hidden = false; b.setAttribute("aria-expanded", "true"); addLabel(b, true); ta.focus(); }
   else { ta.value = ""; ta.hidden = true; b.setAttribute("aria-expanded", "false"); addLabel(b, false); update(); }
 }));
+async function openOutlook(app) {
+  const to = $("tomail").value.trim(), s = read();
+  if (to && !/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/.test(to)) { flash("Kundens mailadresse ser ikke rigtig ud. Ret den, eller lad feltet stå tomt.", "err"); return; }
+  const subj = subjectLine(s), copied = await copyRich();
+  addHist(); logOffer();
+  const url = app ? "mailto:" + encodeURIComponent(to).replace(/%40/g, "@") + "?subject=" + encodeURIComponent(subj)
+    : "https://outlook.office.com/mail/deeplink/compose?to=" + encodeURIComponent(to) + "&subject=" + encodeURIComponent(subj);
+  const w = app ? (location.href = url, true) : window.open(url, "_blank", "noopener");
+  if (!w) { flash("Browseren blokerede det nye vindue. Tillad pop-ups for siden, og prøv igen.", "err"); return; }
+  flash(copied ? "Tilbuddet er kopieret. Tryk Ctrl+V (Mac: Cmd+V) i den nye mail, og tryk send." : "Mailen er åbnet, men tilbuddet kunne ikke kopieres. Tryk «Kopiér tilbud», og sæt det ind.", copied ? "ok" : "err");
+}
+$("outlook").addEventListener("click", () => openOutlook(false));
+$("outlook-app").addEventListener("click", (e) => { e.preventDefault(); if (!$("outlook").disabled) openOutlook(true); else flash("Udfyld tilbuddet først.", "err"); });
 $("subj").addEventListener("click", async () => {
   const t = subjectLine(read()); let ok = false;
   try { await navigator.clipboard.writeText(t); ok = true; } catch (e) {
@@ -2106,7 +2122,7 @@ $("hist").addEventListener("change", (e) => {
 $("copy").addEventListener("click", () => { addHist(); logOffer(); });
 $("reset").addEventListener("click", () => {
   ST = { opts: [newOpt()], ai: 0, am: 0 }; autoVand = false;
-  ["firma", "navn", "pris", "drikkere", "periode"].forEach((id) => { $(id).value = ""; });
+  ["firma", "navn", "pris", "drikkere", "periode", "tomail"].forEach((id) => { $(id).value = ""; });
   ["maskine", "vand", "maelk"].forEach((id) => { $(id).value = ""; });
   $("kakao").checked = false;
   $("qpress").checked = false; $("grinder").checked = false; $("kort").checked = false; autoVand = false;
