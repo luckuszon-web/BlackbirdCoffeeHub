@@ -219,6 +219,9 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .tdlbl { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
 .tdcats, .tddue { display: flex; flex-wrap: wrap; gap: 8px; }
 .tdcat { font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 16px; min-height: 48px; cursor: pointer; text-align: left; line-height: 1.25; }
+.tdico { font-size: 1.1em; line-height: 1; margin-right: 6px; }
+.tdcat .tdico { margin-right: 4px; }
+.tdedit .tdicoinp { flex: 0 0 56px; width: 56px; min-width: 56px; text-align: center; }
 .tdcat small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); }
 .tdcat:hover { border-color: var(--muted); }
 .tdcat[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
@@ -1258,10 +1261,11 @@ $("olist").addEventListener("click", (e) => {
 /* ---- To-do ---- */
 const TKEY = "bb-todo", CKEY = "bb-todo-cats";
 const DEF_CATS = [
-  { id: "c1", label: "Ring tilbage" }, { id: "c2", label: "Send tilbud" }, { id: "c3", label: "Følg op på tilbud" }, { id: "c4", label: "Book møde" },
-  { id: "c5", label: "Ring MGM", hint: "henvisninger hos nye kunder" }, { id: "c6", label: "Andet", free: true }
+  { id: "c1", label: "Ring tilbage", icon: "📞" }, { id: "c2", label: "Send tilbud", icon: "✉️" }, { id: "c3", label: "Følg op på tilbud", icon: "🔔" }, { id: "c4", label: "Book møde", icon: "📅" },
+  { id: "c5", label: "Ring MGM", hint: "henvisninger hos nye kunder", icon: "🤝" }, { id: "c6", label: "Andet", free: true, icon: "📝" }
 ];
 let tdCat = null, tdDue = "", tdFilter = "aabne", tdSure = null, tdSureT = null, tdEditing = false, tdNoteOpen = null;
+const tdIcon = (label) => { const c = tdCats().find((x) => x.label === label) || DEF_CATS.find((x) => x.label === label); return (c && c.icon) || "📌"; };
 const tdCats = () => { const c = lsGet(CKEY, null); return c && c.length ? c : DEF_CATS; };
 const tdAll = () => lsGet(TKEY, []);
 const isoDay = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
@@ -1282,7 +1286,7 @@ function renderTodo() {
   if (!$("tdcats")) return;
   const cats = tdCats(), all = tdAll(), cur = cats.find((c) => c.id === tdCat);
   if (!cur) tdCat = null;
-  $("tdcats").innerHTML = cats.map((c) => `<button type="button" class="tdcat" data-c="${esc(c.id)}" aria-pressed="${c.id === tdCat}">${esc(U(c.label))}${c.hint ? `<small>${esc(U(c.hint))}</small>` : ""}</button>`).join("");
+  $("tdcats").innerHTML = cats.map((c) => `<button type="button" class="tdcat" data-c="${esc(c.id)}" aria-pressed="${c.id === tdCat}"><span class="tdico" aria-hidden="true">${esc(c.icon || "📌")}</span> ${esc(U(c.label))}${c.hint ? `<small>${esc(U(c.hint))}</small>` : ""}</button>`).join("");
   const c2 = cats.find((c) => c.id === tdCat);
   $("tdform").hidden = !c2;
   if (c2) { const free = !!c2.free; $("tdkunde").placeholder = U(free ? "Skriv opgave" : "Kundenavn"); $("tdkunde").setAttribute("aria-label", $("tdkunde").placeholder); $("tdlbl2").textContent = U(free ? "2. Skriv opgaven" : "2. Kundenavn"); }
@@ -1296,7 +1300,7 @@ function renderTodo() {
   $("tdfilter").innerHTML = `<span class="lbl2">${U("Vis:")}</span>` + F.map(([k, l, n]) => `<button type="button" class="fpill" data-tf="${k}" aria-pressed="${tdFilter === k}">${U(l)} (${n})</button>`).join("");
   open.sort((a, b) => (a.due || "9999") < (b.due || "9999") ? -1 : (a.due || "9999") > (b.due || "9999") ? 1 : b.at - a.at);
   done.sort((a, b) => (b.doneAt || 0) - (a.doneAt || 0));
-  const item = (t) => `<div class="tditem${t.done ? " done" : ""}" data-id="${t.id}"><input type="checkbox" class="tdchk" data-t="chk" ${t.done ? "checked" : ""} aria-label="${esc(U("Færdig"))}"><div class="tdbody"><div class="tdtitle">${esc(tdTitle(t))}</div><div class="tdmeta">${dueChip(t)}${t.note ? "" : ""}<button type="button" class="tdmini" data-t="note">${t.note || tdNoteOpen === t.id ? U("Ret note") : U("+ note")}</button><button type="button" class="tdmini${tdSure === t.id ? " sure" : ""}" data-t="del">${tdSure === t.id ? U("Er du sikker?") : U("Fjern")}</button></div>${t.note && tdNoteOpen !== t.id ? `<div class="tdnote">${esc(t.note)}</div>` : ""}${tdNoteOpen === t.id ? `<input type="text" class="tdnoteinp" data-t="noteinp" value="${esc(t.note || "")}" placeholder="${esc(U("Note"))}" aria-label="${esc(U("Note"))}">` : ""}</div></div>`;
+  const item = (t) => `<div class="tditem${t.done ? " done" : ""}" data-id="${t.id}"><input type="checkbox" class="tdchk" data-t="chk" ${t.done ? "checked" : ""} aria-label="${esc(U("Færdig"))}"><div class="tdbody"><div class="tdtitle"><span class="tdico" aria-hidden="true">${tdIcon(t.cat)}</span>${esc(tdTitle(t))}</div><div class="tdmeta">${dueChip(t)}${t.note ? "" : ""}<button type="button" class="tdmini" data-t="note">${t.note || tdNoteOpen === t.id ? U("Ret note") : U("+ note")}</button><button type="button" class="tdmini${tdSure === t.id ? " sure" : ""}" data-t="del">${tdSure === t.id ? U("Er du sikker?") : U("Fjern")}</button></div>${t.note && tdNoteOpen !== t.id ? `<div class="tdnote">${esc(t.note)}</div>` : ""}${tdNoteOpen === t.id ? `<input type="text" class="tdnoteinp" data-t="noteinp" value="${esc(t.note || "")}" placeholder="${esc(U("Note"))}" aria-label="${esc(U("Note"))}">` : ""}</div></div>`;
   let out = "";
   if (tdFilter !== "faerdige") out += (tdFilter === "alle" && done.length ? `<p class="tdsec">${U("Åbne")}</p>` : "") + open.map(item).join("");
   if (tdFilter !== "aabne") out += (tdFilter === "alle" && done.length ? `<p class="tdsec">${U("Færdige")}</p>` : "") + done.map(item).join("");
@@ -1307,8 +1311,8 @@ function renderTodo() {
   $("tdeditor").hidden = !tdEditing;
   if (tdEditing) {
     const cs = tdCats();
-    $("tdeditor").innerHTML = cs.map((c) => `<div class="tdrow2"><input type="text" data-ce="${esc(c.id)}" value="${esc(c.label)}" aria-label="${esc(U("Kategori"))}"><button type="button" class="tdmini" data-cdel="${esc(c.id)}">${U("Fjern")}</button></div>`).join("") +
-      `<div class="tdrow2"><input type="text" id="tdnewcat" placeholder="${esc(U("Ny kategori"))}"><button type="button" class="obtn" id="tdaddcat">${U("+ Tilføj")}</button><button type="button" class="tdmini" id="tdresetcat">${U("Gendan standard")}</button></div>`;
+    $("tdeditor").innerHTML = cs.map((c) => `<div class="tdrow2"><input type="text" class="tdicoinp" data-ci="${esc(c.id)}" value="${esc(c.icon || "📌")}" maxlength="4" aria-label="Ikon"><input type="text" data-ce="${esc(c.id)}" value="${esc(c.label)}" aria-label="${esc(U("Kategori"))}"><button type="button" class="tdmini" data-cdel="${esc(c.id)}">${U("Fjern")}</button></div>`).join("") +
+      `<div class="tdrow2"><input type="text" class="tdicoinp" id="tdnewico" value="📌" maxlength="4" aria-label="Ikon"><input type="text" id="tdnewcat" placeholder="${esc(U("Ny kategori"))}"><button type="button" class="obtn" id="tdaddcat">${U("+ Tilføj")}</button><button type="button" class="tdmini" id="tdresetcat">${U("Gendan standard")}</button></div>`;
   }
 }
 function tdAdd() {
@@ -1341,13 +1345,14 @@ function tdSaveNote(inp) { const c = inp.closest("[data-id]"), all = tdAll(), t 
 $("tdlistbox").addEventListener("keydown", (e) => { if (e.target.classList.contains("tdnoteinp") && e.key === "Enter") { e.preventDefault(); tdSaveNote(e.target); } });
 $("tdlistbox").addEventListener("focusout", (e) => { if (e.target.classList.contains("tdnoteinp")) tdSaveNote(e.target); });
 $("tdeditor").addEventListener("change", (e) => {
-  const id = e.target.dataset.ce; if (!id) return;
-  const cs = tdCats().map((c) => (c.id === id ? Object.assign({}, c, { label: e.target.value.trim() || c.label }) : c)); lsSet(CKEY, cs); renderTodo();
+  const id = e.target.dataset.ce || e.target.dataset.ci; if (!id) return;
+  const isIco = !!e.target.dataset.ci, v = e.target.value.trim();
+  const cs = tdCats().map((c) => (c.id === id ? Object.assign({}, c, isIco ? { icon: v || "📌" } : { label: v || c.label }) : c)); lsSet(CKEY, cs); renderTodo();
 });
 $("tdeditor").addEventListener("click", (e) => {
   const d = e.target.closest("[data-cdel]");
   if (d) { const cs = tdCats().filter((c) => c.id !== d.dataset.cdel); lsSet(CKEY, cs.length ? cs : DEF_CATS); renderTodo(); return; }
-  if (e.target.closest("#tdaddcat")) { const v = $("tdnewcat").value.trim(); if (!v) return; const cs = tdCats().slice(); cs.push({ id: "c" + Date.now().toString(36), label: v }); lsSet(CKEY, cs); renderTodo(); $("tdnewcat").focus(); return; }
+  if (e.target.closest("#tdaddcat")) { const v = $("tdnewcat").value.trim(); if (!v) return; const cs = tdCats().slice(); cs.push({ id: "c" + Date.now().toString(36), label: v, icon: $("tdnewico").value.trim() || "📌" }); lsSet(CKEY, cs); renderTodo(); $("tdnewcat").focus(); return; }
   if (e.target.closest("#tdresetcat")) { lsSet(CKEY, DEF_CATS); renderTodo(); }
 });
 $("tdeditor").addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.id === "tdnewcat") { e.preventDefault(); $("tdaddcat").click(); } });
