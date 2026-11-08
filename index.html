@@ -933,29 +933,24 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .rxcard-b { padding: 4px 16px 18px; }
 .rxcard-b h2.rx-h { font-size: 22px; }
 /* Finjustering: navigation, genveje, statistik */
-.navmenu { display: none; }
-@media (min-width: 701px) { .tabs { flex-wrap: wrap !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; } }
+/* Menu: samme dropdown på alle skærme */
+.navmenu { display: flex !important; align-items: center; gap: 10px; box-sizing: border-box; min-height: 44px; padding: 6px 12px !important; border: 1px solid var(--line) !important; border-radius: 12px !important; background: var(--surface) !important; color: var(--ink) !important; font: inherit; font-size: 15px; cursor: pointer; text-align: left; }
+.navmenu svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.navmenu .nm-l { display: none; } .navmenu b { font-size: 16px; }
+.navmenu[aria-expanded="true"] .nm-c { transform: rotate(180deg); }
+.navwrap { display: contents; }
+.navwrap .tabs { display: none; position: fixed !important; top: calc(var(--hh, 64px) + env(safe-area-inset-top, 0px)); left: 16px; right: 16px; width: auto; flex-direction: column; flex-wrap: nowrap !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: 0 14px 30px -12px rgba(33,27,23,.35); z-index: 40; }
+.navwrap .tabs.open { display: flex; }
+.navwrap .tabs .tab { flex: none !important; width: 100%; text-align: left; font-size: 16px !important; min-height: 46px !important; padding: 10px 12px !important; }
+header { position: sticky; top: 0; z-index: 35; background: var(--bg); justify-content: flex-start !important; flex-wrap: nowrap !important; padding: 8px 0 !important; margin-top: -10px; }
+header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hdr-r .hist { min-width: 0; } header .hdr-r select { max-width: 220px; } header .hdr-r button { white-space: nowrap; flex: none; } .navmenu b { white-space: nowrap; }
+@media (min-width: 701px) { .navwrap .tabs { right: auto; width: 280px; } header .navmenu { margin-left: 8px; } }
 @media (max-width: 700px) {
-  .navwrap { position: sticky; }
-  .navmenu { display: flex !important; align-items: center; gap: 10px; width: 100%; box-sizing: border-box; min-height: 48px; padding: 8px 14px !important; border: 1px solid var(--line) !important; border-radius: 12px !important; background: var(--surface) !important; color: var(--ink) !important; font: inherit; font-size: 15px; cursor: pointer; text-align: left; }
-  .navmenu svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .navmenu .nm-l { color: var(--muted); font-size: 13px; } .navmenu b { flex: 1; font-size: 16px; }
-  .navmenu[aria-expanded="true"] .nm-c { transform: rotate(180deg); }
-  .navwrap .tabs { display: none; position: absolute; left: 0; right: 0; top: calc(100% - 2px); flex-direction: column; flex-wrap: nowrap !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: 0 14px 30px -12px rgba(33,27,23,.35); z-index: 40; }
-  .navwrap .tabs.open { display: flex; }
-  .navwrap .tabs .tab { flex: none !important; width: 100%; text-align: left; font-size: 16px !important; min-height: 46px !important; padding: 10px 12px !important; }
+  header .brand { width: auto !important; flex-direction: row !important; flex: 0 1 auto; }
+  header .navmenu { flex: 0 0 auto; margin-left: auto; }
   .htile { padding: 10px 12px !important; } .htile .hti { width: 32px; height: 32px; margin-bottom: 2px; } .htile .hts { font-size: 12.5px; }
 }
 .hstat-cap { margin: -4px 0 12px; font-size: 12.5px; color: var(--muted); text-align: center; }
-/* Menuknap øverst ved logoet (mobil) */
-@media (max-width: 700px) {
-  header { position: sticky; top: 0; z-index: 35; background: var(--bg); flex-wrap: nowrap !important; padding: 8px 0 !important; margin-top: -10px; }
-  header .brand { width: auto !important; flex-direction: row !important; flex: 0 1 auto; }
-  header .navmenu { width: auto !important; flex: 0 0 auto; margin-left: auto; min-height: 44px; padding: 6px 12px !important; }
-  header .navmenu b { flex: none; } header .navmenu .nm-l { display: none; }
-  .navwrap { display: contents; }
-  .navwrap .tabs { position: fixed !important; top: calc(var(--hh, 64px) + env(safe-area-inset-top, 0px)); left: 16px; right: 16px; width: auto; }
-}
 </style>
 
 <div id="tp-over" hidden role="dialog" aria-modal="true" aria-label="QR-kode til Trustpilot"><div class="tp-ov-in"><p>Scan og giv os en anmeldelse</p><div class="tp-ov-qr" id="tp-ov-qr"></div><button type="button" id="tp-close">Luk</button></div></div>
@@ -3833,7 +3828,7 @@ function navSync() {
   if (sel) $("navcur").textContent = sel.childNodes[0].textContent.trim();
   $("navmenu").setAttribute("aria-expanded", "false"); $("navtabs").classList.remove("open");
 }
-$("navmenu").addEventListener("click", () => { const o = !$("navtabs").classList.contains("open"); $("navtabs").classList.toggle("open", o); $("navmenu").setAttribute("aria-expanded", String(o)); });
+$("navmenu").addEventListener("click", () => { const o = !$("navtabs").classList.contains("open"); $("navtabs").style.left = innerWidth > 700 ? Math.round($("navmenu").getBoundingClientRect().left) + "px" : ""; $("navtabs").classList.toggle("open", o); $("navmenu").setAttribute("aria-expanded", String(o)); });
 document.addEventListener("click", (e) => { if (!e.target.closest(".navwrap, #navmenu")) { $("navtabs").classList.remove("open"); $("navmenu").setAttribute("aria-expanded", "false"); } });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") { $("navtabs").classList.remove("open"); $("navmenu").setAttribute("aria-expanded", "false"); } });
 navSync();
