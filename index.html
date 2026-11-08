@@ -822,27 +822,6 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .swrow input:checked + .swtrack::after { transform: translateX(18px); }
 .swrow input:focus-visible + .swtrack { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-/* Mødenoter */
-.mn { max-width: 720px; margin: 0 auto; }
-.mn-rec { text-align: center; margin: 6px 0 18px; }
-.mn-mic { display: inline-flex !important; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 190px; height: 190px; border-radius: 50% !important; border: 0 !important; background: var(--brand) !important; color: var(--brand-ink) !important; font: inherit !important; font-weight: 700 !important; font-size: 16px !important; cursor: pointer; padding: 16px !important; box-shadow: 0 10px 28px -8px rgba(58,36,23,.55); }
-.mn-mic svg { width: 54px; height: 54px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.mn-mic.on { background: #C23B22 !important; color: #fff !important; animation: mnpulse 1.4s ease-in-out infinite; }
-@keyframes mnpulse { 0% { box-shadow: 0 0 0 0 rgba(194,59,34,.5); } 70% { box-shadow: 0 0 0 28px rgba(194,59,34,0); } 100% { box-shadow: 0 0 0 0 rgba(194,59,34,0); } }
-@media (prefers-reduced-motion: reduce) { .mn-mic.on { animation: none; } }
-.mn-hint { color: var(--muted); font-size: 13.5px; max-width: 480px; margin: 14px auto 0; }
-.mn-l { display: block; font-weight: 600; margin: 0 0 6px; } .mn-l small { font-weight: 400; color: var(--muted); }
-.mn textarea { width: 100%; box-sizing: border-box; }
-.mn-sec { margin: 8px 0 14px; }
-.mn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; margin-bottom: 12px; }
-.mn-grid .mn-wide { grid-column: 1 / -1; }
-.mn-btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 24px; }
-.mn-h { font-size: 18px; margin: 8px 0 10px; }
-.mn-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
-.mn-card p { margin: 4px 0; font-size: 14.5px; } .mn-ch small { float: right; color: var(--muted); }
-.mn-ca { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; } .mn-ca button { min-height: 38px; padding: 6px 12px; }
-.mn-empty { color: var(--muted); }
-@media (max-width: 520px) { .mn-grid { grid-template-columns: 1fr; } }
 /* Trustpilot-side */
 .tp { max-width: 520px; margin: 22px auto 0; text-align: center; background: linear-gradient(160deg, #3A2417, #1E130C); color: #fff; border-radius: 24px; padding: 30px 22px 26px; box-shadow: var(--shadow-md, 0 8px 24px -10px rgba(58,36,23,.3)); }
 .tp-eb { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #F6C9A3; }
@@ -940,7 +919,6 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       <button type="button" role="tab" class="tab" id="tabbtn-work" data-tab="work" aria-selected="false">Tilbud<span class="tabn" id="todo-n"></span></button>
       <button type="button" role="tab" class="tab" id="tabbtn-tco" data-tab="tco" aria-selected="false">TCO Beregner</button>
       <button type="button" role="tab" class="tab" id="tabbtn-kaf" data-tab="kaf" aria-selected="false">Kaffeakademiet</button>
-      <button type="button" role="tab" class="tab" id="tabbtn-note" data-tab="note" aria-selected="false">Mødenoter</button>
       <button type="button" role="tab" class="tab" id="tabbtn-rules" data-tab="rules" aria-selected="false">Salgsregler</button>
     </nav>
   </div>
@@ -978,7 +956,6 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       <button type="button" class="htile" data-go="over"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-7M2 20h20"/></svg></span><span class="htt">Tilbudsoversigt</span><span class="hts">Status på sendte tilbud</span></button>
       <button type="button" class="htile" data-go="tco"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg></span><span class="htt">TCO Beregner</span><span class="hts">Vis hvad kaffen koster i dag</span></button>
       <button type="button" class="htile" data-go="kaf"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v3M12 3v3"/></svg></span><span class="htt">Kaffeakademiet</span><span class="hts">Slå kaffeviden op på 15 sekunder</span></button>
-      <button type="button" class="htile" data-go="note"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="htt">Mødenoter</span><span class="hts">Tal ind efter mødet, få felterne udfyldt</span></button>
       <button type="button" class="htile" data-go="rules"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="htt">Salgsregler</span><span class="hts">Booking, outcome og 21-dages fristen</span></button>
     </div>
     <div class="hcard" id="hnext" hidden style="display:none !important"><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
@@ -1216,31 +1193,6 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   </section>
   </section>
 
-  <section id="tab-note" role="tabpanel" aria-labelledby="tabbtn-note" hidden>
-    <div class="mn">
-      <div class="mn-rec">
-        <button type="button" id="mn-mic" class="mn-mic" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span id="mn-miclbl">Tryk og fortæl om mødet</span></button>
-        <p class="mn-hint" id="mn-hint">Sig fx: «Møde med Anna hos Nordic Design, 12 ansatte, de bruger Nespresso i dag. Jeg tilbød en Swan på 36 måneder. Ring tirsdag i næste uge kl. 10.»</p>
-      </div>
-      <label class="mn-l" for="mn-text">Referat <small>(du kan også skrive eller rette)</small></label>
-      <textarea id="mn-text" rows="5" placeholder="Din tale vises her …"></textarea>
-      <button type="button" id="mn-parse" class="mn-sec">Udfyld felterne fra referatet</button>
-      <div class="mn-grid">
-        <div class="field"><label for="mn-firma">Virksomhed</label><input type="text" id="mn-firma" autocomplete="off"></div>
-        <div class="field"><label for="mn-kontakt">Kontaktperson</label><input type="text" id="mn-kontakt" autocomplete="off"></div>
-        <div class="field"><label for="mn-ans">Antal ansatte / kaffedrikkere</label><input type="text" id="mn-ans" inputmode="numeric" autocomplete="off"></div>
-        <div class="field"><label for="mn-nu">Nuværende løsning</label><input type="text" id="mn-nu" autocomplete="off"></div>
-        <div class="field mn-wide"><label for="mn-tilbudt">Hvad er der tilbudt</label><textarea id="mn-tilbudt" rows="2"></textarea></div>
-        <div class="field"><label for="mn-fud">Opfølgning, dato</label><input type="date" id="mn-fud"></div>
-        <div class="field"><label for="mn-fut">Tidspunkt</label><input type="time" id="mn-fut" value="09:00"></div>
-        <div class="field mn-wide"><label for="mn-fun">Aftale om opfølgning</label><input type="text" id="mn-fun" autocomplete="off" placeholder="Fx: Ring og hør om de har talt med direktionen"></div>
-      </div>
-      <div class="mn-btns"><button type="button" id="mn-save" class="primary">Gem note</button><button type="button" id="mn-ics" class="mn-sec">Læg opfølgning i kalender</button><button type="button" id="mn-clear" class="mn-sec">Ryd</button></div>
-      <h2 class="mn-h">Gemte mødenoter</h2>
-      <div id="mn-list"></div>
-      <p class="hint">Noterne gemmes kun i denne browser. Talegenkendelsen kører i telefonens eller browserens egen tjeneste og virker bedst i Chrome og Safari.</p>
-    </div>
-  </section>
   <section id="tab-rules" role="tabpanel" aria-labelledby="tabbtn-rules" hidden>
     <div class="kv-art" style="max-width:760px">
       <div class="rl-hero"><p class="eb">Blackbird Coffee · Intern</p><h2>Interne salgsregler og retningslinjer</h2><p>Opslagsværk til hverdagen. Reglerne sikrer en ensartet salgsproces, høj kvalitet i kundemøderne og tydelig forventningsafstemning mellem sælger, kunde og ledelse. Er du i tvivl om en situation, skal du kunne finde svaret her.</p></div>
@@ -2435,7 +2387,7 @@ function wkCounts() {
 }
 function showTab(n) {
   if (n === "over" || n === "todo") { wkView = "over"; n = "work"; }
-  ["home", "gen", "work", "tco", "kaf", "note", "rules"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
+  ["home", "gen", "work", "tco", "kaf", "rules"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
   $("hdr-gen").hidden = n !== "gen"; placeHdrGen();
   if (n === "gen") fitPreview();
   if (n === "work") {
@@ -3796,122 +3748,6 @@ $("hq").addEventListener("keydown", (e) => {
   if (e.key !== "Enter") return;
   const v = $("hq").value.trim(); $("hq").value = ""; $("hq").blur(); showTab("kaf"); kvSearchFromHome(v);
 });
-/* ---- Mødenoter: tal ind efter mødet → felter ---- */
-const MNK = "bb-moede";
-const MN_SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let mnRec = null, mnOn = false, mnFinal = "", mnSure = null;
-const mnIso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-const mnTitle = (s) => s.trim().replace(/\s+/g, " ").split(" ").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-function mnDate(t) {
-  const L = t.toLowerCase(), d0 = new Date(); d0.setHours(0, 0, 0, 0);
-  const add = (n) => { const d = new Date(d0); d.setDate(d.getDate() + n); return d; };
-  const toMon = (8 - d0.getDay()) % 7 || 7;
-  let m;
-  if (/i overmorgen/.test(L)) return add(2);
-  if (/i morgen/.test(L)) return add(1);
-  if ((m = L.match(/om (\d+|en|et|to|tre|fire|fem|seks) (dag|dage|uge|uger)\b/))) { const nums = { en: 1, et: 1, to: 2, tre: 3, fire: 4, fem: 5, seks: 6 }; const n = nums[m[1]] || +m[1]; return add(/uge/.test(m[2]) ? n * 7 : n); }
-  const days = ["søndag", "mandag", "tirsdag", "onsdag", "torsdag", "fredag", "lørdag"];
-  for (let i = 0; i < 7; i++) if (L.indexOf(days[i]) >= 0) {
-    let diff = (i - d0.getDay() + 7) % 7 || 7;
-    if (/næste uge/.test(L)) diff = toMon + ((i + 6) % 7);
-    return add(diff);
-  }
-  if (/næste uge/.test(L)) return add(toMon);
-  const mon = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"];
-  if ((m = L.match(/(\d{1,2})\.? (januar|februar|marts|april|maj|juni|juli|august|september|oktober|november|december)/))) {
-    const d = new Date(d0.getFullYear(), mon.indexOf(m[2]), +m[1]); if (d < d0) d.setFullYear(d.getFullYear() + 1); return d;
-  }
-  if ((m = L.match(/\b(\d{1,2})\/(\d{1,2})\b/))) { const d = new Date(d0.getFullYear(), +m[2] - 1, +m[1]); if (d < d0) d.setFullYear(d.getFullYear() + 1); return d; }
-  return null;
-}
-function mnParse(onlyEmpty) {
-  const text = $("mn-text").value.trim().replace(/\b(kr|kl|ca|pr|fx|mdr|dkk)\.(?=\s)/gi, "$1"); if (!text) return;
-  const sent = text.split(/(?:[.!?]\s+|\n+)/).map((x) => x.trim()).filter(Boolean);
-  const set = (id, v) => { const el = $(id); if (v && (!onlyEmpty || !el.value.trim())) el.value = v; };
-  const cap = "([A-ZÆØÅa-zæøå][\\wæøåÆØÅ&.\\-]*(?:\\s+[A-ZÆØÅa-zæøå][\\wæøåÆØÅ&.\\-]*){0,2})";
-  let m;
-  if ((m = text.match(/\bhos\s+([A-ZÆØÅ][\wæøåÆØÅ&\-]*(?:\s+[A-ZÆØÅ][\wæøåÆØÅ&\-]*){0,3})/))) set("mn-firma", m[1].trim());
-  if ((m = text.match(/\b(?:[Mm]øde|[Mm]ødtes|[Ss]nakkede|[Tt]alte|[Ss]amtale)\s+(?:med|m\.)\s+([A-ZÆØÅ][a-zæøå]+(?:\s+[A-ZÆØÅ][a-zæøå]+)?)/))) set("mn-kontakt", m[1].trim());
-  if ((m = text.match(/(\d+)\s*(?:ansatte|medarbejdere|kolleger|personer|mand|kaffedrikkere)/i))) set("mn-ans", m[1]);
-  const brands = "nespresso|jura|franke|wmf|delonghi|de'longhi|de longhi|tchibo|selecta|lavazza|nescafe|nescafé|melitta|bonamat|moccamaster|filterkaffe|kapselmaskine|bønnemaskine|kaffemaskine|instant|pulverkaffe|termokande";
-  const nu = sent.find((x) => new RegExp("(i dag|nuværende|bruger|har)\\b[^]*\\b(" + brands + ")", "i").test(x));
-  if (nu) { const b = nu.match(new RegExp("\\b(" + brands + ")\\b", "i")); if (b) set("mn-nu", mnTitle(b[1])); }
-  const off = sent.filter((x) => /tilbød|tilbud|foreslog|anbefalede|præsenterede|vi snakkede om|lød på/i.test(x) && !/ring|følg op/i.test(x));
-  if (off.length) set("mn-tilbudt", off.join(". "));
-  const fu = sent.filter((x) => /ring|følg op|opfølg|vende tilbage|kontakt|næste møde|aftalt|vi ses|skriv/i.test(x));
-  if (fu.length) {
-    const ft = fu.join(" ");
-    const d = mnDate(ft); if (d) set("mn-fud", mnIso(d));
-    const tm = ft.match(/kl(?:\.|okken)?\s*(\d{1,2})(?:[:.](\d{2}))?/i);
-    if (tm) set("mn-fut", String(+tm[1]).padStart(2, "0") + ":" + (tm[2] || "00"));
-    set("mn-fun", fu[0].replace(/\s+/g, " "));
-  }
-}
-function mnRead() { return { firma: $("mn-firma").value.trim(), kontakt: $("mn-kontakt").value.trim(), ans: $("mn-ans").value.trim(), nu: $("mn-nu").value.trim(), tilbudt: $("mn-tilbudt").value.trim(), fud: $("mn-fud").value, fut: $("mn-fut").value || "09:00", fun: $("mn-fun").value.trim(), text: $("mn-text").value.trim() }; }
-function mnFmtD(iso) { return iso ? new Date(iso + "T00:00:00").toLocaleDateString("da-DK", { weekday: "long", day: "numeric", month: "long" }) : ""; }
-function mnTxt(n) {
-  return ["Mødenote – " + (n.firma || "kunde") + (n.kontakt ? " (" + n.kontakt + ")" : ""), n.ans ? "Ansatte/kaffedrikkere: " + n.ans : "", n.nu ? "Nuværende løsning: " + n.nu : "", n.tilbudt ? "Tilbudt: " + n.tilbudt : "",
-    n.fud ? "Opfølgning: " + mnFmtD(n.fud) + " kl. " + n.fut + (n.fun ? " – " + n.fun : "") : "", n.text ? "\nReferat:\n" + n.text : ""].filter(Boolean).join("\n");
-}
-function mnIcs(n) {
-  if (!n.fud) { flash("Vælg en dato for opfølgningen først.", "err"); return; }
-  const d = new Date(n.fud + "T" + n.fut + ":00"), e = new Date(d.getTime() + 30 * 60000);
-  const f2 = (x) => x.getFullYear() + String(x.getMonth() + 1).padStart(2, "0") + String(x.getDate()).padStart(2, "0") + "T" + String(x.getHours()).padStart(2, "0") + String(x.getMinutes()).padStart(2, "0") + "00";
-  const esc2 = (t) => String(t).replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
-  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Blackbird Coffee//Moedenote//DA", "BEGIN:VEVENT", "UID:" + Date.now() + "@blackbirdcoffee.dk", "DTSTAMP:" + f2(new Date()), "DTSTART:" + f2(d), "DTEND:" + f2(e),
-    "SUMMARY:" + esc2("Følg op: " + (n.firma || "kunde") + (n.kontakt ? " (" + n.kontakt + ")" : "")), "DESCRIPTION:" + esc2(mnTxt(n)), "BEGIN:VALARM", "TRIGGER:-PT0M", "ACTION:DISPLAY", "DESCRIPTION:Opfølgning", "END:VALARM", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })); a.download = "Opfølgning - " + (n.firma || "kunde") + ".ics"; document.body.appendChild(a); a.click(); a.remove();
-  flash("Påmindelsen er hentet – åbn filen for at lægge den i din kalender.", "ok");
-}
-function mnList() {
-  const L = lsGet(MNK, []);
-  $("mn-list").innerHTML = L.length ? L.map((n) => `<div class="mn-card" data-id="${esc(n.id)}"><div class="mn-ch"><b>${esc(n.firma || "Uden navn")}</b>${n.kontakt ? " · " + esc(n.kontakt) : ""}<small>${new Date(n.at).toLocaleDateString("da-DK", { day: "numeric", month: "short", year: "numeric" })}</small></div>` +
-    (n.ans ? `<p><strong>Ansatte:</strong> ${esc(n.ans)}</p>` : "") + (n.nu ? `<p><strong>Nuværende løsning:</strong> ${esc(n.nu)}</p>` : "") + (n.tilbudt ? `<p><strong>Tilbudt:</strong> ${esc(n.tilbudt)}</p>` : "") +
-    (n.fud ? `<p><strong>Opfølgning:</strong> ${esc(mnFmtD(n.fud))} kl. ${esc(n.fut)}${n.fun ? " – " + esc(n.fun) : ""}</p>` : "") +
-    `<div class="mn-ca"><button type="button" data-a="edit">Åbn</button><button type="button" data-a="copy">Kopiér</button>${n.fud ? '<button type="button" data-a="ics">Kalender</button>' : ""}<button type="button" data-a="del">${mnSure === n.id ? "Er du sikker?" : "Fjern"}</button></div></div>`).join("") : '<p class="mn-empty">Ingen noter endnu.</p>';
-}
-function mnSet(n) { $("mn-text").value = n.text || ""; $("mn-firma").value = n.firma || ""; $("mn-kontakt").value = n.kontakt || ""; $("mn-ans").value = n.ans || ""; $("mn-nu").value = n.nu || ""; $("mn-tilbudt").value = n.tilbudt || ""; $("mn-fud").value = n.fud || ""; $("mn-fut").value = n.fut || "09:00"; $("mn-fun").value = n.fun || ""; mnFinal = n.text || ""; }
-function mnUi() {
-  $("mn-mic").classList.toggle("on", mnOn); $("mn-mic").setAttribute("aria-pressed", String(mnOn));
-  $("mn-miclbl").textContent = mnOn ? "Lytter … tryk for at stoppe" : "Tryk og fortæl om mødet";
-}
-function mnStart() {
-  if (!MN_SR) { flash("Din browser understøtter ikke talegenkendelse her. Brug mikrofonen på tastaturet til at tale ind i referat-feltet i stedet.", "err"); $("mn-text").focus(); return; }
-  mnFinal = $("mn-text").value.trim(); if (mnFinal) mnFinal += " ";
-  const r = new MN_SR(); mnRec = r; r.lang = "da-DK"; r.continuous = true; r.interimResults = true;
-  r.onresult = (e) => {
-    let interim = "";
-    for (let i = e.resultIndex; i < e.results.length; i++) { const t = e.results[i][0].transcript; if (e.results[i].isFinal) mnFinal += t.trim() + " "; else interim += t; }
-    $("mn-text").value = (mnFinal + interim).trim();
-  };
-  r.onerror = (e) => { if (e.error === "not-allowed" || e.error === "service-not-allowed") { mnOn = false; flash("Mikrofonen er blokeret. Giv siden adgang til mikrofonen i browserens indstillinger.", "err"); } else if (e.error === "audio-capture") { mnOn = false; flash("Ingen mikrofon fundet.", "err"); } };
-  r.onend = () => { if (mnOn) { try { r.start(); return; } catch (x) {} } mnOn = false; mnUi(); $("mn-text").value = mnFinal.trim(); mnParse(true); };
-  try { r.start(); mnOn = true; } catch (x) { mnOn = false; }
-  mnUi();
-}
-function mnStop() { mnOn = false; try { mnRec && mnRec.stop(); } catch (x) {} mnUi(); }
-$("mn-mic").addEventListener("click", () => (mnOn ? mnStop() : mnStart()));
-$("mn-parse").addEventListener("click", () => mnParse(false));
-$("mn-text").addEventListener("input", () => { mnFinal = $("mn-text").value; });
-$("mn-ics").addEventListener("click", () => mnIcs(mnRead()));
-$("mn-clear").addEventListener("click", () => { mnStop(); mnSet({}); });
-$("mn-save").addEventListener("click", () => {
-  const n = mnRead();
-  if (!n.firma && !n.text && !n.tilbudt) { flash("Tal eller skriv noget først.", "err"); return; }
-  n.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 5); n.at = Date.now();
-  const L = lsGet(MNK, []); L.unshift(n); lsSet(MNK, L.slice(0, 300));
-  mnStop(); mnSet({}); mnList(); flash("Mødenoten er gemt.", "ok");
-});
-$("mn-list").addEventListener("click", async (e) => {
-  const b = e.target.closest("button[data-a]"); if (!b) return;
-  const id = b.closest(".mn-card").dataset.id, L = lsGet(MNK, []), n = L.find((x) => x.id === id); if (!n) return;
-  const a = b.dataset.a;
-  if (a === "edit") { mnSet(n); window.scrollTo({ top: 0, behavior: "smooth" }); flash("Noten er åbnet. Ret den, og gem som ny, hvis du vil beholde begge.", "ok"); }
-  else if (a === "ics") mnIcs(n);
-  else if (a === "copy") { let ok = false; try { await navigator.clipboard.writeText(mnTxt(n)); ok = true; } catch (x) {} flash(ok ? "Noten er kopieret." : "Kunne ikke kopiere.", ok ? "ok" : "err"); }
-  else if (a === "del") { if (mnSure === id) { lsSet(MNK, L.filter((x) => x.id !== id)); mnSure = null; } else mnSure = id; mnList(); }
-});
-mnList();
 renderHome();
 
 const _upd = update;
