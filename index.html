@@ -947,6 +947,14 @@ label.check small { font-weight: 400; opacity: .75; }
 .field:has(> label.check) > .lbl, .field:has(> label.check) > .hint { display: block; margin: 0 0 8px; }
 .field:has(> label.check) > .hint { margin-top: 2px; }
 label.check { align-self: auto; }
+/* Valgknapper i tilbudsgeneratoren: ens ring og flueben på alle */
+:root { --ck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.5'/%3E%3C/svg%3E"); }
+#tab-gen .pill { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+#tab-gen .pill::before { content: ""; flex: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--muted); box-sizing: border-box; }
+#tab-gen .pill[aria-checked="true"]::before { border-color: transparent; background-color: currentColor; -webkit-mask: var(--ck) center / 16px no-repeat; mask: var(--ck) center / 16px no-repeat; }
+#tab-gen .tile { position: relative; }
+#tab-gen .tile[aria-checked="true"]::after { content: ""; position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--brand); }
+#tab-gen .tile[aria-checked="true"]::before { content: ""; position: absolute; z-index: 1; top: 6px; right: 6px; width: 22px; height: 22px; background-color: var(--brand-ink); -webkit-mask: var(--ck) center / 14px no-repeat; mask: var(--ck) center / 14px no-repeat; }
 /* Finjustering: navigation, genveje, statistik */
 /* Navigation: faner i headeren på computer, menuknap på mobil */
 header { position: sticky; top: 0; z-index: 35; background: var(--bg); padding: 8px 0 !important; margin-top: -10px; }
