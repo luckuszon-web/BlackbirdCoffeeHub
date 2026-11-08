@@ -955,7 +955,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
     <div class="admbox">
       <div class="admtop"><b>Admin</b><span id="admwho"></span><button type="button" id="admclose" aria-label="Luk">✕</button></div>
       <form id="admform" autocomplete="on">
-        <label for="admemail">E-mail</label><input type="email" id="admemail" autocomplete="username" value="lb@blackbirdcoffee.dk" required>
+        <label for="admemail">E-mail</label><input type="email" id="admemail" autocomplete="off" placeholder="E-mail" required>
         <label for="admpw">Adgangskode</label><input type="password" id="admpw" autocomplete="current-password" required>
         <div class="admerr" id="admerr"></div>
         <button type="submit" id="admgo">Log ind</button>
@@ -2118,7 +2118,7 @@ function admCsv() {
   const L = [H.join(";")].concat(admFiltered().map((x) => [x.quote_id, x.quoted_at || x.created_at, x.firma, x.kontakt, x.maskine, x.aftale ? "ja" : "nej", (x.opts || []).map((o) => o.pris + "/" + (o.periode || "")).join(" | "), x.udloeb, x.seller, x.status].map(q).join(";")));
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["\ufeff" + L.join("\n")], { type: "text/csv" })); a.download = "tilbud.csv"; document.body.appendChild(a); a.click(); a.remove();
 }
-function admOpen() { $("adm").hidden = false; document.body.style.overflow = "hidden"; if (admS()) { admView(true); admLoad(); } else { admView(false); setTimeout(() => $("admpw").focus(), 50); } }
+function admOpen() { $("adm").hidden = false; document.body.style.overflow = "hidden"; if (admS()) { admView(true); admLoad(); } else { admView(false); setTimeout(() => $("admemail").focus(), 50); } }
 function admClose() { $("adm").hidden = true; document.body.style.overflow = ""; }
 $("admopen").addEventListener("click", admOpen);
 $("admclose").addEventListener("click", admClose);
