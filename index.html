@@ -753,17 +753,6 @@ details[open] > summary .chev { transform: rotate(-135deg); margin-top: 14px; }
   /* Forside på mobil: de vigtigste genveje før citatet */
   #tab-home:not([hidden]) { display: flex; flex-direction: column; }
   #tab-home > * { margin-top: 0 !important; margin-bottom: 12px !important; }
-  #tab-home > .hero { order: 1; margin-top: 58px !important; }
-  #tab-home > .hstats { order: 2; }
-  #tab-home > .hgrid { order: 3; }
-  #tab-home > #hfactcard.hcard { order: 4; }
-  #tab-home > .dm { order: 5; }
-  #tab-home > #hnext { order: 6; }
-  #tab-home > .hcard:not(#hnext) { order: 7; }
-  #tab-home > .tp { order: 8; margin: 6px auto 12px !important; width: 100%; box-sizing: border-box; }
-  #tab-home > .admfoot { order: 9; }
-  #tab-home > #hnud.hcard { order: 2; }
-  #tab-home > #hfactcard.hcard { order: 4; }
   .dm { padding: 22px 20px 14px; }
   .dm-q { font-size: 22px; }
   /* Søgefeltet over billedet i stedet for hen over det */
@@ -888,6 +877,53 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .sbuser #sbmail { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sbuser #sbstat { font-size: 11px; }
 .sbuser button { background: transparent !important; color: var(--ink) !important; border: 1px solid var(--line) !important; border-radius: 8px !important; padding: 4px 10px !important; font-size: 13px !important; cursor: pointer; white-space: nowrap; }
+/* ---- Forside v2: arbejdsredskaber først, støtteindhold dæmpet ---- */
+#tab-home .hero { min-height: 150px; }
+@media (max-width: 699px) { #tab-home > .hero { margin-top: 58px !important; } }
+#tab-home > .hero h1 { font-size: 26px; }
+.hcta { display: flex !important; align-items: center; gap: 14px; width: 100%; box-sizing: border-box; margin: 14px 0 12px; padding: 18px 20px !important; min-height: 84px; border: 0 !important; border-radius: 18px !important; background: var(--brand) !important; color: var(--brand-ink) !important; text-align: left; font: inherit; cursor: pointer; box-shadow: 0 10px 26px -10px rgba(58,36,23,.6); }
+.hcta:hover { filter: brightness(1.08); }
+.hcta-i { width: 48px; height: 48px; flex: none; border-radius: 14px; display: grid; place-items: center; background: rgba(255,255,255,.16); }
+.hcta-i svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hcta-t { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.hcta-t b { font-size: 22px; line-height: 1.15; } .hcta-t small { font-size: 14px; opacity: .85; font-weight: 400; }
+.hcta-a { font-size: 26px; line-height: 1; }
+.hgrid { margin-bottom: 0; }
+.htile { min-height: 0; }
+#tab-home > .hstats { margin: 12px 0; }
+/* Dæmpet støtteindhold */
+#hfactcard { margin-top: 12px; padding: 12px 14px; background: transparent; border-style: dashed; }
+#hfactcard .hch { margin-bottom: 4px; }
+#hfactcard .hfact { min-height: 0; margin: 0 0 4px; font-size: 14.5px; line-height: 1.45; color: var(--ink); }
+.dm { margin-top: 10px !important; padding: 0 !important; background: var(--surface) !important; color: var(--ink) !important; border: 1px solid var(--line); box-shadow: none !important; border-radius: 14px !important; }
+.dm::before { display: none !important; }
+.dm-eb { display: flex !important; width: 100%; box-sizing: border-box; justify-content: space-between; align-items: center; margin: 0 !important; padding: 12px 14px !important; min-height: 44px; background: transparent !important; border: 0 !important; color: var(--muted) !important; font: inherit; font-size: 12px !important; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.dm-eb::before { display: none !important; }
+.dm-eb svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.dm:not(.closed) .dm-eb svg { transform: rotate(180deg); }
+.dm.closed .dm-body, .dm.closed .dm-bar, .dm.closed .dm-favs { display: none; }
+.dm-body, .dm-bar, .dm-favs { margin-left: 14px; margin-right: 14px; }
+.dm-body { padding-top: 2px; }
+.dm-q { color: var(--ink) !important; font-size: 18px !important; }
+.dm-q.long { font-size: 16px !important; }
+.dm-a { color: var(--accent) !important; } .dm-a span { color: var(--muted) !important; }
+.dm-bar { border-top-color: var(--line) !important; padding-bottom: 12px; }
+.dm-cat { background: var(--bg) !important; color: var(--muted) !important; }
+.dm .dmb { border-color: var(--line) !important; color: var(--ink) !important; }
+.dm .dmb:hover { background: var(--bg) !important; }
+.dm .dmb.on { color: var(--accent) !important; border-color: var(--accent) !important; }
+.dm-favs summary { color: var(--accent) !important; } .dm-fi { border-top-color: var(--line) !important; }
+.dm-fi button.dmshow { color: var(--ink) !important; } .dm-fi button.dmshow small, .dm-empty { color: var(--muted) !important; } .dm-fi button.dmrm { color: var(--accent) !important; }
+/* Kompakt Trustpilot */
+.tp { max-width: none !important; margin: 12px 0 0 !important; text-align: left !important; background: var(--surface) !important; color: var(--ink) !important; border: 1px solid var(--line); box-shadow: none !important; border-radius: 14px !important; padding: 14px !important; }
+.tp h2 { margin: 0 0 4px !important; font-size: 16px !important; color: var(--ink) !important; }
+.tp-s { margin: 0 0 12px !important; max-width: none !important; font-size: 14px !important; color: var(--muted) !important; }
+.tp-btns { justify-content: flex-start !important; }
+.tp-btns button { border: 1.5px solid var(--ink) !important; background: transparent !important; color: var(--ink) !important; min-height: 42px !important; padding: 8px 16px !important; font-size: 14.5px !important; }
+.tp-btns .sec { border-color: var(--line) !important; color: var(--muted) !important; }
+.tp-more { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.tp-more a { color: var(--accent); }
+.tp-more button { font: inherit !important; font-size: 13px !important; background: none !important; border: 0 !important; padding: 0 !important; min-height: 0 !important; color: var(--accent) !important; text-decoration: underline; cursor: pointer; width: auto !important; }
 </style>
 
 <div id="tp-over" hidden role="dialog" aria-modal="true" aria-label="QR-kode til Trustpilot"><div class="tp-ov-in"><p>Scan og giv os en anmeldelse</p><div class="tp-ov-qr" id="tp-ov-qr"></div><button type="button" id="tp-close">Luk</button></div></div>
@@ -915,9 +951,9 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   <div class="navwrap">
     <nav class="tabs" role="tablist" aria-label="Salgsassistent">
       <button type="button" role="tab" class="tab" id="tabbtn-home" data-tab="home" aria-selected="true">Forside</button>
-      <button type="button" role="tab" class="tab" id="tabbtn-gen" data-tab="gen" aria-selected="false">Tilbudsgenerator</button>
-      <button type="button" role="tab" class="tab" id="tabbtn-work" data-tab="work" aria-selected="false">Tilbud<span class="tabn" id="todo-n"></span></button>
-      <button type="button" role="tab" class="tab" id="tabbtn-tco" data-tab="tco" aria-selected="false">TCO Beregner</button>
+      <button type="button" role="tab" class="tab" id="tabbtn-gen" data-tab="gen" aria-selected="false">Nyt tilbud</button>
+      <button type="button" role="tab" class="tab" id="tabbtn-work" data-tab="work" aria-selected="false">Tilbudsoversigt<span class="tabn" id="todo-n"></span></button>
+      <button type="button" role="tab" class="tab" id="tabbtn-tco" data-tab="tco" aria-selected="false">Beregn kaffeomkostninger</button>
       <button type="button" role="tab" class="tab" id="tabbtn-kaf" data-tab="kaf" aria-selected="false">Kaffeakademiet</button>
       <button type="button" role="tab" class="tab" id="tabbtn-rules" data-tab="rules" aria-selected="false">Salgsregler</button>
     </nav>
@@ -933,13 +969,23 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
         <p class="hero-s">Alt til næste kundemøde samlet ét sted.</p>
       </div>
     </div>
+    <button type="button" class="hcta" data-go="gen"><span class="hcta-i"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 15h6M13 12v6"/></svg></span><span class="hcta-t"><b>Nyt tilbud</b><small>Lav et tilbud på få minutter</small></span><span class="hcta-a" aria-hidden="true">→</span></button>
+    <div class="hgrid" id="hgrid">
+      <button type="button" class="htile" data-go="over"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-7M2 20h20"/></svg></span><span class="htt">Tilbudsoversigt</span><span class="hts">Status på sendte tilbud</span></button>
+      <button type="button" class="htile" data-go="tco"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg></span><span class="htt">Beregn kaffeomkostninger</span><span class="hts">Vis hvad kaffen koster i dag</span></button>
+      <button type="button" class="htile" data-go="kaf"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v3M12 3v3"/></svg></span><span class="htt">Kaffeakademiet</span><span class="hts">Slå kaffeviden op på 15 sekunder</span></button>
+      <button type="button" class="htile" data-go="rules"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="htt">Salgsregler</span><span class="hts">Booking, outcome og 21-dages fristen</span></button>
+    </div>
+    <div class="hcard" id="hnud" hidden><h2 class="hch">Skal følges op</h2><div id="hnudl"></div></div>
+    <div class="hstats" id="hstats"></div>
+    <div class="hcard" id="hnext" hidden style="display:none !important"><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
     <div class="hcard" id="hfactcard">
       <h2 class="hch">Kaffefakta</h2>
       <p class="hfact" id="hfact"></p>
       <button type="button" class="hlink" data-go="kaf">Åbn Kaffeakademiet</button>
     </div>
-    <section class="dm" id="dm" aria-label="Blackbird Coffee – Daily Motivation">
-      <p class="dm-eb">Blackbird Coffee – Daily Motivation</p>
+    <section class="dm closed" id="dm" aria-label="Blackbird Coffee – Daily Motivation">
+      <button type="button" class="dm-eb" id="dm-tg" aria-expanded="false" aria-controls="dm-body"><span>Daily Motivation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="dm-body" id="dm-body" aria-live="polite"></div>
       <div class="dm-bar">
         <span class="dm-cat" id="dm-cat"></span>
@@ -949,30 +995,14 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       </div>
       <details class="dm-favs" id="dm-favs"><summary id="dm-favsum">Mine favoritter</summary><div id="dm-favl"></div></details>
     </section>
-    <div class="hstats" id="hstats"></div>
-    <div class="hcard" id="hnud" hidden><h2 class="hch">Skal følges op</h2><div id="hnudl"></div></div>
-    <div class="hgrid" id="hgrid">
-      <button type="button" class="htile" data-go="gen"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 15h6M13 12v6"/></svg></span><span class="htt">Nyt tilbud</span><span class="hts">Lav et tilbud på få minutter</span></button>
-      <button type="button" class="htile" data-go="over"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V4M16 20v-7M2 20h20"/></svg></span><span class="htt">Tilbudsoversigt</span><span class="hts">Status på sendte tilbud</span></button>
-      <button type="button" class="htile" data-go="tco"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M8 16h2M12 16h2"/></svg></span><span class="htt">TCO Beregner</span><span class="hts">Vis hvad kaffen koster i dag</span></button>
-      <button type="button" class="htile" data-go="kaf"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v3M12 3v3"/></svg></span><span class="htt">Kaffeakademiet</span><span class="hts">Slå kaffeviden op på 15 sekunder</span></button>
-      <button type="button" class="htile" data-go="rules"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="htt">Salgsregler</span><span class="hts">Booking, outcome og 21-dages fristen</span></button>
-    </div>
-    <div class="hcard" id="hnext" hidden style="display:none !important"><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
     <div class="tp" id="tp-home">
-      <p class="tp-eb">Blackbird Coffee</p>
-      <h2>Del din oplevelse på Trustpilot</h2>
-      <p class="tp-s">Scan koden med kameraet på din telefon. Det tager under et minut, og din mening betyder meget for os.</p>
-      <div class="tp-stars" aria-hidden="true">★★★★★</div>
-      <div class="tp-qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" id="tpqr" role="img" aria-label="QR-kode til Trustpilot-anmeldelse af Blackbird Coffee" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#1e130c" d="M4 4.5h7m5 0h2m2 0h4m1 0h3m2 0h7m-33 1h1m5 0h1m6 0h6m5 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m1 0h5m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h5m1 0h4m3 0h2m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m5 0h1m2 0h1m1 0h3m-23 1h1m1 0h5m2 0h7m1 0h1m2 0h1m1 0h1m3 0h5m-31 1h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h2m1 0h1m-30 1h2m1 0h1m2 0h2m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m1 0h2m-31 1h2m2 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h5m2 0h2m1 0h3m-31 1h2m3 0h3m1 0h1m2 0h1m2 0h1m2 0h2m2 0h1m1 0h2m1 0h3m1 0h1m-31 1h4m2 0h3m2 0h5m1 0h4m1 0h1m2 0h1m2 0h4m-33 1h2m1 0h1m1 0h2m1 0h4m1 0h1m3 0h2m5 0h3m2 0h3m-32 1h1m1 0h1m4 0h2m1 0h2m1 0h1m2 0h1m2 0h9m2 0h1m-28 1h1m1 0h2m1 0h4m2 0h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h2m3 0h1m-33 1h2m5 0h2m2 0h2m1 0h1m1 0h8m2 0h2m1 0h4m-32 1h1m1 0h1m1 0h5m1 0h1m3 0h3m4 0h1m1 0h1m1 0h3m1 0h2m-32 1h2m1 0h2m5 0h2m1 0h1m1 0h4m1 0h2m1 0h1m1 0h7m-31 1h2m3 0h2m2 0h4m1 0h2m2 0h1m2 0h2m1 0h1m1 0h3m-30 1h1m1 0h1m1 0h2m2 0h2m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m-33 1h1m5 0h2m1 0h2m1 0h1m2 0h3m2 0h3m2 0h1m1 0h1m1 0h1m1 0h1m-32 1h1m4 0h1m2 0h1m2 0h1m3 0h1m4 0h2m2 0h1m3 0h4m-32 1h1m2 0h13m1 0h1m4 0h7m2 0h1m-24 1h1m1 0h3m1 0h1m1 0h1m1 0h5m1 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m3 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m7 0h1m4 0h1m2 0h1m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h6m4 0h2m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h7m1 0h3m1 0h1m1 0h1m2 0h1m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m7 0h2m4 0h2m-28 1h1m5 0h1m2 0h1m2 0h1m1 0h1m1 0h1m3 0h2m6 0h3m-31 1h7m1 0h5m4 0h2m3 0h3m1 0h2m3 0h1"/></svg></div>
-      <p class="tp-link"><a href="https://dk.trustpilot.com/evaluate/blackbirdcoffee.dk" target="_blank" rel="noopener">dk.trustpilot.com/evaluate/blackbirdcoffee.dk</a></p>
+      <div class="tp-t"><h2>Bed kunden om en anmeldelse</h2><p class="tp-s">Vis QR-koden, så kunden kan scanne den og skrive en anmeldelse på Trustpilot.</p></div>
+      <div class="tp-qr" hidden><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" id="tpqr" role="img" aria-label="QR-kode til Trustpilot-anmeldelse af Blackbird Coffee" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#1e130c" d="M4 4.5h7m5 0h2m2 0h4m1 0h3m2 0h7m-33 1h1m5 0h1m6 0h6m5 0h1m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m1 0h5m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h5m1 0h4m3 0h2m1 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m5 0h1m2 0h1m1 0h3m-23 1h1m1 0h5m2 0h7m1 0h1m2 0h1m1 0h1m3 0h5m-31 1h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h2m2 0h2m1 0h2m1 0h1m-30 1h2m1 0h1m2 0h2m1 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m1 0h2m-31 1h2m2 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h5m2 0h2m1 0h3m-31 1h2m3 0h3m1 0h1m2 0h1m2 0h1m2 0h2m2 0h1m1 0h2m1 0h3m1 0h1m-31 1h4m2 0h3m2 0h5m1 0h4m1 0h1m2 0h1m2 0h4m-33 1h2m1 0h1m1 0h2m1 0h4m1 0h1m3 0h2m5 0h3m2 0h3m-32 1h1m1 0h1m4 0h2m1 0h2m1 0h1m2 0h1m2 0h9m2 0h1m-28 1h1m1 0h2m1 0h4m2 0h1m1 0h2m1 0h1m2 0h1m2 0h1m1 0h2m3 0h1m-33 1h2m5 0h2m2 0h2m1 0h1m1 0h8m2 0h2m1 0h4m-32 1h1m1 0h1m1 0h5m1 0h1m3 0h3m4 0h1m1 0h1m1 0h3m1 0h2m-32 1h2m1 0h2m5 0h2m1 0h1m1 0h4m1 0h2m1 0h1m1 0h7m-31 1h2m3 0h2m2 0h4m1 0h2m2 0h1m2 0h2m1 0h1m1 0h3m-30 1h1m1 0h1m1 0h2m2 0h2m1 0h1m1 0h3m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m-33 1h1m5 0h2m1 0h2m1 0h1m2 0h3m2 0h3m2 0h1m1 0h1m1 0h1m1 0h1m-32 1h1m4 0h1m2 0h1m2 0h1m3 0h1m4 0h2m2 0h1m3 0h4m-32 1h1m2 0h13m1 0h1m4 0h7m2 0h1m-24 1h1m1 0h3m1 0h1m1 0h1m1 0h5m1 0h1m3 0h1m1 0h1m1 0h1m-33 1h7m3 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m7 0h1m4 0h1m2 0h1m3 0h4m-32 1h1m1 0h3m1 0h1m1 0h6m4 0h2m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m1 0h7m1 0h3m1 0h1m1 0h1m2 0h1m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h3m1 0h1m7 0h2m4 0h2m-28 1h1m5 0h1m2 0h1m2 0h1m1 0h1m1 0h1m3 0h2m6 0h3m-31 1h7m1 0h5m4 0h2m3 0h3m1 0h2m3 0h1"/></svg></div>
       <div class="tp-btns">
-        <button type="button" id="tp-full">Vis stort til kunden</button>
+        <button type="button" id="tp-full">Vis QR-kode</button>
         <button type="button" id="tp-copy" class="sec">Kopiér link</button>
-        <a class="tpb sec" href="https://dk.trustpilot.com/evaluate/blackbirdcoffee.dk" target="_blank" rel="noopener">Åbn Trustpilot</a>
-        <button type="button" id="tp-png" class="sec">Hent QR som billede</button>
       </div>
-      <p class="tp-hint">Tip: Vis siden på din telefon eller tablet, og lad kunden scanne direkte fra skærmen.</p>
+      <p class="tp-more"><a href="https://dk.trustpilot.com/evaluate/blackbirdcoffee.dk" target="_blank" rel="noopener">Åbn Trustpilot</a> · <button type="button" id="tp-png">Hent QR som billede</button></p>
     </div>
     <p class="admfoot"><button type="button" id="admopen">Admin</button></p>
   </section>
@@ -3148,7 +3178,7 @@ KV_ART.push(
   ],
   know: ["Fuldautomat: frisk kop, valgfrihed og lavt spild. Filterkaffe: mange kopper på én gang, men højere spild.", "Fuldautomat passer typisk til kontorer med ca. 10–150 medarbejdere.", "Kombinationsløsninger er ofte bedst.", "Afdæk behovet, før du anbefaler.", "Beregn altid den totale omkostning (TCO) sammen med kunden."],
   say: ["«Jeg vil gerne forstå, hvordan I bruger kaffen i dag, før jeg anbefaler noget. Hvor mange drikker kaffe? Hvornår er der mest travlt? Og drikker I mest sort kaffe eller også cappuccino og latte?»"],
-  qa: [["Er en fuldautomat ikke dyrere end en kande?", "Maskinen er dyrere end en filtermaskine, men man brygger kun den kop, man drikker, og får færre spildte kander. Brug TCO Beregneren til at vise regnestykket."], ["Hvor mange kan en fuldautomat betjene?", "En professionel fuldautomat passer typisk til 10–150 medarbejdere, afhængig af model og antal maskiner."], ["Hvad med en semiautomatisk maskine?", "Den giver den højeste kvalitet, men kræver oplæring og er langsom. Den er mest relevant til receptioner og showrooms."]],
+  qa: [["Er en fuldautomat ikke dyrere end en kande?", "Maskinen er dyrere end en filtermaskine, men man brygger kun den kop, man drikker, og får færre spildte kander. Brug «Beregn kaffeomkostninger» til at vise regnestykket."], ["Hvor mange kan en fuldautomat betjene?", "En professionel fuldautomat passer typisk til 10–150 medarbejdere, afhængig af model og antal maskiner."], ["Hvad med en semiautomatisk maskine?", "Den giver den højeste kvalitet, men kræver oplæring og er langsom. Den er mest relevant til receptioner og showrooms."]],
   quiz: [
     { q: "Et kontor med 40 medarbejdere, mange mælkedrikke og ønske om lavt spild og lidt betjening. Hvad er mest oplagt?", o: ["En fuldautomat med mælkesystem", "Flere kander på varmeplade", "Instant-kaffe i en dispenser", "En espressomaskine, hvor alle selv skal skumme mælk"], a: 0, e: "En fuldautomat laver mælkedrikke på et tryk og giver lavt spild." },
     { q: "Hvorfor er kundens pris pr. kop vigtigere end maskinens pris alene?", o: ["Den samler maskine, kaffe, service og spild i ét sammenligneligt tal", "Den omfatter kun kaffens pris", "Kunder går ikke op i maskinens pris", "Koppen er altid billigere end maskinen"], a: 0, e: "Pris pr. kop gør det muligt at sammenligne løsninger, fordi den tager højde for drift, kaffe, service og spild." },
@@ -3394,7 +3424,7 @@ function kvSearchFromHome(v) { kv.view = "home"; kvRender(); $("kv-q").value = v
 const kvBack = $("kaf-back"); if (kvBack) kvBack.addEventListener("click", () => kvGo("home"));
 
 /* ---- Salgsguide og indvendingshåndtering ---- */
-const SG_TOOL = { tco: ["TCO Beregner", "tco"], gen: ["Tilbudsgenerator", "gen"], rules: ["Salgsregler", "rules"] };
+const SG_TOOL = { tco: ["Beregn kaffeomkostninger", "tco"], gen: ["Nyt tilbud", "gen"], rules: ["Salgsregler", "rules"] };
 
 const OB_CATS = [["pris", "Pris"], ["nu", "Nuværende løsning"], ["aftale", "Aftale"], ["tid", "Timing"], ["beslut", "Beslutning"], ["prak", "Praktisk"]];
 const OB = [
@@ -3748,6 +3778,10 @@ $("hq").addEventListener("keydown", (e) => {
   if (e.key !== "Enter") return;
   const v = $("hq").value.trim(); $("hq").value = ""; $("hq").blur(); showTab("kaf"); kvSearchFromHome(v);
 });
+/* Citatkort: foldes sammen som standard */
+(() => { const tg = $("dm-tg"), box = $("dm"); let open = false; try { open = localStorage.getItem("bbx-dm-open") === "1"; } catch (e) {}
+  const apply = () => { box.classList.toggle("closed", !open); tg.setAttribute("aria-expanded", String(open)); };
+  tg.addEventListener("click", () => { open = !open; apply(); try { localStorage.setItem("bbx-dm-open", open ? "1" : "0"); } catch (e) {} }); apply(); })();
 renderHome();
 
 const _upd = update;
