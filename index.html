@@ -2152,7 +2152,35 @@ setTimeout(sbInit, 0);
 /* Kladde og historik */
 const DKEY = "bb-tilbud-kladde", HKEY = "bb-tilbud-historik";
 const lsGet = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
-const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} sbQueue(k); };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} sbQueue(k); if (k === "bb-tilbud-log") qSync(); };
+/* Tilbudsdatabase: kun-skriv ("postkasse") til Supabase – kan ikke læses fra siden */
+const QSENT = "bbx-qsent";
+let qBusy = false, qTimer = null;
+function qSync() { clearTimeout(qTimer); qTimer = setTimeout(qRun, 1500); }
+async function qRun() {
+  if (qBusy || !navigator.onLine) return;
+  let sent = {}, log = [];
+  try { sent = JSON.parse(localStorage.getItem(QSENT) || "{}"); log = JSON.parse(localStorage.getItem("bb-tilbud-log") || "[]"); } catch (e) { return; }
+  const todo = log.filter((x) => x && x.id && sent[x.id] !== x.status + "|" + x.at).reverse().slice(0, 40);
+  if (!todo.length) return;
+  qBusy = true;
+  try {
+    for (const x of todo) {
+      const snap = x.snap ? JSON.parse(JSON.stringify(x.snap)) : null;
+      if (snap && snap.f) { delete snap.f.tomail; }
+      const row = { quote_id: String(x.id).slice(0, 60), quoted_at: new Date(x.at).toISOString(), seller: x.seller || null, firma: x.firma || null,
+        kontakt: x.navn || null, maskine: x.maskine || null, aftale: !!x.aftale, status: x.status, udloeb: /^\d{4}-\d{2}-\d{2}$/.test(x.udloeb || "") ? x.udloeb : null,
+        lang: x.lang || null, opts: x.opts || null, snap };
+      const r = await fetch(SB.url + "/rest/v1/quotes", { method: "POST",
+        headers: { apikey: SB.key, Authorization: "Bearer " + SB.key, "Content-Type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify(row) });
+      if (!r.ok) { if (r.status >= 400 && r.status < 500 && r.status !== 429) { sent[x.id] = x.status + "|" + x.at; localStorage.setItem(QSENT, JSON.stringify(sent)); continue; } break; }
+      sent[x.id] = x.status + "|" + x.at; localStorage.setItem(QSENT, JSON.stringify(sent));
+    }
+  } catch (e) {}
+  qBusy = false;
+}
+window.addEventListener("online", qSync);
+setTimeout(qSync, 4000);
 function snapshot() {
   commit();
   const f = {};
@@ -2280,7 +2308,7 @@ function logOffer() {
   const aft = s.type === "aftale";
   const e = {
     id: openedId || (Date.now().toString(36) + Math.random().toString(36).slice(2, 6)), at: Date.now(), status: "afventer",
-    firma: s.firma, navn: s.navn, maskine: machNames(s), aftale: aft, kg: aft ? s.kgpris : null, udloeb: s.udloeb || "", lang: s.lang,
+    seller: ($("mail") && $("mail").value) || "", firma: s.firma, navn: s.navn, maskine: machNames(s), aftale: aft, kg: aft ? s.kgpris : null, udloeb: s.udloeb || "", lang: s.lang,
     opts: aft ? [{ pris: s.kgpris, periode: s.periode, ingenper: s.ingenper }] : s.opts.map((o) => ({ pris: o.mach[0].pris, periode: o.periode, ingenper: o.ingenper })),
     snap
   };
