@@ -932,6 +932,21 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .rxcard-h[aria-expanded="true"] svg { transform: rotate(180deg); }
 .rxcard-b { padding: 4px 16px 18px; }
 .rxcard-b h2.rx-h { font-size: 22px; }
+/* Afkrydsning som valgknapper, samme udtryk som de øvrige valg */
+label.check { display: inline-flex !important; align-self: flex-start; width: auto !important; max-width: 100%; align-items: center; gap: 8px; margin: 0 8px 8px 0; padding: 8px 16px; min-height: 40px; box-sizing: border-box; background: var(--surface); color: var(--ink); border: 1.5px solid var(--line); border-radius: 999px; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; user-select: none; }
+label.check[hidden] { display: none !important; }
+label.check input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+label.check::before { content: ""; flex: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--muted); box-sizing: border-box; background: transparent center / 11px no-repeat; }
+label.check:hover { border-color: var(--brand); }
+label.check:has(input:checked) { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); font-weight: 650; }
+label.check:has(input:checked)::before { border-color: transparent; background-color: currentColor; background-image: none; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.5'/%3E%3C/svg%3E") center / 16px no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.5'/%3E%3C/svg%3E") center / 16px no-repeat; }
+label.check:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+label.check:has(input:disabled) { opacity: .45; cursor: not-allowed; }
+label.check small { font-weight: 400; opacity: .75; }
+.field:has(> label.check) { display: block; }
+.field:has(> label.check) > .lbl, .field:has(> label.check) > .hint { display: block; margin: 0 0 8px; }
+.field:has(> label.check) > .hint { margin-top: 2px; }
+label.check { align-self: auto; }
 /* Finjustering: navigation, genveje, statistik */
 /* Navigation: faner i headeren på computer, menuknap på mobil */
 header { position: sticky; top: 0; z-index: 35; background: var(--bg); padding: 8px 0 !important; margin-top: -10px; }
