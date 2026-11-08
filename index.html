@@ -924,6 +924,14 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .tp-more { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
 .tp-more a { color: var(--accent); }
 .tp-more button { font: inherit !important; font-size: 13px !important; background: none !important; border: 0 !important; padding: 0 !important; min-height: 0 !important; color: var(--accent) !important; text-decoration: underline; cursor: pointer; width: auto !important; }
+/* Kaffeopskrift på forsiden */
+.rxcard { margin-top: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.rxcard-h { display: flex !important; align-items: center; justify-content: space-between; gap: 12px; width: 100%; box-sizing: border-box; min-height: 64px; padding: 12px 16px !important; background: transparent !important; border: 0 !important; color: var(--ink) !important; text-align: left; font: inherit; cursor: pointer; }
+.rxcard-t { display: flex; flex-direction: column; gap: 2px; } .rxcard-t b { font-size: 16px; } .rxcard-t small { font-size: 13.5px; color: var(--muted); font-weight: 400; }
+.rxcard-h svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.rxcard-h[aria-expanded="true"] svg { transform: rotate(180deg); }
+.rxcard-b { padding: 4px 16px 18px; }
+.rxcard-b h2.rx-h { font-size: 22px; }
 </style>
 
 <div id="tp-over" hidden role="dialog" aria-modal="true" aria-label="QR-kode til Trustpilot"><div class="tp-ov-in"><p>Scan og giv os en anmeldelse</p><div class="tp-ov-qr" id="tp-ov-qr"></div><button type="button" id="tp-close">Luk</button></div></div>
@@ -979,6 +987,40 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
     <div class="hcard" id="hnud" hidden><h2 class="hch">Skal følges op</h2><div id="hnudl"></div></div>
     <div class="hstats" id="hstats"></div>
     <div class="hcard" id="hnext" hidden style="display:none !important"><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
+    <section class="rxcard" id="rxcard" aria-label="Kaffeopskrift">
+      <button type="button" class="rxcard-h" id="rx-tg" aria-expanded="false" aria-controls="rx-body"><span class="rxcard-t"><b>Kaffeopskrift</b><small>Beregn bønner, vand og mælk til kundens kop</small></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="rxcard-b" id="rx-body" hidden>
+    <div id="kv-recipe" class="rx">
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="rxclip" clipPathUnits="objectBoundingBox"><path d="M0.05,0.02 L0.95,0.02 L0.86,0.935 Q0.85,0.99 0.79,0.99 L0.21,0.99 Q0.15,0.99 0.14,0.935 Z"/></clipPath></defs></svg>
+      <h2 class="rx-h">Beregn din kaffeopskrift</h2>
+      <p class="rx-sub">Vælg kaffevariant og kopstørrelse. Du får mængden af kaffebønner, vand og mælk til præcis den kop.</p>
+      <div class="rx-layout">
+        <section class="rx-var" aria-labelledby="rx-vl"><p class="rx-lbl" id="rx-vl">Kaffevariant</p><div class="rx-vrow" id="rx-vrow" role="radiogroup" aria-labelledby="rx-vl"></div></section>
+        <section class="rx-cup" aria-label="Glas med lag af kaffe, vand og mælk">
+          <div class="rx-stage">
+            <div class="rx-glass"><div class="rx-layers" id="rx-layers"><div class="rx-layer coffee" data-k="thr"></div><div class="rx-layer water" data-k="add"></div><div class="rx-layer milk" data-k="milk"></div><div class="rx-layer foam" data-k="foam"></div></div></div>
+            <svg class="rx-outline" viewBox="0 0 100 124" aria-hidden="true"><path class="rim" d="M5,2.5 L95,2.5 L86,115.5 Q85,122.8 79,122.8 L21,122.8 Q15,122.8 14,115.5 Z"/><path class="shine" d="M13,14 L18.5,100"/></svg>
+          </div>
+          <div class="rx-shadow"></div>
+          <div class="rx-capt"><span>Samlet kopstørrelse</span><b id="rx-total">200<small>ml</small></b></div>
+          <div class="rx-legend" id="rx-legend"></div>
+        </section>
+        <section class="rx-size" aria-labelledby="rx-sl">
+          <p class="rx-lbl" id="rx-sl">Kopstørrelse</p>
+          <div class="rx-srow"><div class="rx-num"><input type="number" id="rx-ml" inputmode="numeric" min="50" max="1000" step="10" value="200" aria-label="Kopstørrelse i ml"><span>ml</span></div><input type="range" id="rx-slider" min="50" max="1000" step="10" value="200" aria-label="Kopstørrelse, skyder"></div>
+          <div class="rx-scale" aria-hidden="true"><span>50</span><span>1.000 ml</span></div>
+          <div class="rx-pre" id="rx-pre"></div>
+          <p class="rx-err" id="rx-err" role="alert" hidden></p>
+        </section>
+        <section class="rx-res" id="rx-res" aria-live="polite" aria-label="Ingredienser">
+          <div class="rx-beans"><span>Kaffebønner</span><b id="rx-g">14<small>g</small></b></div>
+          <ul class="rx-liq" id="rx-liq"></ul>
+          <p class="rx-note" id="rx-note" hidden></p>
+        </section>
+      </div>
+    </div>
+      </div>
+    </section>
     <div class="hcard" id="hfactcard">
       <h2 class="hch">Kaffefakta</h2>
       <p class="hfact" id="hfact"></p>
@@ -1283,36 +1325,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   </section>
 
   <section id="tab-kaf" role="tabpanel" aria-labelledby="tabbtn-kaf" hidden>
-    <div class="kvtabs" id="kvtabs" role="group" aria-label="Kaffeakademiet"><button type="button" data-kvt="home" aria-pressed="true">Akademiet</button><button type="button" data-kvt="sales" aria-pressed="false">Indvendinger</button><button type="button" data-kvt="recipe" aria-pressed="false">Kaffeopskrift</button></div>
-    <div id="kv-recipe" class="rx" hidden>
-      <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="rxclip" clipPathUnits="objectBoundingBox"><path d="M0.05,0.02 L0.95,0.02 L0.86,0.935 Q0.85,0.99 0.79,0.99 L0.21,0.99 Q0.15,0.99 0.14,0.935 Z"/></clipPath></defs></svg>
-      <h2 class="rx-h">Beregn din kaffeopskrift</h2>
-      <p class="rx-sub">Vælg kaffevariant og kopstørrelse. Du får mængden af kaffebønner, vand og mælk til præcis den kop.</p>
-      <div class="rx-layout">
-        <section class="rx-var" aria-labelledby="rx-vl"><p class="rx-lbl" id="rx-vl">Kaffevariant</p><div class="rx-vrow" id="rx-vrow" role="radiogroup" aria-labelledby="rx-vl"></div></section>
-        <section class="rx-cup" aria-label="Glas med lag af kaffe, vand og mælk">
-          <div class="rx-stage">
-            <div class="rx-glass"><div class="rx-layers" id="rx-layers"><div class="rx-layer coffee" data-k="thr"></div><div class="rx-layer water" data-k="add"></div><div class="rx-layer milk" data-k="milk"></div><div class="rx-layer foam" data-k="foam"></div></div></div>
-            <svg class="rx-outline" viewBox="0 0 100 124" aria-hidden="true"><path class="rim" d="M5,2.5 L95,2.5 L86,115.5 Q85,122.8 79,122.8 L21,122.8 Q15,122.8 14,115.5 Z"/><path class="shine" d="M13,14 L18.5,100"/></svg>
-          </div>
-          <div class="rx-shadow"></div>
-          <div class="rx-capt"><span>Samlet kopstørrelse</span><b id="rx-total">200<small>ml</small></b></div>
-          <div class="rx-legend" id="rx-legend"></div>
-        </section>
-        <section class="rx-size" aria-labelledby="rx-sl">
-          <p class="rx-lbl" id="rx-sl">Kopstørrelse</p>
-          <div class="rx-srow"><div class="rx-num"><input type="number" id="rx-ml" inputmode="numeric" min="50" max="1000" step="10" value="200" aria-label="Kopstørrelse i ml"><span>ml</span></div><input type="range" id="rx-slider" min="50" max="1000" step="10" value="200" aria-label="Kopstørrelse, skyder"></div>
-          <div class="rx-scale" aria-hidden="true"><span>50</span><span>1.000 ml</span></div>
-          <div class="rx-pre" id="rx-pre"></div>
-          <p class="rx-err" id="rx-err" role="alert" hidden></p>
-        </section>
-        <section class="rx-res" id="rx-res" aria-live="polite" aria-label="Ingredienser">
-          <div class="rx-beans"><span>Kaffebønner</span><b id="rx-g">14<small>g</small></b></div>
-          <ul class="rx-liq" id="rx-liq"></ul>
-          <p class="rx-note" id="rx-note" hidden></p>
-        </section>
-      </div>
-    </div>
+    <div class="kvtabs" id="kvtabs" role="group" aria-label="Kaffeakademiet"><button type="button" data-kvt="home" aria-pressed="true">Akademiet</button><button type="button" data-kvt="sales" aria-pressed="false">Indvendinger</button></div>
     <div id="kv-root"></div>
     <div id="kv-quick" hidden>
       <div class="kv-bc"><button type="button" id="kaf-back">Akademiet</button><span>›</span><span>Hurtig viden</span></div>
@@ -3307,7 +3320,6 @@ function kvSearch(v) {
 function kvRender() {
   const root = $("kv-root"), qk = $("kv-quick");
   qk.hidden = kv.view !== "quick"; root.hidden = kv.view === "quick" || kv.view === "recipe";
-  $("kv-recipe").hidden = kv.view !== "recipe";
   document.querySelectorAll("#kvtabs [data-kvt]").forEach((b) => { const t = b.dataset.kvt; b.setAttribute("aria-pressed", String(t === "recipe" ? kv.view === "recipe" : t === "sales" ? kv.view === "sales" : kv.view !== "recipe" && kv.view !== "sales")); });
   if (kv.view === "recipe") { rxRender(); return; }
   if (kv.view === "quick") { renderKaf(); return; }
@@ -3782,6 +3794,10 @@ $("hq").addEventListener("keydown", (e) => {
 (() => { const tg = $("dm-tg"), box = $("dm"); let open = false; try { open = localStorage.getItem("bbx-dm-open") === "1"; } catch (e) {}
   const apply = () => { box.classList.toggle("closed", !open); tg.setAttribute("aria-expanded", String(open)); };
   tg.addEventListener("click", () => { open = !open; apply(); try { localStorage.setItem("bbx-dm-open", open ? "1" : "0"); } catch (e) {} }); apply(); })();
+/* Kaffeopskrift: fold ud på forsiden */
+(() => { const tg = $("rx-tg"), body = $("rx-body"); let open = false; try { open = localStorage.getItem("bbx-rx-open") === "1"; } catch (e) {}
+  const apply = () => { body.hidden = !open; tg.setAttribute("aria-expanded", String(open)); if (open) rxRender(); };
+  tg.addEventListener("click", () => { open = !open; apply(); try { localStorage.setItem("bbx-rx-open", open ? "1" : "0"); } catch (e) {} }); apply(); })();
 renderHome();
 
 const _upd = update;
