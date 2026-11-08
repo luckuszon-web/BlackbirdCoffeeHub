@@ -832,6 +832,28 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 #tp-close { font: inherit !important; font-weight: 700 !important; padding: 11px 26px !important; border-radius: 999px !important; border: 2px solid #3A2417 !important; background: #3A2417 !important; color: #fff !important; cursor: pointer; }
 .bar .hint a { color: var(--focus); font-weight: 600; }
 /* Login + synkronisering (Supabase) */
+.admfoot { text-align: center; margin: 18px 0 6px; order: 99; }
+.admfoot button { background: none !important; border: 0 !important; color: var(--muted) !important; font-size: 12px !important; text-decoration: underline; cursor: pointer; padding: 6px 10px !important; min-height: 0 !important; width: auto !important; }
+#adm { position: fixed; inset: 0; z-index: 9998; background: rgba(33,27,23,.6); overflow: auto; padding: 16px; }
+#adm[hidden] { display: none; }
+#adm .admbox { max-width: 1100px; margin: 0 auto; background: var(--surface); border-radius: 16px; padding: 18px; }
+#adm .admtop { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+#adm .admtop b { font-size: 18px; } #adm .admtop span { color: var(--muted); font-size: 13px; flex: 1; }
+#adm .admtop button { margin-left: auto; border: 0 !important; background: none !important; font-size: 20px !important; cursor: pointer; color: var(--ink) !important; width: auto !important; }
+#adm form { max-width: 340px; } #adm label { display: block; font-weight: 600; font-size: 14px; margin: 0 0 6px; }
+#adm input, #adm select { box-sizing: border-box; height: 44px; padding: 0 12px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font-size: 16px; }
+#adm form input { width: 100%; margin: 0 0 14px; }
+#adm button:not(.admtop button) { height: 44px; padding: 0 16px; border-radius: 10px; border: 0; background: var(--brand); color: var(--brand-ink); font-weight: 600; cursor: pointer; font-size: 15px; }
+#adm .admbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; } #adm .admbar input[type=search] { flex: 1 1 200px; }
+#adm .admbar input, #adm .admbar select { width: auto !important; flex: 0 1 auto; margin: 0 !important; } #adm .admbar input[type=search] { flex: 1 1 200px; width: 200px !important; }
+#adm .admbar button { background: var(--bg) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; }
+#adm .admerr { color: var(--bad); font-size: 14px; min-height: 18px; margin-bottom: 10px; } .admmut { color: var(--muted); }
+#admkpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.admk { background: var(--bg); border-radius: 12px; padding: 12px; } .admk b { display: block; font-size: 22px; } .admk span { font-size: 12px; color: var(--muted); }
+.admtw { overflow-x: auto; } #adm table { width: 100%; border-collapse: collapse; font-size: 13px; }
+#adm th { text-align: left; color: var(--muted); font-weight: 600; padding: 8px; border-bottom: 2px solid var(--line); white-space: nowrap; }
+#adm td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.admst { padding: 2px 8px; border-radius: 99px; font-size: 12px; background: var(--bg); } .admst.accepteret { background: #DDF2E2; color: #1D6B32; } .admst.afslag { background: #F9DEDA; color: #9A2A1B; }
 #sblogin { position: fixed; inset: 0; z-index: 9999; background: #3A2417 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%20opacity%3D%22.16%22%3E%3Cg%20transform%3D%22translate%2840%2048%29%20rotate%28-30%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%2030%29%20rotate%2825%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28250%2095%29%20rotate%28-60%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%2855%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28190%20170%29%20rotate%2810%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2830%20250%29%20rotate%28-15%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%20260%29%20rotate%2870%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28255%20225%29%20rotate%2835%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E") center / 300px 300px repeat; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; }
 #sblogin[hidden] { display: none; }
 #sblogin .sbcard { width: 100%; max-width: 380px; background: var(--surface); border: 0; border-radius: 20px; padding: 0 24px 26px; box-shadow: 0 24px 60px -18px rgba(0,0,0,.55); overflow: hidden; }
@@ -927,7 +949,24 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       <p class="hfact" id="hfact"></p>
       <button type="button" class="hlink" data-go="kaf">Åbn Kaffeakademiet</button>
     </div>
+    <p class="admfoot"><button type="button" id="admopen">Admin</button></p>
   </section>
+  <div id="adm" hidden role="dialog" aria-modal="true" aria-label="Admin">
+    <div class="admbox">
+      <div class="admtop"><b>Admin</b><span id="admwho"></span><button type="button" id="admclose" aria-label="Luk">✕</button></div>
+      <form id="admform" autocomplete="on">
+        <label for="admemail">E-mail</label><input type="email" id="admemail" autocomplete="username" value="lb@blackbirdcoffee.dk" required>
+        <label for="admpw">Adgangskode</label><input type="password" id="admpw" autocomplete="current-password" required>
+        <div class="admerr" id="admerr"></div>
+        <button type="submit" id="admgo">Log ind</button>
+      </form>
+      <div id="admdash" hidden>
+        <div class="admbar"><input type="search" id="admq" placeholder="Søg firma, kontakt, sælger …"><select id="admst"><option value="">Alle statusser</option><option value="afventer">Afventer</option><option value="accepteret">Accepteret</option><option value="afslag">Afslag</option></select><select id="admsel"><option value="">Alle sælgere</option></select><button type="button" id="admcsv">Hent CSV</button><button type="button" id="admref">Opdater</button><button type="button" id="admout">Log ud</button></div>
+        <div id="admkpi"></div>
+        <div id="admlist"></div>
+      </div>
+    </div>
+  </div>
 
   <div id="tab-gen" role="tabpanel" aria-labelledby="tabbtn-gen" hidden>
   <div class="grid">
@@ -2030,6 +2069,73 @@ $("cal").addEventListener("click", () => {
   a.download = "Opfølgning - " + f + ".ics"; document.body.appendChild(a); a.click(); a.remove();
   flash("Påmindelsen er hentet – åbn filen for at lægge den i din kalender (" + d.toLocaleDateString(uiLoc(), { weekday: "long", day: "numeric", month: "long" }) + " kl. " + tv + ").", "ok");
 });
+
+/* ---- Admin: kun lb@blackbirdcoffee.dk kan læse alle tilbud (håndhæves af Supabase RLS, se supabase/admin.sql) ---- */
+const ADMK = "bbx-admin";
+let admRows = [];
+const admS = () => { try { return JSON.parse(localStorage.getItem(ADMK) || "null"); } catch (e) { return null; } };
+const admW = (v) => { try { v ? localStorage.setItem(ADMK, JSON.stringify(v)) : localStorage.removeItem(ADMK); } catch (e) {} };
+function admStore(r) { const s = { at: r.access_token, rt: r.refresh_token, exp: Math.floor(Date.now() / 1000) + (r.expires_in || 3600), email: r.user && r.user.email }; admW(s); return s; }
+async function admTok() {
+  const s = admS(); if (!s) return null;
+  if (s.exp - 60 > Date.now() / 1000) return s.at;
+  try {
+    const r = await fetch(SB.url + "/auth/v1/token?grant_type=refresh_token", { method: "POST", headers: { apikey: SB.key, "Content-Type": "application/json" }, body: JSON.stringify({ refresh_token: s.rt }) });
+    if (r.ok) return admStore(await r.json()).at;
+  } catch (e) {}
+  admW(null); return null;
+}
+function admView(on) { $("admform").hidden = on; $("admdash").hidden = !on; const s = admS(); $("admwho").textContent = on && s ? s.email : ""; }
+async function admLoad() {
+  const t = await admTok(); if (!t) { admView(false); return; }
+  $("admlist").innerHTML = "<p class='admmut'>Henter …</p>";
+  try {
+    const r = await fetch(SB.url + "/rest/v1/quotes_latest?select=quote_id,quoted_at,created_at,seller,firma,kontakt,maskine,aftale,status,udloeb,lang,opts&order=quoted_at.desc.nullslast&limit=2000", { headers: { apikey: SB.key, Authorization: "Bearer " + t } });
+    if (r.status === 401) { admW(null); admView(false); $("admerr").textContent = "Din session er udløbet – log ind igen."; return; }
+    if (!r.ok) { $("admlist").innerHTML = "<p class='admerr'>Kunne ikke hente tilbud (" + r.status + "). Er admin.sql kørt i Supabase?</p>"; return; }
+    admRows = await r.json(); admRender();
+  } catch (e) { $("admlist").innerHTML = "<p class='admerr'>Ingen forbindelse.</p>"; }
+}
+function admFiltered() {
+  const q = $("admq").value.trim().toLowerCase(), st = $("admst").value, se = $("admsel").value;
+  return admRows.filter((x) => (!st || x.status === st) && (!se || (x.seller || "") === se) &&
+    (!q || [x.firma, x.kontakt, x.seller, x.maskine].join(" ").toLowerCase().indexOf(q) >= 0));
+}
+function admRender() {
+  const sel = $("admsel"), cur = sel.value, sellers = Array.from(new Set(admRows.map((x) => x.seller || ""))).sort();
+  sel.innerHTML = '<option value="">Alle sælgere</option>' + sellers.map((v) => `<option value="${esc(v)}">${esc(v || "(ikke valgt)")}</option>`).join(""); sel.value = cur;
+  const all = admRows, n = (st) => all.filter((x) => x.status === st).length, acc = n("accepteret"), rej = n("afslag");
+  const K = (v, l) => `<div class="admk"><b>${v}</b><span>${l}</span></div>`;
+  $("admkpi").innerHTML = K(all.length, "Tilbud i alt") + K(n("afventer"), "Afventer") + K(acc, "Accepteret") + K(rej, "Afslået") + K(acc + rej ? Math.round(acc / (acc + rej) * 100) + " %" : "–", "Konvertering");
+  const rows = admFiltered(), fd = (t) => t ? new Date(t).toLocaleDateString("da-DK", { day: "numeric", month: "short", year: "numeric" }) : "–";
+  const pr = (x) => (x.opts || []).map((o, i, a) => (a.length > 1 ? "ABC"[i] + ": " : "") + Number(o.pris).toLocaleString("da-DK", { maximumFractionDigits: 2 }) + (x.aftale ? " kr./kg" : " kr.") + (o.periode ? " · " + Math.round(o.periode) + " mdr." : "")).join("<br>");
+  $("admlist").innerHTML = rows.length ? `<div class="admtw"><table><thead><tr><th>Dato</th><th>Firma</th><th>Kontakt</th><th>Maskine</th><th>Pris / periode</th><th>Udløber</th><th>Sælger</th><th>Status</th></tr></thead><tbody>` +
+    rows.map((x) => `<tr><td>${fd(x.quoted_at || x.created_at)}</td><td><b>${esc(x.firma || "–")}</b></td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${pr(x) || "–"}</td><td>${fd(x.udloeb)}</td><td>${esc(x.seller || "–")}</td><td><span class="admst ${esc(x.status)}">${esc(x.status)}</span></td></tr>`).join("") + "</tbody></table></div>" : "<p class='admmut'>Ingen tilbud endnu.</p>";
+}
+function admCsv() {
+  const H = ["quote_id", "dato", "firma", "kontakt", "maskine", "aftale", "priser", "udloeb", "saelger", "status"];
+  const q = (v) => '"' + String(v === null || v === undefined ? "" : v).replace(/"/g, '""') + '"';
+  const L = [H.join(";")].concat(admFiltered().map((x) => [x.quote_id, x.quoted_at || x.created_at, x.firma, x.kontakt, x.maskine, x.aftale ? "ja" : "nej", (x.opts || []).map((o) => o.pris + "/" + (o.periode || "")).join(" | "), x.udloeb, x.seller, x.status].map(q).join(";")));
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["\ufeff" + L.join("\n")], { type: "text/csv" })); a.download = "tilbud.csv"; document.body.appendChild(a); a.click(); a.remove();
+}
+function admOpen() { $("adm").hidden = false; document.body.style.overflow = "hidden"; if (admS()) { admView(true); admLoad(); } else { admView(false); setTimeout(() => $("admpw").focus(), 50); } }
+function admClose() { $("adm").hidden = true; document.body.style.overflow = ""; }
+$("admopen").addEventListener("click", admOpen);
+$("admclose").addEventListener("click", admClose);
+$("admref").addEventListener("click", admLoad);
+$("admcsv").addEventListener("click", admCsv);
+["admq", "admst", "admsel"].forEach((i) => $(i).addEventListener("input", admRender));
+$("admout").addEventListener("click", () => { admW(null); admRows = []; $("admpw").value = ""; admView(false); });
+$("admform").addEventListener("submit", async (ev) => {
+  ev.preventDefault(); const b = $("admgo"); b.disabled = true; $("admerr").textContent = "";
+  try {
+    const r = await fetch(SB.url + "/auth/v1/token?grant_type=password", { method: "POST", headers: { apikey: SB.key, "Content-Type": "application/json" }, body: JSON.stringify({ email: $("admemail").value.trim(), password: $("admpw").value }) });
+    if (!r.ok) $("admerr").textContent = r.status === 400 ? "Forkert e-mail eller adgangskode." : "Login mislykkedes (" + r.status + ").";
+    else { admStore(await r.json()); $("admpw").value = ""; admView(true); admLoad(); }
+  } catch (e) { $("admerr").textContent = "Ingen forbindelse."; }
+  b.disabled = false;
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("adm").hidden) admClose(); });
 
 /* ---- Supabase: login + synkronisering pr. bruger ----
    Al data ligger i localStorage (nøgler "bb-…"). Hver nøgle spejles som én række i tabellen user_data
