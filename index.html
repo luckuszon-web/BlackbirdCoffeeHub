@@ -2240,7 +2240,7 @@ async function admLoad() {
   $("admlist").innerHTML = "<p class='admmut'>Henter …</p>";
   try {
     const qs = (c) => SB.url + "/rest/v1/quotes_latest?select=quote_id,quoted_at,created_at,seller,firma,kontakt,maskine,aftale,status,udloeb,lang,opts" + c + "&order=quoted_at.desc.nullslast&limit=2000";
-    let [r, r2] = await Promise.all([fetch(qs(",cfg:snap->st->opts"), { headers: h }), fetch(SB.url + "/rest/v1/quote_admin?select=sag_key,status,updated_at&limit=5000", { headers: h })]);
+    let [r, r2] = await Promise.all([fetch(qs(",cfg:snap->st->opts,kgm:snap->f->>kgmaaned"), { headers: h }), fetch(SB.url + "/rest/v1/quote_admin?select=sag_key,status,updated_at&limit=5000", { headers: h })]);
     if (r.status === 400) r = await fetch(qs(""), { headers: h });
     if (r.status === 401) { admW(null); admView(false); $("admerr").textContent = "Din session er udløbet – log ind igen."; return; }
     if (!r.ok) { $("admlist").innerHTML = "<p class='admerr'>Kunne ikke hente tilbud (" + r.status + "). Er admin.sql kørt i Supabase?</p>"; return; }
@@ -2266,6 +2266,23 @@ function admCases() {
 const ADM_V = { vand: { tank: "Vandtank", tank8: "8L vandtank", tank5: "5L vandtank", fast: "Fastvandstilslutning" }, maelk: { friskmaelk: "Friskmælkskøleskab", pulver: "Mælkepulver", ingen: "Ingen mælk" } };
 const admPn = (v) => { const n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : 0; };
 /* Pr. tilbud: månedspris (mulighed A, alle maskiner) og sammensætninger ("Maskine · tilvalg …") ud fra gemt snapshot */
+/* Pr. mulighed: pris pr. kop × kopper pr. måned = værdi pr. måned; × aftaleperiode = samlet værdi. Kaffeaftale: kr./kg × kg pr. måned. */
+function admOpts(x) {
+  if (x._o) return x._o;
+  const po = x.opts || [], out = [];
+  if (x.aftale) {
+    const pr = admPn(po[0] && po[0].pris), kg = admPn(x.kgm), per = admPn(po[0] && po[0].periode);
+    out.push({ l: "A", pris: pr || null, unit: "kg", kopper: null, kg: kg || null, periode: per || null, monthly: pr && kg ? pr * kg : null });
+  } else if (Array.isArray(x.cfg) && x.cfg.length) {
+    x.cfg.forEach((o, i) => {
+      const ps = (o.mach || []).map((m) => admPn(m.pris)).filter((v) => v > 0), pr = ps.length ? ps.reduce((a, b) => a + b, 0) / ps.length : (admPn(po[i] && po[i].pris) || null);
+      const k = admPn(o.kopper) || null, per = admPn(o.periode) || admPn(po[i] && po[i].periode) || null;
+      out.push({ l: "ABC"[i] || String(i + 1), pris: pr, unit: "kop", kopper: k, periode: per, monthly: pr && k ? pr * k : null });
+    });
+  } else po.forEach((o, i) => out.push({ l: "ABC"[i] || String(i + 1), pris: admPn(o.pris) || null, unit: "kop", kopper: null, periode: admPn(o.periode) || null, monthly: null }));
+  out.forEach((o) => { o.total = o.monthly && o.periode ? o.monthly * o.periode : null; });
+  return (x._o = out);
+}
 function admInfo(x) {
   if (x._i) return x._i;
   let monthly = null, cfgs = [];
@@ -2276,11 +2293,11 @@ function admInfo(x) {
       const nm = MACH[m.maskine] && MACH[m.maskine].name; if (!nm) return;
       const p = [nm]; if (ADM_V.vand[m.vand]) p.push(ADM_V.vand[m.vand]); if (ADM_V.maelk[m.maelk]) p.push(ADM_V.maelk[m.maelk]);
       if (m.qpress) p.push("QPress"); if (m.grinder) p.push("Grinder"); if (m.kort) p.push("Kortbetaling");
-      set[p.join(" · ")] = 1; if (oi === 0) monthly = (monthly || 0) + admPn(m.pris) * (admPn(m.antal) || 1);
+      set[p.join(" · ")] = 1;
     }));
     cfgs = Object.keys(set);
-  } else { cfgs = (x.maskine || "").split(" / ").filter(Boolean); if (x.opts && x.opts[0]) monthly = admPn(x.opts[0].pris); }
-  if (!monthly) monthly = null;
+  } else { cfgs = (x.maskine || "").split(" / ").filter(Boolean); }
+  const o0 = admOpts(x)[0]; monthly = o0 && o0.monthly ? o0.monthly : null;
   return (x._i = { monthly, cfgs, mach: Array.from(new Set(cfgs.map((c) => c.split(" · ")[0]))), tilv: Array.from(new Set([].concat.apply([], cfgs.map((c) => c.split(" · ").slice(1))))) });
 }
 const admDate = (x) => new Date(x.quoted_at || x.created_at);
@@ -2316,18 +2333,23 @@ function admRender() {
   const K = (v, l) => `<div class="admk"><b>${v}</b><span>${l}</span></div>`;
   $("admkpi").innerHTML = K(cs.length, "Sager") + K(n("sendt"), "Sendt") + K(n("fulgt_op"), "Fulgt op") + K(won, "Vundet") + K(lost, "Tabt") + K(won + lost ? Math.round(won / (won + lost) * 100) + " %" : "–", "Konvertering");
   const fd = (t) => t ? new Date(t).toLocaleDateString("da-DK", { day: "numeric", month: "short", year: "numeric" }) : "–";
-  const pr = (x) => (x.opts || []).map((o, i, a) => (a.length > 1 ? "ABC"[i] + ": " : "") + Number(o.pris).toLocaleString("da-DK", { maximumFractionDigits: 2 }) + (x.aftale ? " kr./kg" : " kr.") + (o.periode ? " · " + Math.round(o.periode) + " mdr." : "")).join("<br>");
+  const nk = (v, d) => Number(v).toLocaleString("da-DK", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const cell = (x, f) => { const o = admOpts(x), m = o.length > 1; const r = o.map((q) => (m ? q.l + ": " : "") + f(q)); return r.join("<br>"); };
+  const cPris = (x) => cell(x, (q) => q.pris ? nk(q.pris, 2) + " kr." + (q.unit === "kg" ? "/kg" : "") : "–");
+  const cKop = (x) => cell(x, (q) => q.unit === "kg" ? (q.kg ? nk(q.kg, 0) + " kg" : "–") : q.kopper ? nk(q.kopper, 0) : "–");
+  const cPer = (x) => cell(x, (q) => q.periode ? Math.round(q.periode) + " mdr." : "–");
+  const cVal = (x) => cell(x, (q) => q.monthly ? "<b style='white-space:nowrap'>" + nk(q.monthly, 0) + " kr./md.</b>" + (q.total ? `<br><small class="admmut">${nk(q.total, 0)} kr. i alt</small>` : "") : "–");
   const fuSel = `<label>Efter <select id="admfud">${[3, 5, 7, 14].map((d) => `<option value="${d}"${d === admFu() ? " selected" : ""}>${d}</option>`).join("")}</select> dage</label>`;
   $("admfu").innerHTML = `<div class="fuh"><b>Skal følges op${due.length ? " (" + due.length + ")" : ""}</b>${fuSel}</div>` + (due.length ? due.slice().sort((a, b) => b.days - a.days).map((c) =>
     `<div class="fuc"><div class="fui"><b>${esc(c.l.firma || c.l.kontakt || "–")}</b><span>Sendt for ${c.days} dage siden${c.l.kontakt && c.l.firma ? " · " + esc(c.l.kontakt) : ""}${c.items.length > 1 ? " · " + c.items.length + " versioner" : ""}${c.sellers.length ? " · " + esc(c.sellers.join(", ")) : ""}</span></div>` +
     `<div class="fub"><button type="button" data-set="fulgt_op" data-k="${esc(c.key)}">Fulgt op</button><button type="button" class="g" data-set="vundet" data-k="${esc(c.key)}">Vundet</button><button type="button" class="r" data-set="tabt" data-k="${esc(c.key)}">Tabt</button></div></div>`).join("") : "<p class='admmut' style='margin:0'>Intet at følge op på lige nu 👍</p>");
   const rows = admFiltered(), selS = (c) => `<select class="sts ${c.st}" data-k="${esc(c.key)}" aria-label="Status">${Object.keys(ADM_LBL).map((k) => `<option value="${k}"${k === c.st ? " selected" : ""}>${ADM_LBL[k]}</option>`).join("")}</select>`;
-  const main = (c) => { const x = c.l, v = c.items.length > 1; return `<tr><td>${fd(x.quoted_at || x.created_at)}</td><td><b>${esc(x.firma || "–")}</b>${v ? `<button type="button" class="vbtn" data-v="${esc(c.key)}" aria-expanded="${!!admOpenKeys[c.key]}">${c.items.length} versioner ${admOpenKeys[c.key] ? "▴" : "▾"}</button>` : ""}</td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${pr(x) || "–"}</td><td>${fd(x.udloeb)}</td><td>${esc(c.sellers.join(", ") || "–")}</td><td>${selS(c)}</td></tr>`; };
-  const ver = (c) => c.items.slice(1).map((x) => `<tr class="ver"><td>${fd(x.quoted_at || x.created_at)}</td><td>↳ Tidligere version</td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${pr(x) || "–"}</td><td>${fd(x.udloeb)}</td><td>${esc(x.seller || "–")}</td><td></td></tr>`).join("");
+  const main = (c) => { const x = c.l, v = c.items.length > 1; return `<tr><td>${fd(x.quoted_at || x.created_at)}</td><td><b>${esc(x.firma || "–")}</b>${v ? `<button type="button" class="vbtn" data-v="${esc(c.key)}" aria-expanded="${!!admOpenKeys[c.key]}">${c.items.length} versioner ${admOpenKeys[c.key] ? "▴" : "▾"}</button>` : ""}</td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${cPris(x)}</td><td>${cKop(x)}</td><td>${cPer(x)}</td><td>${cVal(x)}</td><td>${fd(x.udloeb)}</td><td>${esc(c.sellers.join(", ") || "–")}</td><td>${selS(c)}</td></tr>`; };
+  const ver = (c) => c.items.slice(1).map((x) => `<tr class="ver"><td>${fd(x.quoted_at || x.created_at)}</td><td>↳ Tidligere version</td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${cPris(x)}</td><td>${cKop(x)}</td><td>${cPer(x)}</td><td>${cVal(x)}</td><td>${fd(x.udloeb)}</td><td>${esc(x.seller || "–")}</td><td></td></tr>`).join("");
   $("admfub").textContent = due.length || "";
   admOverview(cs, due);
   $("admlist").innerHTML = (admStOk ? "" : "<div class='admhint'>Status kan ikke gemmes endnu – kør <b>admin-status.sql</b> i Supabase → SQL Editor.</div>") +
-    (rows.length ? `<div class="admtw"><table><thead><tr><th>Dato</th><th>Firma</th><th>Kontakt</th><th>Maskine</th><th>Pris / periode</th><th>Udløber</th><th>Sælger</th><th>Status</th></tr></thead><tbody>` +
+    (rows.length ? `<div class="admtw"><table><thead><tr><th>Dato</th><th>Firma</th><th>Kontakt</th><th>Maskine</th><th>Pris pr. kop</th><th>Kopper / md.</th><th>Aftaleperiode</th><th>Værdi</th><th>Udløber</th><th>Sælger</th><th>Status</th></tr></thead><tbody>` +
     rows.map((c) => main(c) + (admOpenKeys[c.key] ? ver(c) : "")).join("") + "</tbody></table></div>" : "<p class='admmut'>Ingen tilbud endnu.</p>");
 }
 let admGr = "w";
@@ -2340,12 +2362,12 @@ function admOverview(cs, due) {
   const kr = (v) => Math.round(v).toLocaleString("da-DK") + " kr./md.", rows = admRows.filter(admInPer);
   const cnt = (f) => { const m = {}; rows.forEach((x) => f(x).forEach((k) => { m[k] = m[k] || { k, n: 0, won: 0 }; m[k].n++; if (x._st === "vundet") m[k].won++; })); return Object.keys(m).map((k) => m[k]).sort((a, b) => b.n - a.n || a.k.localeCompare(b.k, "da")); };
   const mach = cnt((x) => admInfo(x).mach), combo = cnt((x) => admInfo(x).cfgs), tilv = cnt((x) => admInfo(x).tilv);
-  const open = cs.filter((c) => c.st === "sendt" || c.st === "fulgt_op"), pipe = open.reduce((a, c) => a + (admInfo(c.l).monthly || 0), 0);
+  const open = cs.filter((c) => c.st === "sendt" || c.st === "fulgt_op"), pipe = open.reduce((a, c) => a + (admInfo(c.l).monthly || 0), 0), pipeTot = open.reduce((a, c) => a + ((admOpts(c.l)[0] || {}).total || 0), 0);
   const mv = rows.map((x) => admInfo(x).monthly).filter((v) => v !== null), avg = mv.length ? mv.reduce((a, b) => a + b, 0) / mv.length : null;
   const K = (v, l, sub) => `<div class="admk"><b>${v}</b><span>${l}</span>${sub ? "<small>" + sub + "</small>" : ""}</div>`;
   $("admdb").innerHTML = K(rows.length, "Tilbud i perioden", rows.filter((x) => x._st === "vundet").length + " vundet") +
-    K(pipe ? kr(pipe) : "–", "Værdi i pipeline", open.length + " åbne sager (Sendt / Fulgt op)") +
-    K(avg !== null ? kr(avg) : "–", "Gns. månedspris pr. tilbud", "Kun maskintilbud, mulighed A") +
+    K(pipe ? kr(pipe) : "–", "Værdi i pipeline", open.length + " åbne sager" + (pipeTot ? " · ca. " + Math.round(pipeTot).toLocaleString("da-DK") + " kr. over aftaleperioden" : "")) +
+    K(avg !== null ? kr(avg) : "–", "Gns. værdi pr. tilbud", "Pris pr. kop × kopper pr. md. (mulighed A)") +
     K(mach.length ? esc(mach[0].k) : "–", "Mest tilbudte maskine", mach.length ? mach[0].n + " tilbud" : "");
   $("admfun").innerHTML = due.length ? `<button type="button" data-at="sa" data-f="opfolg"><b>${due.length} ${due.length === 1 ? "sag skal" : "sager skal"} følges op</b> – se listen →</button>` : "";
   $("admmach").innerHTML = admBars(mach); $("admcombo").innerHTML = admBars(combo.slice(0, 10)); $("admopt").innerHTML = admBars(tilv);
@@ -2369,9 +2391,9 @@ function admTab(t, f) {
   if (f) { $("admst").value = f; admRender(); }
 }
 function admCsv() {
-  const H = ["quote_id", "dato", "firma", "kontakt", "maskine", "aftale", "priser", "udloeb", "saelger", "sag_status", "versioner"];
+  const H = ["quote_id", "dato", "firma", "kontakt", "maskine", "aftale", "pris_pr_kop", "kopper_pr_md", "aftaleperiode_md", "vaerdi_pr_md", "vaerdi_i_alt", "udloeb", "saelger", "sag_status", "versioner"];
   const q = (v) => '"' + String(v === null || v === undefined ? "" : v).replace(/"/g, '""') + '"';
-  const L = [H.join(";")].concat(admFiltered().map((c) => { const x = c.l; return [x.quote_id, x.quoted_at || x.created_at, x.firma, x.kontakt, x.maskine, x.aftale ? "ja" : "nej", (x.opts || []).map((o) => o.pris + "/" + (o.periode || "")).join(" | "), x.udloeb, c.sellers.join(", "), ADM_LBL[c.st], c.items.length].map(q).join(";"); }));
+  const L = [H.join(";")].concat(admFiltered().map((c) => { const x = c.l; return [x.quote_id, x.quoted_at || x.created_at, x.firma, x.kontakt, x.maskine, x.aftale ? "ja" : "nej"].concat(["pris", "kopper", "periode", "monthly", "total"].map((k) => admOpts(x).map((o) => (o[k] === null || o[k] === undefined ? "" : Math.round(o[k] * 100) / 100)).join(" | "))).concat([x.udloeb, c.sellers.join(", "), ADM_LBL[c.st], c.items.length]).map(q).join(";"); }));
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + L.join("\n")], { type: "text/csv" })); a.download = "tilbud.csv"; document.body.appendChild(a); a.click(); a.remove();
 }
 function admOpen() { $("adm").hidden = false; document.body.style.overflow = "hidden"; if (admS()) { admView(true); admLoad(); } else { admView(false); setTimeout(() => $("admemail").focus(), 50); } }
