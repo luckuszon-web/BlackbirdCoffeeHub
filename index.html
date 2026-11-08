@@ -867,6 +867,20 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 #adm select.sts { height: 34px; font-size: 13px; padding: 0 8px; border-radius: 99px; font-weight: 600; width: auto; }
 #adm select.sts.fulgt_op { background: #FBEBD3; color: #8A5300; border-color: #F0D4A6; } #adm select.sts.vundet { background: #DDF2E2; color: #1D6B32; border-color: #BCE3C6; } #adm select.sts.tabt { background: #F9DEDA; color: #9A2A1B; border-color: #EDBFB8; }
 #adm .admhint { background: #FBEBD3; color: #6B4300; border-radius: 10px; padding: 8px 12px; font-size: 13px; margin-bottom: 10px; }
+#adm .admtabs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 14px; border-bottom: 1px solid var(--line); padding-bottom: 10px; } #adm .admtabs .sp { flex: 1; }
+#adm .admtabs button { height: 38px !important; padding: 0 14px !important; background: none !important; color: var(--muted) !important; border: 0 !important; border-radius: 99px !important; font-size: 14px !important; font-weight: 600 !important; }
+#adm .admtabs button.on { background: var(--brand) !important; color: var(--brand-ink) !important; } #adm .admtabs button.ghost { background: var(--bg) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; }
+#admfub { background: var(--brand); color: var(--brand-ink); border-radius: 99px; font-size: 11px; padding: 1px 7px; margin-left: 4px; } #admfub:empty { display: none; } .admtabs button.on #admfub { background: #fff; color: var(--ink); }
+#adm .admph { margin-bottom: 12px; } #adm .admph select { height: 38px; }
+#admdb { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; } #admdb .admk small { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; } #admdb .admk b { font-size: 20px; overflow-wrap: anywhere; }
+#admfun button { display: block; width: 100%; text-align: left; background: #FBEBD3 !important; color: #6B4300 !important; margin-bottom: 14px; height: auto !important; min-height: 44px; padding: 10px 14px !important; }
+.admsec { margin-bottom: 20px; } .admsh { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; } .admsh b { font-size: 15px; } .admtg { margin-left: auto; display: flex; gap: 4px; }
+#adm .admtg button { height: 30px !important; padding: 0 12px !important; font-size: 13px !important; background: var(--bg) !important; color: var(--ink) !important; border: 1px solid var(--line) !important; } #adm .admtg button.on { background: var(--brand) !important; color: var(--brand-ink) !important; border-color: var(--brand) !important; }
+#admchart { display: flex; align-items: flex-end; gap: 4px; height: 150px; padding-top: 18px; border-bottom: 2px solid var(--line); } .admcb { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; position: relative; }
+.admcb i { display: block; width: 100%; max-width: 34px; background: var(--brand); border-radius: 5px 5px 0 0; min-height: 2px; } .admcb em { font-style: normal; font-size: 11px; font-weight: 600; margin-bottom: 2px; } .admcb.z i { background: var(--line); }
+#admclab { display: flex; gap: 4px; margin-top: 4px; } #admclab span { flex: 1 1 0; min-width: 0; text-align: center; font-size: 10px; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.admbl { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(60px, 1fr) auto; align-items: center; gap: 4px 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 13px; } .admbl .n { overflow-wrap: anywhere; } .admbl .abar { height: 8px; border-radius: 99px; background: var(--bg); overflow: hidden; } .admbl .abar i { display: block; height: 100%; background: var(--brand); border-radius: 99px; }
+.admbl .c { font-weight: 700; text-align: right; white-space: nowrap; } .admbl .c small { font-weight: 400; color: var(--muted); font-size: 11px; margin-left: 4px; }
 #sblogin { position: fixed; inset: 0; z-index: 9999; background: #3A2417 url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22300%22%20height%3D%22300%22%20viewBox%3D%220%200%20300%20300%22%20opacity%3D%22.16%22%3E%3Cg%20transform%3D%22translate%2840%2048%29%20rotate%28-30%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%2030%29%20rotate%2825%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28250%2095%29%20rotate%28-60%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2880%20150%29%20rotate%2855%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28190%20170%29%20rotate%2810%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2830%20250%29%20rotate%28-15%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28140%20260%29%20rotate%2870%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28255%20225%29%20rotate%2835%29%22%3E%3Cellipse%20rx%3D%2217%22%20ry%3D%2225%22%20fill%3D%22%23DA6D2B%22/%3E%3Cpath%20d%3D%22M-1%20-23%20C-11%20-8%209%208%201%2023%22%20fill%3D%22none%22%20stroke%3D%22%233A2417%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3C/svg%3E") center / 300px 300px repeat; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: auto; }
 #sblogin[hidden] { display: none; }
 #sblogin .sbcard { width: 100%; max-width: 380px; background: var(--surface); border: 0; border-radius: 20px; padding: 0 24px 26px; box-shadow: 0 24px 60px -18px rgba(0,0,0,.55); overflow: hidden; }
@@ -1119,10 +1133,22 @@ header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hd
         <button type="submit" id="admgo">Log ind</button>
       </form>
       <div id="admdash" hidden>
-        <div class="admbar"><input type="search" id="admq" placeholder="Søg firma, kontakt, sælger …"><select id="admst"><option value="">Alle statusser</option><option value="opfolg">Skal følges op</option><option value="sendt">Sendt</option><option value="fulgt_op">Fulgt op</option><option value="vundet">Vundet</option><option value="tabt">Tabt</option></select><select id="admsel"><option value="">Alle sælgere</option></select><button type="button" id="admcsv">Hent CSV</button><button type="button" id="admref">Opdater</button><button type="button" id="admout">Log ud</button></div>
-        <div id="admkpi"></div>
-        <div id="admfu"></div>
-        <div id="admlist"></div>
+        <div class="admtabs"><button type="button" data-at="ov" class="on">Overblik</button><button type="button" data-at="sa">Sager <span id="admfub"></span></button><span class="sp"></span><button type="button" id="admcsv" class="ghost">Hent CSV</button><button type="button" id="admref" class="ghost">Opdater</button><button type="button" id="admout" class="ghost">Log ud</button></div>
+        <div id="admov">
+          <div class="admph"><select id="admper" aria-label="Periode"><option value="month">Denne måned</option><option value="30">Seneste 30 dage</option><option value="year">I år</option><option value="all">Alle tilbud</option></select></div>
+          <div id="admdb"></div>
+          <div id="admfun"></div>
+          <div class="admsec"><div class="admsh"><b>Tilbud over tid</b><span class="admtg" id="admgr"><button type="button" data-g="w" class="on">Uge</button><button type="button" data-g="m">Måned</button></span></div><div id="admchart"></div></div>
+          <div class="admsec"><div class="admsh"><b>Maskiner der er tilbudt</b></div><div id="admmach"></div></div>
+          <div class="admsec"><div class="admsh"><b>Mest tilbudte sammensætninger</b></div><div id="admcombo"></div></div>
+          <div class="admsec"><div class="admsh"><b>Tilvalg der er tilbudt</b></div><div id="admopt"></div></div>
+        </div>
+        <div id="admsa" hidden>
+          <div class="admbar"><input type="search" id="admq" placeholder="Søg firma, kontakt, sælger, maskine …"><select id="admst"><option value="">Alle statusser</option><option value="opfolg">Skal følges op</option><option value="sendt">Sendt</option><option value="fulgt_op">Fulgt op</option><option value="vundet">Vundet</option><option value="tabt">Tabt</option></select><select id="admsel"><option value="">Alle sælgere</option></select><select id="admso" aria-label="Sortering"><option value="nyeste">Nyeste først</option><option value="aeldste">Ældste først</option><option value="vaerdi">Højeste værdi først</option><option value="firma">Firma A–Å</option></select></div>
+          <div id="admkpi"></div>
+          <div id="admfu"></div>
+          <div id="admlist"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -2213,9 +2239,9 @@ async function admLoad() {
   const h = await admHdr(); if (!h) { admView(false); return; }
   $("admlist").innerHTML = "<p class='admmut'>Henter …</p>";
   try {
-    const [r, r2] = await Promise.all([
-      fetch(SB.url + "/rest/v1/quotes_latest?select=quote_id,quoted_at,created_at,seller,firma,kontakt,maskine,aftale,status,udloeb,lang,opts&order=quoted_at.desc.nullslast&limit=2000", { headers: h }),
-      fetch(SB.url + "/rest/v1/quote_admin?select=sag_key,status,updated_at&limit=5000", { headers: h })]);
+    const qs = (c) => SB.url + "/rest/v1/quotes_latest?select=quote_id,quoted_at,created_at,seller,firma,kontakt,maskine,aftale,status,udloeb,lang,opts" + c + "&order=quoted_at.desc.nullslast&limit=2000";
+    let [r, r2] = await Promise.all([fetch(qs(",cfg:snap->st->opts"), { headers: h }), fetch(SB.url + "/rest/v1/quote_admin?select=sag_key,status,updated_at&limit=5000", { headers: h })]);
+    if (r.status === 400) r = await fetch(qs(""), { headers: h });
     if (r.status === 401) { admW(null); admView(false); $("admerr").textContent = "Din session er udløbet – log ind igen."; return; }
     if (!r.ok) { $("admlist").innerHTML = "<p class='admerr'>Kunne ikke hente tilbud (" + r.status + "). Er admin.sql kørt i Supabase?</p>"; return; }
     admRows = await r.json();
@@ -2233,14 +2259,46 @@ function admCases() {
     const it = m[k].slice().sort((a, b) => new Date(b.quoted_at || b.created_at) - new Date(a.quoted_at || a.created_at)), l = it[0];
     const app = it.some((x) => x.status === "accepteret") ? "vundet" : l.status === "afslag" ? "tabt" : "sendt";
     const st = admSt[k] || app, d = Math.floor((now - new Date(l.quoted_at || l.created_at)) / 864e5);
+    it.forEach((x) => { x._st = st; });
     return { key: k, items: it, l, st, days: d, sellers: Array.from(new Set(it.map((x) => x.seller).filter(Boolean))) };
   }).sort((a, b) => new Date(b.l.quoted_at || b.l.created_at) - new Date(a.l.quoted_at || a.l.created_at));
+}
+const ADM_V = { vand: { tank: "Vandtank", tank8: "8L vandtank", tank5: "5L vandtank", fast: "Fastvandstilslutning" }, maelk: { friskmaelk: "Friskmælkskøleskab", pulver: "Mælkepulver", ingen: "Ingen mælk" } };
+const admPn = (v) => { const n = parseFloat(String(v).replace(",", ".")); return isFinite(n) ? n : 0; };
+/* Pr. tilbud: månedspris (mulighed A, alle maskiner) og sammensætninger ("Maskine · tilvalg …") ud fra gemt snapshot */
+function admInfo(x) {
+  if (x._i) return x._i;
+  let monthly = null, cfgs = [];
+  if (x.aftale) cfgs = ["Kun kaffeaftale"];
+  else if (Array.isArray(x.cfg) && x.cfg.length) {
+    const set = {};
+    x.cfg.forEach((o, oi) => (o.mach || []).forEach((m) => {
+      const nm = MACH[m.maskine] && MACH[m.maskine].name; if (!nm) return;
+      const p = [nm]; if (ADM_V.vand[m.vand]) p.push(ADM_V.vand[m.vand]); if (ADM_V.maelk[m.maelk]) p.push(ADM_V.maelk[m.maelk]);
+      if (m.qpress) p.push("QPress"); if (m.grinder) p.push("Grinder"); if (m.kort) p.push("Kortbetaling");
+      set[p.join(" · ")] = 1; if (oi === 0) monthly = (monthly || 0) + admPn(m.pris) * (admPn(m.antal) || 1);
+    }));
+    cfgs = Object.keys(set);
+  } else { cfgs = (x.maskine || "").split(" / ").filter(Boolean); if (x.opts && x.opts[0]) monthly = admPn(x.opts[0].pris); }
+  if (!monthly) monthly = null;
+  return (x._i = { monthly, cfgs, mach: Array.from(new Set(cfgs.map((c) => c.split(" · ")[0]))), tilv: Array.from(new Set([].concat.apply([], cfgs.map((c) => c.split(" · ").slice(1))))) });
+}
+const admDate = (x) => new Date(x.quoted_at || x.created_at);
+function admInPer(x) {
+  const v = $("admper").value, d = admDate(x), n = new Date();
+  if (v === "month") return d.getFullYear() === n.getFullYear() && d.getMonth() === n.getMonth();
+  if (v === "year") return d.getFullYear() === n.getFullYear();
+  if (v === "30") return Date.now() - d.getTime() <= 30 * 864e5;
+  return true;
 }
 const admDue = (c) => c.st === "sendt" && c.days >= admFu();
 function admFiltered() {
   const q = $("admq").value.trim().toLowerCase(), st = $("admst").value, se = $("admsel").value;
-  return admCases().filter((c) => (!st || (st === "opfolg" ? admDue(c) : c.st === st)) && (!se || c.items.some((x) => (x.seller || "") === se)) &&
+  const so = $("admso").value, val = (c) => { const m = admInfo(c.l).monthly; return m === null ? -1 : m; };
+  const r = admCases().filter((c) => (!st || (st === "opfolg" ? admDue(c) : c.st === st)) && (!se || c.items.some((x) => (x.seller || "") === se)) &&
     (!q || c.items.some((x) => [x.firma, x.kontakt, x.seller, x.maskine].join(" ").toLowerCase().indexOf(q) >= 0)));
+  if (so === "aeldste") r.reverse(); else if (so === "vaerdi") r.sort((a, b) => val(b) - val(a)); else if (so === "firma") r.sort((a, b) => String(a.l.firma || a.l.kontakt || "").localeCompare(String(b.l.firma || b.l.kontakt || ""), "da"));
+  return r;
 }
 async function admSetSt(key, st) {
   const h = await admHdr(); if (!h) { admView(false); return; }
@@ -2266,9 +2324,49 @@ function admRender() {
   const rows = admFiltered(), selS = (c) => `<select class="sts ${c.st}" data-k="${esc(c.key)}" aria-label="Status">${Object.keys(ADM_LBL).map((k) => `<option value="${k}"${k === c.st ? " selected" : ""}>${ADM_LBL[k]}</option>`).join("")}</select>`;
   const main = (c) => { const x = c.l, v = c.items.length > 1; return `<tr><td>${fd(x.quoted_at || x.created_at)}</td><td><b>${esc(x.firma || "–")}</b>${v ? `<button type="button" class="vbtn" data-v="${esc(c.key)}" aria-expanded="${!!admOpenKeys[c.key]}">${c.items.length} versioner ${admOpenKeys[c.key] ? "▴" : "▾"}</button>` : ""}</td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${pr(x) || "–"}</td><td>${fd(x.udloeb)}</td><td>${esc(c.sellers.join(", ") || "–")}</td><td>${selS(c)}</td></tr>`; };
   const ver = (c) => c.items.slice(1).map((x) => `<tr class="ver"><td>${fd(x.quoted_at || x.created_at)}</td><td>↳ Tidligere version</td><td>${esc(x.kontakt || "–")}</td><td>${esc(x.maskine || (x.aftale ? "Kun kaffeaftale" : "–"))}</td><td>${pr(x) || "–"}</td><td>${fd(x.udloeb)}</td><td>${esc(x.seller || "–")}</td><td></td></tr>`).join("");
+  $("admfub").textContent = due.length || "";
+  admOverview(cs, due);
   $("admlist").innerHTML = (admStOk ? "" : "<div class='admhint'>Status kan ikke gemmes endnu – kør <b>admin-status.sql</b> i Supabase → SQL Editor.</div>") +
     (rows.length ? `<div class="admtw"><table><thead><tr><th>Dato</th><th>Firma</th><th>Kontakt</th><th>Maskine</th><th>Pris / periode</th><th>Udløber</th><th>Sælger</th><th>Status</th></tr></thead><tbody>` +
     rows.map((c) => main(c) + (admOpenKeys[c.key] ? ver(c) : "")).join("") + "</tbody></table></div>" : "<p class='admmut'>Ingen tilbud endnu.</p>");
+}
+let admGr = "w";
+function admBars(list, total) {
+  if (!list.length) return "<p class='admmut' style='margin:0'>Ingen data i perioden.</p>";
+  const mx = Math.max.apply(null, list.map((x) => x.n));
+  return list.map((x) => `<div class="admbl"><span class="n">${esc(x.k)}</span><span class="abar"><i style="width:${Math.max(3, Math.round(x.n / mx * 100))}%"></i></span><span class="c">${x.n}<small>${x.won ? x.won + " vundet" : ""}</small></span></div>`).join("");
+}
+function admOverview(cs, due) {
+  const kr = (v) => Math.round(v).toLocaleString("da-DK") + " kr./md.", rows = admRows.filter(admInPer);
+  const cnt = (f) => { const m = {}; rows.forEach((x) => f(x).forEach((k) => { m[k] = m[k] || { k, n: 0, won: 0 }; m[k].n++; if (x._st === "vundet") m[k].won++; })); return Object.keys(m).map((k) => m[k]).sort((a, b) => b.n - a.n || a.k.localeCompare(b.k, "da")); };
+  const mach = cnt((x) => admInfo(x).mach), combo = cnt((x) => admInfo(x).cfgs), tilv = cnt((x) => admInfo(x).tilv);
+  const open = cs.filter((c) => c.st === "sendt" || c.st === "fulgt_op"), pipe = open.reduce((a, c) => a + (admInfo(c.l).monthly || 0), 0);
+  const mv = rows.map((x) => admInfo(x).monthly).filter((v) => v !== null), avg = mv.length ? mv.reduce((a, b) => a + b, 0) / mv.length : null;
+  const K = (v, l, sub) => `<div class="admk"><b>${v}</b><span>${l}</span>${sub ? "<small>" + sub + "</small>" : ""}</div>`;
+  $("admdb").innerHTML = K(rows.length, "Tilbud i perioden", rows.filter((x) => x._st === "vundet").length + " vundet") +
+    K(pipe ? kr(pipe) : "–", "Værdi i pipeline", open.length + " åbne sager (Sendt / Fulgt op)") +
+    K(avg !== null ? kr(avg) : "–", "Gns. månedspris pr. tilbud", "Kun maskintilbud, mulighed A") +
+    K(mach.length ? esc(mach[0].k) : "–", "Mest tilbudte maskine", mach.length ? mach[0].n + " tilbud" : "");
+  $("admfun").innerHTML = due.length ? `<button type="button" data-at="sa" data-f="opfolg"><b>${due.length} ${due.length === 1 ? "sag skal" : "sager skal"} følges op</b> – se listen →</button>` : "";
+  $("admmach").innerHTML = admBars(mach); $("admcombo").innerHTML = admBars(combo.slice(0, 10)); $("admopt").innerHTML = admBars(tilv);
+  /* graf: antal tilbud pr. uge / måned (alle tilbud, uafhængig af periode) */
+  const N = 12, now = new Date(), bk = [], lab = [];
+  const wk = (d) => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const dn = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - dn); const y0 = new Date(Date.UTC(t.getUTCFullYear(), 0, 1)); return { y: t.getUTCFullYear(), w: Math.ceil(((t - y0) / 864e5 + 1) / 7) }; };
+  for (let i = N - 1; i >= 0; i--) {
+    if (admGr === "w") { const d = new Date(now.getTime() - i * 7 * 864e5), w = wk(d); bk.push(w.y + "-" + w.w); lab.push("u" + w.w); }
+    else { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); bk.push(d.getFullYear() + "-" + d.getMonth()); lab.push(d.toLocaleDateString("da-DK", { month: "short" }).replace(".", "")); }
+  }
+  const cn = bk.map(() => 0);
+  admRows.forEach((x) => { const d = admDate(x), k = admGr === "w" ? (() => { const w = wk(d); return w.y + "-" + w.w; })() : d.getFullYear() + "-" + d.getMonth(), i = bk.indexOf(k); if (i >= 0) cn[i]++; });
+  const mx = Math.max(1, Math.max.apply(null, cn));
+  $("admchart").innerHTML = cn.map((v) => `<div class="admcb${v ? "" : " z"}"><em>${v || ""}</em><i style="height:${v ? Math.max(6, Math.round(v / mx * 100)) + "%" : "2px"}"></i></div>`).join("") ;
+  let cl = $("admclab"); if (!cl) { cl = document.createElement("div"); cl.id = "admclab"; $("admchart").after(cl); }
+  cl.innerHTML = lab.map((l) => `<span>${esc(l)}</span>`).join("");
+}
+function admTab(t, f) {
+  $("admov").hidden = t !== "ov"; $("admsa").hidden = t !== "sa";
+  document.querySelectorAll(".admtabs [data-at]").forEach((b) => b.classList.toggle("on", b.dataset.at === t));
+  if (f) { $("admst").value = f; admRender(); }
 }
 function admCsv() {
   const H = ["quote_id", "dato", "firma", "kontakt", "maskine", "aftale", "priser", "udloeb", "saelger", "sag_status", "versioner"];
@@ -2283,7 +2381,11 @@ $("admclose").addEventListener("click", admClose);
 $("admref").addEventListener("click", admLoad);
 $("admcsv").addEventListener("click", admCsv);
 ["admq", "admst", "admsel"].forEach((i) => $(i).addEventListener("input", admRender));
+$("admper").addEventListener("input", admRender);
+$("admso").addEventListener("input", admRender);
 $("admdash").addEventListener("click", (e) => {
+  const at = e.target.closest("[data-at]"); if (at) { admTab(at.dataset.at, at.dataset.f); return; }
+  const g = e.target.closest("[data-g]"); if (g) { admGr = g.dataset.g; document.querySelectorAll("#admgr button").forEach((x) => x.classList.toggle("on", x === g)); admRender(); return; }
   const b = e.target.closest("[data-set]"); if (b) { admSetSt(b.dataset.k, b.dataset.set); return; }
   const v = e.target.closest("[data-v]"); if (v) { admOpenKeys[v.dataset.v] = !admOpenKeys[v.dataset.v]; admRender(); }
 });
