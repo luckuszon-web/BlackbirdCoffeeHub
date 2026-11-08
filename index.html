@@ -360,7 +360,7 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: no
 .dm-empty { margin: 4px 0 6px; font-size: 13.5px; color: rgba(246,238,230,.65); }
 @media (max-width: 520px) { .dm { padding: 22px 18px 14px; } .dm-q { font-size: 22px; } .dm-q.long { font-size: 19px; } }
 @media (prefers-reduced-motion: reduce) { .dm-body { transition: none; } }
-.hstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; }
+.hstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 14px 0; }
 .hstat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 6px; text-align: center; }
 .hstat b { display: block; font-size: 22px; line-height: 1.1; }
 .hstat span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
@@ -803,7 +803,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 }
 @media (max-width: 400px) {
   /* KPI-felter: 2 x 2, så teksterne ikke klemmes */
-  .hstats { grid-template-columns: 1fr 1fr; }
+  .hstats { grid-template-columns: repeat(3, 1fr); }
   .hstat { display: flex; align-items: baseline; justify-content: center; gap: 6px; padding: 9px 6px !important; }
   .hstat b { display: inline; font-size: 19px; }
   .hstat span { display: inline; margin: 0; font-size: 12px !important; }
@@ -914,7 +914,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
     <nav class="tabs" role="tablist" aria-label="Salgsassistent">
       <button type="button" role="tab" class="tab" id="tabbtn-home" data-tab="home" aria-selected="true">Forside</button>
       <button type="button" role="tab" class="tab" id="tabbtn-gen" data-tab="gen" aria-selected="false">Tilbudsgenerator</button>
-      <button type="button" role="tab" class="tab" id="tabbtn-work" data-tab="work" aria-selected="false">Tilbud &amp; to-do<span class="tabn" id="todo-n"></span></button>
+      <button type="button" role="tab" class="tab" id="tabbtn-work" data-tab="work" aria-selected="false">Tilbud<span class="tabn" id="todo-n"></span></button>
       <button type="button" role="tab" class="tab" id="tabbtn-tco" data-tab="tco" aria-selected="false">TCO Beregner</button>
       <button type="button" role="tab" class="tab" id="tabbtn-kaf" data-tab="kaf" aria-selected="false">Kaffeakademiet</button>
       <button type="button" role="tab" class="tab" id="tabbtn-rules" data-tab="rules" aria-selected="false">Salgsregler</button>
@@ -957,9 +957,8 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
       <button type="button" class="htile" data-go="kaf"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v3M12 3v3"/></svg></span><span class="htt">Kaffeakademiet</span><span class="hts">Slå kaffeviden op på 15 sekunder</span></button>
       <button type="button" class="htile" data-go="rules"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="htt">Salgsregler</span><span class="hts">Booking, outcome og 21-dages fristen</span></button>
       <button type="button" class="htile" data-go="tp"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></span><span class="htt">Trustpilot</span><span class="hts">QR-kode til kundens anmeldelse</span></button>
-      <button type="button" class="htile" data-go="todo"><span class="hti"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12l3 3 5-6"/></svg></span><span class="htt">To-do</span><span class="hts" id="hts-todo">Opfølgninger og opkald</span></button>
     </div>
-    <div class="hcard" id="hnext" hidden><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
+    <div class="hcard" id="hnext" hidden style="display:none !important"><h2 class="hch">Næste opgaver</h2><div id="hnextl"></div></div>
     <p class="admfoot"><button type="button" id="admopen">Admin</button></p>
   </section>
   <div id="adm" hidden role="dialog" aria-modal="true" aria-label="Admin">
@@ -1151,7 +1150,7 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
   </div>
 
   <section id="tab-work" role="tabpanel" aria-labelledby="tabbtn-work" hidden>
-  <div class="wkseg" role="group" aria-label="Vælg visning"><button type="button" data-wk="over" id="wk-over" aria-pressed="true">Tilbud</button><button type="button" data-wk="todo" id="wk-todo" aria-pressed="false">To-do</button></div>
+  <div class="wkseg" hidden style="display:none" role="group" aria-label="Vælg visning"><button type="button" data-wk="over" id="wk-over" aria-pressed="true">Tilbud</button><button type="button" data-wk="todo" id="wk-todo" aria-pressed="false">To-do</button></div>
   <section id="tab-over">
     <div class="kpis" id="kpis"></div>
     <div class="ofilter" id="ofilter" role="group" aria-label="Vis"></div>
@@ -2389,7 +2388,7 @@ function wkCounts() {
   $("wk-todo").innerHTML = esc(U("To-do")) + (t ? "<small>" + t + "</small>" : "");
 }
 function showTab(n) {
-  if (n === "over" || n === "todo") { wkView = n; n = "work"; }
+  if (n === "over" || n === "todo") { wkView = "over"; n = "work"; }
   ["home", "gen", "work", "tco", "kaf", "rules", "tp"].forEach((t) => { $("tab-" + t).hidden = t !== n; $("tabbtn-" + t).setAttribute("aria-selected", String(t === n)); });
   $("hdr-gen").hidden = n !== "gen"; placeHdrGen();
   if (n === "gen") fitPreview();
@@ -2457,7 +2456,7 @@ function renderOver() {
     return `<div class="ocard s-${x.status}" data-id="${x.id}">
 <div class="ohead"><b>${esc(x.firma || U("Uden navn"))}</b><span class="obadge">${U(SL[x.status])}</span></div>
 <div class="ometa"><strong>${U("Kontakt")}:</strong> ${esc(x.navn || "–")} · <strong>${U("Løsning")}:</strong> ${esc(x.maskine)}<br><strong>${x.aftale ? U("Pris pr. kg") : U("Koppris")}:</strong> ${esc(pris)} · <strong>${U("Aftaleperiode")}:</strong> ${esc(pe)}<br>${U("Sendt")} ${when(x.at)}</div>
-<div class="oacts"><button type="button" class="obtn acc" data-o="accepteret" aria-pressed="${x.status === "accepteret"}">✓ ${U("Accepteret")}</button><button type="button" class="obtn rej" data-o="afslag" aria-pressed="${x.status === "afslag"}">✕ ${U("Afslag")}</button><button type="button" class="obtn" data-o="open">${U("Åbn")}</button><button type="button" class="obtn" data-o="todo">${U("+ Opfølgning")}</button><button type="button" class="obtn del${sureId === x.id ? " sure" : ""}" data-o="del">${sureId === x.id ? U("Er du sikker?") : U("Fjern")}</button></div></div>`;
+<div class="oacts"><button type="button" class="obtn acc" data-o="accepteret" aria-pressed="${x.status === "accepteret"}">✓ ${U("Accepteret")}</button><button type="button" class="obtn rej" data-o="afslag" aria-pressed="${x.status === "afslag"}">✕ ${U("Afslag")}</button><button type="button" class="obtn" data-o="open">${U("Åbn")}</button><button type="button" class="obtn del${sureId === x.id ? " sure" : ""}" data-o="del">${sureId === x.id ? U("Er du sikker?") : U("Fjern")}</button></div></div>`;
   }).join("") : `<div class="oempty">${U(log.length ? "Ingen tilbud med denne status." : "Ingen tilbud endnu. Når du trykker på «Kopiér tilbud», bliver det gemt her.")}</div>`;
 }
 $("ofilter").addEventListener("click", (e) => { const b = e.target.closest("[data-f]"); if (!b) return; overFilter = b.dataset.f; renderOver(); });
@@ -2528,7 +2527,7 @@ function renderNudges() {
     const x = n.x, ttl = esc(x.firma || U("Uden navn"));
     const when = n.k === "ex" ? (n.left > 0 ? U("Udløber om") + " " + n.left + " " + U(n.left === 1 ? "dag" : "dage") : n.left === 0 ? U("Udløber i dag") : U("Udløbet for") + " " + (-n.left) + " " + U(-n.left === 1 ? "dag siden" : "dage siden")) : n.age + " " + U("dage siden tilbuddet blev sendt");
     return '<div class="nd" data-nid="' + esc(x.id) + '" data-nk="' + n.k + '"><div class="nd-t"><span>' + (n.k === "ex" ? "⏳ " : "🔔 ") + ttl + '</span><small class="' + (n.k === "ex" ? "hot" : "") + '">' + esc(when) + '</small></div>' +
-      '<p class="nd-m">' + esc(ndMsg(n)) + '</p><div class="nd-a"><button type="button" class="p" data-nd="copy">' + U("Kopiér besked") + '</button><button type="button" data-nd="todo">' + U("Opret to-do") + '</button><button type="button" data-nd="open">' + U("Åbn tilbud") + '</button><button type="button" data-nd="hide">' + U("Skjul") + "</button></div></div>";
+      '<p class="nd-m">' + esc(ndMsg(n)) + '</p><div class="nd-a"><button type="button" class="p" data-nd="copy">' + U("Kopiér besked") + '</button><button type="button" data-nd="open">' + U("Åbn tilbud") + '</button><button type="button" data-nd="hide">' + U("Skjul") + "</button></div></div>";
   }).join("");
 }
 $("tab-home").addEventListener("click", async (e) => {
@@ -3722,7 +3721,7 @@ function renderHome() {
   $("home-hi").textContent = U(hr < 10 ? "Godmorgen" : hr < 17 ? "God dag" : "God aften");
   const log = lsGet(LKEY, []), todos = tdAll().filter((t) => !t.done);
   const cnt = (s) => log.filter((x) => x.status === s).length;
-  const S = [[log.length, "Sendte tilbud"], [cnt("afventer"), "Afventer"], [cnt("accepteret"), "Accepteret"], [todos.length, "Åbne to-dos"]];
+  const S = [[log.length, "Sendte tilbud"], [cnt("afventer"), "Afventer"], [cnt("accepteret"), "Accepteret"]];
   renderQuote();
   renderNudges();
   $("hstats").innerHTML = S.map((s) => '<div class="hstat"><b>' + s[0] + "</b><span>" + esc(U(s[1])) + "</span></div>").join("");
