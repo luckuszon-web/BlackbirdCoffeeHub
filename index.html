@@ -1253,7 +1253,8 @@ header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hd
           </fieldset>
         </div>
         <div class="field"><label for="periode">Aftaleperiode <small>(antal måneder)</small></label><input type="text" id="periode" inputmode="numeric" value="" autocomplete="off" aria-describedby="periode-err"><p class="fielderr" id="periode-err" hidden>Aftaleperioden skal være mindst 12 måneder. Kortere perioder er ikke tilladt.</p></div>
-        <label class="swrow swper"><input type="checkbox" id="ingenper" role="switch"><span class="swtrack" aria-hidden="true"></span><span class="swlbl">Nævn ikke aftaleperiode</span></label>
+        <input type="checkbox" id="ingenper" checked hidden>
+        <label class="swrow swper"><input type="checkbox" id="visper" role="switch"><span class="swtrack" aria-hidden="true"></span><span class="swlbl">Nævn aftaleperiode i tilbuddet</span></label>
         <div class="addnote"><button type="button" class="addbtn" data-note="n-pris" aria-expanded="false">+ Tilføj egen tekst i prisboksen</button><textarea id="n-pris" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
@@ -1514,7 +1515,7 @@ const minLockReason = (o) => {
 };
 const minLocked = (o) => !!minLockReason(o);
 const newMach = () => ({ maskine: "", vand: "", maelk: "", qpress: false, grinder: false, kort: false, antal: "1", pris: "", auto: false });
-const newOpt = () => ({ mach: [newMach()], model: "min", kopper: "100", periode: "", ingenper: false, drikkere: "", visTotal: false });
+const newOpt = () => ({ mach: [newMach()], model: "min", kopper: "100", periode: "", ingenper: true, drikkere: "", visTotal: false });
 let ST = { opts: [newOpt()], ai: 0, am: 0 };
 let autoVand = false;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -1597,7 +1598,7 @@ function missing(s) {
     if (s.kgmaaned === null || s.kgmaaned <= 0) m.push("forventet kg pr. måned");
     if (!s.formater.length) m.push("leveringsformat");
     if (s.formater.some((id) => id !== "fmt-1kg") && !s.kaffe.includes("Early Bird")) m.push("Early Bird (formalet fås kun som Early Bird)");
-    if (!s.ingenper && (s.periode === null || s.periode <= 0)) m.push("aftaleperiode (eller slå «Nævn ikke aftaleperiode» til)");
+    if (!s.ingenper && (s.periode === null || s.periode <= 0)) m.push("aftaleperiode (eller slå «Nævn aftaleperiode i tilbuddet» fra)");
     if (!s.mail) m.push("svar-adresse");
     return m;
   }
@@ -1614,7 +1615,7 @@ function missing(s) {
     });
     if (o.model !== "fast" && !(o.drikkere > 0)) m.push(po + "antal ansatte / kaffedrikkere (faktureres ud fra estimeret forbrug)");
     if (o.model === "fast" && (o.kopper === null || o.kopper <= 0)) m.push(po + "antal kopper pr. måned (fast betaling)");
-    if (!o.ingenper && (o.periode === null || o.periode <= 0)) m.push(po + "aftaleperiode (eller slå «Nævn ikke aftaleperiode» til)");
+    if (!o.ingenper && (o.periode === null || o.periode <= 0)) m.push(po + "aftaleperiode (eller slå «Nævn aftaleperiode i tilbuddet» fra)");
   });
   if (!s.kaffe.length) m.push("kaffetype");
   if (!s.mail) m.push("svar-adresse");
@@ -2038,6 +2039,7 @@ function update() {
   $("sek-maskine").hidden = a;
   $("maskine-pris").hidden = a;
   $("aftale-pris").hidden = !a;
+  $("visper").checked = !$("ingenper").checked;
   $("periode").disabled = $("ingenper").checked;
   renderBars();
   const s = read();
@@ -2089,6 +2091,7 @@ document.querySelectorAll("[data-for]").forEach((g) => g.addEventListener("click
   inp.value = b.dataset.value;
   inp.dispatchEvent(new Event("input", { bubbles: true }));
 }));
+$("visper").addEventListener("input", () => { $("ingenper").checked = !$("visper").checked; update(); });
 $("form").addEventListener("input", () => update());
 $("form").addEventListener("change", () => update());
 $("copy").addEventListener("click", async () => {
@@ -2449,7 +2452,7 @@ $("reset").addEventListener("click", () => {
   ["maskine", "vand", "maelk"].forEach((id) => { $(id).value = ""; });
   $("kakao").checked = false;
   $("qpress").checked = false; $("grinder").checked = false; $("kort").checked = false; autoVand = false;
-  $("ingenper").checked = false;
+  $("ingenper").checked = true;
   $("udloeb").value = "";
   ["kgpris", "kgmaaned", "levmin"].forEach((id) => { $(id).value = ""; });
   FORMATER.forEach((f) => { $(f.id).checked = f.id === "fmt-1kg"; });
