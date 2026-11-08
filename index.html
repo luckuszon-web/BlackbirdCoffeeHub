@@ -933,21 +933,26 @@ legend small { flex-basis: 100%; padding-left: 14px; font-size: 12px; color: var
 .rxcard-b { padding: 4px 16px 18px; }
 .rxcard-b h2.rx-h { font-size: 22px; }
 /* Finjustering: navigation, genveje, statistik */
-/* Menu: samme dropdown på alle skærme */
-.navmenu { display: flex !important; align-items: center; gap: 10px; box-sizing: border-box; min-height: 44px; padding: 6px 12px !important; border: 1px solid var(--line) !important; border-radius: 12px !important; background: var(--surface) !important; color: var(--ink) !important; font: inherit; font-size: 15px; cursor: pointer; text-align: left; }
-.navmenu svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.navmenu .nm-l { display: none; } .navmenu b { font-size: 16px; }
-.navmenu[aria-expanded="true"] .nm-c { transform: rotate(180deg); }
-.navwrap { display: contents; }
-.navwrap .tabs { display: none; position: fixed !important; top: calc(var(--hh, 64px) + env(safe-area-inset-top, 0px)); left: 16px; right: 16px; width: auto; flex-direction: column; flex-wrap: nowrap !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: 0 14px 30px -12px rgba(33,27,23,.35); z-index: 40; }
-.navwrap .tabs.open { display: flex; }
-.navwrap .tabs .tab { flex: none !important; width: 100%; text-align: left; font-size: 16px !important; min-height: 46px !important; padding: 10px 12px !important; }
-header { position: sticky; top: 0; z-index: 35; background: var(--bg); justify-content: flex-start !important; flex-wrap: nowrap !important; padding: 8px 0 !important; margin-top: -10px; }
-header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hdr-r .hist { min-width: 0; } header .hdr-r select { max-width: 220px; } header .hdr-r button { white-space: nowrap; flex: none; } .navmenu b { white-space: nowrap; }
-@media (min-width: 701px) { .navwrap .tabs { right: auto; width: 280px; } header .navmenu { margin-left: 8px; } }
+/* Navigation: faner i headeren på computer, menuknap på mobil */
+header { position: sticky; top: 0; z-index: 35; background: var(--bg); padding: 8px 0 !important; margin-top: -10px; }
+.navmenu { display: none !important; }
+.navwrap { position: static !important; display: block; flex: 1 1 auto; min-width: 0; margin: 0 !important; padding: 0 !important; background: transparent !important; }
+.navwrap .tabs { display: flex; flex-wrap: nowrap !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; gap: 2px; width: auto; }
+.navwrap .tabs .tab { padding: 8px 7px !important; font-size: 14px !important; min-height: 40px !important; white-space: nowrap; }
+@media (min-width: 701px) { header { gap: 10px 12px !important; } header .brand img { height: 36px; } .navwrap .tabs { padding: 3px !important; } }
+header { justify-content: flex-start !important; flex-wrap: wrap !important; gap: 12px 16px; }
+header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hdr-r .hist { min-width: 0; } header .hdr-r select { max-width: 220px; } header .hdr-r button { white-space: nowrap; flex: none; }
 @media (max-width: 700px) {
+  header { flex-wrap: nowrap !important; }
   header .brand { width: auto !important; flex-direction: row !important; flex: 0 1 auto; }
-  header .navmenu { flex: 0 0 auto; margin-left: auto; }
+  .navmenu { display: flex !important; align-items: center; gap: 10px; box-sizing: border-box; min-height: 44px; padding: 6px 12px !important; border: 1px solid var(--line) !important; border-radius: 12px !important; background: var(--surface) !important; color: var(--ink) !important; font: inherit; font-size: 15px; cursor: pointer; text-align: left; flex: 0 0 auto; margin-left: auto; }
+  .navmenu svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .navmenu .nm-l { display: none; } .navmenu b { font-size: 16px; white-space: nowrap; }
+  .navmenu[aria-expanded="true"] .nm-c { transform: rotate(180deg); }
+  .navwrap { display: contents; }
+  .navwrap .tabs { display: none; position: fixed !important; top: calc(var(--hh, 64px) + env(safe-area-inset-top, 0px)); left: 16px; right: 16px; flex-direction: column; flex-wrap: nowrap !important; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: 0 14px 30px -12px rgba(33,27,23,.35); z-index: 40; }
+  .navwrap .tabs.open { display: flex; }
+  .navwrap .tabs .tab { flex: none !important; width: 100%; text-align: left; font-size: 16px !important; min-height: 46px !important; padding: 10px 12px !important; }
   .htile { padding: 10px 12px !important; } .htile .hti { width: 32px; height: 32px; margin-bottom: 2px; } .htile .hts { font-size: 12.5px; }
 }
 .hstat-cap { margin: -4px 0 12px; font-size: 12.5px; color: var(--muted); text-align: center; }
@@ -973,10 +978,7 @@ header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hd
 
     </div>
     <button type="button" class="navmenu" id="navmenu" aria-expanded="false" aria-controls="navtabs"><svg viewBox="0 0 24 24" aria-hidden="true" class="nm-b"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="nm-l">Menu</span><b id="navcur">Forside</b><svg viewBox="0 0 24 24" aria-hidden="true" class="nm-c"><path d="M6 9l6 6 6-6"/></svg></button>
-    <div class="sbuser" id="sbuser" hidden><span id="sbstat" aria-live="polite"></span><span id="sbmail"></span><button type="button" id="sblogout">Log ud</button></div>
-    <div class="hdr-r" id="hdr-gen" hidden><div class="hist"><select id="hist" aria-label="Seneste tilbud"><option value="">Seneste tilbud…</option></select></div><button type="button" class="secondary" id="reset">Ny kunde (ryd felter)</button></div>
-  </header>
-  <div class="navwrap">
+    <div class="navwrap">
     <nav class="tabs" id="navtabs" role="tablist" aria-label="Salgsassistent">
       <button type="button" role="tab" class="tab" id="tabbtn-home" data-tab="home" aria-selected="true">Forside</button>
       <button type="button" role="tab" class="tab" id="tabbtn-gen" data-tab="gen" aria-selected="false">Nyt tilbud</button>
@@ -985,7 +987,10 @@ header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hd
       <button type="button" role="tab" class="tab" id="tabbtn-kaf" data-tab="kaf" aria-selected="false">Kaffeakademiet</button>
       <button type="button" role="tab" class="tab" id="tabbtn-rules" data-tab="rules" aria-selected="false">Salgsregler</button>
     </nav>
-  </div>
+    </div>
+    <div class="sbuser" id="sbuser" hidden><span id="sbstat" aria-live="polite"></span><span id="sbmail"></span><button type="button" id="sblogout">Log ud</button></div>
+    <div class="hdr-r" id="hdr-gen" hidden><div class="hist"><select id="hist" aria-label="Seneste tilbud"><option value="">Seneste tilbud…</option></select></div><button type="button" class="secondary" id="reset">Ny kunde (ryd felter)</button></div>
+  </header>
 
   <section id="tab-home" role="tabpanel" aria-labelledby="tabbtn-home">
     <div class="hero">
@@ -3828,7 +3833,7 @@ function navSync() {
   if (sel) $("navcur").textContent = sel.childNodes[0].textContent.trim();
   $("navmenu").setAttribute("aria-expanded", "false"); $("navtabs").classList.remove("open");
 }
-$("navmenu").addEventListener("click", () => { const o = !$("navtabs").classList.contains("open"); $("navtabs").style.left = innerWidth > 700 ? Math.round($("navmenu").getBoundingClientRect().left) + "px" : ""; $("navtabs").classList.toggle("open", o); $("navmenu").setAttribute("aria-expanded", String(o)); });
+$("navmenu").addEventListener("click", () => { const o = !$("navtabs").classList.contains("open");  $("navtabs").classList.toggle("open", o); $("navmenu").setAttribute("aria-expanded", String(o)); });
 document.addEventListener("click", (e) => { if (!e.target.closest(".navwrap, #navmenu")) { $("navtabs").classList.remove("open"); $("navmenu").setAttribute("aria-expanded", "false"); } });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") { $("navtabs").classList.remove("open"); $("navmenu").setAttribute("aria-expanded", "false"); } });
 navSync();
