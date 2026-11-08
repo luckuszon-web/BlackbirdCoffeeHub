@@ -4058,5 +4058,11 @@ update = function () { _upd(); autosave(); };
 window.addEventListener("beforeunload", () => { if (!restoring) lsSet(DKEY, snapshot()); });
 { const fd = followDate(4), p2 = (x) => String(x).padStart(2, "0"); $("fu-date").value = fd.getFullYear() + "-" + p2(fd.getMonth() + 1) + "-" + p2(fd.getDate()); }
 renderHist();
-{ const d = lsGet(DKEY, null); if (d) restore(d); else update(); }
+{ const d = lsGet(DKEY, null);
+  /* Kladden fra før den nye standardtekst: skift gammel standard-indledning ud (egne tekster røres ikke) */
+  const OLD_INTRO = ["Tak for en rigtig god snak. Det var en fornøjelse at høre mere om jeres behov. Som lovet har jeg samlet et tilbud, så I kan se, hvad løsningen indeholder.",
+    "Tack för ett riktigt bra samtal. Det var ett nöje att få höra mer om era behov. Som utlovat har jag sammanställt ett erbjudande, så att ni kan se vad lösningen innehåller.",
+    "Thank you for a great conversation. It was a pleasure to hear more about your needs. As promised, I have put together a quote so you can see what the solution includes."];
+  if (d && d.f && OLD_INTRO.indexOf(String(d.f.intro || "").trim()) >= 0) d.f.intro = INTRO[["da", "en", "sv"].includes(d.f.lang) ? d.f.lang : "da"];
+  if (d) restore(d); else update(); }
 </script>
