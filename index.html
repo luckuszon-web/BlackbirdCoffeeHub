@@ -1122,7 +1122,7 @@ header .hdr-r { margin-left: auto; flex-wrap: nowrap; min-width: 0; } header .hd
         <legend>Kunde</legend>
         <div class="field"><label for="firma">Virksomhed</label><input type="text" id="firma" value="" autocomplete="off"></div>
         <div class="field"><label for="navn">Kontaktperson <small>(fornavn)</small></label><input type="text" id="navn" value="" autocomplete="off"></div>
-        <div class="field"><label for="intro">Indledning</label><textarea id="intro">Tak for en rigtig god snak. Det var en fornøjelse at høre mere om jeres behov. Som lovet har jeg samlet et tilbud, så I kan se, hvad løsningen indeholder.</textarea></div>
+        <div class="field"><label for="intro">Indledning</label><textarea id="intro">Tak for en god snak. Som lovet kommer her et samlet og overskueligt oplæg på en professionel kaffeløsning fra os 🙂</textarea></div>
         <div class="addnote"><button type="button" class="addbtn" data-note="n-kunde" aria-expanded="false">+ Tilføj egen tekst efter indledningen</button><textarea id="n-kunde" rows="3" hidden placeholder="Skriv din egen tekst her"></textarea></div>
       </fieldset>
 
@@ -1465,9 +1465,9 @@ let LANG = "da";
 const T = (da, en, sv) => (LANG === "en" ? en : LANG === "sv" && sv !== undefined ? sv : da);
 const LOC = () => ({ da: "da-DK", en: "en-GB", sv: "sv-SE" }[LANG] || "da-DK");
 const INTRO = {
-  da: "Tak for en rigtig god snak. Det var en fornøjelse at høre mere om jeres behov. Som lovet har jeg samlet et tilbud, så I kan se, hvad løsningen indeholder.",
-  sv: "Tack för ett riktigt bra samtal. Det var ett nöje att få höra mer om era behov. Som utlovat har jag sammanställt ett erbjudande, så att ni kan se vad lösningen innehåller.",
-  en: "Thank you for a great conversation. It was a pleasure to hear more about your needs. As promised, I have put together a quote so you can see what the solution includes."
+  da: "Tak for en god snak. Som lovet kommer her et samlet og overskueligt oplæg på en professionel kaffeløsning fra os 🙂",
+  sv: "Tack för ett bra samtal. Som utlovat kommer här en samlad och överskådlig offert på en professionell kaffelösning från oss 🙂",
+  en: "Thank you for a great conversation. As promised, here is a clear and complete proposal for a professional coffee solution from us 🙂"
 };
 const LBL_SV = { "Dybde": "Djup", "Højde": "Höjd", "Bredde": "Bredd", "Kapacitet": "Kapacitet", "Vægt": "Vikt", "Strøm": "El", "Vand": "Vatten", "Afløb": "Avlopp", "Køleskab": "Kylskåp" };
 const SVM = {
